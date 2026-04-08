@@ -72,13 +72,10 @@ async def calculator():
     except FileNotFoundError:
         return HTMLResponse(content="<h1>Kalkylator missing.</h1>", status_code=404)
 
-@app.get("/robots.txt", response_class=HTMLResponse)
+@app.get("/robots.txt")
 async def robots():
-    try:
-        with open("static/robots.txt", encoding="utf-8") as f:
-            return HTMLResponse(content=f.read(), media_type="text/plain")
-    except FileNotFoundError:
-        return HTMLResponse(content="User-agent: *\nAllow: /", media_type="text/plain")
+    from fastapi.responses import FileResponse
+    return FileResponse("static/robots.txt", media_type="text/plain")
 
 @app.get("/favicon.ico")
 async def favicon():
