@@ -64,6 +64,14 @@ class LeadIn(BaseModel):
 # Serve static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+@app.get("/kalkylator", response_class=HTMLResponse)
+async def calculator():
+    try:
+        with open("static/kalkylator.html", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        return HTMLResponse(content="<h1>Kalkylator missing.</h1>", status_code=404)
+
 @app.get("/", response_class=HTMLResponse)
 async def index():
     try:

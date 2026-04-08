@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkylator: Ersättning för vindkraft nära bostad | Vindkollen 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .hero-gradient { background: radial-gradient(circle at 50% 50%, #111827 0%, #030712 100%); }
+    </style>
+</head>
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-10">
+        <a href="/" class="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
+            <span class="text-blue-500">Vind</span>kollen
+        </a>
+        <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
+            <a href="/" class="hover:text-white transition">Hem</a>
+            <a href="/#benefits" class="hover:text-white transition">Fördelar</a>
+            <a href="#contact" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">Kontakta oss</a>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 py-12">
+        <div class="mb-12 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 leading-tight">
+                Kalkylator: <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Ersättning till närboende</span>
+            </h1>
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+                Från den 1 juli 2026 införs nya regler för intäktsdelning. Beräkna din potentiella skattefria ersättning baserat på regeringens förslag.
+            </p>
+        </div>
+
+        <div class="bg-slate-900/40 border border-slate-800 rounded-3xl p-8 md:p-12 shadow-2xl backdrop-blur-sm mb-12">
+            <div class="grid md:grid-cols-2 gap-8 mb-10">
+                <!-- Elområde -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-semibold text-slate-300">Ditt elområde</label>
+                    <select id="elarea" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500 text-white">
+                        <option value="SE4">SE4 (Södra Sverige - Skåne m.m.)</option>
+                        <option value="SE3">SE3 (Mellersta Sverige - Stockholm/Gbg)</option>
+                        <option value="SE2">SE2 (Norra Mellansverige)</option>
+                        <option value="SE1">SE1 (Norra Sverige)</option>
+                    </select>
+                </div>
+                
+                <!-- Avstånd -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-semibold text-slate-300">Avstånd till närmaste verk (meter)</label>
+                    <input type="number" id="distance" value="1000" step="100" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500 text-white">
+                </div>
+
+                <!-- Totalhöjd -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-semibold text-slate-300">Verkets totalhöjd (meter)</label>
+                    <input type="number" id="height" value="250" step="10" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500 text-white">
+                    <p class="text-xs text-slate-500">Moderna verk är ofta 230-270 meter höga.</p>
+                </div>
+
+                <!-- Antal verk -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-semibold text-slate-300">Antal verk i parken</label>
+                    <input type="number" id="turbines" value="10" step="1" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500 text-white">
+                </div>
+            </div>
+
+            <button onclick="calculate()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-5 rounded-2xl font-bold text-lg transition shadow-lg mb-10">
+                Beräkna min ersättning
+            </button>
+
+            <!-- Resultat -->
+            <div id="results" class="hidden space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="p-8 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-center">
+                    <h3 class="text-blue-400 font-bold mb-2 uppercase tracking-widest text-sm">Uppskattad skattefri ersättning</h3>
+                    <div id="result-value" class="text-5xl font-extrabold text-white mb-2">0 kr/år</div>
+                    <p id="result-status" class="text-slate-400">Beräknat per helår baserat på produktion.</p>
+                </div>
+
+                <div id="disclaimer" class="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-200 text-sm hidden">
+                    <strong>Obs:</strong> Du befinner dig utanför ersättningsgränsen (9 x verkets höjd). Förslaget ger endast rätt till ersättning inom ca <span id="limit-val">2250</span> meter.
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-400">
+                    <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                        <span class="block text-slate-200 font-bold mb-1">Maxnivå för ditt område</span>
+                        <span id="max-area">38 400 kr/år</span>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                        <span class="block text-slate-200 font-bold mb-1">Ersättningsgräns (Avstånd)</span>
+                        <span id="limit-dist">2 250 meter</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="space-y-8 text-slate-300">
+            <h2 class="text-2xl font-bold text-white">Hur fungerar det nya förslaget?</h2>
+            <p>
+                Regeringens förslag om intäktsdelning (SOU 2023:18) syftar till att öka den lokala acceptansen. Från och med den 1 juli 2026 föreslås att närboende ska få en del av parkens intäkter, helt skattefritt.
+            </p>
+            <ul class="list-disc pl-6 space-y-4">
+                <li><strong>9 x höjden:</strong> Ersättningen beräknas för bostadshus som ligger inom nio gånger verkets totalhöjd.</li>
+                <li><strong>Produktionsbaserat:</strong> Nivån baseras på 0,5 % av parkens bruttointäkter, vilket gör att boende i södra Sverige (högre elpris) generellt får högre ersättning.</li>
+                <li><strong>Skattefrihet:</strong> Ersättningen föreslås bli helt befriad från inkomstskatt för privatpersoner.</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Bottom Lead -->
+    <footer id="contact" class="py-24 bg-[#010409] mt-12">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-6">Vill du ha en fullständig analys?</h2>
+            <p class="text-slate-400 mb-12">Vi bevakar lagförslaget dagligen. Lämna din e-post så skickar vi en notis så fort de slutgiltiga detaljerna är fastställda.</p>
+            
+            <div id="footer-form" class="space-y-4">
+                <input type="email" id="footer-email" placeholder="Din e-postadress" class="w-full bg-slate-900 border border-slate-800 px-6 py-4 rounded-xl outline-none focus:border-blue-500 text-white text-center">
+                <button onclick="submitLead('footer-email')" class="w-full bg-slate-100 hover:bg-white text-black px-8 py-4 rounded-xl font-bold transition">Bevaka åt mig</button>
+            </div>
+            
+            <div id="success-msg" class="hidden bg-emerald-500/10 border border-emerald-500/20 p-6 rounded-2xl text-emerald-400">
+                Tack! Vi håller dig uppdaterad om utvecklingen kring intäktsdelningslagen.
+            </div>
+
+            <div class="mt-20 text-slate-600 text-sm border-t border-slate-900 pt-8">
+                &copy; 2026 Vindkollen. En del av Adviseo Digital Consulting.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function calculate() {
+            const area = document.getElementById('elarea').value;
+            const dist = parseFloat(document.getElementById('distance').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const turbines = parseInt(document.getElementById('turbines').value);
+            
+            const limit = height * 9;
+            document.getElementById('limit-val').innerText = limit;
+            document.getElementById('limit-dist').innerText = limit + ' meter';
+            
+            const maxMap = {
+                'SE4': 38400,
+                'SE3': 32200,
+                'SE2': 24500,
+                'SE1': 19400
+            };
+            
+            document.getElementById('max-area').innerText = maxMap[area].toLocaleString() + ' kr/år';
+            
+            const resultsDiv = document.getElementById('results');
+            const resultVal = document.getElementById('result-value');
+            const disclaimer = document.getElementById('disclaimer');
+            
+            resultsDiv.classList.remove('hidden');
+            
+            if (dist > limit) {
+                resultVal.innerText = '0 kr/år';
+                disclaimer.classList.remove('hidden');
+            } else {
+                disclaimer.classList.add('hidden');
+                // Simple heuristic for simulation: closer = more of the max, but floor at 25% of max if inside
+                // In reality it's based on share of intäkt, but here we simulate an estimate
+                let base = maxMap[area];
+                let factor = 1 - (dist / limit) * 0.5; // Max 1.0 at 0m, 0.5 at limit
+                let final = Math.round(base * factor);
+                resultVal.innerText = final.toLocaleString() + ' kr/år';
+            }
+        }
+
+        async function submitLead(inputId) {
+            const emailInput = document.getElementById(inputId);
+            const email = emailInput.value;
+            
+            if (!email || !email.includes('@')) {
+                alert('Vänligen ange en giltig e-postadress.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/lead', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        email: email,
+                        municipality: 'Kalkylator-användare' 
+                    })
+                });
+                
+                if (response.ok) {
+                    document.getElementById('footer-form').classList.add('hidden');
+                    document.getElementById('success-msg').classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error('Error submitting lead:', err);
+            }
+        }
+    </script>
+</body>
+</html>

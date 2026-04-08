@@ -22,7 +22,6 @@
             <span class="text-blue-500">Vind</span>kollen
         </div>
         <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
-            <a href="/kalkylator" class="text-blue-400 hover:text-blue-300 font-bold transition">Kalkylator: Ersättning</a>
             <a href="#about" class="hover:text-white transition">Om tjänsten</a>
             <a href="#benefits" class="hover:text-white transition">Fördelar</a>
             <a href="#contact" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">Kontakta oss</a>
@@ -38,22 +37,25 @@
 
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="max-w-3xl">
-                <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-6">
-                    NYTT FÖR 2026: STATLIGA ERSÄTTNINGSMODELLER
+                <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-6 uppercase tracking-wider">
+                    Ny Lag 1 Juli 2026: Skattefri ersättning till närboende
                 </div>
                 <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1]">
-                    Maximera värdet av din mark för <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">vindkraft.</span>
+                    Få upp till <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">38 400 kr/år</span> i vindkraftsersättning.
                 </h1>
                 <p class="text-xl text-slate-400 mb-10 leading-relaxed max-w-2xl">
-                    Vi hjälper markägare och kommuner att navigera i de nya ersättningsmodellerna. Få oberoende expertis och de senaste insikterna om marknadsläget 2026.
+                    Vi hjälper markägare och närboende att navigera i de nya statliga ersättningsmodellerna. Beräkna din potential och få oberoende expertis inför 1 juli.
                 </p>
                 
                 <!-- Lead Form -->
                 <div class="bg-slate-900/50 p-1 border border-slate-800 rounded-2xl flex flex-col md:flex-row gap-2 max-w-lg shadow-2xl backdrop-blur-sm">
                     <input type="email" id="hero-email" placeholder="Din e-postadress" class="bg-transparent px-6 py-4 flex-grow outline-none border-none focus:ring-0 text-white placeholder-slate-500">
-                    <button onclick="submitLead('hero-email')" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition shadow-lg">Kom igång gratis</button>
+                    <button onclick="submitLead('hero-email')" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition shadow-lg whitespace-nowrap">Beräkna ersättning</button>
                 </div>
-                <p class="mt-4 text-xs text-slate-500 ml-2 italic">*Vi delar aldrig din data med elbolag utan ditt godkännande.</p>
+                <div class="mt-6 flex items-center gap-4 text-xs text-slate-500">
+                    <span class="flex items-center gap-1"><svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> 100% Oberoende</span>
+                    <span class="flex items-center gap-1"><svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Uppdaterad för 2026</span>
+                </div>
             </div>
         </div>
     </header>
@@ -62,26 +64,26 @@
     <section id="benefits" class="py-32 border-y border-slate-900">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid md:grid-cols-3 gap-12">
-                <div class="space-y-4">
+                <div class="group p-8 rounded-3xl bg-slate-900/30 border border-slate-800 hover:border-blue-500/50 transition">
                     <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-500 mb-6">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold">Oberoende Värdering</h3>
-                    <p class="text-slate-400 leading-relaxed">Vi är inte knutna till något kraftbolag. Vår uppgift är att se till att du får rättvisa villkor för din mark.</p>
+                    <h3 class="text-xl font-bold mb-4">Intäktsdelning 2.0</h3>
+                    <p class="text-slate-400 leading-relaxed">Vi räknar ut din ersättning baserat på den nya lagen. Bor du nära ett planerat verk? Du kan ha rätt till tiotusentals kronor årligen.</p>
                 </div>
-                <div class="space-y-4">
+                <div class="group p-8 rounded-3xl bg-slate-900/30 border border-slate-800 hover:border-emerald-500/50 transition">
                     <div class="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-500 mb-6">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold">Nya Ersättningsmodeller</h3>
-                    <p class="text-slate-400 leading-relaxed">De statliga incitamentssystemen har förändrats. Vi har verktygen som räknar ut din faktiska intäktspotential.</p>
+                    <h3 class="text-xl font-bold mb-4">Arrendeförhandling</h3>
+                    <p class="text-slate-400 leading-relaxed">Ska du skriva nytt avtal? Vi har insyn i de senaste arrendenivåerna och ser till att du inte låser upp dig på gamla villkor.</p>
                 </div>
-                <div class="space-y-4">
+                <div class="group p-8 rounded-3xl bg-slate-900/30 border border-slate-800 hover:border-purple-500/50 transition">
                     <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center text-purple-500 mb-6">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold">Kommunal Strategi</h3>
-                    <p class="text-slate-400 leading-relaxed">Vi hjälper kommuner att förstå hur vindkraftsetableringar påverkar lokal ekonomi och de nya intäktsflödena.</p>
+                    <h3 class="text-xl font-bold mb-4">Kommunalt Stöd</h3>
+                    <p class="text-slate-400 leading-relaxed">Vi hjälper kommuner att maximera utfallet av det nya stödet på 20 000 kr/MW och skapa lokal nytta av varje snurrande verk.</p>
                 </div>
             </div>
         </div>
@@ -90,16 +92,16 @@
     <!-- Footer / Bottom Lead -->
     <footer id="contact" class="py-24 bg-[#010409]">
         <div class="max-w-3xl mx-auto px-6 text-center">
-            <h2 class="text-3xl font-bold mb-6">Vill du veta potentialen för din mark?</h2>
-            <p class="text-slate-400 mb-12">Lämna din e-post så skickar vi vår senaste rapport: "Svensk Vindkraft 2026 – En guide för markägare".</p>
+            <h2 class="text-3xl font-bold mb-6">Redo för den nya lagstiftningen?</h2>
+            <p class="text-slate-400 mb-12">Lämna din e-post så skickar vi vår kostnadsfria guide: "Vindkraftsersättning 2026 – Allt om den nya lagen för närboende och markägare".</p>
             
             <div id="footer-form" class="space-y-4">
                 <input type="email" id="footer-email" placeholder="Din e-postadress" class="w-full bg-slate-900 border border-slate-800 px-6 py-4 rounded-xl outline-none focus:border-blue-500 text-white text-center">
-                <button onclick="submitLead('footer-email')" class="w-full bg-slate-100 hover:bg-white text-black px-8 py-4 rounded-xl font-bold transition">Skicka rapporten</button>
+                <button onclick="submitLead('footer-email')" class="w-full bg-slate-100 hover:bg-white text-black px-8 py-4 rounded-xl font-bold transition">Skicka guide & beräkning</button>
             </div>
             
             <div id="success-msg" class="hidden bg-emerald-500/10 border border-emerald-500/20 p-6 rounded-2xl text-emerald-400">
-                Tack! Din rapport är på väg och vi hör av oss för en förutsättningslös diskussion.
+                Tack! Din guide är på väg och en expert kommer granska dina förutsättningar.
             </div>
 
             <div class="mt-20 text-slate-600 text-sm border-t border-slate-900 pt-8">

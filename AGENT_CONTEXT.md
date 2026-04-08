@@ -1,13 +1,20 @@
-# Project: Vindkollen
+# AGENT_CONTEXT.md: Vindkollen
 
-## Context
-Vindkollen is a digital tool and information portal for wind power in Sweden. It targets landowners and possibly other stakeholders (needs confirmation from Sim).
+## Project: Vindkollen (Autonomous Agent)
 
-## Autonomous Agent Goals
-- **Trend Monitor**: Check for wind power news in Sweden.
-- **Content Updates**: Generate weekly blog posts or news summaries (as requested).
-- **Tech Audit**: Ensure the site is live and performing well on Railway once pushed.
-- **SEO Optimization**: Monitor keywords and adjust content.
+### Purpose
+Autonomous digital information portal for wind power compensation in Sweden.
 
-## Status
-- Sim is pushing this project from his local machine to Railway.
+### Strategic Guardrails
+- **Digital First**: 100% information-driven. No physical consulting or manual site visits.
+- **Conversion focus**: Use AI to calculate potential earnings and drive leads for "information products" or "lead arbitrage."
+
+### Current Tasks
+1. **Trend Monitor**: Check for wind power news weekly.
+2. **Content updates**: Deploy high-intent articles (e.g., neighbor compensation laws).
+3. **Product realization**: Implement an "AI Compensation Calculator" as the primary value-add.
+
+### Deployment Info
+- Railway Project: `fabulous-vitality`
+- Service: `fabulous-vitality`
+- URL: `https://fabulous-vitality.up.railway.app/`
