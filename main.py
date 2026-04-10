@@ -8,7 +8,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, EmailStr
-from sqlalchemy import Column, DateTime, Integer, String, text
+from sqlalchemy import Column, DateTime, Integer, String, Text, select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 
@@ -47,7 +47,7 @@ class Post(Base):
     __tablename__ = "vindkollen_posts"
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(255), nullable=False)
-    content = Column(text, nullable=False)
+    content = Column(Text, nullable=False)
     category = Column(String(100))
     published_at = Column(DateTime, default=datetime.utcnow)
 
@@ -112,7 +112,6 @@ async def capture_lead(lead: LeadIn):
 async def get_posts():
     if not async_session: return []
     async with async_session() as session:
-        from sqlalchemy import select
         result = await session.execute(select(Post).order_by(Post.published_at.desc()))
         posts = result.scalars().all()
         return [{"title": p.title, "content": p.content, "category": p.category, "date": p.published_at.strftime("%Y-%m-%d")} for p in posts]
