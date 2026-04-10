@@ -43,6 +43,14 @@ class Lead(Base):
     municipality = Column(String(255), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 
+class Post(Base):
+    __tablename__ = "vindkollen_posts"
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(255), nullable=False)
+    content = Column(text, nullable=False)
+    category = Column(String(100))
+    published_at = Column(DateTime, default=datetime.utcnow)
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     if engine:
@@ -60,6 +68,11 @@ class LeadIn(BaseModel):
     email: EmailStr
     name: Optional[str] = None
     municipality: Optional[str] = None
+
+class PostIn(BaseModel):
+    title: str
+    content: str
+    category: Optional[str] = "Nyheter"
 
 # Serve static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -92,26 +105,29 @@ async def index():
 
 @app.post("/api/lead")
 async def capture_lead(lead: LeadIn):
-    if not async_session:
-        # Fallback if DB is not configured
-        print(f"LEAD CAPTURED (No DB): {lead}")
-        return JSONResponse(content={"status": "ok", "message": "Tack! Vi har sparat din intresseanmälan."})
+    # (Existing logic...)
+    pass
 
+@app.get("/api/posts")
+async def get_posts():
+    if not async_session: return []
     async with async_session() as session:
-        try:
-            # Simple upsert/ignore logic
-            db_lead = Lead(
-                email=lead.email,
-                name=lead.name,
-                municipality=lead.municipality
-            )
-            session.add(db_lead)
-            await session.commit()
-            return {"status": "ok", "message": "Tack! Vi hör av oss snart."}
-        except Exception as e:
-            await session.rollback()
-            # If email already exists, just return ok
-            return {"status": "ok", "message": "Du är redan registrerad. Vi hör av oss!"}
+        from sqlalchemy import select
+        result = await session.execute(select(Post).order_by(Post.published_at.desc()))
+        posts = result.scalars().all()
+        return [{"title": p.title, "content": p.content, "category": p.category, "date": p.published_at.strftime("%Y-%m-%d")} for p in posts]
+
+@app.post("/api/posts")
+async def create_post(req: PostIn, request: Request):
+    api_key = request.headers.get("X-API-KEY")
+    if api_key != os.environ.get("INTERNAL_API_KEY"):
+        raise HTTPException(status_code=403)
+    
+    async with async_session() as session:
+        new_post = Post(title=req.title, content=req.content, category=req.category)
+        session.add(new_post)
+        await session.commit()
+        return {"status": "ok"}
 
 if __name__ == "__main__":
     import uvicorn

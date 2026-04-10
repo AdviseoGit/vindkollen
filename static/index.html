@@ -70,6 +70,13 @@
 
     <!-- Features -->
     <section id="benefits" class="py-32 border-y border-slate-900">
+        <div id="blog-section" class="max-w-7xl mx-auto px-6 mb-32 hidden">
+            <h2 class="text-3xl font-bold mb-12 text-center">Nyheter & Insikter</h2>
+            <div id="posts-container" class="grid md:grid-cols-3 gap-8">
+                <!-- Posts load here -->
+            </div>
+        </div>
+
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid md:grid-cols-3 gap-12">
                 <div class="space-y-4">
@@ -150,6 +157,26 @@
                 alert('Kunde inte ansluta till servern.');
             }
         }
+
+        // Load Blog Posts
+        async function loadPosts() {
+            try {
+                const res = await fetch('/api/posts');
+                const posts = await res.json();
+                if (posts && posts.length > 0) {
+                    const container = document.getElementById('posts-container');
+                    document.getElementById('blog-section').classList.remove('hidden');
+                    container.innerHTML = posts.map(p => `
+                        <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl">
+                            <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">${p.category || 'Nyhet'} — ${p.date}</span>
+                            <h3 class="text-xl font-bold mt-3 mb-4">${p.title}</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">${p.content.substring(0, 150)}...</p>
+                        </div>
+                    `).join('');
+                }
+            } catch (e) { console.log("Blog load failed"); }
+        }
+        loadPosts();
     </script>
 </body>
 </html>
