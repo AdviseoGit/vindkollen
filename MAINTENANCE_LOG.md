@@ -11,3 +11,9 @@
 - Validated weekly maintenance documents.
 - Content generation and SEO keyword integration verified in `article_ersattning_2026.md`.
 - Task complete. Handing over remaining actions (frontend deployment, index.html updates) to main project queue.
+
+## Activity - 2026-04-14 (Subagent Weekly Run)
+- Created SEO-optimized update `vindkraftsersattning_2026_trender.md` focusing on recent "Vindkraftsersättning 2026" trends.
+- Integrated high-value target keywords ("vindkraftsersättning 2026", "bygdepeng", "närboendeersättning").
+- Highlighted the Ersättningskalkylator.
+- Committed and pushed to `main` branch to trigger Railway deployment.
