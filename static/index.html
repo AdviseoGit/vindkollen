@@ -5,9 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vindkollen - Ersättningskalkylator</title>
     <link rel="canonical" href="https://vindkoll.se/" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f3f4f6; color: #1f2937; }
+        .calculator-container { max-width: 600px; margin: 0 auto; background: white; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); padding: 1.5rem; }
+        @media (min-width: 768px) {
+            .calculator-container { padding: 2.5rem; }
+        }
+        input[type=range] { width: 100%; margin: 1rem 0; }
+        .result-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 0.5rem; padding: 1.5rem; text-align: center; margin-top: 2rem; }
+    </style>
 </head>
-<body>
-    <h1>Vindkollen</h1>
-    <p>Räkna ut din ersättning för vindkraft med vår ersättningskalkylator.</p>
+<body class="p-4 md:p-8">
+    <div class="calculator-container">
+        <h1 class="text-2xl md:text-3xl font-bold text-center mb-2">Vindkollen Kalkylator</h1>
+        <p class="text-gray-500 text-center mb-8 text-sm md:text-base">Räkna ut uppskattad årlig ersättning för vindkraft baserat på avstånd och antal verk.</p>
+
+        <div class="space-y-6">
+            <!-- Avstånd -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1 flex justify-between">
+                    <span>Avstånd till närmaste vindkraftverk</span>
+                    <span id="distance-val" class="font-bold text-blue-600">1000 m</span>
+                </label>
+                <input type="range" id="distance" min="0" max="5000" step="100" value="1000" class="w-full accent-blue-600">
+                <div class="flex justify-between text-xs text-gray-400">
+                    <span>0 m</span>
+                    <span>5000 m</span>
+                </div>
+            </div>
+
+            <!-- Antal verk -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1 flex justify-between">
+                    <span>Antal vindkraftverk i parken</span>
+                    <span id="turbines-val" class="font-bold text-blue-600">10 st</span>
+                </label>
+                <input type="range" id="turbines" min="1" max="100" step="1" value="10" class="w-full accent-blue-600">
+                <div class="flex justify-between text-xs text-gray-400">
+                    <span>1</span>
+                    <span>100</span>
+                </div>
+            </div>
+            
+            <!-- Bostadstyp -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Typ av fastighet</label>
+                <select id="property-type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md border">
+                    <option value="1">Permanentbostad</option>
+                    <option value="0.5">Fritidshus</option>
+                    <option value="0.2">Jordbruksfastighet (utan bostad)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="result-box">
+            <h2 class="text-sm uppercase tracking-wide text-blue-800 font-semibold mb-1">Uppskattad Ersättning</h2>
+            <div class="text-3xl md:text-5xl font-extrabold text-blue-600 my-2" id="result">0 kr/år</div>
+            <p class="text-xs text-blue-600 mt-2">*Detta är en uppskattning baserat på branschstandard 2026. Lokala avtal kan variera kraftigt.</p>
+        </div>
+    </div>
+
+    <script>
+        const distanceEl = document.getElementById('distance');
+        const distanceVal = document.getElementById('distance-val');
+        const turbinesEl = document.getElementById('turbines');
+        const turbinesVal = document.getElementById('turbines-val');
+        const propertyTypeEl = document.getElementById('property-type');
+        const resultEl = document.getElementById('result');
+
+        function calculate() {
+            const distance = parseInt(distanceEl.value);
+            const turbines = parseInt(turbinesEl.value);
+            const multiplier = parseFloat(propertyTypeEl.value);
+
+            distanceVal.textContent = distance + ' m';
+            turbinesVal.textContent = turbines + ' st';
+
+            // Very basic estimation logic for illustration
+            // E.g., closer = more money, more turbines = more money
+            // Max distance for compensation say 3000m
+            let comp = 0;
+            if (distance <= 3000) {
+                // Base compensation
+                const base = 50000; 
+                const distanceFactor = Math.max(0, (3000 - distance) / 3000); // 1.0 at 0m, 0.0 at 3000m
+                const turbineFactor = Math.log10(turbines + 1); // logarithmic scaling
+                
+                comp = base * distanceFactor * turbineFactor * multiplier;
+            }
+
+            resultEl.textContent = Math.round(comp).toLocaleString('sv-SE') + ' kr/år';
+        }
+
+        distanceEl.addEventListener('input', calculate);
+        turbinesEl.addEventListener('input', calculate);
+        propertyTypeEl.addEventListener('change', calculate);
+
+        // Initial calc
+        calculate();
+    </script>
 </body>
 </html>
