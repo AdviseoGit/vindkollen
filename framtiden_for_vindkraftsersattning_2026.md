@@ -26,3 +26,19 @@ För att göra dessa komplexa beräkningar mer lättillgängliga har vi utveckla
 ## Framtidsutsikter
 
 Vi förväntar oss att regelverket kring vindkraftsersättning kommer att bli ännu mer standardiserat framöver. Transparens är avgörande för att bygga förtroende mellan energibolag och lokalsamhällen. Genom att erbjuda öppna verktyg och objektiv information hoppas vi på Vindkollen kunna bidra till en mer konstruktiv dialog om Sveriges energiomställning.
+
+---
+
+### Vanliga Frågor och Svar (FAQ)
+
+**Vad är "bygdepeng"?**
+Bygdepeng är en frivillig ersättning som vindkraftsbolag betalar ut till lokalsamhället eller närboende som en kompensation för den lokala påverkan. Det är ett sätt att skapa mervärde och social acceptans för projektet, utöver de lagstadgade kraven.
+
+**Är ersättningen skattepliktig?**
+Ja, i de flesta fall är ersättning för intrång på fastigheten (som vindkraftsetablering innebär) skattepliktig som kapitalinkomst. Det är viktigt att konsultera med Skatteverket eller en ekonomisk rådgivare för att hantera detta korrekt i din deklaration.
+
+**Hur länge gäller ett ersättningsavtal?**
+Ett ersättningsavtal, ofta ett arrendeavtal, löper vanligtvis under hela vindkraftverkets tekniska livslängd, vilket ofta är mellan 25-30 år.
+
+**Kan jag förhandla om ersättningen?**
+Ja, de frivilliga ersättningarna är föremål för förhandling mellan dig som fastighetsägare och vindkraftsbolaget. Det är vanligt att man tar hjälp av juridisk eller teknisk expertis för att säkerställa ett rättvist avtal. Nivåerna i vår kalkylator är en indikation på branschpraxis, men det slutgiltiga avtalet är alltid en individuell överenskommelse.

@@ -1,0 +1,33 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "Vad är 'bygdepeng'?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Bygdepeng är en frivillig ersättning som vindkraftsbolag betalar ut till lokalsamhället eller närboende som en kompensation för den lokala påverkan. Det är ett sätt att skapa mervärde och social acceptans för projektet, utöver de lagstadgade kraven."
+    }
+  }, {
+    "@type": "Question",
+    "name": "Är ersättningen skattepliktig?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ja, i de flesta fall är ersättning för intrång på fastigheten (som vindkraftsetablering innebär) skattepliktig som kapitalinkomst. Det är viktigt att konsultera med Skatteverket eller en ekonomisk rådgivare för att hantera detta korrekt i din deklaration."
+    }
+  }, {
+    "@type": "Question",
+    "name": "Hur länge gäller ett ersättningsavtal?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ett ersättningsavtal, ofta ett arrendeavtal, löper vanligtvis under hela vindkraftverkets tekniska livslängd, vilket ofta är mellan 25-30 år."
+    }
+  }, {
+    "@type": "Question",
+    "name": "Kan jag förhandla om ersättningen?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ja, de frivilliga ersättningarna är föremål för förhandling mellan dig som fastighetsägare och vindkraftsbolaget. Det är vanligt att man tar hjälp av juridisk eller teknisk expertis för att säkerställa ett rättvist avtal. Nivåerna i vår kalkylator är en indikation på branschpraxis, men det slutgiltiga avtalet är alltid en individuell överenskommelse."
+    }
+  }]
+}
