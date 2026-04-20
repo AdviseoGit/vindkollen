@@ -1,0 +1,56 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Vindkraftsersättning 2026: Din kompletta guide till ersättning, rättigheter och trender",
+      "datePublished": "2026-04-20",
+      "author": {
+        "@type": "Organization",
+        "name": "Vindkollen"
+      },
+      "description": "En komplett guide till vad som gäller för vindkraftsersättning 2026 i Sverige. Lär dig om dina rättigheter som granne, hur ersättningen beräknas och de senaste trenderna.",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://vindkollen.se/vindkraftsersattning-2026"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Vad är 'bygdepeng'?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Det är en frivillig ersättning som vindkraftsbolag betalar till lokalsamhället för att kompensera för störningar och skapa lokal nytta."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Är ersättningen skattepliktig?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja, oftast ses ersättningen som en kapitalinkomst och ska tas upp i din deklaration. Rådgör med Skatteverket eller en ekonomisk rådgivare."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Hur länge gäller ett avtal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ett arrendeavtal löper vanligtvis under hela vindkraftverkets tekniska livslängd, vilket är 25-30 år."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Kan jag förhandla om ersättningen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja, de frivilliga ersättningarna är alltid en förhandlingsfråga. Ta gärna hjälp av juridisk eller teknisk expertis för att säkra ett rättvist avtal."
+          }
+        }
+      ]
+    }
+  ]
+}
