@@ -1,20 +1,18 @@
-# Vindkollen Project Status - 2026-04-06
+# Vindkollen Project Status - 2026-04-27
 
 ## Weekly Maintenance Summary (COMPLETED)
-- **Trend Monitoring:** Identified key news regarding government support for offshore wind (*Bothnia Offshore Sigma*), record-breaking production in March (33% of total mix), and the rollout of 710M SEK in municipal subsidies.
-- **SEO Analysis:** Found high-intent trending topics around the upcoming law (July 1st) for **direct compensation to neighbors** of wind farms.
-- **High-Intent Keywords identified:** "vindkraftsersättning närboende", "ersättning vindkraftverk avstånd", "kommunalt stöd vindkraft 2026".
+- **Trend Monitoring:** Identified rising interest in "SCA vindkraft" (+67,850%), "vindkraft hemma" (+19,350%), and the general topic of "vindkraft för och nackdelar" (+78,800%).
+- **Content Creation:** Published a new weekly summary (`projects/vindkollen/content/blog/2026-04-27-veckans-vindkraftsnyheter.md`) focusing on the key rising trends.
+- **SEO:** Updated the sitemap to include the new blog post, ensuring it is discoverable by search engines.
 
-## New Features & Content (Launched 2026-04-06)
-- **Ersättningskalkylator (/kalkylator):** Launched a dedicated tool for neighbors to calculate their potential tax-free compensation under the new July 1st law.
-- **Homepage Integration:** Added "Kalkylator: Ersättning" to the main navigation and hero section hooks.
-- **Weekly News:** Published a detailed summary (`projects/vindkollen/content/blog/2026-04-06-veckans-vindkraftsnyheter.md`) covering the 38,400 SEK/year max compensation levels.
+## New Features & Content
+- No new features were launched this week. The focus was on routine maintenance and content creation based on trend analysis.
 
 ## Findings & Audit
-- **Lead Gen Audit:** The "38,400 SEK/year" figure is now the central hook for lead generation, significantly improving the value proposition for local residents.
-- **Technical:** `main.py` updated to serve the calculator and weekly news routes.
+- The significant increase in searches for "vindkraft hemma" suggests a growing market for residential-scale wind power solutions. This could be a valuable new content vertical to explore.
+- The high interest in "SCA vindkraft" indicates that news and updates from major corporate players in the wind sector are highly engaging for our audience.
 
 ## Next Steps
-1. **SEO:** Monitor organic traffic for "ersättning vindkraft" over the next 7 days.
-2. **Expansion:** Prepare a "municipality payout tracker" for the next weekly update (April 13th).
-3. **Ads:** Consider a small search ad campaign targeting "ersättning vindkraft" to test the new calculator's conversion rate.
+1. **Content Strategy:** Plan a series of articles exploring the topic of "vindkraft hemma," including guides on installation, costs, and regulations.
+2. **Partnerships:** Investigate potential content partnerships with major players like SCA to provide exclusive updates to our readers.
+3. **SEO Monitoring:** Continue to monitor organic traffic and keyword rankings, with a particular focus on the newly identified high-interest topics.

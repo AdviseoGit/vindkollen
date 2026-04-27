@@ -4,3 +4,4 @@ sqlalchemy
 asyncpg
 pydantic[email]
 python-dotenv
+pytrends

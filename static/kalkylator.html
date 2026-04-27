@@ -168,8 +168,10 @@
                 // Simple heuristic for simulation: closer = more of the max, but floor at 25% of max if inside
                 // In reality it's based on share of intäkt, but here we simulate an estimate
                 let base = maxMap[area];
+                // Scale base compensation by number of turbines, assuming maxMap is for a 10-turbine park
+                let scaledBase = base * (turbines / 10);
                 let factor = 1 - (dist / limit) * 0.5; // Max 1.0 at 0m, 0.5 at limit
-                let final = Math.round(base * factor);
+                let final = Math.round(scaledBase * factor);
                 resultVal.innerText = final.toLocaleString() + ' kr/år';
             }
         }
