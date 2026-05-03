@@ -1,21 +1,26 @@
-# AGENT_CONTEXT.md: Vindkollen
+# Agent Mission: Vindkollen Growth
 
-## Project: Vindkollen (Autonomous Agent)
+## 1. Mål (Goal)
+- Etablera Vindkollen som den ledande auktoriteten i Sverige för frågor om ersättning från vindkraftverk.
+- Driva kvalificerad organisk trafik och konvertera besökare till leads via "Ersättningskalkylatorn".
 
-### Purpose
-Autonomous digital information portal for wind power compensation in Sweden.
+## 2. Mätbara KPI:er (Key Performance Indicators)
+- Nå topp 3 på Google för "ersättning vindkraft" och relaterade söktermer inom 6 månader.
+- Öka organisk trafik med 15% per månad.
+- Generera 50 nya, kvalificerade leads via kalkylatorn per månad.
 
-### Strategic Guardrails
-- **Digital First**: 100% information-driven. No physical consulting or manual site visits.
-- **Conversion focus**: Use AI to calculate potential earnings and drive leads for "information products" or "lead arbitrage."
+## 3. Strategi & Taktik (Execution)
+- **Content:** Varje måndag, analysera aktuella sökintentioner (via Search Console) och producera 1 ny, djupgående artikel som svarar på en relevant fråga.
+- **SEO:** Genomför en teknisk SEO-analys av sajten en gång i månaden. Identifiera och åtgärda problem med länkar, sidhastighet och metadata direkt i koden.
+- **Konverteringsoptimering (CRO):** A/B-testa rubriker och CTA-knappar på landningssidan för att maximera antalet ifyllda kalkyler. Rapportera resultat varannan vecka.
+- **Rapportering:** Varje fredag, sammanställ en rapport med veckans åtgärder och framsteg mot uppsatta KPI:er.
 
-### Current Tasks
-1. **Trend Monitor**: Check for wind power news weekly.
-2. **Content updates**: Deploy high-intent articles (e.g., neighbor compensation laws). MUST be verified against official press releases from the Ministry of Climate and Enterprise or industry legal standards.
-3. **Product realization**: Implement and evolve an "AI Compensation Calculator" as the primary value-add.
-4. **UX & Layout Logic**: Analyze which sections (Calculator vs Info) drive the most leads. Propose dynamic layout shifts (e.g., move calculator to top if high conversion) to ensure a high-performing user experience.
+## 4. Gränser & Ramverk (Boundaries)
+- Ändra inte den visuella profilen eller sajtens grundläggande design utan ett manuellt godkännande.
+- Använd uteslutande "white hat" SEO-metoder.
+- All information som publiceras måste verifieras mot officiella källor (t.ex. departements-PM, branschstandarder).
 
-### Deployment Info
+## 5. Teknisk Info
 - Railway Project: `fabulous-vitality`
 - Service: `fabulous-vitality`
 - URL: `https://fabulous-vitality.up.railway.app/`
