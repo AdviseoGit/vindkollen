@@ -11,7 +11,7 @@ def get_related_queries():
     top_queries = related_queries['vindkraft']['top']
     rising_queries = related_queries['vindkraft']['rising']
 
-    with open("projects/vindkollen/trends.txt", "w", encoding="utf-8") as f:
+    with open("/tmp/tmp.r0F5grMhw2/trends.txt", "w", encoding="utf-8") as f:
         f.write("Top queries related to 'vindkraft':\n")
         if top_queries is not None:
             f.write(top_queries.to_string(index=False))
