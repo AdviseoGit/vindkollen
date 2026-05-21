@@ -128,6 +128,25 @@ async def create_post(req: PostIn, request: Request):
         await session.commit()
         return {"status": "ok"}
 
+
+@app.get("/{path:path}", response_class=HTMLResponse)
+async def serve_page(path: str):
+    """Serve any .html file from static/ or content/ directories."""
+    candidates = [
+        f"static/{path}",
+        f"static/{path}.html",
+        f"content/{path}",
+        f"content/{path}.html",
+    ]
+    for filepath in candidates:
+        if os.path.isfile(filepath):
+            with open(filepath, encoding="utf-8") as f:
+                return HTMLResponse(content=f.read())
+    return HTMLResponse(
+        content="<h1>404 â€“ Sidan hittades inte</h1><p><a href='/'>Tillbaka till startsidan</a></p>",
+        status_code=404
+    )
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8080))
