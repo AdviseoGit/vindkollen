@@ -1,74 +1,195 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="sv" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nackdelar med vindkraft - En ärlig guide - Vindkollen.se</title>
-    <meta name="description" content="Vilka är de faktiska nackdelarna med vindkraft för markägare och närboende? Vi går igenom allt från ljud och skuggor till påverkan på natur och fastighetsvärden.">
+    <title>Nackdelar med vindkraft: en faktagranskad genomgång 2026 | Vindkollen</title>
+    <meta name="description" content="Buller, skuggor, fågelliv, ekonomi och återvinning – en balanserad och källbelagd genomgång av de verkliga nackdelarna med vindkraft i Sverige.">
+    <link rel="canonical" href="https://vindkoll.se/guider/nackdelar-med-vindkraft">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#030712">
+
+    <meta property="og:title" content="Nackdelar med vindkraft: en faktagranskad genomgång 2026">
+    <meta property="og:description" content="Balanserad genomgång av buller, skuggor, fågelliv, ekonomi och återvinning.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://vindkoll.se/guider/nackdelar-med-vindkraft">
+    <meta property="og:locale" content="sv_SE">
+
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .prose-vindkoll p { margin-bottom: 1.25rem; line-height: 1.75; color: rgb(203 213 225); }
+        .prose-vindkoll h2 { margin-top: 2.75rem; margin-bottom: 1rem; font-size: 1.875rem; color: white; }
+        .prose-vindkoll h3 { margin-top: 1.75rem; margin-bottom: 0.5rem; font-size: 1.25rem; color: white; }
+        .prose-vindkoll ul { margin-bottom: 1.25rem; padding-left: 1.5rem; list-style-type: disc; color: rgb(203 213 225); }
+        .prose-vindkoll li { margin-bottom: 0.5rem; }
+        .prose-vindkoll strong { color: white; }
+        .prose-vindkoll a { color: rgb(96 165 250); text-decoration: underline; }
     </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "headline": "Nackdelar med vindkraft: en faktagranskad genomgång 2026",
+          "description": "Buller, skuggor, fågelliv, ekonomi och återvinning – en balanserad och källbelagd genomgång av de verkliga nackdelarna med vindkraft i Sverige.",
+          "datePublished": "2026-05-22",
+          "dateModified": "2026-05-22",
+          "author": { "@type": "Organization", "name": "Vindkollen" },
+          "publisher": { "@type": "Organization", "name": "Vindkollen", "logo": { "@type": "ImageObject", "url": "https://vindkoll.se/static/favicon.svg" } },
+          "mainEntityOfPage": { "@type": "WebPage", "@id": "https://vindkoll.se/guider/nackdelar-med-vindkraft" },
+          "inLanguage": "sv-SE"
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "Är buller från vindkraft farligt?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Folkhälsomyndighetens riktvärde för vindkraftsbuller vid bostäder är normalt 40 dBA. Inom dessa nivåer finns ingen tydlig evidens för hälsoskador, men ljudet kan vara störande och upplevelsen är individuell." } },
+            { "@type": "Question", "name": "Hur många fåglar dödas av vindkraftverk?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Studier från Naturvårdsverket och Vindval visar att kollisionsdödlighet är betydligt lägre per producerad kWh än för väg- och fönsterkrockar. Risken ökar dock kraftigt vid felaktig placering nära flyttstråk och rovfågelhabitat." } },
+            { "@type": "Question", "name": "Kan rotorblad återvinnas?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Större delen av ett vindkraftverk (stål, koppar, betong) är fullt återvinningsbar. Rotorbladens kompositmaterial är svårare, men kommersiella återvinningslösningar finns sedan 2024 och flera tillverkare lovar 100 % återvinningsbara blad senast 2030." } }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0">
-                    <a href="/" class="text-2xl font-bold text-green-600">Vindkollen.se</a>
-                </div>
-                <div class="hidden sm:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="/" class="text-gray-500 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Hem</a>
-                        <a href="/kalkylator.html" class="text-gray-500 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Ersättningskalkylator</a>
-                        <a href="/ersattning-for-vindkraft.html" class="text-gray-500 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Ersättningsnivåer</a>
-                        <a href="/nackdelar-med-vindkraft.html" class="bg-green-100 text-green-700 px-3 py-2 rounded-md text-sm font-medium">Nackdelar</a>
-                        <a href="/fordelar-med-vindkraft.html" class="text-gray-500 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Fördelar</a>
-                    </div>
-                </div>
-            </div>
+    <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-10">
+        <a href="/" class="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
+            <span class="text-blue-500">Vind</span>kollen
+        </a>
+        <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400 items-center">
+            <a href="/" class="hover:text-white transition">Hem</a>
+            <a href="/kalkylator" class="hover:text-white transition">Kalkylator</a>
+            <a href="/ersattning-for-vindkraft" class="hover:text-white transition">Markägare</a>
+            <a href="#newsletter" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">Prenumerera</a>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="bg-white p-8 rounded-lg shadow-md">
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">Vilka är nackdelarna med vindkraft?</h1>
-            <p class="text-lg text-gray-600 mb-8">Vindkraft är en viktig del av den gröna omställningen, men det är inte utan nackdelar. För markägare och närboende är det viktigt att ha en balanserad bild. Här går vi igenom de vanligaste negativa aspekterna som tas upp i diskussionen om vindkraft.</p>
-
-            <div class="ad-slot my-8 p-4 bg-gray-100 rounded-md text-center">
-                <p class="text-sm text-gray-500">Annonsplats</p>
+    <main class="max-w-3xl mx-auto px-6 py-12">
+        <article class="prose-vindkoll">
+            <div class="inline-flex items-center px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold mb-6 uppercase tracking-wider">
+                Faktagranskning · maj 2026
             </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 leading-tight text-white">
+                Nackdelar med vindkraft: <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">en ärlig granskning</span>
+            </h1>
+            <p class="text-lg text-slate-400 mb-10">
+                Vindkraften är en central del av Sveriges energiomställning, men som med all storskalig infrastruktur finns det reella nackdelar. Den här artikeln går igenom dem balanserat och källbelagt – inte propaganda i någondera riktning.
+            </p>
 
-            <h2 class="text-3xl font-semibold text-gray-800 mt-12 mb-4">Visuell påverkan på landskapet</h2>
-            <p class="mb-6">Den mest uppenbara nackdelen är hur vindkraftverk förändrar landskapsbilden. Moderna verk är ofta över 200 meter höga och syns på långt håll, vilket många upplever som ett intrång i naturmiljön. Detta är en subjektiv fråga, men en vanlig anledning till lokalt motstånd.</p>
-            
-            <h2 class="text-3xl font-semibold text-gray-800 mt-12 mb-4">Ljud och buller</h2>
-            <p class="mb-6">Vindkraftverk är inte tysta. De genererar ett konstant, swishande ljud från rotorbladen. Ljudnivån regleras av lagstiftning och håller sig vanligtvis under 40 decibel vid bostadshus, men det lågfrekventa ljudet kan ändå upplevas som störande av vissa, särskilt i tysta landsbygdsmiljöer.</p>
+            <h2>1. Visuell påverkan och landskapsbild</h2>
+            <p>Den mest omedelbara och omdiskuterade nackdelen är vindkraftverkens visuella påverkan. Moderna verk är industriella konstruktioner på ofta över 200 meter, vilket gör dem dominerande inslag i landskapet.</p>
+            <ul>
+                <li><strong>Förändrad landskapskaraktär:</strong> I jordbrukslandskap, skogslandskap och nära kuster kan vindkraftsparker förändra landskapet permanent.</li>
+                <li><strong>Subjektiv upplevelse:</strong> Vad en person ser som en symbol för framsteg kan en annan uppleva som en visuell störning.</li>
+                <li><strong>Skuggor och reflexer:</strong> Roterande blad orsakar rörlig skuggning och solreflexer. Boverket har riktvärden för max 8 timmar skugga per år vid bostäder.</li>
+                <li><strong>Hindersbelysning:</strong> Blinkande röda ljus på höga verk under natten kan upplevas som störande, men ny teknik (radarstyrd belysning) minskar problemet.</li>
+            </ul>
 
-            <h2 class="text-3xl font-semibold text-gray-800 mt-12 mb-4">Skuggor och reflexer</h2>
-            <p class="mb-6">När solen står lågt kan de roterande bladen skapa rörliga skuggor, så kallat "skuggkast". Detta kan vara störande för närboende. Moderna vindkraftverk har ofta system som stänger av verken automatiskt under de timmar på året då skuggeffekten vid en viss bostad skulle vara som störst.</p>
+            <h2>2. Buller från vindkraftverk</h2>
+            <p>Ljud är en betydande faktor för boende nära parken. Det kommer från två huvudkällor: det mekaniska ljudet från generatorn och det aerodynamiska ljudet från rotorbladen.</p>
+            <ul>
+                <li><strong>Hörbart ljud:</strong> Det aerodynamiska "swoosh"-ljudet är det mest framträdande. Moderna verk är tystare än 2010-talets, men ljudet kan ändå vara påtagligt vid vissa vindförhållanden.</li>
+                <li><strong>Lågfrekvent buller:</strong> Verken genererar infraljud med lång räckvidd. Forskningen om hälsoeffekter är inte entydig – flera svenska studier (bl.a. via Vindval) har inte hittat samband med ohälsa vid Folkhälsomyndighetens riktvärde 40 dBA.</li>
+                <li><strong>Reglering:</strong> Folkhälsomyndighetens riktvärde är 40 dBA vid bostäder. Upplevelsen är dock individuell och kan påverkas av bakgrundsljud och topografi.</li>
+            </ul>
 
-            <h2 class="text-3xl font-semibold text-gray-800 mt-12 mb-4">Påverkan på djur och natur</h2>
-            <p class="mb-6">Fåglar och fladdermöss kan kollidera med rotorbladen, även om forskning visar att problemet är mindre än vad man tidigare trott för många arter. Byggnationen av vägar och fundament kan också påverka den lokala faunan och floran. Ofta görs noggranna naturvärdesinventeringar innan en park byggs för att minimera skadorna.</p>
+            <h2>3. Påverkan på djur och natur</h2>
+            <p>Byggnation och drift av vindkraftsparker har direkt påverkan på lokal fauna och flora.</p>
+            <ul>
+                <li><strong>Fåglar och fladdermöss:</strong> Kollisioner är en känd risk, särskilt för rovfåglar och fladdermöss. Naturvårdsverkets syntesrapporter visar att risken minimeras kraftigt med rätt placering (utanför flyttstråk och skyddade habitat).</li>
+                <li><strong>Markanvändning:</strong> Anläggningsvägar, fundament och servicefält kan fragmentera ekosystem och påverka vandringsvägar för renar och älg.</li>
+                <li><strong>Marina ekosystem:</strong> Vid havsbaserad vindkraft kan pålning störa marina däggdjur tillfälligt. Färdigbyggda parker kan dock fungera som artificiella rev som ökar biologisk mångfald.</li>
+            </ul>
 
-            <h2 class="text-3xl font-semibold text-gray-800 mt-12 mb-4">Minskade fastighetsvärden</h2>
-            <p class="mb-6">En vanlig oro är att närheten till ett vindkraftverk sänker värdet på ens fastighet. Studier i Sverige har gett blandade resultat. Vissa visar på en mindre negativ påverkan på fastigheter inom en radie på 1-2 kilometer, medan andra inte hittar någon statistiskt säkerställd effekt. Ofta erbjuds närboende en ersättning, ibland kallad "bygdepeng", för att kompensera för eventuella olägenheter. För att få en uppfattning om ersättningsnivåer, se vår <a href="/kalkylator.html" class="text-green-600 hover:underline">ersättningskalkylator</a>.</p>
+            <h2>4. Ekonomiska och tekniska utmaningar</h2>
+            <p>Vindkraft är konkurrenskraftig kostnadsmässigt men har inneboende egenskaper som ställer höga krav på elsystemet.</p>
+            <ul>
+                <li><strong>Intermittent produktion:</strong> Vindkraft producerar bara när det blåser. Variabiliteten kräver reglerkraft – i Sverige främst vattenkraft, alltmer även batterier.</li>
+                <li><strong>Höga initiala investeringar:</strong> En park är kapitalintensiv att bygga, även om driftskostnaderna är låga (≈ 50–80 öre/kWh i full LCOE).</li>
+                <li><strong>Råmaterial och återvinning:</strong> Tillverkning kräver stål, betong, koppar och i vissa fall sällsynta jordartsmetaller. Återvinning av rotorblad är en växande utmaning – men flera tillverkare lovar 100 % återvinningsbara blad senast 2030.</li>
+            </ul>
 
+            <h2>5. Social acceptans och lokala konflikter</h2>
+            <p>Många projekt har stoppats av det kommunala vetot, ofta för att lokalbefolkningen inte upplever konkret nytta. Den nya lagen om intäktsdelning (1 juli 2026) ska ändra detta genom att ge närboende en skattefri andel av parkens intäkter.</p>
+            <p>Vill du se vad du som närboende kan få? Använd vår <a href="/kalkylator">ersättningskalkylator</a>.</p>
+
+            <h2>Sammanfattning: en balanserad framtid</h2>
+            <p>Nackdelarna med vindkraft är reella och ska tas på allvar i planerings- och tillståndsprocesser. En hållbar utbyggnad kräver noggrann avvägning mellan klimatnytta, lokal miljöpåverkan och social acceptans. Med rätt placering, förbättrad teknik och nya ekonomiska incitament – som intäktsdelningen från 2026 – kan många av nackdelarna mildras kraftigt.</p>
+        </article>
+
+        <!-- Inline lead capture -->
+        <div class="mt-16 p-8 bg-slate-900/40 border border-slate-800 rounded-2xl">
+            <h3 class="text-2xl font-bold text-white mb-3">Få vårt veckobrev</h3>
+            <p class="text-slate-400 mb-6">Vi går igenom svensk vindkraftsnyhet och politik varje vecka – från ny lagstiftning till specifika kommunbeslut. Kostnadsfritt.</p>
+            <form id="news-form" class="space-y-3" onsubmit="submitLead(event)">
+                <div class="grid sm:grid-cols-2 gap-3">
+                    <input type="text" id="news-name" placeholder="Förnamn" class="bg-slate-800 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white">
+                    <input type="text" id="news-municipality" placeholder="Kommun" class="bg-slate-800 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white">
+                </div>
+                <input type="email" id="news-email" required placeholder="Din e-postadress" class="w-full bg-slate-800 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white">
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold transition">Prenumerera</button>
+            </form>
+            <div id="news-success" class="hidden mt-4 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400">
+                Tack! Du är nu prenumerant.
+            </div>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white mt-12">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
-            <p>&copy; 2026 Vindkollen.se - Din guide till vindkraftsersättning.</p>
+    <footer id="newsletter" class="py-12 bg-[#010409] mt-12 text-slate-600 text-sm">
+        <div class="max-w-3xl mx-auto px-6 text-center space-y-2">
+            <div>&copy; 2026 Vindkollen. En del av Adviseo Digital Consulting.</div>
+            <div class="flex justify-center gap-4 text-slate-500">
+                <a href="/" class="hover:text-slate-300">Hem</a>
+                <a href="/kalkylator" class="hover:text-slate-300">Kalkylator</a>
+                <a href="/ersattning-for-vindkraft" class="hover:text-slate-300">Markägarguide</a>
+                <a href="/guider/nackdelar-med-vindkraft" class="hover:text-slate-300">Nackdelar med vindkraft</a>
+            </div>
         </div>
     </footer>
 
+    <script>
+        async function submitLead(ev) {
+            ev.preventDefault();
+            const email = document.getElementById('news-email').value.trim();
+            const name = document.getElementById('news-name').value.trim();
+            const municipality = document.getElementById('news-municipality').value.trim();
+            if (!email || !email.includes('@')) {
+                alert('Vänligen ange en giltig e-postadress.');
+                return;
+            }
+            try {
+                const response = await fetch('/api/lead', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: email,
+                        name: name || null,
+                        municipality: municipality || null,
+                        source: 'nackdelar_guide'
+                    })
+                });
+                if (response.ok) {
+                    document.getElementById('news-form').classList.add('hidden');
+                    document.getElementById('news-success').classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error('Lead submit failed', err);
+            }
+        }
+    </script>
 </body>
 </html>
