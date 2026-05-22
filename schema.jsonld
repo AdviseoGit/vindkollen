@@ -5,14 +5,15 @@
       "@type": "Article",
       "headline": "Vindkraftsersättning 2026: Din kompletta guide till ersättning, rättigheter och trender",
       "datePublished": "2026-04-20",
+      "dateModified": "2026-05-22",
       "author": {
         "@type": "Organization",
         "name": "Vindkollen"
       },
-      "description": "En komplett guide till vad som gäller för vindkraftsersättning 2026 i Sverige. Lär dig om dina rättigheter som granne, hur ersättningen beräknas och de senaste trenderna.",
+      "description": "En komplett guide till vad som gäller för vindkraftsersättning 2026 i Sverige. Lär dig om dina rättigheter som markägare och närboende, hur ersättningen beräknas och de senaste trenderna.",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://vindkollen.se/vindkraftsersattning-2026"
+        "@id": "https://vindkoll.se/ersattning-for-vindkraft"
       }
     },
     {
@@ -31,7 +32,7 @@
           "name": "Är ersättningen skattepliktig?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Ja, oftast ses ersättningen som en kapitalinkomst och ska tas upp i din deklaration. Rådgör med Skatteverket eller en ekonomisk rådgivare."
+            "text": "Markarrende och royalty beskattas normalt som kapitalinkomst. Den nya närboendeersättningen som införs 1 juli 2026 är dock skattefri till den del den avser en privatbostad."
           }
         },
         {
@@ -39,7 +40,7 @@
           "name": "Hur länge gäller ett avtal?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Ett arrendeavtal löper vanligtvis under hela vindkraftverkets tekniska livslängd, vilket är 25-30 år."
+            "text": "Ett anläggningsarrende för vindkraft löper vanligtvis under hela vindkraftverkets tekniska livslängd – 25–30 år, och i vissa fall upp till 50 år."
           }
         },
         {
