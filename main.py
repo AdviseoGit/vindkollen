@@ -19,7 +19,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, EmailStr, Field
-from sqlalchemy import Column, DateTime, Float, Integer, String, Text, func, select
+from sqlalchemy import Column, DateTime, Float, Integer, String, Text, func, select, text
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
@@ -82,11 +82,45 @@ class Post(Base):
     published_at = Column(DateTime, default=datetime.utcnow)
 
 
+# Lightweight idempotent migrations.
+#
+# Base.metadata.create_all() only creates *missing* tables — it never alters
+# existing ones. The production `vindkollen_leads` table predates this cycle
+# and was missing the eight columns we added when we built the kalkylator
+# lead-capture funnel. Without these, the INSERT statements in /api/lead
+# and /api/lead/report 500 out.
+#
+# Each statement is idempotent (IF NOT EXISTS / DO NOTHING) and safe to run
+# on every boot.
+_MIGRATIONS = [
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS source VARCHAR(64)",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS property_address VARCHAR(512)",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS elarea VARCHAR(8)",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS distance_m INTEGER",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS turbine_height_m INTEGER",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS turbine_count INTEGER",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS estimated_compensation_sek DOUBLE PRECISION",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS promille DOUBLE PRECISION",
+    # The new model marks created_at with index=True; back-fill the index.
+    "CREATE INDEX IF NOT EXISTS ix_vindkollen_leads_created_at ON vindkollen_leads (created_at)",
+]
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     if engine:
         async with engine.begin() as conn:
+            # 1. Create any tables that don't exist yet (handles fresh DBs).
             await conn.run_sync(Base.metadata.create_all)
+            # 2. Apply additive schema migrations against existing tables.
+            for stmt in _MIGRATIONS:
+                try:
+                    await conn.execute(text(stmt))
+                except Exception as exc:  # noqa: BLE001 — log and continue
+                    # Don't let a single failed migration prevent the app
+                    # from booting. The most likely cause is a fresh DB
+                    # where the table was just created with all columns.
+                    print(f"[migration] skipped {stmt!r}: {exc}")
     yield
     if engine:
         await engine.dispose()
