@@ -355,6 +355,41 @@ async def health():
     return "ok"
 
 
+# ---------------------------------------------------------------------------
+# Catch-all for HTML pages
+# ---------------------------------------------------------------------------
+# IMPORTANT: This MUST stay last — FastAPI matches routes in registration
+# order. Originally added by AgentSim (commit c8c82d9) so daily-generated
+# article pages dropped into static/ or content/ become reachable without
+# needing an explicit route per file.
+
+
+@app.get("/{path:path}", response_class=HTMLResponse)
+async def serve_page(path: str):
+    """Serve any .html file from static/ or content/ directories."""
+    # Reject obviously invalid paths (e.g. ones containing ".." for traversal).
+    if ".." in path or path.startswith("/"):
+        raise HTTPException(status_code=404)
+
+    candidates = [
+        f"static/{path}",
+        f"static/{path}.html",
+        f"content/{path}",
+        f"content/{path}.html",
+    ]
+    for filepath in candidates:
+        if os.path.isfile(filepath):
+            with open(filepath, encoding="utf-8") as f:
+                return HTMLResponse(content=f.read())
+    return HTMLResponse(
+        content=(
+            "<h1>404 – Sidan hittades inte</h1>"
+            "<p><a href='/'>Tillbaka till startsidan</a></p>"
+        ),
+        status_code=404,
+    )
+
+
 if __name__ == "__main__":
     import uvicorn
 
