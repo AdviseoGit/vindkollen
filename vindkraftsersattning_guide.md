@@ -68,3 +68,7 @@ Ja, de frivilliga ersättningarna är alltid en förhandlingsfråga. Ta gärna h
 ## Sammanfattning
 
 Att förstå dina rättigheter och de aktuella ersättningsnivåerna är avgörande för att kunna föra en konstruktiv dialog med vindkraftsbolag och ställa rimliga krav. Genom att vara påläst och använda verktyg som vår ersättningskalkylator kan du säkerställa att du får en rättvis del av de värden som skapas.
+
+## Fördjupning
+
+*   [Vindkraft och Fastighetsvärde: En Djupdykning i Myter och Verklighet](/articles/fastighetsvarde-och-vindkraft)
