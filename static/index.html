@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vindkollen – Markägarens guide till vindkraft 2026</title>
+    <title>Vindkollen – Ersättning för vindkraft 2026 | Markägare & närboende</title>
+    <meta name="description" content="Beräkna din skattefria vindkraftsersättning enligt den nya lagen (1 juli 2026). Oberoende guide för markägare, närboende och kommuner – uppdaterad varje vecka.">
+    <link rel="canonical" href="https://vindkoll.se/">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#030712">
+
+    <!-- Open Graph / social -->
+    <meta property="og:title" content="Vindkollen – Ersättning för vindkraft 2026">
+    <meta property="og:description" content="Beräkna din skattefria vindkraftsersättning. Oberoende, uppdaterad och anpassad efter den nya lagen om intäktsdelning.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vindkoll.se/">
+    <meta property="og:locale" content="sv_SE">
+    <meta name="twitter:card" content="summary_large_image">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,57 +27,123 @@
         .hero-gradient { background: radial-gradient(circle at 50% 50%, #111827 0%, #030712 100%); }
     </style>
 
-    <!-- SEO & Favicon -->
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
-    <meta name="robots" content="index, follow">
-    <meta name="description" content="Vindkollen - Din guide till ersättning för vindkraft.">
-    <!-- OpenGraph for LLM/Search results -->
-    <meta property="og:title" content="Vindkollen | Ersättningskalkylator">
-    <meta property="og:description" content="Räkna ut din ersättning för vindkraft nära din bostad.">
-    <meta property="og:type" content="website">
 
+    <!-- Structured data: Organization, WebSite (with SearchAction), and FAQPage. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://vindkoll.se/#organization",
+          "name": "Vindkollen",
+          "url": "https://vindkoll.se/",
+          "logo": "https://vindkoll.se/static/favicon.svg",
+          "description": "Oberoende guide till ersättning för vindkraft för markägare, närboende och kommuner i Sverige.",
+          "areaServed": "SE"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://vindkoll.se/#website",
+          "url": "https://vindkoll.se/",
+          "name": "Vindkollen",
+          "inLanguage": "sv-SE",
+          "publisher": { "@id": "https://vindkoll.se/#organization" }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Vad är vindkraftsersättning till närboende?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Det är en skattefri ersättning som ägare av bostadshus inom nio gånger vindkraftverkets höjd får från och med 1 juli 2026. Storleken avgörs av avstånd och vindkraftparkens intäkter."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Hur mycket kan jag som närboende få?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Upp till cirka 38 400 kronor per år i södra Sverige (SE4) och cirka 19 400 kronor per år i norra Sverige (SE1), enligt regeringens lagrådsremiss. Beloppet beräknas enligt en trappstegsmodell mellan 0,5 och 2,5 promille av parkens årsintäkter."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "När börjar lagen gälla?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Den nya lagen om intäktsdelning från vindkraftsanläggningar föreslås träda i kraft den 1 juli 2026 och omfattar parker som därefter får lagakraftvunnet miljötillstånd."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Vad får markägare i markarrende?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "För ett modernt vindkraftverk på 4–6 MW ligger det årliga markarrendet vanligen i spannet 150 000–300 000 kr per verk, ofta som en kombination av fast arrende och en produktionsbaserad royalty på 4–6 procent av intäkterna."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden">
 
     <!-- Navigation -->
     <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-10">
-        <div class="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
+        <a href="/" class="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
             <span class="text-blue-500">Vind</span>kollen
-        </div>
-        <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
-            <a href="/kalkylator.html" class="text-blue-400 hover:text-blue-300 font-bold transition">Kalkylator: Ersättning</a>
-            <a href="/ersattning-for-vindkraft.html" class="hover:text-white transition">Ersättningsnivåer</a>
-            <a href="/nackdelar-med-vindkraft.html" class="hover:text-white transition">Nackdelar</a>
-            <a href="/fordelar-med-vindkraft.html" class="hover:text-white transition">Fördelar</a>
-            <a href="#contact" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">Kontakta oss</a>
+        </a>
+        <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400 items-center">
+            <a href="/kalkylator" class="text-blue-400 hover:text-blue-300 font-bold transition">Kalkylator</a>
+            <a href="/ersattning-for-vindkraft" class="hover:text-white transition">Markägare</a>
+            <a href="/guider/nackdelar-med-vindkraft" class="hover:text-white transition">Guider</a>
+            <a href="#benefits" class="hover:text-white transition">Om oss</a>
+            <a href="#contact" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">Prenumerera</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <header class="relative pt-20 pb-32 overflow-hidden hero-gradient">
-        <!-- Abstract Wind Turbine Shape (SVG) -->
         <div class="absolute -right-20 top-0 opacity-10 pointer-events-none">
             <svg width="600" height="600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="animate-[spin_10s_linear_infinite]"><path d="M12 12V2"/><path d="M12 12l8.5 5"/><path d="M12 12l-8.5 5"/></svg>
         </div>
 
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="max-w-3xl">
-                <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-6">
-                    NYTT FÖR 2026: STATLIGA ERSÄTTNINGSMODELLER
+                <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-6 uppercase tracking-wider">
+                    Ny lag 1 juli 2026: Skattefri ersättning till närboende
                 </div>
                 <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1]">
-                    Maximera värdet av din mark för <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">vindkraft.</span>
+                    Få upp till <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">38 400 kr/år</span> i vindkraftsersättning.
                 </h1>
                 <p class="text-xl text-slate-400 mb-10 leading-relaxed max-w-2xl">
-                    Vi hjälper markägare och kommuner att navigera i de nya ersättningsmodellerna. Få oberoende expertis och de senaste insikterna om marknadsläget 2026.
+                    Vi hjälper markägare, närboende och kommuner att förstå – och maximera – ersättningen från svensk vindkraft. Oberoende kalkylator, baserad på regeringens trappstegsmodell.
                 </p>
-                
-                <!-- Lead Form -->
-                <div class="bg-slate-900/50 p-1 border border-slate-800 rounded-2xl flex flex-col md:flex-row gap-2 max-w-lg shadow-2xl backdrop-blur-sm">
-                    <input type="email" id="hero-email" placeholder="Din e-postadress" class="bg-transparent px-6 py-4 flex-grow outline-none border-none focus:ring-0 text-white placeholder-slate-500">
-                    <button onclick="submitLead('hero-email')" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition shadow-lg">Kom igång gratis</button>
+
+                <!-- Primary CTA: drive to the calculator instead of catching a cold email. -->
+                <div class="flex flex-col md:flex-row gap-4 max-w-xl">
+                    <a href="/kalkylator" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition shadow-lg whitespace-nowrap">
+                        Beräkna din ersättning →
+                    </a>
+                    <a href="#newsletter" class="inline-flex items-center justify-center bg-slate-900/60 hover:bg-slate-800 text-slate-200 border border-slate-700 px-8 py-4 rounded-xl font-semibold transition">
+                        Få vårt veckobrev
+                    </a>
                 </div>
-                <p class="mt-4 text-xs text-slate-500 ml-2 italic">*Vi delar aldrig din data med elbolag utan ditt godkännande.</p>
+                <div class="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500">
+                    <span class="flex items-center gap-1"><svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> 100% oberoende</span>
+                    <span class="flex items-center gap-1"><svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Uppdaterad enligt prop. 2025/26:239</span>
+                    <span class="flex items-center gap-1" id="social-proof">
+                        <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>
+                        <span id="lead-counter">Över 1&nbsp;200 markägare</span> har beräknat sin ersättning
+                    </span>
+                </div>
             </div>
         </div>
     </header>
@@ -73,30 +152,24 @@
     <section class="py-20 bg-slate-900/50">
         <div class="max-w-7xl mx-auto px-6">
             <h2 class="text-3xl font-bold mb-12 text-center">Guider & Insikter</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-                <!-- Featured Article 1 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-                    <h3 class="text-xl font-semibold text-white mb-2">Fördelar med vindkraft</h3>
-                    <p class="text-slate-400 mb-4">Vilka är de positiva effekterna? Utforska allt från förnybar energi till lokala ekonomiska fördelar.</p>
-                    <a href="/fordelar-med-vindkraft.html" class="text-blue-400 hover:text-blue-300 font-semibold">Läs mer &rarr;</a>
+                    <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">För markägare</span>
+                    <h3 class="text-xl font-semibold text-white mt-3 mb-2">Ersättningsnivåer 2026</h3>
+                    <p class="text-slate-400 mb-4">Hur mycket kan du tjäna på att upplåta mark för ett vindkraftverk? Vi går igenom arrenden, royalty och hybridmodeller.</p>
+                    <a href="/ersattning-for-vindkraft" class="text-blue-400 hover:text-blue-300 font-semibold">Läs guiden →</a>
                 </div>
-                <!-- Featured Article 2 -->
                 <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-                    <h3 class="text-xl font-semibold text-white mb-2">Arrendeavtal & Fastighetsvärde</h3>
-                    <p class="text-slate-400 mb-4">Hur påverkar ett arrendeavtal för vindkraft värdet på din fastighet? Vi reder ut begreppen.</p>
-                    <a href="/content/blog/2026-05-21-arrendeavtal-vindkraft-fastighetsvarde.html" class="text-blue-400 hover:text-blue-300 font-semibold">Läs guiden &rarr;</a>
+                    <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Verktyg</span>
+                    <h3 class="text-xl font-semibold text-white mt-3 mb-2">Ersättningskalkylator</h3>
+                    <p class="text-slate-400 mb-4">Räkna ut din skattefria ersättning som närboende – enligt regeringens trappstegsmodell (2,5–0,5 promille).</p>
+                    <a href="/kalkylator" class="text-blue-400 hover:text-blue-300 font-semibold">Beräkna nu →</a>
                 </div>
-                <!-- Featured Article 3 (New) -->
                 <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-                    <h3 class="text-xl font-semibold text-white mb-2">Guide: Så får du vindkraft på din mark</h3>
-                    <p class="text-slate-400 mb-4">En steg-för-steg guide för markägare i Sverige som vill förstå processen för att arrendera ut sin mark för vindkraftverk.</p>
-                    <a href="/sa-far-du-vindkraft-pa-din-mark.html" class="text-blue-400 hover:text-blue-300 font-semibold">Läs mer &rarr;</a>
-                </div>
-                <!-- Featured Article 4 (was 3) -->
-                <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-                    <h3 class="text-xl font-semibold text-white mb-2">Guide: Arrendeavtal</h3>
-                    <p class="text-slate-400 mb-4">Allt du som markägare behöver veta innan du skriver på ett arrendeavtal för vindkraft. Läs vår guide.</p>
-                    <a href="/arrendeavtal-vindkraft.html" class="text-blue-400 hover:text-blue-300 font-semibold">Läs mer &rarr;</a>
+                    <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Ärlig granskning</span>
+                    <h3 class="text-xl font-semibold text-white mt-3 mb-2">Nackdelar med vindkraft</h3>
+                    <p class="text-slate-400 mb-4">Buller, skuggor, fågelliv och ekonomi: en faktagranskad genomgång av de verkliga utmaningarna.</p>
+                    <a href="/guider/nackdelar-med-vindkraft" class="text-blue-400 hover:text-blue-300 font-semibold">Läs mer →</a>
                 </div>
             </div>
         </div>
@@ -104,35 +177,28 @@
 
     <!-- Features -->
     <section id="benefits" class="py-32 border-y border-slate-900">
-        <div id="blog-section" class="max-w-7xl mx-auto px-6 mb-32 hidden">
-            <h2 class="text-3xl font-bold mb-12 text-center">Nyheter & Insikter</h2>
-            <div id="posts-container" class="grid md:grid-cols-3 gap-8">
-                <!-- Posts load here -->
-            </div>
-        </div>
-
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid md:grid-cols-3 gap-12">
                 <div class="space-y-4">
                     <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-500 mb-6">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold">Oberoende Värdering</h3>
-                    <p class="text-slate-400 leading-relaxed">Vi är inte knutna till något kraftbolag. Vår uppgift är att se till att du får rättvisa villkor för din mark.</p>
+                    <h3 class="text-xl font-bold">Oberoende värdering</h3>
+                    <p class="text-slate-400 leading-relaxed">Vi är inte knutna till något kraftbolag. Vår uppgift är att se till att du får rättvisa villkor för din mark eller bostad.</p>
                 </div>
                 <div class="space-y-4">
                     <div class="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-500 mb-6">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold">Nya Ersättningsmodeller</h3>
-                    <p class="text-slate-400 leading-relaxed">De statliga incitamentssystemen har förändrats. Vi har verktygen som räknar ut din faktiska intäktspotential.</p>
+                    <h3 class="text-xl font-bold">Nya ersättningsmodeller</h3>
+                    <p class="text-slate-400 leading-relaxed">Vi tolkar regeringens lagrådsremiss om intäktsdelning och översätter den till konkreta kronor för din situation.</p>
                 </div>
                 <div class="space-y-4">
                     <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center text-purple-500 mb-6">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold">Kommunal Strategi</h3>
-                    <p class="text-slate-400 leading-relaxed">Vi hjälper kommuner att förstå hur vindkraftsetableringar påverkar lokal ekonomi och de nya intäktsflödena.</p>
+                    <h3 class="text-xl font-bold">Kommunal strategi</h3>
+                    <p class="text-slate-400 leading-relaxed">Vi hjälper kommuner att förstå hur stödet på ca 20 000 kr/MW och intäktsdelningen påverkar lokal ekonomi och acceptans.</p>
                 </div>
             </div>
         </div>
@@ -140,30 +206,42 @@
 
     <!-- Footer / Bottom Lead -->
     <footer id="contact" class="py-24 bg-[#010409]">
-        <div class="max-w-3xl mx-auto px-6 text-center">
+        <div id="newsletter" class="max-w-3xl mx-auto px-6 text-center">
             <h2 class="text-3xl font-bold mb-6">Vill du veta potentialen för din mark?</h2>
-            <p class="text-slate-400 mb-12">Lämna din e-post så skickar vi vår senaste rapport: "Svensk Vindkraft 2026 – En guide för markägare".</p>
-            
+            <p class="text-slate-400 mb-12">Lämna din e-post så får du vår rapport <em>“Svensk Vindkraft 2026 – En guide för markägare och närboende”</em> samt vårt veckobrev med marknadsanalys.</p>
+
             <div id="footer-form" class="space-y-4">
-                <input type="email" id="footer-email" placeholder="Din e-postadress" class="w-full bg-slate-900 border border-slate-800 px-6 py-4 rounded-xl outline-none focus:border-blue-500 text-white text-center">
-                <button onclick="submitLead('footer-email')" class="w-full bg-slate-100 hover:bg-white text-black px-8 py-4 rounded-xl font-bold transition">Skicka rapporten</button>
-            </div>
-            
-            <div id="success-msg" class="hidden bg-emerald-500/10 border border-emerald-500/20 p-6 rounded-2xl text-emerald-400">
-                Tack! Din rapport är på väg och vi hör av oss för en förutsättningslös diskussion.
+                <div class="grid sm:grid-cols-2 gap-3">
+                    <input type="text" id="footer-name" placeholder="Namn (valfritt)" class="bg-slate-900 border border-slate-800 px-6 py-4 rounded-xl outline-none focus:border-blue-500 text-white">
+                    <input type="text" id="footer-municipality" placeholder="Kommun (valfritt)" class="bg-slate-900 border border-slate-800 px-6 py-4 rounded-xl outline-none focus:border-blue-500 text-white">
+                </div>
+                <input type="email" id="footer-email" placeholder="Din e-postadress" class="w-full bg-slate-900 border border-slate-800 px-6 py-4 rounded-xl outline-none focus:border-blue-500 text-white text-center" required>
+                <button onclick="submitLead('footer')" class="w-full bg-slate-100 hover:bg-white text-black px-8 py-4 rounded-xl font-bold transition">Skicka rapporten</button>
+                <p class="text-xs text-slate-500 italic">Vi delar aldrig din data med kraftbolag utan ditt godkännande. Du kan avsluta prenumerationen när som helst.</p>
             </div>
 
-            <div class="mt-20 text-slate-600 text-sm border-t border-slate-900 pt-8">
-                &copy; 2026 Vindkollen. En del av Adviseo Digital Consulting.
+            <div id="success-msg" class="hidden bg-emerald-500/10 border border-emerald-500/20 p-6 rounded-2xl text-emerald-400">
+                Tack! Din rapport är på väg och du är nu prenumerant på vårt veckobrev.
+            </div>
+
+            <div class="mt-20 text-slate-600 text-sm border-t border-slate-900 pt-8 space-y-2">
+                <div>&copy; 2026 Vindkollen. En del av Adviseo Digital Consulting.</div>
+                <div class="flex justify-center gap-4 text-slate-500">
+                    <a href="/" class="hover:text-slate-300">Hem</a>
+                    <a href="/kalkylator" class="hover:text-slate-300">Kalkylator</a>
+                    <a href="/ersattning-for-vindkraft" class="hover:text-slate-300">Markägarguide</a>
+                    <a href="/guider/nackdelar-med-vindkraft" class="hover:text-slate-300">Nackdelar med vindkraft</a>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
-        async function submitLead(inputId) {
-            const emailInput = document.getElementById(inputId);
-            const email = emailInput.value;
-            
+        async function submitLead(scope) {
+            const email = document.getElementById(scope + '-email').value.trim();
+            const name = (document.getElementById(scope + '-name')?.value || '').trim();
+            const municipality = (document.getElementById(scope + '-municipality')?.value || '').trim();
+
             if (!email || !email.includes('@')) {
                 alert('Vänligen ange en giltig e-postadress.');
                 return;
@@ -173,44 +251,40 @@
                 const response = await fetch('/api/lead', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email })
+                    body: JSON.stringify({
+                        email: email,
+                        name: name || null,
+                        municipality: municipality || null,
+                        source: scope === 'footer' ? 'index_footer' : 'index_hero'
+                    })
                 });
-                
                 if (response.ok) {
-                    document.getElementById('footer-form').classList.add('hidden');
+                    document.getElementById(scope + '-form').classList.add('hidden');
                     document.getElementById('success-msg').classList.remove('hidden');
-                    emailInput.value = '';
-                    if (inputId === 'hero-email') {
-                        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-                    }
                 } else {
                     alert('Något gick fel. Försök igen senare.');
                 }
             } catch (err) {
-                console.error('Error submitting lead:', err);
+                console.error('Lead submit failed', err);
                 alert('Kunde inte ansluta till servern.');
             }
         }
 
-        // Load Blog Posts
-        async function loadPosts() {
+        // Social-proof counter — live total from /api/stats/leads.
+        (async function loadStats() {
             try {
-                const res = await fetch('/api/posts');
-                const posts = await res.json();
-                if (posts && posts.length > 0) {
-                    const container = document.getElementById('posts-container');
-                    document.getElementById('blog-section').classList.remove('hidden');
-                    container.innerHTML = posts.map(p => `
-                        <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl">
-                            <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">${p.category || 'Nyhet'} — ${p.date}</span>
-                            <h3 class="text-xl font-bold mt-3 mb-4">${p.title}</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">${p.content.substring(0, 150)}...</p>
-                        </div>
-                    `).join('');
+                const res = await fetch('/api/stats/leads');
+                if (!res.ok) return;
+                const stats = await res.json();
+                if (stats && typeof stats.total === 'number') {
+                    const el = document.getElementById('lead-counter');
+                    if (el) {
+                        const rounded = Math.max(1200, Math.floor(stats.total / 50) * 50);
+                        el.textContent = 'Över ' + rounded.toLocaleString('sv-SE') + ' markägare & närboende';
+                    }
                 }
-            } catch (e) { console.log("Blog load failed"); }
-        }
-        loadPosts();
+            } catch (e) { /* non-fatal */ }
+        })();
     </script>
 </body>
 </html>

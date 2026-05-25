@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkylator: Ersättning för vindkraft nära bostad | Vindkollen 2026</title>
+    <title>Ersättningskalkylator vindkraft 2026 – närboende & markägare | Vindkollen</title>
+    <meta name="description" content="Räkna ut din skattefria vindkraftsersättning enligt regeringens trappstegsmodell (2,5–0,5 promille). Få en personlig marknadsrapport för din fastighet.">
+    <link rel="canonical" href="https://vindkoll.se/kalkylator">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#030712">
+
+    <meta property="og:title" content="Ersättningskalkylator vindkraft 2026 | Vindkollen">
+    <meta property="og:description" content="Beräkna din skattefria ersättning från ny vindkraft – uppdaterad enligt prop. 2025/26:239.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vindkoll.se/kalkylator">
+    <meta property="og:locale" content="sv_SE">
+
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +26,35 @@
         h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
         .hero-gradient { background: radial-gradient(circle at 50% 50%, #111827 0%, #030712 100%); }
     </style>
+
+    <!-- Structured data: HowTo + WebPage. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://vindkoll.se/kalkylator#webpage",
+          "url": "https://vindkoll.se/kalkylator",
+          "name": "Ersättningskalkylator vindkraft 2026",
+          "inLanguage": "sv-SE",
+          "isPartOf": { "@id": "https://vindkoll.se/#website" },
+          "about": "Vindkraftsersättning till närboende enligt prop. 2025/26:239"
+        },
+        {
+          "@type": "HowTo",
+          "name": "Så här beräknar du din vindkraftsersättning",
+          "description": "Steg-för-steg-guide för att beräkna din skattefria ersättning från en vindkraftspark enligt regeringens trappstegsmodell.",
+          "step": [
+            { "@type": "HowToStep", "name": "Välj elområde", "text": "SE1–SE4 bestämmer maxnivån, eftersom elpriset varierar i landet." },
+            { "@type": "HowToStep", "name": "Mät avståndet", "text": "Mät från mittpunkten på det närmaste vindkraftverket till din bostadsbyggnad." },
+            { "@type": "HowToStep", "name": "Ange verkets totalhöjd", "text": "Moderna landbaserade verk är vanligen 230–270 meter höga." },
+            { "@type": "HowToStep", "name": "Beräkna och få rapport", "text": "Tryck på Beräkna för att se din uppskattade årliga skattefria ersättning enligt trappstegsmodellen." }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden">
 
@@ -21,53 +63,53 @@
         <a href="/" class="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
             <span class="text-blue-500">Vind</span>kollen
         </a>
-        <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
+        <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400 items-center">
             <a href="/" class="hover:text-white transition">Hem</a>
-            <a href="/#benefits" class="hover:text-white transition">Fördelar</a>
-            <a href="#contact" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">Kontakta oss</a>
+            <a href="/ersattning-for-vindkraft" class="hover:text-white transition">Markägare</a>
+            <a href="/guider/nackdelar-med-vindkraft" class="hover:text-white transition">Guider</a>
+            <a href="#newsletter" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">Prenumerera</a>
         </div>
     </nav>
 
     <main class="max-w-4xl mx-auto px-6 py-12">
         <div class="mb-12 text-center">
+            <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-6 uppercase tracking-wider">
+                Uppdaterad enligt prop. 2025/26:239
+            </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 leading-tight">
                 Kalkylator: <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Ersättning till närboende</span>
             </h1>
             <p class="text-lg text-slate-400 max-w-2xl mx-auto">
-                Från den 1 juli 2026 införs nya regler för intäktsdelning. Beräkna din potentiella skattefria ersättning baserat på regeringens förslag.
+                Från den 1 juli 2026 införs en lag om intäktsdelning för nya vindkraftsparker. Beräkna din potentiella skattefria ersättning enligt regeringens trappstegsmodell.
             </p>
         </div>
 
         <div class="bg-slate-900/40 border border-slate-800 rounded-3xl p-8 md:p-12 shadow-2xl backdrop-blur-sm mb-12">
             <div class="grid md:grid-cols-2 gap-8 mb-10">
-                <!-- Elområde -->
                 <div class="space-y-3">
-                    <label class="block text-sm font-semibold text-slate-300">Ditt elområde</label>
+                    <label class="block text-sm font-semibold text-slate-300" for="elarea">Ditt elområde</label>
                     <select id="elarea" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500 text-white">
-                        <option value="SE4">SE4 (Södra Sverige - Skåne m.m.)</option>
-                        <option value="SE3">SE3 (Mellersta Sverige - Stockholm/Gbg)</option>
+                        <option value="SE4">SE4 (Södra Sverige – Skåne m.m.)</option>
+                        <option value="SE3">SE3 (Mellersta Sverige – Sthlm/Gbg)</option>
                         <option value="SE2">SE2 (Norra Mellansverige)</option>
                         <option value="SE1">SE1 (Norra Sverige)</option>
                     </select>
                 </div>
-                
-                <!-- Avstånd -->
+
                 <div class="space-y-3">
-                    <label class="block text-sm font-semibold text-slate-300">Avstånd till närmaste verk (meter)</label>
-                    <input type="number" id="distance" value="1000" step="100" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500 text-white">
+                    <label class="block text-sm font-semibold text-slate-300" for="distance">Avstånd till närmaste verk (meter)</label>
+                    <input type="number" id="distance" value="1000" step="50" min="0" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500 text-white">
                 </div>
 
-                <!-- Totalhöjd -->
                 <div class="space-y-3">
-                    <label class="block text-sm font-semibold text-slate-300">Verkets totalhöjd (meter)</label>
-                    <input type="number" id="height" value="250" step="10" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500 text-white">
-                    <p class="text-xs text-slate-500">Moderna verk är ofta 230-270 meter höga.</p>
+                    <label class="block text-sm font-semibold text-slate-300" for="height">Verkets totalhöjd (meter)</label>
+                    <input type="number" id="height" value="250" step="10" min="50" max="400" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500 text-white">
+                    <p class="text-xs text-slate-500">Moderna verk är ofta 230–270 meter höga.</p>
                 </div>
 
-                <!-- Antal verk -->
                 <div class="space-y-3">
-                    <label class="block text-sm font-semibold text-slate-300">Antal verk i parken</label>
-                    <input type="number" id="turbines" value="10" step="1" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500 text-white">
+                    <label class="block text-sm font-semibold text-slate-300" for="turbines">Antal verk i parken</label>
+                    <input type="number" id="turbines" value="10" step="1" min="1" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500 text-white">
                 </div>
             </div>
 
@@ -76,131 +118,277 @@
             </button>
 
             <!-- Resultat -->
-            <div id="results" class="hidden space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div id="results" class="hidden space-y-6">
                 <div class="p-8 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-center">
                     <h3 class="text-blue-400 font-bold mb-2 uppercase tracking-widest text-sm">Uppskattad skattefri ersättning</h3>
                     <div id="result-value" class="text-5xl font-extrabold text-white mb-2">0 kr/år</div>
-                    <p id="result-status" class="text-slate-400">Beräknat per helår baserat på produktion.</p>
+                    <p id="result-status" class="text-slate-400">Beräknat enligt trappstegsmodellen (<span id="result-promille">0,0</span>‰ av parkens årsintäkt).</p>
                 </div>
 
                 <div id="disclaimer" class="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-200 text-sm hidden">
-                    <strong>Obs:</strong> Du befinner dig utanför ersättningsgränsen (9 x verkets höjd). Förslaget ger endast rätt till ersättning inom ca <span id="limit-val">2250</span> meter.
+                    <strong>Obs:</strong> Du befinner dig utanför ersättningsgränsen (9 × verkets höjd). Lagen ger rätt till ersättning endast inom ca <span id="limit-val">2250</span> meter.
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-400">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-400">
                     <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
                         <span class="block text-slate-200 font-bold mb-1">Maxnivå för ditt område</span>
                         <span id="max-area">38 400 kr/år</span>
                     </div>
                     <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                        <span class="block text-slate-200 font-bold mb-1">Ersättningsgräns (Avstånd)</span>
+                        <span class="block text-slate-200 font-bold mb-1">Ersättningsgräns</span>
                         <span id="limit-dist">2 250 meter</span>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                        <span class="block text-slate-200 font-bold mb-1">Avstånd i verkshöjder</span>
+                        <span id="ratio-display">4,0×</span>
+                    </div>
+                </div>
+
+                <!-- ============== POST-RESULT LEAD CAPTURE FUNNEL ============== -->
+                <!-- The single most important conversion surface on the site.
+                     Users who reach this point have explicit intent.
+                     We collect enriched data and persist via /api/lead/report. -->
+                <div id="report-card" class="mt-10 p-8 md:p-10 bg-gradient-to-br from-blue-900/40 to-emerald-900/30 border border-blue-500/30 rounded-2xl">
+                    <div class="flex flex-col md:flex-row gap-6 items-start">
+                        <div class="flex-1">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-4 uppercase tracking-wider">
+                                Kostnadsfritt · 24 h leverans
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-bold text-white mb-3">Få en personlig marknadsrapport för din fastighet</h3>
+                            <p class="text-slate-300 mb-6 leading-relaxed">
+                                Vi tar din beräkning, kombinerar den med aktuella planerade vindkraftsparker i din kommun och våra arrendedata, och skickar en skräddarsydd PDF-rapport till din inbox.
+                            </p>
+                            <ul class="text-sm text-slate-300 space-y-2 mb-6">
+                                <li class="flex gap-2"><svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Översikt över planerade och beviljade vindkraftsparker nära dig</li>
+                                <li class="flex gap-2"><svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Genomsnittliga arrenden och royaltynivåer i din region</li>
+                                <li class="flex gap-2"><svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Checklista för förhandlingar med vindkraftsbolag</li>
+                                <li class="flex gap-2"><svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Veckobrev med marknadsuppdateringar</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <form id="report-form" class="space-y-3" onsubmit="submitReport(event)">
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            <input type="text" id="rep-name" placeholder="Förnamn" required class="bg-slate-900/70 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white">
+                            <input type="text" id="rep-municipality" placeholder="Kommun (t.ex. Östersund)" class="bg-slate-900/70 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white">
+                        </div>
+                        <input type="text" id="rep-address" placeholder="Fastighetsadress (valfritt)" class="w-full bg-slate-900/70 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white">
+                        <input type="email" id="rep-email" placeholder="Din e-postadress" required class="w-full bg-slate-900/70 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white">
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg">
+                            Skicka mig rapporten →
+                        </button>
+                        <p class="text-xs text-slate-400 italic">Vi delar aldrig din data med kraftbolag utan ditt godkännande. Du kan avregistrera dig när som helst.</p>
+                    </form>
+
+                    <div id="report-success" class="hidden p-6 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-200">
+                        <div class="font-bold text-lg mb-1">Tack <span id="report-success-name">!</span></div>
+                        Din rapport förbereds nu och skickas till din e-post inom 24 timmar. Du är även prenumerant på vårt veckobrev från och med nu.
                     </div>
                 </div>
             </div>
         </div>
 
         <section class="space-y-8 text-slate-300">
-            <h2 class="text-2xl font-bold text-white">Hur fungerar det nya förslaget?</h2>
+            <h2 class="text-2xl font-bold text-white">Så fungerar trappstegsmodellen</h2>
             <p>
-                Regeringens förslag om intäktsdelning (SOU 2023:18) syftar till att öka den lokala acceptansen. Från och med den 1 juli 2026 föreslås att närboende ska få en del av parkens intäkter, helt skattefritt.
+                Regeringens lag om intäktsdelning (prop. 2025/26:239) syftar till att öka lokal acceptans för ny vindkraft. Från och med 1 juli 2026 ska närboende få en skattefri del av parkens intäkter enligt en trappstegsmodell baserad på avstånd uttryckt i verkshöjder:
             </p>
-            <ul class="list-disc pl-6 space-y-4">
-                <li><strong>9 x höjden:</strong> Ersättningen beräknas för bostadshus som ligger inom nio gånger verkets totalhöjd.</li>
-                <li><strong>Produktionsbaserat:</strong> Nivån baseras på 0,5 % av parkens bruttointäkter, vilket gör att boende i södra Sverige (högre elpris) generellt får högre ersättning.</li>
-                <li><strong>Skattefrihet:</strong> Ersättningen föreslås bli helt befriad från inkomstskatt för privatpersoner.</li>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-center">
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700"><div class="text-xs text-slate-400">≤ 5× höjden</div><div class="text-xl font-bold text-emerald-400">2,5‰</div></div>
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700"><div class="text-xs text-slate-400">5–6×</div><div class="text-xl font-bold text-emerald-300">2,0‰</div></div>
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700"><div class="text-xs text-slate-400">6–7×</div><div class="text-xl font-bold text-blue-300">1,5‰</div></div>
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700"><div class="text-xs text-slate-400">7–8×</div><div class="text-xl font-bold text-blue-400">1,0‰</div></div>
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700"><div class="text-xs text-slate-400">8–9×</div><div class="text-xl font-bold text-purple-400">0,5‰</div></div>
+            </div>
+            <ul class="list-disc pl-6 space-y-3">
+                <li><strong>9 × höjden:</strong> Ersättning utgår för bostadshus inom nio gånger verkets totalhöjd. För ett verk på 250 m är gränsen 2 250 m.</li>
+                <li><strong>De två närmaste verken:</strong> Beräkningen baseras på de två verk som ger högst ersättning för bostaden.</li>
+                <li><strong>Tak på 2 %:</strong> Verksamhetsutövaren behöver aldrig betala mer än 2 % av parkens totala årsintäkter i sammanlagd ersättning.</li>
+                <li><strong>Skattefrihet:</strong> Ersättningen är skattefri till den del den avser en privatbostad.</li>
+                <li><strong>Årlig anmälan:</strong> Den ersättningsberättigade behöver anmäla sin bostad till verksamhetsutövaren årligen.</li>
             </ul>
         </section>
     </main>
 
-    <!-- Bottom Lead -->
-    <footer id="contact" class="py-24 bg-[#010409] mt-12">
+    <!-- Newsletter / footer -->
+    <footer id="newsletter" class="py-24 bg-[#010409] mt-12">
         <div class="max-w-3xl mx-auto px-6 text-center">
-            <h2 class="text-3xl font-bold mb-6">Vill du ha en fullständig analys?</h2>
-            <p class="text-slate-400 mb-12">Vi bevakar lagförslaget dagligen. Lämna din e-post så skickar vi en notis så fort de slutgiltiga detaljerna är fastställda.</p>
-            
-            <div id="footer-form" class="space-y-4">
-                <input type="email" id="footer-email" placeholder="Din e-postadress" class="w-full bg-slate-900 border border-slate-800 px-6 py-4 rounded-xl outline-none focus:border-blue-500 text-white text-center">
-                <button onclick="submitLead('footer-email')" class="w-full bg-slate-100 hover:bg-white text-black px-8 py-4 rounded-xl font-bold transition">Bevaka åt mig</button>
-            </div>
-            
-            <div id="success-msg" class="hidden bg-emerald-500/10 border border-emerald-500/20 p-6 rounded-2xl text-emerald-400">
-                Tack! Vi håller dig uppdaterad om utvecklingen kring intäktsdelningslagen.
+            <h2 class="text-3xl font-bold mb-6">Bevaka utvecklingen kring 1 juli 2026</h2>
+            <p class="text-slate-400 mb-12">Vi bevakar lagen om intäktsdelning dagligen. Lämna din e-post så får du en notis så fort detaljerna fastställs av riksdagen.</p>
+
+            <div id="news-form" class="space-y-4">
+                <input type="email" id="news-email" placeholder="Din e-postadress" class="w-full bg-slate-900 border border-slate-800 px-6 py-4 rounded-xl outline-none focus:border-blue-500 text-white text-center" required>
+                <button onclick="submitNewsletter()" class="w-full bg-slate-100 hover:bg-white text-black px-8 py-4 rounded-xl font-bold transition">Bevaka åt mig</button>
             </div>
 
-            <div class="mt-20 text-slate-600 text-sm border-t border-slate-900 pt-8">
-                &copy; 2026 Vindkollen. En del av Adviseo Digital Consulting.
+            <div id="news-success" class="hidden bg-emerald-500/10 border border-emerald-500/20 p-6 rounded-2xl text-emerald-400">
+                Tack! Du är nu prenumerant och får uppdateringar direkt i din inbox.
+            </div>
+
+            <div class="mt-20 text-slate-600 text-sm border-t border-slate-900 pt-8 space-y-2">
+                <div>&copy; 2026 Vindkollen. En del av Adviseo Digital Consulting.</div>
+                <div class="flex justify-center gap-4 text-slate-500">
+                    <a href="/" class="hover:text-slate-300">Hem</a>
+                    <a href="/kalkylator" class="hover:text-slate-300">Kalkylator</a>
+                    <a href="/ersattning-for-vindkraft" class="hover:text-slate-300">Markägarguide</a>
+                    <a href="/guider/nackdelar-med-vindkraft" class="hover:text-slate-300">Nackdelar med vindkraft</a>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
+        // -----------------------------------------------------------------
+        // Calculator
+        // -----------------------------------------------------------------
+
+        // Max annual compensation per närboende at 2,5‰ — derived from the
+        // government's lagrådsremiss (prop. 2025/26:239) for each elområde.
+        // These figures power the rest of the trappstegsmodell.
+        const MAX_AT_TOP_TIER = {
+            SE4: 38400,
+            SE3: 32200,
+            SE2: 24500,
+            SE1: 19400
+        };
+
+        // Returns the promille tier given distance/height ratio.
+        function getPromille(ratio) {
+            if (ratio <= 5) return 2.5;
+            if (ratio <= 6) return 2.0;
+            if (ratio <= 7) return 1.5;
+            if (ratio <= 8) return 1.0;
+            if (ratio <= 9) return 0.5;
+            return 0.0;
+        }
+
+        // Cache for the report submission so we can attach calc context.
+        const calcState = {
+            elarea: 'SE4', distance: 1000, height: 250, turbines: 10,
+            estimate: 0, promille: 0
+        };
+
         function calculate() {
             const area = document.getElementById('elarea').value;
             const dist = parseFloat(document.getElementById('distance').value);
             const height = parseFloat(document.getElementById('height').value);
             const turbines = parseInt(document.getElementById('turbines').value);
-            
+
             const limit = height * 9;
+            const ratio = dist / height;
+            const promille = getPromille(ratio);
+
+            // The maxMap value is the official cap (at 2,5‰) for that elområde.
+            // Scale linearly within the band — at distance 0 we stay at max,
+            // at the band edge we have stepped down to the next tier value.
+            const base = MAX_AT_TOP_TIER[area];
+            const scaledBase = base * (turbines / 10); // small-parks adjustment
+            // Compute proportional share within the active band.
+            const final = Math.max(0, Math.round(scaledBase * (promille / 2.5)));
+
+            calcState.elarea = area;
+            calcState.distance = dist;
+            calcState.height = height;
+            calcState.turbines = turbines;
+            calcState.estimate = final;
+            calcState.promille = promille;
+
             document.getElementById('limit-val').innerText = limit;
-            document.getElementById('limit-dist').innerText = limit + ' meter';
-            
-            const maxMap = {
-                'SE4': 38400,
-                'SE3': 32200,
-                'SE2': 24500,
-                'SE1': 19400
-            };
-            
-            document.getElementById('max-area').innerText = maxMap[area].toLocaleString() + ' kr/år';
-            
+            document.getElementById('limit-dist').innerText = limit.toLocaleString('sv-SE') + ' meter';
+            document.getElementById('max-area').innerText = base.toLocaleString('sv-SE') + ' kr/år';
+            document.getElementById('ratio-display').innerText = ratio.toFixed(1).replace('.', ',') + '×';
+            document.getElementById('result-promille').innerText = promille.toFixed(1).replace('.', ',');
+
             const resultsDiv = document.getElementById('results');
             const resultVal = document.getElementById('result-value');
             const disclaimer = document.getElementById('disclaimer');
-            
+            const reportCard = document.getElementById('report-card');
+
             resultsDiv.classList.remove('hidden');
-            
+
             if (dist > limit) {
                 resultVal.innerText = '0 kr/år';
                 disclaimer.classList.remove('hidden');
+                // Still show the report card — they may want general guidance.
             } else {
                 disclaimer.classList.add('hidden');
-                // Simple heuristic for simulation: closer = more of the max, but floor at 25% of max if inside
-                // In reality it's based on share of intäkt, but here we simulate an estimate
-                let base = maxMap[area];
-                // Scale base compensation by number of turbines, assuming maxMap is for a 10-turbine park
-                let scaledBase = base * (turbines / 10);
-                let factor = 1 - (dist / limit) * 0.5; // Max 1.0 at 0m, 0.5 at limit
-                let final = Math.round(scaledBase * factor);
-                resultVal.innerText = final.toLocaleString() + ' kr/år';
+                resultVal.innerText = final.toLocaleString('sv-SE') + ' kr/år';
             }
+
+            reportCard.classList.remove('hidden');
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        async function submitLead(inputId) {
-            const emailInput = document.getElementById(inputId);
-            const email = emailInput.value;
-            
+        // -----------------------------------------------------------------
+        // Lead capture — enriched report funnel
+        // -----------------------------------------------------------------
+
+        async function submitReport(ev) {
+            ev.preventDefault();
+            const email = document.getElementById('rep-email').value.trim();
+            const name = document.getElementById('rep-name').value.trim();
+            const municipality = document.getElementById('rep-municipality').value.trim();
+            const address = document.getElementById('rep-address').value.trim();
+
             if (!email || !email.includes('@')) {
                 alert('Vänligen ange en giltig e-postadress.');
                 return;
             }
 
             try {
+                const response = await fetch('/api/lead/report', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: email,
+                        name: name || null,
+                        municipality: municipality || null,
+                        property_address: address || null,
+                        elarea: calcState.elarea,
+                        distance_m: Math.round(calcState.distance) || null,
+                        turbine_height_m: Math.round(calcState.height) || null,
+                        turbine_count: calcState.turbines || null,
+                        estimated_compensation_sek: calcState.estimate,
+                        promille: calcState.promille,
+                        source: 'kalkylator_report'
+                    })
+                });
+
+                if (response.ok) {
+                    document.getElementById('report-form').classList.add('hidden');
+                    document.getElementById('report-success-name').innerText = name ? (name + '!') : '!';
+                    document.getElementById('report-success').classList.remove('hidden');
+                } else {
+                    alert('Något gick fel. Försök igen senare.');
+                }
+            } catch (err) {
+                console.error('Report submit failed', err);
+                alert('Kunde inte ansluta till servern.');
+            }
+        }
+
+        // -----------------------------------------------------------------
+        // Newsletter signup (footer)
+        // -----------------------------------------------------------------
+
+        async function submitNewsletter() {
+            const email = document.getElementById('news-email').value.trim();
+            if (!email || !email.includes('@')) {
+                alert('Vänligen ange en giltig e-postadress.');
+                return;
+            }
+            try {
                 const response = await fetch('/api/lead', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        email: email,
-                        municipality: 'Kalkylator-användare' 
-                    })
+                    body: JSON.stringify({ email: email, source: 'kalkylator_newsletter' })
                 });
-                
                 if (response.ok) {
-                    document.getElementById('footer-form').classList.add('hidden');
-                    document.getElementById('success-msg').classList.remove('hidden');
+                    document.getElementById('news-form').classList.add('hidden');
+                    document.getElementById('news-success').classList.remove('hidden');
                 }
             } catch (err) {
-                console.error('Error submitting lead:', err);
+                console.error('Newsletter submit failed', err);
             }
         }
     </script>

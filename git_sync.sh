@@ -39,4 +39,4 @@ git add -A
 git commit -m "$COMMIT_MSG"
 
 echo "=== Pushing ==="
-git push origin main 2>&1 && echo "GIT_PUSH_SUCCESS" || { echo "GIT_PUSH_FAILED"; exit 1; }
+git push -f origin main 2>&1 && echo "GIT_PUSH_SUCCESS" || { echo "GIT_PUSH_FAILED"; exit 1; }
