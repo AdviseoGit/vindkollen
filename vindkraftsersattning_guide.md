@@ -72,3 +72,4 @@ Att förstå dina rättigheter och de aktuella ersättningsnivåerna är avgöra
 ## Fördjupning
 
 *   [Vindkraft och Fastighetsvärde: En Djupdykning i Myter och Verklighet](/articles/fastighetsvarde-och-vindkraft)
+*   [Bygdepeng 2026: Allt om den lokala ersättningen från vindkraft](/bygdepeng-guide-2026.md)
