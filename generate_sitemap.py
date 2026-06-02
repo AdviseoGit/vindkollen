@@ -38,19 +38,7 @@ def generate_sitemap() -> None:
     </url>"""
         )
 
-    if os.path.isdir(CONTENT_DIR):
-        for filename in sorted(os.listdir(CONTENT_DIR)):
-            if filename.endswith(".md"):
-                slug = os.path.splitext(filename)[0].replace("_", "-")
-                urls.append(
-                    f"""
-    <url>
-        <loc>{BASE_URL}/{slug}</loc>
-        <lastmod>{today}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>"""
-                )
+    # (content/*.md auto-include removed: those slugs are not served)
 
     sitemap_content = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
