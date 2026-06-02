@@ -208,6 +208,11 @@ async def nackdelar_med_vindkraft():
     return _serve_static_html("static/nackdelar-med-vindkraft.html")
 
 
+@app.get("/blog/fordelar-och-nackdelar-med-vindkraft", response_class=HTMLResponse)
+async def fordelar_och_nackdelar_med_vindkraft():
+    return _serve_static_html("content/blog/fordelar-och-nackdelar-med-vindkraft.html")
+
+
 # Backwards-compatible aliases — some external sites and the old sitemap still
 # link to the .html variants. Redirecting/serving keeps them out of the 404 logs
 # and preserves any earned SEO equity.

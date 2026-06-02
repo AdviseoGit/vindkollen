@@ -1,26 +1,31 @@
 Top queries related to 'vindkraft':
-                          query  value
-              vindkraft sverige    100
-            vindkraft i sverige     67
-                  vindkraftverk     65
-               vad är vindkraft     37
-         fördelar med vindkraft     32
-             vindkraft fördelar     23
-         hur fungerar vindkraft     22
-            vindkraft nackdelar     20
-        nackdelar med vindkraft     19
-                vindkraft hemma     17
-för och nackdelar med vindkraft     14
-             fakta om vindkraft     13
-           markbygden vindkraft     12
+                               query  value
+                 vindkraft i sverige    100
+                       vindkraftverk     80
+                 vindkraft nackdelar     71
+                  vindkraft fördelar     40
+                  vindkraft på åland     31
+              fördelar med vindkraft     30
+              hur fungerar vindkraft     29
+                     vindkraft hemma     26
+             nackdelar med vindkraft     23
+               havsbaserad vindkraft     21
+fördelar och nackdelar med vindkraft     19
+                storlandet vindkraft     17
+     för och nackdelar med vindkraft     13
+              vindkraftstekniker lön     10
+                   motvind vindkraft      6
+                  fakta om vindkraft      4
 
 Rising queries related to 'vindkraft':
-                          query  value
-        nackdelar med vindkraft 194400
-             fakta om vindkraft 132500
-           markbygden vindkraft 121100
-         hur fungerar vindkraft    250
-         fördelar med vindkraft    190
-för och nackdelar med vindkraft    110
-            vindkraft i sverige    100
-              vindkraft sverige     60
+                               query  value
+                  vindkraft på åland 214600
+fördelar och nackdelar med vindkraft 133900
+              vindkraftstekniker lön  67050
+                   motvind vindkraft  43650
+                  fakta om vindkraft  26900
+                 vindkraft nackdelar    110
+     för och nackdelar med vindkraft     90
+                     vindkraft hemma     60
+                  vindkraft fördelar     60
+              hur fungerar vindkraft     50
