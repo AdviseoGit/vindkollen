@@ -18,6 +18,11 @@ SITEMAP_PATH = "sitemap.xml"
 STATIC_PAGES = [
     ("/", "1.0", "weekly"),
     ("/kalkylator", "0.9", "weekly"),
+    ("/guider/guide-ersattning-vindkraft", "0.7", "monthly"),
+    ("/sa-far-du-vindkraft-pa-din-mark", "0.7", "monthly"),
+    ("/fordelar-med-vindkraft", "0.7", "monthly"),
+    ("/arrendeavtal-vindkraft", "0.7", "monthly"),
+    ("/nackdelar-med-vindkraft", "0.8", "monthly"),
     ("/ersattning-for-vindkraft", "0.8", "monthly"),
     ("/guider/nackdelar-med-vindkraft", "0.8", "monthly"),
 ]
