@@ -1,31 +1,27 @@
 Top queries related to 'vindkraft':
                                query  value
                  vindkraft i sverige    100
-                       vindkraftverk     80
-                 vindkraft nackdelar     71
-                  vindkraft fördelar     40
-                  vindkraft på åland     31
-              fördelar med vindkraft     30
-              hur fungerar vindkraft     29
-                     vindkraft hemma     26
-             nackdelar med vindkraft     23
-               havsbaserad vindkraft     21
-fördelar och nackdelar med vindkraft     19
-                storlandet vindkraft     17
-     för och nackdelar med vindkraft     13
-              vindkraftstekniker lön     10
-                   motvind vindkraft      6
-                  fakta om vindkraft      4
+                       vindkraftverk     83
+                 nackdelar vindkraft     65
+                    vad är vindkraft     52
+                vattenfall vindkraft     47
+             nackdelar med vindkraft     34
+                   motvind vindkraft     34
+              fördelar med vindkraft     32
+               havsbaserad vindkraft     23
+              hur fungerar vindkraft     21
+                markbygden vindkraft     20
+fördelar och nackdelar med vindkraft     20
+                  vindkraft fördelar     19
+     för och nackdelar med vindkraft      3
 
 Rising queries related to 'vindkraft':
                                query  value
-                  vindkraft på åland 214600
-fördelar och nackdelar med vindkraft 133900
-              vindkraftstekniker lön  67050
-                   motvind vindkraft  43650
-                  fakta om vindkraft  26900
-                 vindkraft nackdelar    110
-     för och nackdelar med vindkraft     90
-                     vindkraft hemma     60
-                  vindkraft fördelar     60
-              hur fungerar vindkraft     50
+fördelar och nackdelar med vindkraft 116450
+     för och nackdelar med vindkraft  14750
+                vattenfall vindkraft    160
+                markbygden vindkraft    100
+             nackdelar med vindkraft     80
+                   motvind vindkraft     60
+                 nackdelar vindkraft     50
+              fördelar med vindkraft     50

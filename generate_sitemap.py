@@ -26,6 +26,7 @@ STATIC_PAGES = [
     ("/ersattning-for-vindkraft", "0.8", "monthly"),
     ("/guider/nackdelar-med-vindkraft", "0.8", "monthly"),
     ("/guider/guide-ersattning-vindkraft", "0.9", "weekly"),
+    ("/guider/bygga-vindkraftverk-steg-for-steg", "0.8", "monthly"),
 ]
 
 
