@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 from typing import Optional
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, BackgroundTasks
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, EmailStr, Field
@@ -127,6 +127,45 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Vindkollen", lifespan=lifespan)
+
+import mailer
+import report as vk_report
+
+
+def _deliver_report(data: dict):
+    pdf = None
+    try:
+        pdf = vk_report.build_report_pdf(data)
+    except Exception as e:
+        print(f"[report] PDF build failed: {e}")
+    atts = [("Vindkollen-marknadsrapport.pdf", pdf, "application/pdf")] if pdf else None
+    mailer.send_email(
+        data["email"],
+        "Din vindkraftsrapport fran Vindkollen",
+        vk_report.build_user_email_html(data),
+        attachments=atts,
+    )
+    mailer.notify_owner(
+        "Ny lead - Vindkollen (rapport)",
+        vk_report.build_owner_email_html(data),
+        reply_to=data.get("email"),
+    )
+
+
+def _deliver_newsletter(email: str, source: str):
+    html = (
+        '<div style="font-family:Segoe UI,Arial,sans-serif;max-width:520px;color:#1e293b">'
+        '<h2 style="color:#105e4e">Valkommen till Vindkollen</h2>'
+        '<p>Tack for att du prenumererar. Vi bevakar lagen om intaktsdelning dagligen '
+        'och hor av oss sa fort nagot viktigt hander for dig som markagare eller narboende.</p>'
+        '<p>Testa garna var <a href="https://vindkoll.se/kalkylator.html" style="color:#105e4e">'
+        'ersattningskalkylator</a> for en personlig uppskattning.</p>'
+        '<p>Vanliga halsningar,<br><b>Vindkollen</b></p></div>'
+    )
+    mailer.send_email(email, "Valkommen till Vindkollen", html)
+    mailer.notify_owner("Ny prenumerant - Vindkollen",
+                        f"<p>Ny lead: <b>{email}</b> (kalla: {source})</p>", reply_to=email)
+
 
 
 # ---------------------------------------------------------------------------
@@ -261,7 +300,7 @@ def _normalise_email(email: str) -> str:
 
 
 @app.post("/api/lead")
-async def capture_lead(lead: LeadIn):
+async def capture_lead(lead: LeadIn, background: BackgroundTasks):
     """Persist a newsletter signup. Idempotent on email."""
     if not async_session:
         # Without a database we cannot persist; still return ok so the UI
@@ -288,11 +327,12 @@ async def capture_lead(lead: LeadIn):
         )
         await session.execute(stmt)
         await session.commit()
+    background.add_task(_deliver_newsletter, email, lead.source or "newsletter")
     return {"status": "ok", "persisted": True}
 
 
 @app.post("/api/lead/report")
-async def capture_lead_report(lead: LeadReportIn):
+async def capture_lead_report(lead: LeadReportIn, background: BackgroundTasks):
     """Persist an enriched lead from the kalkylator-driven report funnel."""
     if not async_session:
         return JSONResponse({"status": "ok", "persisted": False})
@@ -323,7 +363,8 @@ async def capture_lead_report(lead: LeadReportIn):
         await session.execute(stmt)
         await session.commit()
 
-    return {"status": "ok", "persisted": True}
+    background.add_task(_deliver_report, dict(payload))
+    return {"status": "ok", "persisted": True, "report": "queued"}
 
 
 @app.get("/api/stats/leads")
