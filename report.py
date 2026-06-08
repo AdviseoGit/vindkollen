@@ -13,6 +13,15 @@ INK = (30, 41, 59)
 MUTED = (100, 116, 139)
 
 
+def _s(t):
+    """Make text safe for fpdf2 core (latin-1) fonts."""
+    t = str(t)
+    for a, b in [("—", "-"), ("–", "-"), ("’", "'"), ("‘", "'"),
+                 ("“", '"'), ("”", '"'), ("…", "..."), (" ", " ")]:
+        t = t.replace(a, b)
+    return t.encode("latin-1", "replace").decode("latin-1")
+
+
 def _sek(v):
     try:
         return f"{int(round(float(v))):,}".replace(",", " ") + " kr"
@@ -43,7 +52,7 @@ def build_report_pdf(d: dict) -> bytes:
     pdf.set_xy(14, 9)
     pdf.set_text_color(255, 255, 255)
     pdf.set_font("Helvetica", "B", 18)
-    pdf.cell(0, 10, "Vindkollen — Marknadsrapport", ln=1)
+    pdf.cell(0, 10, "Vindkollen - Marknadsrapport", ln=1)
     pdf.set_xy(14, 19)
     pdf.set_font("Helvetica", "", 10)
     pdf.cell(0, 6, "Preliminar ersattning for narboende & markagare", ln=1)
@@ -52,7 +61,7 @@ def build_report_pdf(d: dict) -> bytes:
     pdf.set_xy(14, 40)
     pdf.set_font("Helvetica", "", 10)
     pdf.set_text_color(*MUTED)
-    name = d.get("name") or "markagare"
+    name = _s(d.get("name") or "markagare")
     pdf.multi_cell(182, 5, f"Hej {name}! Har ar din personliga uppskattning, baserad pa "
                            f"uppgifterna du angav i kalkylatorn och regeringens trappstegsmodell. "
                            f"Skapad {datetime.utcnow().strftime('%Y-%m-%d')}.")
@@ -85,7 +94,7 @@ def build_report_pdf(d: dict) -> bytes:
         pdf.set_text_color(*MUTED)
         pdf.cell(60, 7, k, border=0)
         pdf.set_text_color(*INK)
-        pdf.cell(0, 7, str(v), ln=1)
+        pdf.cell(0, 7, _s(v), ln=1)
     pdf.ln(4)
 
     # Explanation
