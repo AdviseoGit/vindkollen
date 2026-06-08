@@ -1,5 +1,5 @@
 import markdown2
-import os
+import argparse
 
 def convert_md_to_html(md_path, html_path):
     with open(md_path, "r", encoding="utf-8") as f:
@@ -12,9 +12,12 @@ def convert_md_to_html(md_path, html_path):
     print(f"Converted {md_path} to {html_path}")
 
 def main():
-    md_file = "projects/vindkollen/content/blog/fordelar-och-nackdelar-med-vindkraft.md"
-    html_file = "projects/vindkollen/content/blog/fordelar-och-nackdelar-med-vindkraft.html"
-    convert_md_to_html(md_file, html_file)
+    parser = argparse.ArgumentParser(description='Convert Markdown to HTML.')
+    parser.add_argument('md_path', help='Path to the input Markdown file.')
+    parser.add_argument('html_path', help='Path to the output HTML file.')
+    args = parser.parse_args()
+    
+    convert_md_to_html(args.md_path, args.html_path)
 
 if __name__ == "__main__":
     main()
