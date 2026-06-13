@@ -101,18 +101,71 @@
 </head>
 <body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden">
 <!-- Navigation -->
-<nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-10">
-<a class="text-2xl font-extrabold tracking-tight text-white" href="/index.html">
+<nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/">
 <span class="text-blue-500">Vind</span>kollen
         </a>
+<!-- Desktop Menu -->
 <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400 items-center">
-<a class="text-blue-400 hover:text-blue-300 font-bold transition" href="/kalkylator.html">Kalkylator</a>
-<a class="hover:text-white transition" href="/ersattning-for-vindkraft.html">Markägare</a>
-<a class="hover:text-white transition" href="/nackdelar-med-vindkraft.html">Guider</a>
+<a class="text-blue-400 hover:text-blue-300 font-bold transition" href="/kalkylator">Kalkylator</a>
+<a class="hover:text-white transition" href="/static/ersattning-for-vindkraft.html">Markägare</a>
+<a class="hover:text-white transition" href="/static/nackdelar-med-vindkraft.html">Guider</a>
 <a class="hover:text-white transition" href="#benefits">Om oss</a>
 <a class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition" href="#contact">Prenumerera</a>
 </div>
+<!-- Mobile Menu Button -->
+<button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Meny">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+</svg>
+</button>
 </nav>
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-40 hidden">
+<div class="flex flex-col h-full">
+<div class="flex justify-between items-center p-6">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+<span class="text-blue-500">Vind</span>kollen
+            </a>
+<button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+</svg>
+</button>
+</div>
+<div class="flex flex-col gap-2 px-6 py-8">
+<a class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/static/ersattning-for-vindkraft.html">Markägare</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/static/nackdelar-med-vindkraft.html">Guider</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="#benefits">Om oss</a>
+<a class="mt-4 text-center bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-bold transition" href="#contact">Prenumerera</a>
+</div>
+</div>
+</div>
+<script>
+// Mobile menu toggle
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuClose = document.getElementById('mobile-menu-close');
+
+mobileMenuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+});
+
+mobileMenuClose?.addEventListener('click', () => {
+    mobileMenu?.classList.add('hidden');
+    document.body.style.overflow = '';
+});
+
+// Close on link click
+mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileMenu?.classList.add('hidden');
+        document.body.style.overflow = '';
+    });
+});
+</script>
 <!-- Hero Section -->
 <header class="relative pt-20 pb-32 overflow-hidden hero-gradient">
 <div class="absolute -right-20 top-0 opacity-10 pointer-events-none">
@@ -131,7 +184,7 @@
                 </p>
 <!-- Primary CTA: drive to the calculator instead of catching a cold email. -->
 <div class="flex flex-col md:flex-row gap-4 max-w-xl">
-<a class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition shadow-lg whitespace-nowrap" href="/kalkylator.html">
+<a class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition shadow-lg whitespace-nowrap" href="/kalkylator">
                         Beräkna din ersättning →
                     </a>
 <a class="inline-flex items-center justify-center bg-slate-900/60 hover:bg-slate-800 text-slate-200 border border-slate-700 px-8 py-4 rounded-xl font-semibold transition" href="#newsletter">
@@ -158,19 +211,19 @@
 <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">För markägare</span>
 <h3 class="text-xl font-semibold text-white mt-3 mb-2">Hur Beräknas Ersättning?</h3>
 <p class="text-slate-400 mb-4">En genomgång av de vanligaste ersättningsmodellerna (fast, royalty, hybrid) och faktorerna som påverkar din inkomst.</p>
-<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/ersattning-for-vindkraft.html">Läs guiden →</a>
+<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/ersattning-for-vindkraft">Läs guiden →</a>
 </div>
 <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
 <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Verktyg</span>
 <h3 class="text-xl font-semibold text-white mt-3 mb-2">Ersättningskalkylator</h3>
 <p class="text-slate-400 mb-4">Räkna ut din skattefria ersättning som närboende – enligt regeringens trappstegsmodell (2,5–0,5 promille).</p>
-<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/kalkylator.html">Beräkna nu →</a>
+<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/kalkylator">Beräkna nu →</a>
 </div>
 <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
 <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Ärlig granskning</span>
 <h3 class="text-xl font-semibold text-white mt-3 mb-2">Nackdelar med vindkraft</h3>
 <p class="text-slate-400 mb-4">Buller, skuggor, fågelliv och ekonomi: en faktagranskad genomgång av de verkliga utmaningarna.</p>
-<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/nackdelar-med-vindkraft.html">Läs mer →</a>
+<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/guider/nackdelar-med-vindkraft">Läs mer →</a>
 </div>
 <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
 <span class="text-xs font-bold text-yellow-400 uppercase tracking-widest">Djupgående Guide</span>
@@ -239,10 +292,10 @@
 <div class="mt-20 text-slate-600 text-sm border-t border-slate-900 pt-8 space-y-2">
 <div>© 2026 Vindkollen. En del av Adviseo Digital Consulting.</div>
 <div class="flex justify-center gap-4 text-slate-500">
-<a class="hover:text-slate-300" href="/index.html">Hem</a>
-<a class="hover:text-slate-300" href="/kalkylator.html">Kalkylator</a>
-<a class="hover:text-slate-300" href="/ersattning-for-vindkraft.html">Markägarguide</a>
-<a class="hover:text-slate-300" href="/nackdelar-med-vindkraft.html">Nackdelar med vindkraft</a>
+<a class="hover:text-slate-300" href="/">Hem</a>
+<a class="hover:text-slate-300" href="/kalkylator">Kalkylator</a>
+<a class="hover:text-slate-300" href="/ersattning-for-vindkraft">Markägarguide</a>
+<a class="hover:text-slate-300" href="/guider/nackdelar-med-vindkraft">Nackdelar med vindkraft</a>
 <a class="hover:text-slate-300" href="/articles/vad-ar-vindkolik.html">Vad är "Vindkolik"?</a>
 </div>
 </div>
