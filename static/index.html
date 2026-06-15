@@ -280,34 +280,45 @@ mobileMenu?.querySelectorAll('a').forEach(link => {
 </div>
 </section>
 <!-- Footer / Bottom Lead -->
-<footer class="py-24 bg-[#010409]" id="contact">
-<div class="max-w-3xl mx-auto px-6 text-center" id="newsletter">
-<h2 class="text-3xl font-bold mb-6">Vill du veta potentialen för din mark?</h2>
-<p class="text-slate-400 mb-12">Lämna din e-post så får du vår rapport <em>“Svensk Vindkraft 2026 – En guide för markägare och närboende”</em> samt vårt veckobrev med marknadsanalys.</p>
-<div class="space-y-4" id="footer-form">
-<div class="grid sm:grid-cols-2 gap-3">
-<input class="bg-slate-900 border border-slate-800 px-6 py-4 rounded-xl outline-none focus:border-blue-500 text-white" id="footer-name" placeholder="Namn (valfritt)" type="text"/>
-<input class="bg-slate-900 border border-slate-800 px-6 py-4 rounded-xl outline-none focus:border-blue-500 text-white" id="footer-municipality" placeholder="Kommun (valfritt)" type="text"/>
-</div>
-<input class="w-full bg-slate-900 border border-slate-800 px-6 py-4 rounded-xl outline-none focus:border-blue-500 text-white text-center" id="footer-email" placeholder="Din e-postadress" required="" type="email"/>
-<button class="w-full bg-slate-100 hover:bg-white text-black px-8 py-4 rounded-xl font-bold transition" onclick="submitLead('footer')">Skicka rapporten</button>
-<p class="text-xs text-slate-500 italic">Vi delar aldrig din data med kraftbolag utan ditt godkännande. Du kan avsluta prenumerationen när som helst.</p>
-</div>
-<div class="hidden bg-emerald-500/10 border border-emerald-500/20 p-6 rounded-2xl text-emerald-400" id="success-msg">
-                Tack! Din rapport är på väg och du är nu prenumerant på vårt veckobrev.
-            </div>
-<div class="mt-20 text-slate-600 text-sm border-t border-slate-900 pt-8 space-y-2">
-<div>© 2026 Vindkollen. En del av Adviseo Digital Consulting.</div>
-<div class="flex justify-center gap-4 text-slate-500">
-<a class="hover:text-slate-300" href="/">Hem</a>
-<a class="hover:text-slate-300" href="/kalkylator">Kalkylator</a>
-<a class="hover:text-slate-300" href="/ersattning-for-vindkraft">Markägarguide</a>
-<a class="hover:text-slate-300" href="/guider/nackdelar-med-vindkraft">Nackdelar med vindkraft</a>
-<a class="hover:text-slate-300" href="/articles/vad-ar-vindkolik.html">Vad är "Vindkolik"?</a>
-</div>
-</div>
-</div>
+
+<!-- Footer -->
+<footer class="border-t border-slate-800 bg-[#030712] py-12 mt-20">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8">
+        <div>
+            <a class="text-2xl font-extrabold tracking-tight text-white mb-4 block" href="/">
+                <span class="text-blue-500">Vind</span>kollen
+            </a>
+            <p class="text-slate-400 text-sm">
+                Oberoende information om vindkraftsersättning, arrende och påverkan för markägare och närboende.
+            </p>
+        </div>
+        <div>
+            <h4 class="text-white font-bold mb-4">Verktyg</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+                <li><a class="hover:text-blue-400 transition" href="/kalkylator">Ersättningskalkylator</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-white font-bold mb-4">Guider</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+                <li><a class="hover:text-blue-400 transition" href="/static/ersattning-for-vindkraft.html">Ersättning för markägare</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/static/arrendeavtal-vindkraft.html">Arrendeavtal vindkraft</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/static/paverkar-vindkraft-fastighetsvarde.html">Påverkan på fastighetsvärde</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/static/nackdelar-med-vindkraft.html">Nackdelar med vindkraft</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-white font-bold mb-4">Om oss</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+                <li><a class="hover:text-blue-400 transition" href="mailto:hej@vindkoll.se">Kontakt</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-slate-800 text-sm text-slate-500 text-center">
+        &copy; 2026 Vindkollen.se. All information i våra kalkyler och guider är uppskattningar baserade på tillgänglig branschdata.
+    </div>
 </footer>
+
 <script>
         async function submitLead(scope) {
             const email = document.getElementById(scope + '-email').value.trim();
