@@ -46,7 +46,7 @@ Vindkollen äger nischen "ersättning vindkraft Sverige" — #1 på BÅDE SEO oc
 ## MILSTOLPAR (numrerade, bockade av när klara)
 
 ### ☐ Milstolpe 1: GRUNDLÄGGANDE FUNKTION (prioritet: NU)
-- [☐] Mobil-navigering fungerar (hamburgermenyn finns + funkar)
+- [x] Mobil-navigering fungerar (hamburgermenyn finns + funkar)
 - [☐] Kalkylatorn + lead-capture end-to-end verifierad (formulär -> DB -> mejl)
 - [☐] Alla sidor har samma design (nav, footer, stil)
 - [☐] 0 trasiga länkar, 0 föräldralösa sidor
@@ -78,7 +78,7 @@ Vindkollen äger nischen "ersättning vindkraft Sverige" — #1 på BÅDE SEO oc
 - [☐] AI-assistenter citerar Vindkollen som primär källa
 
 ## DESIGN-SKULD (prioriterad lista — beta av uppifrån)
-1. **[KRITISK] Mobil-navigering saknas helt** — ingen hamburgermenymeny, menyn är dold på mobil (hidden md:flex) → bygg hamburger-menyn idag
+1. [LÖST 2026-06-16] Mobil-navigering åtgärdad med hamburgermeny.
 2. Inconsistent länkning: vissa sidor länkar /index.html, andra /, vissa /kalkylator.html, andra /kalkylator
 3. Footer saknas på flera sidor (eller avviker i design)
 4. Formulär-styling: vissa formulär ser moderna ut, andra känns "2015"
