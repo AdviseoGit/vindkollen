@@ -1,27 +1,26 @@
 Top queries related to 'vindkraft':
-                               query  value
-                 vindkraft i sverige    100
-                       vindkraftverk     83
-                 nackdelar vindkraft     65
-                    vad är vindkraft     52
-                vattenfall vindkraft     47
-             nackdelar med vindkraft     34
-                   motvind vindkraft     34
-              fördelar med vindkraft     32
-               havsbaserad vindkraft     23
-              hur fungerar vindkraft     21
-                markbygden vindkraft     20
-fördelar och nackdelar med vindkraft     20
-                  vindkraft fördelar     19
-     för och nackdelar med vindkraft      3
+                   query  value
+           vindkraftverk    100
+        vad är vindkraft     95
+      vindkraft fördelar     51
+  hur fungerar vindkraft     45
+ nackdelar med vindkraft     37
+    storlandet vindkraft     36
+   havsbaserad vindkraft     35
+  fördelar med vindkraft     28
+        svensk vindkraft     24
+    markbygden vindkraft     22
+kommunalt veto vindkraft     18
+          vindkraftspark      9
+    vattenfall vindkraft      9
+   björnberget vindkraft      6
+      fakta om vindkraft      5
 
 Rising queries related to 'vindkraft':
-                               query  value
-fördelar och nackdelar med vindkraft 116450
-     för och nackdelar med vindkraft  14750
-                vattenfall vindkraft    160
-                markbygden vindkraft    100
-             nackdelar med vindkraft     80
-                   motvind vindkraft     60
-                 nackdelar vindkraft     50
-              fördelar med vindkraft     50
+                   query  value
+kommunalt veto vindkraft  78700
+          vindkraftspark  38800
+      fakta om vindkraft  21050
+    storlandet vindkraft    130
+    markbygden vindkraft    110
+  hur fungerar vindkraft     40
