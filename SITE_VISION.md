@@ -79,7 +79,7 @@ Vindkollen äger nischen "ersättning vindkraft Sverige" — #1 på BÅDE SEO oc
 
 ## DESIGN-SKULD (prioriterad lista — beta av uppifrån)
 1. [LÖST 2026-06-16] Mobil-navigering åtgärdad med hamburgermeny.
-2. Inconsistent länkning: vissa sidor länkar /index.html, andra /, vissa /kalkylator.html, andra /kalkylator
+2. [LÖST 2026-06-17] Inconsistent länkning åtgärdad - 404-sidor borttagna och omdirigerade
 3. Footer saknas på flera sidor (eller avviker i design)
 4. Formulär-styling: vissa formulär ser moderna ut, andra känns "2015"
 5. CTA-överbelastning på vissa sidor (flera konkurrerande knappar)
