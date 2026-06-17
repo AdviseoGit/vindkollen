@@ -2,16 +2,21 @@ Checking links in: projects/vindkollen/static/kalkylator.html (URL: https://vind
   No broken links found.
 --------------------
 Checking links in: projects/vindkollen/static/arrendeavtal-vindkraft.html (URL: https://vindkoll.se/arrendeavtal-vindkraft.html)
-  Broken links found:
-    - https://vindkoll.se/ersattningskalkylator.html (Status: 404)
+  No broken links found.
 --------------------
 Checking links in: projects/vindkollen/static/ersattning-for-vindkraft.html (URL: https://vindkoll.se/ersattning-for-vindkraft.html)
+  No broken links found.
+--------------------
+Checking links in: projects/vindkollen/static/skatt-vindkraftersattning.html (URL: https://vindkoll.se/skatt-vindkraftersattning.html)
   No broken links found.
 --------------------
 Checking links in: projects/vindkollen/static/nackdelar-med-vindkraft.html (URL: https://vindkoll.se/nackdelar-med-vindkraft.html)
   No broken links found.
 --------------------
 Checking links in: projects/vindkollen/static/index.html (URL: https://vindkoll.se/index.html)
+  No broken links found.
+--------------------
+Checking links in: projects/vindkollen/static/paverkar-vindkraft-fastighetsvarde.html (URL: https://vindkoll.se/paverkar-vindkraft-fastighetsvarde.html)
   No broken links found.
 --------------------
 Checking links in: projects/vindkollen/static/sa-far-du-vindkraft-pa-din-mark.html (URL: https://vindkoll.se/sa-far-du-vindkraft-pa-din-mark.html)
@@ -21,12 +26,17 @@ Checking links in: projects/vindkollen/static/fordelar-med-vindkraft.html (URL: 
   No broken links found.
 --------------------
 Checking links in: projects/vindkollen/static/guider/guide-ersattning-vindkraft.html (URL: https://vindkoll.se/guider/guide-ersattning-vindkraft.html)
-  Broken links found:
-    - https://vindkoll.se/articles/fastighetsvarde-och-vindkraft (Status: 404)
-    - https://vindkoll.se/bygdepeng-guide-2026.md (Status: 404)
+  No broken links found.
+--------------------
+Checking links in: projects/vindkollen/static/guider/bygga-vindkraftverk-steg-for-steg.html (URL: https://vindkoll.se/guider/bygga-vindkraftverk-steg-for-steg.html)
+  No broken links found.
+--------------------
+Checking links in: projects/vindkollen/static/guider/bygdepeng-guide-2026.html (URL: https://vindkoll.se/guider/bygdepeng-guide-2026.html)
+  No broken links found.
+--------------------
+Checking links in: projects/vindkollen/static/articles/vad-ar-vindkolik.html (URL: https://vindkoll.se/articles/vad-ar-vindkolik.html)
+  No broken links found.
 --------------------
 Checking links in: projects/vindkollen/static/articles/vindenergi-kalkylator-roi-sverige.html (URL: https://vindkoll.se/articles/vindenergi-kalkylator-roi-sverige.html)
-  Broken links found:
-    - https://vindkoll.se/ersattningskalkylatorn.html (Status: 404)
-    - https://vindkoll.se/ersattningskalkylatorn.html (Status: 404)
+  No broken links found.
 --------------------

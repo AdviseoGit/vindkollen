@@ -252,9 +252,9 @@ async def bygga_vindkraftverk_steg_for_steg():
     return _serve_static_html("static/guider/bygga-vindkraftverk-steg-for-steg.html")
 
 
-@app.get("/guider/den-ultimata-guiden-till-ersattning-for-vindkraft", response_class=HTMLResponse)
-async def den_ultimata_guiden_till_ersattning_for_vindkraft():
-    return _serve_static_html("static/guider/den-ultimata-guiden-till-ersattning-for-vindkraft.html")
+@app.get("/guider/guide-ersattning-vindkraft", response_class=HTMLResponse)
+async def guide_ersattning_vindkraft():
+    return _serve_static_html("static/guider/guide-ersattning-vindkraft.html")
 
 
 
