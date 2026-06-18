@@ -1,0 +1,13 @@
+2026-06-18 | TILLVÄXT/VERKTYG | Byggde kommun-dashboard (nytt verktyg) + fixade URLer | Bygger data-moat & leads för kommuner | nästa: Optimera SEO för guiderna
+2026-06-17 Update SITE_VISION.md with resolved design debt
+2026-06-17 Fix broken links and duplicate routes (den-ultimata-guiden)
+2026-06-16 Update SITE_VISION.md: Mark mobil-navigering as resolved
+2026-06-16 Fix: Add responsive mobile hamburger menu to all pages
+2026-06-16 git pull only
+2026-06-15 Fix design debt: Unify responsive navigation (hamburger menu) and footer across all pages
+2026-06-15 feat: ny artikel om fastighetsvärde och vindkraft (2026-06-15)
+2026-06-15 feat: ny artikel om skatt på vindkraftsersättning (2026-06-15)
+2026-06-13 Kritisk mobilfix: hamburgermenysystem + konsekventa länkar
+2026-06-11 fix: pin Python 3.12 (Railpack/mise cannot install 3.13.14 - no precompiled binary, broke builds)
+2026-06-09 feat: add ultimate guide to compensation
+2026-06-09 feat: add ultimate guide to compensation

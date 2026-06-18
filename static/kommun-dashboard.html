@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2ZDTQZXPRC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2ZDTQZXPRC');
+</script>
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vindkraft i din kommun – Arrenden, ersättningar och intäkter 2026 | Vindkollen</title>
+<meta content="Ett verktyg för kommuner och medborgare för att förstå ekonomin bakom vindkraft. Jämför snittersättningar och potentiella kommunala intäkter (bygdepeng/fastighetsskatt) i din region 2026." name="description"/>
+<link href="https://vindkoll.se/kommun-dashboard" rel="canonical"/>
+<meta content="index, follow, max-image-preview:large" name="robots"/>
+<meta content="#030712" name="theme-color"/>
+<link href="/static/favicon.svg" rel="icon" type="image/svg+xml"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+</style>
+</head>
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden">
+<!-- Navigation -->
+<nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50">
+    <a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+        <span class="text-blue-500">Vind</span>kollen
+    </a>
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400 items-center">
+        <a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+        <a class="hover:text-white transition" href="/ersattning-for-vindkraft">Markägare</a>
+        <a class="hover:text-white transition" href="/guider/nackdelar-med-vindkraft">Guider</a>
+        <a class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition" href="#newsletter">Prenumerera</a>
+    </div>
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Meny">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-40 hidden">
+    <div class="flex flex-col h-full">
+        <div class="flex justify-between items-center p-6">
+            <a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+                <span class="text-blue-500">Vind</span>kollen
+            </a>
+            <button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="flex flex-col gap-2 px-6 py-8">
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/ersattning-for-vindkraft">Markägare</a>
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/guider/nackdelar-med-vindkraft">Guider</a>
+            <a class="mt-4 text-center bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-bold transition" href="#newsletter">Prenumerera</a>
+        </div>
+    </div>
+</div>
+
+<main class="max-w-4xl mx-auto px-6 py-12">
+    <div class="mb-12 text-center">
+        <div class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-6 uppercase tracking-wider">
+            För beslutsfattare & medborgare
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 leading-tight">
+            Verktyg: <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-blue-400">Kommun-dashboard</span>
+        </h1>
+        <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+            Bedöm den lokala ekonomin av vindkraft. Ange storleken på en planerad park och se de beräknade intäkterna för markägare, närboende och bygden som helhet (bygdepeng).
+        </p>
+    </div>
+
+    <div class="bg-slate-900/40 border border-slate-800 rounded-3xl p-8 md:p-12 shadow-2xl backdrop-blur-sm mb-12">
+        <div class="grid md:grid-cols-2 gap-8 mb-10">
+            <div class="space-y-3">
+                <label class="block text-sm font-semibold text-slate-300" for="elarea">Region (Elområde)</label>
+                <select class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-indigo-500 text-white" id="elarea">
+                    <option value="SE4">SE4 (Södra Sverige – Skåne m.m.)</option>
+                    <option value="SE3" selected>SE3 (Mellersta Sverige – Sthlm/Gbg)</option>
+                    <option value="SE2">SE2 (Norra Mellansverige)</option>
+                    <option value="SE1">SE1 (Norra Sverige)</option>
+                </select>
+            </div>
+            
+            <div class="space-y-3">
+                <label class="block text-sm font-semibold text-slate-300" for="turbines">Antal planerade verk</label>
+                <input class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-indigo-500 text-white" id="turbines" min="1" max="100" step="1" type="number" value="15"/>
+            </div>
+
+            <div class="space-y-3">
+                <label class="block text-sm font-semibold text-slate-300" for="capacity">Effekt per verk (MW)</label>
+                <input class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-indigo-500 text-white" id="capacity" min="2" max="8" step="0.5" type="number" value="6.0"/>
+            </div>
+
+            <div class="space-y-3">
+                <label class="block text-sm font-semibold text-slate-300" for="price">Förväntat elpris (öre/kWh)</label>
+                <input class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-indigo-500 text-white" id="price" min="10" max="200" step="5" type="number" value="45"/>
+                <p class="text-xs text-slate-500" id="price-hint">SE3 historiskt snitt: ~45 öre.</p>
+            </div>
+        </div>
+
+        <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-5 rounded-2xl font-bold text-lg transition shadow-lg mb-10" onclick="calculateDashboard()">
+            Beräkna lokal ekonomi
+        </button>
+
+        <!-- Resultat -->
+        <div class="hidden space-y-8" id="results">
+            
+            <!-- Huvudmetriker -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-6 bg-slate-800/80 border border-slate-700 rounded-2xl">
+                    <h3 class="text-slate-400 font-semibold text-sm uppercase tracking-wider mb-2">Totalt Värde till Bygden</h3>
+                    <div class="text-3xl font-extrabold text-white mb-1" id="res-total-local">0 Mkr/år</div>
+                    <p class="text-xs text-slate-500">Uppskattat totalt årligt flöde till lokala aktörer.</p>
+                </div>
+                <div class="p-6 bg-slate-800/80 border border-slate-700 rounded-2xl">
+                    <h3 class="text-slate-400 font-semibold text-sm uppercase tracking-wider mb-2">Parkens Totala Intäkter</h3>
+                    <div class="text-3xl font-extrabold text-white mb-1" id="res-total-park">0 Mkr/år</div>
+                    <p class="text-xs text-slate-500">Bruttointäkt före skatt, drift och avskrivningar.</p>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-2 mt-8">Fördelning av lokala intäkter</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-300">
+                <div class="bg-indigo-500/10 p-5 rounded-xl border border-indigo-500/20">
+                    <span class="block text-indigo-300 font-bold mb-3 text-lg">Markarrenden</span>
+                    <span class="text-2xl font-bold text-white block mb-2" id="res-arrende">0 kr</span>
+                    <p class="text-xs text-slate-400 leading-relaxed">Uppskattad total royalty (ca 5% av brutto) till de markägare som upplåter mark för parken.</p>
+                </div>
+                <div class="bg-blue-500/10 p-5 rounded-xl border border-blue-500/20">
+                    <span class="block text-blue-300 font-bold mb-3 text-lg">Närboende-ersättning</span>
+                    <span class="text-2xl font-bold text-white block mb-2" id="res-narboende">0 kr</span>
+                    <p class="text-xs text-slate-400 leading-relaxed">Skattefri intäktsdelning (max 2% totalt) enligt förslaget prop. 2025/26:239 till boende inom 9 verkshöjder.</p>
+                </div>
+                <div class="bg-emerald-500/10 p-5 rounded-xl border border-emerald-500/20">
+                    <span class="block text-emerald-300 font-bold mb-3 text-lg">Bygdepeng</span>
+                    <span class="text-2xl font-bold text-white block mb-2" id="res-bygdepeng">0 kr</span>
+                    <p class="text-xs text-slate-400 leading-relaxed">Frivillig avsättning från bolaget för lokal utveckling (beräknat på branschstandard ca 0,5-1% av brutto).</p>
+                </div>
+            </div>
+
+            <!-- Lead Capture (för kommuner) -->
+            <div class="mt-12 p-8 bg-slate-800/50 border border-slate-700 rounded-2xl" id="lead-card">
+                <h3 class="text-2xl font-bold text-white mb-3">Vill du ha en djupare analys för din kommun?</h3>
+                <p class="text-slate-300 mb-6">Vi kan sammanställa en kostnadsfri detaljerad rapport över alla pågående och planerade vindkraftsprojekt i din kommun, inklusive potentiella intäkter och fastighetsskatte-scenarier.</p>
+                
+                <form class="space-y-4" id="dashboard-form" onsubmit="submitDashboardLead(event)">
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <input class="bg-slate-900 border border-slate-700 px-4 py-3 rounded-lg outline-none focus:border-indigo-500 text-white" id="lead-name" placeholder="Ditt namn" required type="text"/>
+                        <input class="bg-slate-900 border border-slate-700 px-4 py-3 rounded-lg outline-none focus:border-indigo-500 text-white" id="lead-role" placeholder="Roll (t.ex. Kommunpolitiker)" type="text"/>
+                    </div>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <input class="bg-slate-900 border border-slate-700 px-4 py-3 rounded-lg outline-none focus:border-indigo-500 text-white" id="lead-kommun" placeholder="Kommun" required type="text"/>
+                        <input class="bg-slate-900 border border-slate-700 px-4 py-3 rounded-lg outline-none focus:border-indigo-500 text-white" id="lead-email" placeholder="Din e-postadress" required type="email"/>
+                    </div>
+                    <button class="w-full bg-slate-700 hover:bg-slate-600 text-white py-3 rounded-lg font-bold transition" type="submit">
+                        Beställ kommunsammanställning
+                    </button>
+                </form>
+                <div class="hidden p-4 mt-4 bg-emerald-500/15 border border-emerald-500/30 rounded-lg text-emerald-200" id="lead-success">
+                    Tack! Din förfrågan har mottagits. Vi hör av oss inom kort med underlag för din kommun.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-slate-800 bg-[#030712] py-12 mt-20">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8">
+        <div>
+            <a class="text-2xl font-extrabold tracking-tight text-white mb-4 block" href="/">
+                <span class="text-blue-500">Vind</span>kollen
+            </a>
+            <p class="text-slate-400 text-sm">
+                Oberoende information om vindkraftsersättning, arrende och påverkan för markägare och närboende.
+            </p>
+        </div>
+        <div>
+            <h4 class="text-white font-bold mb-4">Verktyg</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+                <li><a class="hover:text-blue-400 transition" href="/kalkylator">Ersättningskalkylator</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/kommun-dashboard">Kommun-dashboard</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-white font-bold mb-4">Guider</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+                <li><a class="hover:text-blue-400 transition" href="/ersattning-for-vindkraft">Ersättning för markägare</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/arrendeavtal-vindkraft">Arrendeavtal vindkraft</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/guider/bygdepeng-guide-2026">Guide till bygdepeng</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-white font-bold mb-4">Om oss</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+                <li><a class="hover:text-blue-400 transition" href="mailto:hej@vindkoll.se">Kontakt</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-slate-800 text-sm text-slate-500 text-center">
+        &copy; 2026 Vindkollen.se. All information i våra kalkyler och guider är uppskattningar baserade på tillgänglig branschdata.
+    </div>
+</footer>
+
+<script>
+    // Uppdatera elpris-hint baserat på elområde
+    document.getElementById('elarea').addEventListener('change', function(e) {
+        const hints = {
+            'SE4': 'SE4 historiskt snitt: ~60 öre.',
+            'SE3': 'SE3 historiskt snitt: ~45 öre.',
+            'SE2': 'SE2 historiskt snitt: ~35 öre.',
+            'SE1': 'SE1 historiskt snitt: ~30 öre.'
+        };
+        const prices = { 'SE4': 60, 'SE3': 45, 'SE2': 35, 'SE1': 30 };
+        document.getElementById('price-hint').innerText = hints[e.target.value];
+        document.getElementById('price').value = prices[e.target.value];
+    });
+
+    const formatCurrency = (val) => {
+        if (val >= 1000000) {
+            return (val / 1000000).toFixed(1).replace('.', ',') + ' Mkr';
+        }
+        return Math.round(val).toLocaleString('sv-SE') + ' kr';
+    };
+
+    let s_turbines, s_capacity, s_price, s_area;
+
+    function calculateDashboard() {
+        const area = document.getElementById('elarea').value;
+        const turbines = parseInt(document.getElementById('turbines').value) || 10;
+        const capacity = parseFloat(document.getElementById('capacity').value) || 6.0;
+        const priceOre = parseFloat(document.getElementById('price').value) || 45;
+        const priceKr = priceOre / 100;
+
+        s_turbines = turbines;
+        s_capacity = capacity;
+        s_price = priceOre;
+        s_area = area;
+
+        // Snittproduktion: ca 3000 fulldriftstimmar per år i snitt för landbaserad ny vind
+        const fullLoadHours = 3200; 
+        const annualProductionMWh = turbines * capacity * fullLoadHours;
+        
+        // Bruttointäkt per år
+        const totalGrossRevenue = annualProductionMWh * 1000 * priceKr;
+        
+        // Schabloner
+        const arrendeRoyalty = totalGrossRevenue * 0.05; // 5%
+        const narboendeErsattning = totalGrossRevenue * 0.015; // ca 1.5% max i praktiken (teoretiskt max 2%)
+        const bygdepeng = totalGrossRevenue * 0.0075; // 0.75% branschstandard/rekommendation
+        
+        const totalLocalValue = arrendeRoyalty + narboendeErsattning + bygdepeng;
+
+        document.getElementById('res-total-park').innerText = (totalGrossRevenue / 1000000).toFixed(1).replace('.', ',') + ' Mkr/år';
+        document.getElementById('res-total-local').innerText = (totalLocalValue / 1000000).toFixed(1).replace('.', ',') + ' Mkr/år';
+        
+        document.getElementById('res-arrende').innerText = formatCurrency(arrendeRoyalty) + '/år';
+        document.getElementById('res-narboende').innerText = formatCurrency(narboendeErsattning) + '/år';
+        document.getElementById('res-bygdepeng').innerText = formatCurrency(bygdepeng) + '/år';
+
+        document.getElementById('results').classList.remove('hidden');
+        document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    async function submitDashboardLead(ev) {
+        ev.preventDefault();
+        const email = document.getElementById('lead-email').value.trim();
+        const name = document.getElementById('lead-name').value.trim();
+        const role = document.getElementById('lead-role').value.trim();
+        const kommun = document.getElementById('lead-kommun').value.trim();
+
+        if (!email) return;
+
+        try {
+            const sourceInfo = `kommun_dashboard_${s_area}_${s_turbines}verk`;
+            const response = await fetch('/api/lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email,
+                    name: name,
+                    municipality: kommun,
+                    source: sourceInfo
+                })
+            });
+
+            if (response.ok) {
+                document.getElementById('dashboard-form').classList.add('hidden');
+                document.getElementById('lead-success').classList.remove('hidden');
+            } else {
+                alert('Något gick fel, vänligen försök igen.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Kunde inte ansluta till servern.');
+        }
+    }
+</script>
+<script src="/static/js/mobile-menu.js"></script>
+</body>
+</html>
