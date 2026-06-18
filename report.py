@@ -13,7 +13,8 @@ Honesty guardrail: we never invent specific named parks/MW for a kommun. We
 give accurate regional economics + a guided path to Vindbrukskollen (the
 official Lansstyrelsen/Energimyndigheten registry) for the exact local parks.
 
-fpdf2 core fonts use latin-1, which covers a/a/o; _s() makes text safe.
+fpdf2 core fonts use latin-1, which covers a/ä/ö. _s() keeps those and only
+strips characters latin-1 cannot represent (em-dash, smart quotes, ...).
 """
 from datetime import datetime
 
@@ -30,55 +31,55 @@ WASH2 = (248, 250, 252)   # alt row wash
 # --- Region economics (kept consistent with static/kommun-dashboard.html) ---
 FULL_LOAD_HOURS = 3200
 ASSUMED_MW_PER_TURBINE = 6.0
-# Markarrende (royalty) share of gross, narboende intaktsdelning, bygdepeng.
 ARRENDE_PCT = (0.03, 0.05)   # typical landowner royalty band
 BYGDEPENG_PCT = 0.0075
 
 ELOMRADE = {
-    "SE1": {"namn": "Norra Sverige (Lulea)", "pris_ore": 30,
-            "kontext": "Lagst elpriser i landet, men mycket landbaserad vindkraft byggs har "
-                       "tack vare goda vindlagen och gott om mark."},
+    "SE1": {"namn": "Norra Sverige (Luleå)", "pris_ore": 30,
+            "kontext": "Lägst elpriser i landet, men mycket landbaserad vindkraft byggs här "
+                       "tack vare goda vindlägen och gott om mark."},
     "SE2": {"namn": "Norra Mellansverige (Sundsvall)", "pris_ore": 35,
-            "kontext": "Sveriges mest expansiva landbaserade vindkraftsregion - har byggs "
+            "kontext": "Sveriges mest expansiva landbaserade vindkraftsregion - här byggs "
                        "merparten av de stora nya parkerna."},
-    "SE3": {"namn": "Sodra Mellansverige (Stockholm)", "pris_ore": 45,
-            "kontext": "Hog efterfragan och stigande utbyggnad; bade landbaserat och planerad "
-                       "havsbaserad vindkraft langs ostkusten."},
-    "SE4": {"namn": "Sodra Sverige (Malmo)", "pris_ore": 60,
-            "kontext": "Hogst elpriser i landet, vilket gor ersattningar och arrenden mest "
-                       "vardefulla har. Stora havsbaserade projekt planeras i soder."},
+    "SE3": {"namn": "Södra Mellansverige (Stockholm)", "pris_ore": 45,
+            "kontext": "Hög efterfrågan och stigande utbyggnad; både landbaserat och planerad "
+                       "havsbaserad vindkraft längs ostkusten."},
+    "SE4": {"namn": "Södra Sverige (Malmö)", "pris_ore": 60,
+            "kontext": "Högst elpriser i landet, vilket gör ersättningar och arrenden mest "
+                       "värdefulla här. Stora havsbaserade projekt planeras i söder."},
 }
 
 CHECKLIST = [
-    ("Royalty, inte bara fast avgift", "Begar att arrendet baseras pa faktisk produktion eller "
-     "intakt (en procentsats), sa att din ersattning foljer med nar elpriset stiger - inte bara "
+    ("Royalty, inte bara fast avgift", "Begär att arrendet baseras på faktisk produktion eller "
+     "intäkt (en procentsats), så att din ersättning följer med när elpriset stiger - inte bara "
      "ett fast belopp som urholkas av inflationen."),
-    ("Garanterat golv per verk", "Forhandla en minimigaranti per verk och ar oavsett elpris och "
-     "vindlage, sa att du har en trygg basniva aven svaga ar."),
-    ("Ersattning for intrang separat", "Vagar, kabeldragning, transformatorstation och ovrigt "
-     "markintrang ska ersattas separat - utover sjalva arrendet."),
-    ("Indexuppraking", "Kraver att fasta belopp rakas upp arligen med index (KPI), annars taper "
-     "de varde over avtalets 25-35 ar."),
-    ("Aterstallningsgaranti", "Sakra en bankgaranti for nedmontering och aterstallning av marken "
-     "nar parken avvecklas - sa kostnaden inte hamnar pa dig."),
-    ("Betalt for optionstiden", "Projektoren vill ofta ha en option i flera ar innan bygget. "
-     "Tidsbegransa den och fa betalt for sjalva optionsperioden."),
-    ("Villkor vid agarbyte", "Reglera vad som hander om projektet saljs vidare - dina villkor ska "
-     "folja med till en ny agare."),
-    ("Oberoende radgivning", "Ta in egen juridisk OCH ekonomisk radgivning innan du skriver pa. "
-     "Kostnaden ar liten mot vad avtalet ar vart over decennier."),
-    ("Jamfor flera bud", "Ar marken attraktiv? Lat garna fler an en projektor lamna bud - "
-     "konkurrens hojer din ersattning."),
-    ("Tank pa grannarna", "Reglera ersattning/dialog med narboende tidigt - det minskar risken "
-     "for overklaganden som forsenar hela projektet (och din intakt)."),
+    ("Garanterat golv per verk", "Förhandla en minimigaranti per verk och år oavsett elpris och "
+     "vindläge, så att du har en trygg basnivå även svaga år."),
+    ("Ersättning för intrång separat", "Vägar, kabeldragning, transformatorstation och övrigt "
+     "markintrång ska ersättas separat - utöver själva arrendet."),
+    ("Indexuppräkning", "Kräv att fasta belopp räknas upp årligen med index (KPI), annars tappar "
+     "de värde över avtalets 25-35 år."),
+    ("Återställningsgaranti", "Säkra en bankgaranti för nedmontering och återställning av marken "
+     "när parken avvecklas - så kostnaden inte hamnar på dig."),
+    ("Betalt för optionstiden", "Projektören vill ofta ha en option i flera år innan bygget. "
+     "Tidsbegränsa den och få betalt för själva optionsperioden."),
+    ("Villkor vid ägarbyte", "Reglera vad som händer om projektet säljs vidare - dina villkor ska "
+     "följa med till en ny ägare."),
+    ("Oberoende rådgivning", "Ta in egen juridisk OCH ekonomisk rådgivning innan du skriver på. "
+     "Kostnaden är liten mot vad avtalet är värt över decennier."),
+    ("Jämför flera bud", "Är marken attraktiv? Låt gärna fler än en projektör lämna bud - "
+     "konkurrens höjer din ersättning."),
+    ("Tänk på grannarna", "Reglera ersättning/dialog med närboende tidigt - det minskar risken "
+     "för överklaganden som försenar hela projektet (och din intäkt)."),
 ]
 
 
 def _s(t):
-    """Make text safe for fpdf2 core (latin-1) fonts."""
+    """Make text safe for fpdf2 core (latin-1) fonts. å/ä/ö survive; only chars
+    outside latin-1 (em-dash, smart quotes, ...) are normalised/stripped."""
     t = str(t)
     for a, b in [("—", "-"), ("–", "-"), ("’", "'"), ("‘", "'"),
-                 ("“", '"'), ("”", '"'), ("…", "..."), (" ", " ")]:
+                 ("“", '"'), ("”", '"'), ("…", "..."), (" ", " ")]:
         t = t.replace(a, b)
     return t.encode("latin-1", "replace").decode("latin-1")
 
@@ -112,10 +113,6 @@ class VindReport:
         self.pdf = FPDF(format="A4")
         self.pdf.set_auto_page_break(auto=True, margin=20)
         self.pdf.set_margins(self.MARGIN, self.MARGIN, self.MARGIN)
-
-    # -- low level --
-    def _x(self):
-        return self.MARGIN
 
     def section(self, title, subtitle=None):
         pdf = self.pdf
@@ -195,7 +192,6 @@ class VindReport:
         for r_i, row in enumerate(rows):
             fill = WASH if r_i % 2 == 0 else WASH2
             pdf.set_fill_color(*fill)
-            pdf.set_font("Helvetica", "" if r_i else "B", 9)
             for i, val in enumerate(row):
                 pdf.set_font("Helvetica", "B" if i == 0 else "", 9)
                 pdf.cell(c[i], 6.5, ("  " if i == 0 else "") + _s(val) + ("  " if i else ""),
@@ -244,50 +240,50 @@ def _cover(r, d):
     pdf.set_x(14)
     pdf.set_font("Helvetica", "", 10)
     muni = _s(d.get("municipality") or "din kommun")
-    pdf.cell(0, 6, _s(f"Ersattning, arrenden & vindkraftslaget i {muni}"), ln=1)
+    pdf.cell(0, 6, _s(f"Ersättning, arrenden & vindkraftsläget i {muni}"), ln=1)
     pdf.set_y(70)
-    name = _s(d.get("name") or "markagare")
+    name = _s(d.get("name") or "markägare")
     r.body(f"Hej {name}!", size=12, color=INK)
     r.body(
-        "Tack for att du anvande Vindkollens ersattningskalkylator. Den har rapporten ar "
-        "skraddarsydd utifran uppgifterna du angav och gar ett steg langre an kalkylatorn: "
-        "vi visar hur din ersattning rakas fram, vilka arrende- och royaltynivaer som galler "
-        "i din region, hur du hittar de planerade och beviljade parkerna nara dig, och en "
-        "konkret checklista infor en forhandling med ett vindkraftsbolag.",
+        "Tack för att du använde Vindkollens ersättningskalkylator. Den här rapporten är "
+        "skräddarsydd utifrån uppgifterna du angav och går ett steg längre än kalkylatorn: "
+        "vi visar hur din ersättning räknas fram, vilka arrende- och royaltynivåer som gäller "
+        "i din region, hur du hittar de planerade och beviljade parkerna nära dig, och en "
+        "konkret checklista inför en förhandling med ett vindkraftsbolag.",
         size=10, color=MUTED)
     r.body(f"Skapad {datetime.utcnow().strftime('%Y-%m-%d')} - vindkoll.se", size=8, color=MUTED)
 
 
 def _section_compensation(r, d):
-    r.section("1. Din ersattning i detalj",
-              "Sa har rakas din uppskattade ersattning fram - och vad den beror pa.")
-    r.callout("Uppskattad arlig skattefri ersattning (som narboende):",
+    r.section("1. Din ersättning i detalj",
+              "Så här räknas din uppskattade ersättning fram - och vad den beror på.")
+    r.callout("Uppskattad årlig skattefri ersättning (som närboende):",
               _sek(d.get("estimated_compensation_sek")),
-              sub="Enligt regeringens foreslagna trappstegsmodell for intaktsdelning.")
+              sub="Enligt regeringens föreslagna trappstegsmodell för intäktsdelning.")
     r.kv_table([
         ("Fastighet / adress", d.get("property_address") or "-"),
         ("Kommun", d.get("municipality") or "-"),
-        ("Elomrade", d.get("elarea") or "-"),
-        ("Avstand till verk", _num(d.get("distance_m"), " m")),
-        ("Turbinhojd", _num(d.get("turbine_height_m"), " m")),
+        ("Elområde", d.get("elarea") or "-"),
+        ("Avstånd till verk", _num(d.get("distance_m"), " m")),
+        ("Turbinhöjd", _num(d.get("turbine_height_m"), " m")),
         ("Antal verk i parken", _num(d.get("turbine_count"))),
-        ("Din ersattningsniva", _num(d.get("promille"), " promille")),
+        ("Din ersättningsnivå", _num(d.get("promille"), " promille")),
     ])
     r.body(
-        "Trappstegsmodellen ger narboende en andel av parkens intakter som trappas ner med "
-        "avstandet - ju narmare verken, desto hogre promille. Riktvarden:")
-    r.cols3(["Avstand till narmaste verk", "Niva", "Din situation"],
+        "Trappstegsmodellen ger närboende en andel av parkens intäkter som trappas ner med "
+        "avståndet - ju närmare verken, desto högre promille. Riktvärden:")
+    r.cols3(["Avstånd till närmaste verk", "Nivå", "Din situation"],
             [["Inom ca 500-800 m", "~2,5 promille", ""],
              ["Ca 800-1500 m", "~1,5 promille", ""],
              ["Ca 1500-2500 m", "~1,0 promille", ""],
-             ["Over ca 2500 m", "~0,5 promille", ""],
+             ["Över ca 2500 m", "~0,5 promille", ""],
              [f"Du: {_num(d.get('distance_m'),' m')}",
               _num(d.get("promille"), " promille"),
               _sek(d.get("estimated_compensation_sek"))]])
     r.body(
-        "Siffran ar en preliminar uppskattning for planeringsandamal. Den faktiska ersattningen "
-        "beror pa slutlig lagstiftning, parkens storlek och elpriset. Vindkollen bevakar lagen om "
-        "intaktsdelning dagligen och hor av sig nar detaljerna faststalls av riksdagen.",
+        "Siffran är en preliminär uppskattning för planeringsändamål. Den faktiska ersättningen "
+        "beror på slutlig lagstiftning, parkens storlek och elpriset. Vindkollen bevakar lagen om "
+        "intäktsdelning dagligen och hör av sig när detaljerna fastställs av riksdagen.",
         size=9, color=MUTED)
 
 
@@ -304,77 +300,76 @@ def _section_arrende(r, d):
     arr_hi = gross_per_turbine * ARRENDE_PCT[1]
     bygd = gross_per_turbine * BYGDEPENG_PCT
     cnt = d.get("turbine_count")
-    r.section("2. Arrenden & royaltynivaer i din region",
-              "Vad marken faktiskt ar vard - om verk star pa eller upplats fran din fastighet.")
+    r.section("2. Arrenden & royaltynivåer i din region",
+              "Vad marken faktiskt är värd - om verk står på eller upplåts från din fastighet.")
     if reg:
-        r.body(f"Ditt elomrade ar {d.get('elarea')} - {reg['namn']}. {reg['kontext']} "
-               f"Vi rakar nedan med ett riktpris pa {pris_ore} ore/kWh och ett verk pa "
-               f"{ASSUMED_MW_PER_TURBINE:g} MW (~{FULL_LOAD_HOURS} fullasttimmar/ar).", size=9, color=MUTED)
+        r.body(f"Ditt elområde är {d.get('elarea')} - {reg['namn']}. {reg['kontext']} "
+               f"Vi räknar nedan med ett riktpris på {pris_ore} öre/kWh och ett verk på "
+               f"{ASSUMED_MW_PER_TURBINE:g} MW (~{FULL_LOAD_HOURS} fullasttimmar/år).", size=9, color=MUTED)
     else:
-        r.body(f"Vi rakar nedan med ett riktpris pa {pris_ore} ore/kWh och ett verk pa "
-               f"{ASSUMED_MW_PER_TURBINE:g} MW. Ange ditt elomrade i kalkylatorn for regionspecifika tal.",
+        r.body(f"Vi räknar nedan med ett riktpris på {pris_ore} öre/kWh och ett verk på "
+               f"{ASSUMED_MW_PER_TURBINE:g} MW. Ange ditt elområde i kalkylatorn för regionspecifika tal.",
                size=9, color=MUTED)
-    r.cols3(["Ersattningstyp (per verk & ar)", "Niva", "Uppskattat belopp"],
-            [["Markarrende till markagare (royalty)", "3-5 % av brutto",
+    r.cols3(["Ersättningstyp (per verk & år)", "Nivå", "Uppskattat belopp"],
+            [["Markarrende till markägare (royalty)", "3-5 % av brutto",
               f"{_sek(arr_lo)} - {_sek(arr_hi)}"],
-             ["Bygdepeng till narsamhallet", "~0,75 % av brutto", _sek(bygd)],
-             ["Parkens bruttointakt (referens)", "100 %", _sek(gross_per_turbine)]])
+             ["Bygdepeng till närsamhället", "~0,75 % av brutto", _sek(bygd)],
+             ["Parkens bruttointäkt (referens)", "100 %", _sek(gross_per_turbine)]])
     if cnt:
-        r.callout(f"Om hela parken ({_num(cnt)} verk) star pa din mark - uppskattat arrende:",
-                  f"{_sek(arr_lo*cnt)} - {_sek(arr_hi*cnt)} / ar",
-                  sub="Royalty-baserat arrende, exkl. separat ersattning for vagar/kablar/intrang.")
+        r.callout(f"Om hela parken ({_num(cnt)} verk) står på din mark - uppskattat arrende:",
+                  f"{_sek(arr_lo*cnt)} - {_sek(arr_hi*cnt)} / år",
+                  sub="Royalty-baserat arrende, exkl. separat ersättning för vägar/kablar/intrång.")
     r.body(
-        "Markarrende betalas till markagaren som upplater mark for verken och ar normalt en "
-        "royalty pa parkens bruttointakt (ofta 3-5 %), ibland med ett garanterat golv per verk. "
-        "Det skiljer sig fran narboendeersattningen i avsnitt 1, som gar till dig som bor nara "
-        "men inte nodvandigtvis upplater mark. Niverna ar branschriktvarden - faktiska avtal "
-        "varierar med vindlage, projektets storlek och din forhandling (se avsnitt 4).",
+        "Markarrende betalas till markägaren som upplåter mark för verken och är normalt en "
+        "royalty på parkens bruttointäkt (ofta 3-5 %), ibland med ett garanterat golv per verk. "
+        "Det skiljer sig från närboendeersättningen i avsnitt 1, som går till dig som bor nära "
+        "men inte nödvändigtvis upplåter mark. Nivåerna är branschriktvärden - faktiska avtal "
+        "varierar med vindläge, projektets storlek och din förhandling (se avsnitt 4).",
         size=9, color=MUTED)
 
 
 def _section_parks(r, d):
     muni = d.get("municipality") or "din kommun"
     reg = _region(d)
-    r.section("3. Planerade & beviljade vindkraftsparker nara dig",
-              "Sa hittar du exakt vilka projekt som ar pa gang runt din fastighet - fran kallan.")
+    r.section("3. Planerade & beviljade vindkraftsparker nära dig",
+              "Så hittar du exakt vilka projekt som är på gång runt din fastighet - från källan.")
     if reg:
-        r.body(f"Regionalt lage: {reg['namn']} (elomrade {d.get('elarea')}). {reg['kontext']}")
+        r.body(f"Regionalt läge: {reg['namn']} (elområde {d.get('elarea')}). {reg['kontext']}")
     r.body(
-        "De exakta, alltid aktuella projekten nara dig finns i Vindbrukskollen - den officiella "
-        "karttjansten fran Lansstyrelserna och Energimyndigheten over alla vindkraftsprojekt: i "
-        "drift, beviljade och under tillstandsproving. Vi lankar dit hellre an att trycka en "
-        "fryst lista, sa att du alltid ser det senaste lagent for just din fastighet.")
-    r.callout("Vindbrukskollen - officiella kartan over alla parker:",
-              "vbk.lansstyrelsen.se", sub="Sok upp din fastighet och se projekten runt omkring.")
-    r.body("Sa har gor du (tar ett par minuter):")
+        "De exakta, alltid aktuella projekten nära dig finns i Vindbrukskollen - den officiella "
+        "karttjänsten från Länsstyrelserna och Energimyndigheten över alla vindkraftsprojekt: i "
+        "drift, beviljade och under tillståndsprövning. Vi länkar dit hellre än att trycka en "
+        "frusen lista, så att du alltid ser det senaste läget för just din fastighet.")
+    r.callout("Vindbrukskollen - officiella kartan över alla parker:",
+              "vbk.lansstyrelsen.se", sub="Sök upp din fastighet och se projekten runt omkring.")
+    r.body("Så här gör du (tar ett par minuter):")
     r.checklist([
-        ("Oppna kartan", "Ga till vbk.lansstyrelsen.se och valj kartvyn over vindkraftsverk och projektomraden."),
-        (f"Zooma in pa {_s(muni)}", "Sok pa din kommun eller fastighetsadress och zooma in pa ditt omrade."),
-        ("Las av status", "Varje projekt visar status: i drift, beviljat eller under provning - och antal verk samt projektor."),
-        ("Bevaka forandringar", "Du ar nu prenumerant pa Vindkollen - vi hor av oss nar lagen om intaktsdelning och lokala projekt utvecklas.")
+        ("Öppna kartan", "Gå till vbk.lansstyrelsen.se och välj kartvyn över vindkraftsverk och projektområden."),
+        (f"Zooma in på {_s(muni)}", "Sök på din kommun eller fastighetsadress och zooma in på ditt område."),
+        ("Läs av status", "Varje projekt visar status: i drift, beviljat eller under prövning - och antal verk samt projektör."),
+        ("Bevaka förändringar", "Du är nu prenumerant på Vindkollen - vi hör av oss när lagen om intäktsdelning och lokala projekt utvecklas.")
     ])
 
 
 def _section_checklist(r, d):
-    r.section("4. Checklista infor forhandling med vindkraftsbolag",
-              "Tio punkter som kan vara mycket pengar varda over avtalets 25-35 ar.")
+    r.section("4. Checklista inför förhandling med vindkraftsbolag",
+              "Tio punkter som kan vara mycket pengar värda över avtalets 25-35 år.")
     r.checklist(CHECKLIST)
 
 
 def _section_next(r, d):
-    r.section("5. Nasta steg")
+    r.section("5. Nästa steg")
     r.body(
-        "Du ar nu prenumerant pa Vindkollens veckobrev med marknadsuppdateringar - vi bevakar "
-        "lagen om intaktsdelning, arrendenivaer och lokala projekt och hor av oss nar nagot viktigt "
-        "hander for dig. Pa vindkoll.se hittar du fordjupande guider om arrendeavtal, skatt pa "
-        "ersattning och hur vindkraft paverkar fastighetsvardet.")
-    r.callout("Fragor om din situation?", "Svara pa mejlet med rapporten",
-              sub="Vi laser varje svar och hjalper dig vidare.")
+        "Du är nu prenumerant på Vindkollens veckobrev med marknadsuppdateringar - vi bevakar "
+        "lagen om intäktsdelning, arrendenivåer och lokala projekt och hör av oss när något viktigt "
+        "händer för dig. På vindkoll.se hittar du fördjupande guider om arrendeavtal, skatt på "
+        "ersättning och hur vindkraft påverkar fastighetsvärdet.")
+    r.callout("Frågor om din situation?", "Svara på mejlet med rapporten",
+              sub="Vi läser varje svar och hjälper dig vidare.")
 
 
 def build_report_pdf(d: dict) -> bytes:
     r = VindReport()
-    # Footer/page number on every page.
     pdf = r.pdf
 
     def footer():
@@ -384,8 +379,8 @@ def build_report_pdf(d: dict) -> bytes:
         pdf.set_y(-13)
         pdf.set_font("Helvetica", "I", 7.5)
         pdf.set_text_color(*MUTED)
-        pdf.cell(0, 4, _s("Vindkollen | vindkoll.se | Preliminar uppskattning - ej juridisk "
-                          "eller ekonomisk radgivning."), align="C")
+        pdf.cell(0, 4, _s("Vindkollen | vindkoll.se | Preliminär uppskattning - ej juridisk "
+                          "eller ekonomisk rådgivning."), align="C")
 
     pdf.footer = footer  # fpdf2 calls self.footer() on each page
 
