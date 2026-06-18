@@ -1,3 +1,4 @@
+2026-06-18 | LEADFLOW/VERKTYG | Byggde om lead-PDF:en (report.py) till deluxe flersidig rapport: ersättning i detalj (trappstegsmodell), arrende/royaltynivåer i regionen, hitta parker via Vindbrukskollen, 10-punkts förhandlingschecklista + fixade route-bugg (arrende/nackdelar pekade fel) | Levererar äntligen löftet på kalkylator-sidan → leadkonvertering & trovärdighet | nästa: live Vindbrukskollen-data per kommun i rapporten (kräver API)
 2026-06-18 | TILLVÄXT/VERKTYG | Byggde kommun-dashboard (nytt verktyg) + fixade URLer | Bygger data-moat & leads för kommuner | nästa: Optimera SEO för guiderna
 2026-06-17 Update SITE_VISION.md with resolved design debt
 2026-06-17 Fix broken links and duplicate routes (den-ultimata-guiden)

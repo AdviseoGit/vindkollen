@@ -242,19 +242,19 @@ async def ersattning_for_vindkraft():
     return _serve_static_html("static/ersattning-for-vindkraft.html")
 
 
-@app.get("/guider/nackdelar-med-vindkraft", response_class=HTMLResponse)
-@app.get("/arrendeavtal-vindkraft", response_class=HTMLResponse)
-
 @app.get("/kommun-dashboard", response_class=HTMLResponse)
-
 async def kommun_dashboard():
-
     return _serve_static_html("static/kommun-dashboard.html")
 
 
+@app.get("/arrendeavtal-vindkraft", response_class=HTMLResponse)
 async def arrendeavtal_vindkraft():
-
     return _serve_static_html("static/arrendeavtal-vindkraft.html")
+
+
+@app.get("/guider/nackdelar-med-vindkraft", response_class=HTMLResponse)
+async def nackdelar_med_vindkraft():
+    return _serve_static_html("static/nackdelar-med-vindkraft.html")
 
 
 
@@ -295,10 +295,6 @@ async def skatt_vindkraftersattning():
 async def bygdepeng_guide_2026():
 
     return _serve_static_html("static/guider/bygdepeng-guide-2026.html")
-
-
-async def nackdelar_med_vindkraft():
-    return _serve_static_html("static/nackdelar-med-vindkraft.html")
 
 
 @app.get("/guider/bygga-vindkraftverk-steg-for-steg", response_class=HTMLResponse)
