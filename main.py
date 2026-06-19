@@ -231,6 +231,11 @@ def _serve_static_html(path: str) -> HTMLResponse:
 async def index():
     return _serve_static_html("static/index.html")
 
+@app.get("/om-sajten", response_class=HTMLResponse)
+async def om_sajten():
+    return _serve_static_html("static/om-sajten.html")
+
+
 
 @app.get("/kalkylator", response_class=HTMLResponse)
 async def calculator():
