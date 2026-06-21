@@ -28,6 +28,9 @@ STATIC_PAGES = [
     ("/ersattning-for-vindkraft", "0.8", "monthly"),
     ("/guider/nackdelar-med-vindkraft", "0.8", "monthly"),
     ("/guider/bygga-vindkraftverk-steg-for-steg", "0.8", "monthly"),
+    ("/paverkar-vindkraft-fastighetsvarde", "0.8", "monthly"),
+    ("/skatt-vindkraftersattning", "0.8", "monthly"),
+    ("/guider/bygdepeng-guide-2026", "0.8", "monthly"),
 ]
 
 
