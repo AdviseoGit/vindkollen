@@ -47,7 +47,7 @@ Vindkollen äger nischen "ersättning vindkraft Sverige" — #1 på BÅDE SEO oc
 
 ### ☐ Milstolpe 1: GRUNDLÄGGANDE FUNKTION (prioritet: NU)
 - [x] Mobil-navigering fungerar (hamburgermenyn finns + funkar)
-- [☐] Kalkylatorn + lead-capture end-to-end verifierad (formulär -> DB -> mejl)
+- [x] Kalkylatorn + lead-capture end-to-end verifierad (formulär -> DB -> mejl)
 - [☐] Alla sidor har samma design (nav, footer, stil)
 - [x] 0 trasiga länkar, 0 föräldralösa sidor
 - [☐] GA4 + GSC korrekt uppsatt, data flödar
@@ -60,7 +60,7 @@ Vindkollen äger nischen "ersättning vindkraft Sverige" — #1 på BÅDE SEO oc
 
 ### ☐ Milstolpe 3: VERKTYG + DATA-CAPTURE (2–3 månader)
 - [☐] Kalkylatorn har loggat 500+ beräkningar
-- [☐] Arrendekalkylator live (fångar data om markarrende)
+- [x] Arrendekalkylator live (fångar data om markarrende)
 - [☐] Jämförelseverktyg: "Ersättning vs Arrendeavtal" (interaktiv, fångar data)
 - [☐] All data anonymiserad + lagrad för analys
 

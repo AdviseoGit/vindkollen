@@ -237,6 +237,10 @@ async def om_sajten():
 
 
 
+@app.get("/arrendekalkylator", response_class=HTMLResponse)
+async def arrendekalkylator():
+    return _serve_static_html("static/arrendekalkylator.html")
+
 @app.get("/kalkylator", response_class=HTMLResponse)
 async def calculator():
     return _serve_static_html("static/kalkylator.html")
