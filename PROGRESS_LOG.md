@@ -1,3 +1,4 @@
+2026-06-22 | VERKTYG/DATA | Byggde Arrendekalkylator + leadflow | Verktyg/Milstolpe 3 (Fångar data om markarrende) | nästa: Original-data-rapport
 2026-06-21 | SEO | Lade till bygdepeng, skatt, paverkar-vindkraft-fastighetsvarde i sitemap och genererade om den | Optimerar indexering och synlighet | nästa: Optimera kalkylatorns leadflow
 2026-06-20 | DESIGN/UX | Rättade felaktiga .html-länkar på startsidan och tog bort dublett-kort i guiderna för att ge startsidan en konsekvent och enhetlig länkstruktur | UX-polering och SEO | nästa: Optimera kalkylatorns leadflow
 2026-06-19 | SEO/DESIGN | Implementerade obligatorisk AI-transparens på hela sajten (footer-notis + /om-sajten route/sida), neutraliserade 'expert'-copy, lade in det i sitemap.xml | Uppfyller core-guardrails för experimentet | nästa: Fortsätta optimera konvertering via lead-magnet/kalkylator
