@@ -1,0 +1,13 @@
+--- main.py
++++ main.py
+@@ -37,6 +37,10 @@
+     return _serve_static_html("static/ersattning-for-vindkraft.html")
+ 
+ 
++@app.get("/kommunersattning-vindkraft-2026", response_class=HTMLResponse)
++async def kommunersattning_vindkraft():
++    return _serve_static_html("static/kommunersattning-vindkraft-2026.html")
++
+ @app.get("/kommun-dashboard", response_class=HTMLResponse)
+ async def kommun_dashboard():
+     return _serve_static_html("static/kommun-dashboard.html")

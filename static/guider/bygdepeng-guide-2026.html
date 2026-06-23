@@ -1,3 +1,101 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2ZDTQZXPRC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2ZDTQZXPRC');
+    </script>
+    
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Bygdepeng 2026: Allt om den lokala ersättningen från vindkraft | Vindkollen</title>
+    <meta content="En djupdykning i allt som rör bygdepeng – från de olika modellerna till hur pengarna förvaltas och faktiskt gör skillnad lokalt." name="description"/>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden selection:bg-blue-500/30 selection:text-blue-200">
+
+<!-- Navigation -->
+<nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50">
+    <a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+        <span class="text-blue-500">Vind</span>kollen
+    </a>
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400 items-center">
+        <a class="hover:text-white transition" href="/ersattning-for-vindkraft">Ersättning</a>
+        <a class="hover:text-white transition" href="/arrendeavtal-vindkraft">Arrendeavtal</a>
+        <a class="hover:text-white transition" href="/kommun-dashboard">För kommuner</a>
+        <a class="hover:text-white transition" href="/guider/guide-ersattning-vindkraft">Guider</a>
+    </div>
+    <div class="hidden md:flex gap-4">
+        <a class="px-5 py-2.5 rounded-full bg-slate-800 text-white text-sm font-medium hover:bg-slate-700 transition border border-slate-700" href="/arrendekalkylator">
+            Arrendekalkylator
+        </a>
+        <a class="px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-medium hover:bg-blue-500 transition shadow-[0_0_20px_rgba(37,99,235,0.2)]" href="/kalkylator">
+            Beräkna ersättning
+        </a>
+    </div>
+    <!-- Mobile Menu Button -->
+    <button class="md:hidden text-slate-400 hover:text-white" id="mobile-menu-btn" aria-label="Öppna meny">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="fixed inset-0 bg-[#030712] z-[100] hidden flex-col" id="mobile-menu">
+    <div class="px-6 py-8 flex justify-between items-center border-b border-slate-800">
+        <a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+            <span class="text-blue-500">Vind</span>kollen
+        </a>
+        <button class="text-slate-400 hover:text-white p-2" id="mobile-close-btn" aria-label="Stäng meny">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+    <div class="flex flex-col p-6 gap-6 text-lg font-medium text-slate-300">
+        <a class="hover:text-white transition" href="/ersattning-for-vindkraft">Ersättning</a>
+        <a class="hover:text-white transition" href="/arrendeavtal-vindkraft">Arrendeavtal</a>
+        <a class="hover:text-white transition" href="/kommun-dashboard">För kommuner</a>
+        <a class="hover:text-white transition" href="/guider/guide-ersattning-vindkraft">Guider</a>
+        <hr class="border-slate-800 my-2">
+        <a class="text-center px-5 py-3 rounded-xl bg-slate-800 text-white text-base font-medium border border-slate-700" href="/arrendekalkylator">
+            Arrendekalkylator
+        </a>
+        <a class="text-center px-5 py-3 rounded-xl bg-blue-600 text-white text-base font-medium shadow-[0_0_20px_rgba(37,99,235,0.2)]" href="/kalkylator">
+            Beräkna ersättning
+        </a>
+    </div>
+</div>
+
+<script>
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const closeBtn = document.getElementById('mobile-close-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileBtn.addEventListener('click', () => {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    });
+
+    closeBtn.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+        document.body.style.overflow = '';
+    });
+</script>
+
+<main class="max-w-3xl mx-auto px-6 py-12 prose prose-invert prose-blue">
 <h1>Bygdepeng 2026: Allt om den lokala ersättningen från vindkraft</h1>
 
 <p>Vindkraftsutbyggnaden i Sverige handlar inte bara om teknik och energi, utan i högsta grad om människor och lokalsamhällen. En av de mest vitala mekanismerna för att skapa lokal acceptans och dela med sig av de ekonomiska vinsterna är <strong>bygdepengen</strong>. Men vad är det egentligen, hur fungerar det, och vad kan man förvänta sig 2026?</p>
@@ -52,3 +150,47 @@
 
 <p>För mer information om andra typer av ersättningar, som direkt närboendeersättning eller arrendeavtal, läs vår stora guide:
 <a href="/guider/guide-ersattning-vindkraft">Vindkraftsersättning 2026: Din kompletta guide</a></p>
+
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-slate-800 bg-[#030712] py-12 mt-20">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8">
+        <div>
+            <a class="text-2xl font-extrabold tracking-tight text-white mb-4 block" href="/">
+                <span class="text-blue-500">Vind</span>kollen
+            </a>
+            <p class="text-slate-400 text-sm">
+                Oberoende information om vindkraftsersättning, arrende och påverkan för markägare och närboende.
+            </p>
+            <p class="text-slate-500 text-xs mt-4">
+                Denna sajt skapas och drivs helt av AI &middot; <a href="/om-sajten" class="hover:text-blue-400 transition-colors underline decoration-slate-700 underline-offset-4">Om sajten</a>
+            </p>
+        </div>
+        <div>
+            <h4 class="text-white font-bold mb-4">Verktyg</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+                <li><a class="hover:text-blue-400 transition" href="/kalkylator">Ersättningskalkylator</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/arrendekalkylator">Arrendekalkylator</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/kommun-dashboard">Kommunkalkylator</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-white font-bold mb-4">Guider</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+                <li><a class="hover:text-blue-400 transition" href="/guider/guide-ersattning-vindkraft">Vindkraftsersättning 2026</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/arrendeavtal-vindkraft">Arrendeavtal</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/fordelar-med-vindkraft">För- och nackdelar</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-white font-bold mb-4">Kontakt & Info</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+                <li><a class="hover:text-blue-400 transition" href="/om-sajten">Om Vindkollen</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -32,6 +32,7 @@ STATIC_PAGES = [
     ("/paverkar-vindkraft-fastighetsvarde", "0.8", "monthly"),
     ("/skatt-vindkraftersattning", "0.8", "monthly"),
     ("/guider/bygdepeng-guide-2026", "0.8", "monthly"),
+    ("/kommunersattning-vindkraft-2026", "0.8", "monthly"),
 ]
 
 
