@@ -1,3 +1,4 @@
+2026-06-24 | DATA/SEO | Publicerade originaldata: Ersättningsnivåer Region för Region | Original-data-rapport + intern länkning | nästa: Bygg 'Original-data-rapport' från arrendekalkylatorn
 2026-06-23 | DESIGN/UX | Rättade ful/inkonsistent layout på bygdepeng-guiden & lade till AI-footer på kommunersättning | Enhetlig design/AI-transparens | nästa: Bygg 'Original-data-rapport' från arrendekalkylatorn
 2026-06-22 | VERKTYG/DATA | Byggde Arrendekalkylator + leadflow | Verktyg/Milstolpe 3 (Fångar data om markarrende) | nästa: Original-data-rapport
 2026-06-21 | SEO | Lade till bygdepeng, skatt, paverkar-vindkraft-fastighetsvarde i sitemap och genererade om den | Optimerar indexering och synlighet | nästa: Optimera kalkylatorns leadflow

@@ -236,7 +236,6 @@ async def om_sajten():
     return _serve_static_html("static/om-sajten.html")
 
 
-
 @app.get("/arrendekalkylator", response_class=HTMLResponse)
 async def arrendekalkylator():
     return _serve_static_html("static/arrendekalkylator.html")
@@ -269,44 +268,24 @@ async def arrendeavtal_vindkraft():
 async def nackdelar_med_vindkraft():
     return _serve_static_html("static/nackdelar-med-vindkraft.html")
 
-
-
 @app.get("/paverkar-vindkraft-fastighetsvarde", response_class=HTMLResponse)
-
 async def paverkar_vindkraft_fastighetsvarde():
-
     return _serve_static_html("static/paverkar-vindkraft-fastighetsvarde.html")
 
-
-
 @app.get("/fordelar-med-vindkraft", response_class=HTMLResponse)
-
 async def fordelar_med_vindkraft():
-
     return _serve_static_html("static/fordelar-med-vindkraft.html")
 
-
-
 @app.get("/sa-far-du-vindkraft-pa-din-mark", response_class=HTMLResponse)
-
 async def sa_far_du_vindkraft_pa_din_mark():
-
     return _serve_static_html("static/sa-far-du-vindkraft-pa-din-mark.html")
 
-
-
 @app.get("/skatt-vindkraftersattning", response_class=HTMLResponse)
-
 async def skatt_vindkraftersattning():
-
     return _serve_static_html("static/skatt-vindkraftersattning.html")
 
-
-
 @app.get("/guider/bygdepeng-guide-2026", response_class=HTMLResponse)
-
 async def bygdepeng_guide_2026():
-
     return _serve_static_html("static/guider/bygdepeng-guide-2026.html")
 
 
@@ -319,7 +298,9 @@ async def bygga_vindkraftverk_steg_for_steg():
 async def guide_ersattning_vindkraft():
     return _serve_static_html("static/guider/guide-ersattning-vindkraft.html")
 
-
+@app.get("/ersattningsnivaer-region-for-region", response_class=HTMLResponse)
+async def ersattningsnivaer_region_for_region():
+    return _serve_static_html("static/ersattningsnivaer-region-for-region.html")
 
 @app.get("/blog/fordelar-och-nackdelar-med-vindkraft", response_class=HTMLResponse)
 async def fordelar_och_nackdelar_med_vindkraft():
