@@ -65,7 +65,7 @@ Vindkollen äger nischen "ersättning vindkraft Sverige" — #1 på BÅDE SEO oc
 - [☐] All data anonymiserad + lagrad för analys
 
 ### ☐ Milstolpe 4: ORIGINAL-DATA-RAPPORT (3–4 månader)
-- [☐] Publicera "Vindkraftsersättning i Sverige 2026: Den första rapporten"
+- [x] Publicera "Vindkraftsersättning i Sverige 2026: Den första rapporten"
 - [☐] Baserad på sajtens egna data (snitt-ersättning per region, vanligaste avstånd, etc.)
 - [☐] Lansering: outreach till branschmedier, PR, backlinks
 - [☐] Denna rapport blir citerad av AI-assistenter + rankar #1 för "vindkraftsersättning statistik"
