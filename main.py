@@ -236,6 +236,10 @@ async def om_sajten():
     return _serve_static_html("static/om-sajten.html")
 
 
+@app.get("/original-data-rapport-arrende-2026", response_class=HTMLResponse)
+async def original_data_rapport():
+    return _serve_static_html("static/original-data-rapport-arrende-2026.html")
+
 @app.get("/arrendekalkylator", response_class=HTMLResponse)
 async def arrendekalkylator():
     return _serve_static_html("static/arrendekalkylator.html")

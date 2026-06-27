@@ -23,57 +23,46 @@
 <body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden selection:bg-blue-500/30 selection:text-blue-200">
 
 <!-- Navigation -->
-<nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50">
+<nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
     <a class="text-2xl font-extrabold tracking-tight text-white" href="/">
         <span class="text-blue-500">Vind</span>kollen
     </a>
     <!-- Desktop Menu -->
     <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400 items-center">
-        <a class="hover:text-white transition" href="/ersattning-for-vindkraft">Ersättning</a>
-        <a class="hover:text-white transition" href="/arrendeavtal-vindkraft">Arrendeavtal</a>
-        <a class="hover:text-white transition" href="/kommun-dashboard">För kommuner</a>
+        <a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+        <a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
+        <a class="hover:text-white transition" href="/ersattning-for-vindkraft">Markägare</a>
         <a class="hover:text-white transition" href="/guider/guide-ersattning-vindkraft">Guider</a>
-    </div>
-    <div class="hidden md:flex gap-4">
-        <a class="px-5 py-2.5 rounded-full bg-slate-800 text-white text-sm font-medium hover:bg-slate-700 transition border border-slate-700" href="/arrendekalkylator">
-            Arrendekalkylator
-        </a>
-        <a class="px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-medium hover:bg-blue-500 transition shadow-[0_0_20px_rgba(37,99,235,0.2)]" href="/kalkylator">
-            Beräkna ersättning
-        </a>
+        <a class="hover:text-white transition" href="/kommun-dashboard">Kommuner</a>
     </div>
     <!-- Mobile Menu Button -->
-    <button class="md:hidden text-slate-400 hover:text-white" id="mobile-menu-btn" aria-label="Öppna meny">
+    <button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Meny">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
     </button>
 </nav>
-
 <!-- Mobile Menu Overlay -->
-<div class="fixed inset-0 bg-[#030712] z-[100] hidden flex-col" id="mobile-menu">
-    <div class="px-6 py-8 flex justify-between items-center border-b border-slate-800">
-        <a class="text-2xl font-extrabold tracking-tight text-white" href="/">
-            <span class="text-blue-500">Vind</span>kollen
-        </a>
-        <button class="text-slate-400 hover:text-white p-2" id="mobile-close-btn" aria-label="Stäng meny">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </button>
-    </div>
-    <div class="flex flex-col p-6 gap-6 text-lg font-medium text-slate-300">
-        <a class="hover:text-white transition" href="/ersattning-for-vindkraft">Ersättning</a>
-        <a class="hover:text-white transition" href="/arrendeavtal-vindkraft">Arrendeavtal</a>
-        <a class="hover:text-white transition" href="/kommun-dashboard">För kommuner</a>
-        <a class="hover:text-white transition" href="/guider/guide-ersattning-vindkraft">Guider</a>
-        <hr class="border-slate-800 my-2">
-        <a class="text-center px-5 py-3 rounded-xl bg-slate-800 text-white text-base font-medium border border-slate-700" href="/arrendekalkylator">
-            Arrendekalkylator
-        </a>
-        <a class="text-center px-5 py-3 rounded-xl bg-blue-600 text-white text-base font-medium shadow-[0_0_20px_rgba(37,99,235,0.2)]" href="/kalkylator">
-            Beräkna ersättning
-        </a>
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-40 hidden">
+    <div class="flex flex-col h-full">
+        <div class="flex justify-between items-center p-6">
+            <a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+                <span class="text-blue-500">Vind</span>kollen
+            </a>
+            <button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="flex flex-col gap-2 px-6 py-8">
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
+            <a class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+            <a class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/ersattning-for-vindkraft">Markägare</a>
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/guider/guide-ersattning-vindkraft">Guider</a>
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun-dashboard">Kommuner</a>
+        </div>
     </div>
 </div>
 
@@ -191,6 +180,28 @@
         </div>
     </div>
 </footer>
+
+
+<script>
+    // Mobile Menu Logic
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+
+            mobileMenuClose.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+        }
+    });
+</script>
 
 </body>
 </html>

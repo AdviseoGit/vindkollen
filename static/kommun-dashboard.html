@@ -29,16 +29,17 @@
 </head>
 <body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden">
 <!-- Navigation -->
-<nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50">
+<nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
     <a class="text-2xl font-extrabold tracking-tight text-white" href="/">
         <span class="text-blue-500">Vind</span>kollen
     </a>
     <!-- Desktop Menu -->
     <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400 items-center">
         <a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+        <a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
         <a class="hover:text-white transition" href="/ersattning-for-vindkraft">Markägare</a>
-        <a class="hover:text-white transition" href="/guider/nackdelar-med-vindkraft">Guider</a>
-        <a class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition" href="#newsletter">Prenumerera</a>
+        <a class="hover:text-white transition" href="/guider/guide-ersattning-vindkraft">Guider</a>
+        <a class="hover:text-white transition" href="/kommun-dashboard">Kommuner</a>
     </div>
     <!-- Mobile Menu Button -->
     <button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Meny">
@@ -47,7 +48,6 @@
         </svg>
     </button>
 </nav>
-
 <!-- Mobile Menu Overlay -->
 <div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-40 hidden">
     <div class="flex flex-col h-full">
@@ -63,10 +63,11 @@
         </div>
         <div class="flex flex-col gap-2 px-6 py-8">
             <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
-            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+            <a class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+            <a class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
             <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/ersattning-for-vindkraft">Markägare</a>
-            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/guider/nackdelar-med-vindkraft">Guider</a>
-            <a class="mt-4 text-center bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-bold transition" href="#newsletter">Prenumerera</a>
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/guider/guide-ersattning-vindkraft">Guider</a>
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun-dashboard">Kommuner</a>
         </div>
     </div>
 </div>
@@ -319,5 +320,27 @@
     }
 </script>
 <script src="/static/js/mobile-menu.js"></script>
+
+<script>
+    // Mobile Menu Logic
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+
+            mobileMenuClose.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+        }
+    });
+</script>
+
 </body>
 </html>

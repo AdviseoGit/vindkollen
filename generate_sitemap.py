@@ -33,7 +33,8 @@ STATIC_PAGES = [
     ("/skatt-vindkraftersattning", "0.8", "monthly"),
     ("/guider/bygdepeng-guide-2026", "0.8", "monthly"),
     ("/kommunersattning-vindkraft-2026", "0.8", "monthly"),
-    ("/ersattningsnivaer-region-for-region", "0.8", "monthly")
+    ("/ersattningsnivaer-region-for-region", "0.8", "monthly"),
+    ("/original-data-rapport-arrende-2026", "0.8", "monthly"),
 ]
 
 

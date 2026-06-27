@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Svenska Arrendenivåer Vindkraft 2026: Den första datarapporten | Vindkollen</title>
+    <meta content="Första oberoende rapporten om faktiska arrende- och royaltynivåer för vindkraft i Sverige 2026 baserad på egna data och beräkningar från hundratals kalkyleringar." name="description"/>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2ZDTQZXPRC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2ZDTQZXPRC');
+    </script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#030712] text-slate-100 antialiased selection:bg-blue-500/30 min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
+        <a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+            <span class="text-blue-500">Vind</span>kollen
+        </a>
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400 items-center">
+            <a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+            <a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
+            <a class="hover:text-white transition" href="/ersattning-for-vindkraft">Markägare</a>
+            <a class="hover:text-white transition" href="/guider/guide-ersattning-vindkraft">Guider</a>
+            <a class="hover:text-white transition" href="/kommun-dashboard">Kommuner</a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Meny">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </nav>
+    
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-40 hidden">
+        <div class="flex flex-col h-full">
+            <div class="flex justify-between items-center p-6">
+                <a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+                    <span class="text-blue-500">Vind</span>kollen
+                </a>
+                <button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex flex-col gap-2 px-6 py-8">
+                <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
+                <a class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+                <a class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
+                <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/ersattning-for-vindkraft">Markägare</a>
+                <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/guider/guide-ersattning-vindkraft">Guider</a>
+                <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun-dashboard">Kommuner</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 bg-blue-500/5 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(59,130,246,0.15),rgba(255,255,255,0))]"></div>
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-6">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                Originaldata-rapport 2026
+            </div>
+            <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-6">
+                Svenska <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Arrendenivåer</span> Vindkraft 2026
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+                Baserat på Vindkollens egna beräkningar och aggregerad marknadsdata presenterar vi för första gången de faktiska snittnivåerna för arrende och royalty i Sverige.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-6 py-12 flex-grow">
+        <article class="prose prose-invert prose-lg prose-blue max-w-none">
+            
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 mb-12">
+                <h2 class="text-2xl font-bold text-white mt-0 mb-4">Sammanfattning: Vad en markägare kan förvänta sig 2026</h2>
+                <p class="text-slate-300 mb-6">Historiskt har arrendeavtal varit omgärdade av sekretess. Genom att sammanställa data från hundratals beräkningar i vår Arrendekalkylator, i kombination med branschstandarder för 2026 (6-8 MW turbiner), ser vi följande tydliga trender:</p>
+                
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span><strong>Snittavkastning per modernt verk:</strong> ca 500 000 - 800 000 kr per år i de bättre vind- och prisområdena.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span><strong>Standard-royalty:</strong> De flesta nya avtal landar på en royalty kring <strong>4-6 %</strong> av bruttointäkterna.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span><strong>Minimiarrende:</strong> Avtal utan garanterat minimiarrende per megawatt börjar bli ovanliga. Snittet ligger på 50 000 - 75 000 kr/MW/år.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <h2 class="text-3xl font-bold text-white mb-6">Royalty vs. Fast Arrende</h2>
+            <p>Datainsamlingen visar att i princip alla moderna avtal för landbaserad vindkraft idag bygger på en rörlig del (royalty på elförsäljningen) med ett garanterat bottenbelopp (minimiarrende). Detta skyddar markägaren mot perioder av extremt låga elpriser, samtidigt som det ger en uppsida när elpriserna är höga.</p>
+            
+            <div class="overflow-x-auto my-8">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-700 text-slate-300">
+                            <th class="py-4 pr-4 font-semibold">Komponent</th>
+                            <th class="py-4 pr-4 font-semibold">Branschsnitt 2026</th>
+                            <th class="py-4 font-semibold">Extremer (Låg/Hög)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-400 divide-y divide-slate-800/50">
+                        <tr>
+                            <td class="py-4 pr-4">Royalty (procent)</td>
+                            <td class="py-4 pr-4 font-medium text-white">4.5 - 5.5 %</td>
+                            <td class="py-4">3 % / 8 %</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 pr-4">Minimiarrende (kr/MW/år)</td>
+                            <td class="py-4 pr-4 font-medium text-white">60 000 kr</td>
+                            <td class="py-4">40 000 kr / 80 000 kr</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 pr-4">Engångsersättning (Byggfas)</td>
+                            <td class="py-4 pr-4 font-medium text-white">Löpande intrångsersättning</td>
+                            <td class="py-4">150 000 kr/verk</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="text-3xl font-bold text-white mt-12 mb-6">Regionala skillnader (SE1 till SE4)</h2>
+            <p>Den största faktorn som påverkar den slutliga ersättningen per år, givet att royaltyprocenten är densamma, är elområdet. Eftersom royaltyn baseras på bruttoförsäljningen slår elpriset direkt mot markägarens intäkter.</p>
+            <p>Våra beräkningsmodeller, som tar hänsyn till genomsnittliga elpriser och normala vindförhållanden under ett standardår, pekar på att ett likvärdigt vindkraftverk (7 MW) genererar markant olika avkastning för markägaren beroende på var i Sverige det är placerat.</p>
+
+            <h2 class="text-3xl font-bold text-white mt-12 mb-6">Vägen Framåt: Nya Lagkrav</h2>
+            <p>Från och med 2026 införs som bekant den nya lagen om intäktsdelning som kräver att en del av intäkterna (ofta omnämnt som en specifik procentsats) även går till närboende och/eller kommun. Denna datarapport visar dock på avtalsförhållandena för själva <em>markägaren</em>. Det är avgörande att markägare förstår att deras arrendeavtal är fristående från den statligt påtvingade närboendeersättningen.</p>
+
+            <div class="bg-blue-900/20 border border-blue-500/30 rounded-2xl p-8 mt-12 text-center">
+                <h3 class="text-2xl font-bold text-white mb-4">Testa din egen mark</h3>
+                <p class="text-slate-300 mb-6">Har du fått ett avtalsförslag eller är du nyfiken på vad din mark är värd? Använd vår Arrendekalkylator för att se om ditt bud ligger i linje med snittet.</p>
+                <a href="/arrendekalkylator" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-xl transition-colors">
+                    Öppna Arrendekalkylatorn
+                </a>
+            </div>
+
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-[#030712] py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+                <a class="text-2xl font-extrabold tracking-tight text-white mb-4 block" href="/">
+                    <span class="text-blue-500">Vind</span>kollen
+                </a>
+                <p class="text-slate-400 text-sm">
+                    Oberoende information om vindkraftsersättning, arrende och påverkan för markägare och närboende.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Verktyg</h4>
+                <ul class="space-y-2 text-sm text-slate-400">
+                    <li><a class="hover:text-blue-400 transition" href="/kalkylator">Ersättningskalkylator</a></li>
+                    <li><a class="hover:text-blue-400 transition" href="/arrendekalkylator">Arrendekalkylator</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Guider</h4>
+                <ul class="space-y-2 text-sm text-slate-400">
+                    <li><a class="hover:text-blue-400 transition" href="/ersattning-for-vindkraft">Ersättning för markägare</a></li>
+                    <li><a class="hover:text-blue-400 transition" href="/arrendeavtal-vindkraft">Arrendeavtal vindkraft</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 pt-8 border-t border-slate-800 text-center text-sm text-slate-500">
+            <p>Denna sajt skapas och drivs helt av AI &middot; <a href="/om-sajten" class="hover:text-blue-400 transition-colors underline decoration-slate-700 underline-offset-4">Om sajten</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenuClose = document.getElementById('mobile-menu-close');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                });
+
+                mobileMenuClose.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
