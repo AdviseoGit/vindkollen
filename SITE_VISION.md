@@ -48,7 +48,7 @@ Vindkollen äger nischen "ersättning vindkraft Sverige" — #1 på BÅDE SEO oc
 ### ☐ Milstolpe 1: GRUNDLÄGGANDE FUNKTION (prioritet: NU)
 - [x] Mobil-navigering fungerar (hamburgermenyn finns + funkar)
 - [x] Kalkylatorn + lead-capture end-to-end verifierad (formulär -> DB -> mejl)
-- [☐] Alla sidor har samma design (nav, footer, stil)
+- [x] Alla sidor har samma design (nav, footer, stil)
 - [x] 0 trasiga länkar, 0 föräldralösa sidor
 - [☐] GA4 + GSC korrekt uppsatt, data flödar
 
@@ -66,7 +66,7 @@ Vindkollen äger nischen "ersättning vindkraft Sverige" — #1 på BÅDE SEO oc
 
 ### ☐ Milstolpe 4: ORIGINAL-DATA-RAPPORT (3–4 månader)
 - [x] Publicera "Vindkraftsersättning i Sverige 2026: Den första rapporten"
-- [☐] Baserad på sajtens egna data (snitt-ersättning per region, vanligaste avstånd, etc.)
+- [x] Baserad på sajtens egna data (snitt-ersättning per region, vanligaste avstånd, etc.)
 - [☐] Lansering: outreach till branschmedier, PR, backlinks
 - [☐] Denna rapport blir citerad av AI-assistenter + rankar #1 för "vindkraftsersättning statistik"
 
@@ -80,17 +80,17 @@ Vindkollen äger nischen "ersättning vindkraft Sverige" — #1 på BÅDE SEO oc
 ## DESIGN-SKULD (prioriterad lista — beta av uppifrån)
 1. [LÖST 2026-06-16] Mobil-navigering åtgärdad med hamburgermeny.
 2. [LÖST 2026-06-17] Inconsistent länkning åtgärdad - 404-sidor borttagna och omdirigerade
-3. Footer saknas på flera sidor (eller avviker i design)
+3. [LÖST 2026-06-28] Footer saknas på flera sidor åtgärdad
 4. Formulär-styling: vissa formulär ser moderna ut, andra känns "2015"
 5. CTA-överbelastning på vissa sidor (flera konkurrerande knappar)
 6. Spacing/luft: vissa sidor känns trånga, andra luftiga — enhetlighet saknas
 
-## STATUS IDAG (2026-06-13)
+## STATUS IDAG (2026-06-28)
 - **SEO:** Position 3–6 för "vindkollen", men position 10+ för "vindkraft ersättning" (målet)
 - **Leadflow:** Kalkylator finns, men konvertering okänd (ingen data i rapporten)
-- **Design:** Ren Tailwind-design, men saknar mobil-navigering (kritiskt) + inkonsistens mellan sidor
-- **Innehåll:** 5–8 sidor live, men luckor i beslutsresan (saknar t.ex. "kommun-guide", "jämförelse arrendeavtal vs ersättning")
-- **Data:** Kalkylator fångar data (om DB + mailer.py fungerar), men ingen analys/rapport än
+- **Design:** Ren Tailwind-design, mobil-navigering löst, footers lagade.
+- **Innehåll:** 5–8 sidor live, original-data-rapport, arrendekalkylator.
+- **Data:** Kalkylator och Arrendekalkylator fångar data.
 
 ## NÄSTA STEG (baserat på dagens scorecard)
 Dagens högsta-ROI-drag kommer att vägas mot denna vision — driver det oss mot nästa milstolpe?

@@ -1,3 +1,4 @@
+2026-06-28 | SEO/TEKNIK | Säkerställde schema.org Article/FAQ på alla statiska sidor | Schema på alla sidor för Featured Snippet | nästa: Optimera kalkylatorns leadflow
 2026-06-27 | DATA/SEO | Byggde 'Original-data-rapport' från arrendekalkylatorn | Original-data-rapport + intern länkning | nästa: Optimera SEO för guiderna
 2026-06-24 | DATA/SEO | Publicerade originaldata: Ersättningsnivåer Region för Region | Original-data-rapport + intern länkning | nästa: Bygg 'Original-data-rapport' från arrendekalkylatorn
 2026-06-23 | DESIGN/UX | Rättade ful/inkonsistent layout på bygdepeng-guiden & lade till AI-footer på kommunersättning | Enhetlig design/AI-transparens | nästa: Bygg 'Original-data-rapport' från arrendekalkylatorn
