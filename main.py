@@ -244,6 +244,11 @@ async def original_data_rapport():
 async def arrendekalkylator():
     return _serve_static_html("static/arrendekalkylator.html")
 
+@app.get("/jamforelse-ersattning-vs-arrende", response_class=HTMLResponse)
+async def jamforelse_tool():
+    return _serve_static_html("static/jamforelse-ersattning-vs-arrende.html")
+
+
 @app.get("/kalkylator", response_class=HTMLResponse)
 async def calculator():
     return _serve_static_html("static/kalkylator.html")

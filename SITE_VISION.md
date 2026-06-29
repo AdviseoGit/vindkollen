@@ -61,7 +61,7 @@ Vindkollen äger nischen "ersättning vindkraft Sverige" — #1 på BÅDE SEO oc
 ### ☐ Milstolpe 3: VERKTYG + DATA-CAPTURE (2–3 månader)
 - [☐] Kalkylatorn har loggat 500+ beräkningar
 - [x] Arrendekalkylator live (fångar data om markarrende)
-- [☐] Jämförelseverktyg: "Ersättning vs Arrendeavtal" (interaktiv, fångar data)
+- [x] Jämförelseverktyg: "Ersättning vs Arrendeavtal" (interaktiv, fångar data)
 - [☐] All data anonymiserad + lagrad för analys
 
 ### ☐ Milstolpe 4: ORIGINAL-DATA-RAPPORT (3–4 månader)

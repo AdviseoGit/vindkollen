@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jämför Vindkraftsersättning vs. Arrendeavtal 2026 | Vindkollen</title>
+    <meta name="description" content="Närboende-ersättning eller markarrende? Jämför intäkterna mellan den statliga trappstegsmodellen (närboende) och kommersiella arrendeavtal (markägare) med vårt interaktiva verktyg.">
+    <link rel="canonical" href="https://vindkoll.se/jamforelse-ersattning-vs-arrende">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#030712">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Jämför Vindkraftsersättning vs. Arrendeavtal 2026 | Vindkollen">
+    <meta property="og:description" content="Vilken intäkt ger ett vindkraftverk dig? Testa vårt jämförelseverktyg för närboende-ersättning vs. markarrende.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vindkoll.se/jamforelse-ersattning-vs-arrende">
+    <meta property="og:locale" content="sv_SE">
+    
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .hero-gradient { background: radial-gradient(circle at 50% 50%, #111827 0%, #030712 100%); }
+    </style>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2ZDTQZXPRC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2ZDTQZXPRC');
+    </script>
+</head>
+<body class="bg-slate-950 text-slate-300 min-h-screen flex flex-col antialiased selection:bg-blue-500/30">
+
+    <!-- NAVIGATION -->
+    <nav class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between h-16">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center transform group-hover:scale-105 transition">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <span class="text-xl font-bold text-white tracking-tight">Vindkollen</span>
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/kalkylator" class="text-sm font-medium text-slate-300 hover:text-white transition">Närboende-kalkylator</a>
+                    <a href="/arrendekalkylator" class="text-sm font-medium text-slate-300 hover:text-white transition">Arrendekalkylator</a>
+                    <a href="/guider/guide-ersattning-vindkraft" class="text-sm font-medium text-slate-300 hover:text-white transition">Guider</a>
+                    <a href="/kalkylator" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-sm font-bold transition shadow-lg shadow-blue-900/20">
+                        Räkna ut ersättning
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4 border-t border-slate-800 pt-4 space-y-3">
+                <a href="/kalkylator" class="block text-base font-medium text-slate-300 hover:text-white py-2">Närboende-kalkylator</a>
+                <a href="/arrendekalkylator" class="block text-base font-medium text-slate-300 hover:text-white py-2">Arrendekalkylator</a>
+                <a href="/guider/guide-ersattning-vindkraft" class="block text-base font-medium text-slate-300 hover:text-white py-2">Guider</a>
+                <a href="/kalkylator" class="block bg-blue-600 text-white px-5 py-3 rounded-xl font-bold text-center mt-4">
+                    Räkna ut ersättning
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+
+    <!-- HERO -->
+    <header class="hero-gradient pt-16 pb-12 border-b border-slate-800/50">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-sm font-semibold mb-6 border border-blue-500/20">
+                <span>Nyhet 2026</span>
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
+                Närboende vs. Markägare:<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Jämför Vindkraftsersättning</span>
+            </h1>
+            <p class="text-lg text-slate-400 mb-8 max-w-2xl mx-auto">
+                Är du närboende och undrar hur mycket markägaren tjänar? Eller är du markägare och vill förstå hur ersättningen skiljer sig åt? Testa vårt jämförelseverktyg för att se intäktsströmmarna sida vid sida.
+            </p>
+        </div>
+    </header>
+
+    <main class="flex-grow py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- INPUT COLUMN -->
+                <div class="lg:col-span-4 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl sticky top-24">
+                    <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                        Verkets förutsättningar
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Effekt -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-2">Effekt per verk (MW)</label>
+                            <input type="range" id="comp-capacity" min="3" max="10" step="0.5" value="6" class="w-full accent-blue-500 h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between text-xs text-slate-500 mt-2 font-medium">
+                                <span>3 MW</span>
+                                <span id="comp-capacity-val" class="text-blue-400 font-bold text-sm">6.0 MW</span>
+                                <span>10 MW</span>
+                            </div>
+                        </div>
+
+                        <!-- Elpris -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-2">Uppskattat elpris (SEK/kWh)</label>
+                            <div class="relative">
+                                <input type="number" id="comp-price" value="0.45" step="0.05" min="0.10" class="w-full bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white pr-12">
+                                <span class="absolute right-4 top-3 text-slate-500">kr</span>
+                            </div>
+                        </div>
+
+                        <hr class="border-slate-800">
+
+                        <!-- Närboende specifik -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-2">Avstånd till hus (närboende)</label>
+                            <select id="comp-distance" class="w-full bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white appearance-none">
+                                <option value="0.0025">400 - 800 meter (0,25 % av intäkten)</option>
+                                <option value="0.0015">800 - 1200 meter (0,15 % av intäkten)</option>
+                                <option value="0.0005" selected>1200 - 2000 meter (0,05 % av intäkten)</option>
+                            </select>
+                        </div>
+
+                        <!-- Arrende specifik -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-2">Royaltynivå (markägare)</label>
+                            <select id="comp-royalty" class="w-full bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white appearance-none">
+                                <option value="0.02">Låg: 2,0 % av bruttointäkten</option>
+                                <option value="0.03" selected>Standard: 3,0 % av bruttointäkten</option>
+                                <option value="0.04">Hög: 4,0 % av bruttointäkten</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- OUTPUT COLUMN -->
+                <div class="lg:col-span-8 space-y-6">
+                    
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <!-- Närboende Kort -->
+                        <div class="bg-gradient-to-br from-slate-900 to-slate-900/50 border border-slate-800 rounded-2xl p-6 relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl group-hover:bg-blue-500/10 transition duration-500"></div>
+                            
+                            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Närboende-ersättning</h3>
+                            <p class="text-xs text-slate-500 mb-4">Statlig trappstegsmodell (Skattefri)</p>
+                            
+                            <div class="mb-6">
+                                <div class="text-4xl font-extrabold text-white tracking-tight" id="res-narboende">0 kr</div>
+                                <div class="text-sm text-blue-400 mt-1">per år</div>
+                            </div>
+
+                            <ul class="space-y-2 text-sm text-slate-400">
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Lagstadgad rättighet</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 100% skattefritt</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Ingen förhandling krävs</li>
+                            </ul>
+                            
+                            <div class="mt-6 pt-6 border-t border-slate-800">
+                                <a href="/kalkylator" class="text-blue-400 hover:text-blue-300 text-sm font-semibold flex items-center gap-1 transition">
+                                    Till närboende-kalkylatorn <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Markägare Kort -->
+                        <div class="bg-gradient-to-br from-slate-900 to-slate-900/50 border border-slate-800 rounded-2xl p-6 relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition duration-500"></div>
+                            
+                            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Markarrende</h3>
+                            <p class="text-xs text-slate-500 mb-4">Kommersiellt avtal (Beskattas som näringsverksamhet)</p>
+                            
+                            <div class="mb-6">
+                                <div class="text-4xl font-extrabold text-white tracking-tight" id="res-arrende">0 kr</div>
+                                <div class="text-sm text-emerald-400 mt-1">per år (brutto)</div>
+                            </div>
+
+                            <ul class="space-y-2 text-sm text-slate-400">
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Förhandlas via avtal</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Inkluderar ofta minimiarrende</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Skattepliktig intäkt</li>
+                            </ul>
+                            
+                            <div class="mt-6 pt-6 border-t border-slate-800">
+                                <a href="/arrendekalkylator" class="text-emerald-400 hover:text-emerald-300 text-sm font-semibold flex items-center gap-1 transition">
+                                    Till arrendekalkylatorn <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insight Box -->
+                    <div class="bg-blue-900/20 border border-blue-500/30 rounded-2xl p-6">
+                        <h4 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Förstå skillnaden
+                        </h4>
+                        <p class="text-slate-300 leading-relaxed text-sm">
+                            Markägarens arrende är en kommersiell affärsuppgörelse där marken upplåts till vindkraftsbolaget. Ersättningen är högre eftersom det inkluderar intrång, markanvändning och ett affärsmässigt partnerskap. 
+                            <br><br>
+                            Närboende-ersättningen är en lagstadgad kompensation för den lokala påverkan ett vindkraftverk utgör. Det är en procentandel av bruttointäkten som delas ut <strong>skattefritt</strong>. Även om beloppet är lägre, innebär skattefriheten att nettot per krona är betydligt högre än för markägaren.
+                        </p>
+                    </div>
+                    
+                    <!-- Lead Capture -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 lg:p-8 mt-8">
+                        <h3 class="text-2xl font-bold text-white mb-4">Ladda ner vår detaljerade rapport om intäktsdelning</h3>
+                        <p class="text-slate-400 mb-6">Förstår du hur intäktsdelning och arrende fungerar? Få vår gratis rapport som förklarar fallgropar, förhandlingstips och hur framtidens ersättningar ser ut baserat på vår insamlade data.</p>
+                        
+                        <form id="compare-lead-form" class="flex flex-col sm:flex-row gap-3">
+                            <input type="email" id="lead-email" required placeholder="Din e-postadress" class="flex-grow bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white">
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold transition shadow-lg whitespace-nowrap">
+                                Skicka rapporten
+                            </button>
+                        </form>
+                        <div id="lead-success" class="hidden mt-4 p-4 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-300 text-sm">
+                            Tack! Rapporten skickas till din e-post inom kort.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 bg-slate-950 pt-12 pb-8 mt-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 bg-slate-800 rounded-md flex items-center justify-center">
+                            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <span class="text-lg font-bold text-white tracking-tight">Vindkollen</span>
+                    </div>
+                    <p class="text-slate-400 text-sm max-w-sm mb-4">
+                        Oberoende information om vindkraftsersättning, arrende och påverkan för markägare och närboende.
+                    </p>
+                    <p class="text-xs text-slate-500">
+                        Denna sajt skapas och drivs helt av AI &middot; <a href="/om-sajten" class="hover:text-slate-300 underline">Om sajten</a>
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Verktyg</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/kalkylator" class="text-slate-400 hover:text-white transition">Närboende-kalkylator</a></li>
+                        <li><a href="/arrendekalkylator" class="text-slate-400 hover:text-white transition">Arrendekalkylator</a></li>
+                        <li><a href="/kommun-dashboard" class="text-slate-400 hover:text-white transition">Kommunkollen</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Guider</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/guider/guide-ersattning-vindkraft" class="text-slate-400 hover:text-white transition">Ersättningsguiden</a></li>
+                        <li><a href="/arrendeavtal-vindkraft" class="text-slate-400 hover:text-white transition">Arrendeavtal</a></li>
+                        <li><a href="/skatt-vindkraftersattning" class="text-slate-400 hover:text-white transition">Skatteregler</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800/50 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-slate-500 text-sm">
+                    &copy; 2026 Vindkollen.se. All information är uppskattningar baserade på tillgänglig branschdata.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Formatting
+        const formatCurrency = (num) => {
+            return Math.round(num).toLocaleString('sv-SE') + ' kr';
+        };
+
+        // Calculation logic
+        function calculateComparison() {
+            const capacityMW = parseFloat(document.getElementById('comp-capacity').value) || 6;
+            const priceSEK = parseFloat(document.getElementById('comp-price').value) || 0.45;
+            const distShare = parseFloat(document.getElementById('comp-distance').value) || 0.0005;
+            const royaltyShare = parseFloat(document.getElementById('comp-royalty').value) || 0.03;
+            
+            // UI Update for range
+            document.getElementById('comp-capacity-val').textContent = capacityMW.toFixed(1) + ' MW';
+
+            // Constants
+            const hours = 3000;
+            const netLoss = 0.96;
+            
+            // Base calculation
+            const annualProduction_kWh = capacityMW * 1000 * hours;
+            const netProduction_kWh = annualProduction_kWh * netLoss;
+            const grossRevenue = netProduction_kWh * priceSEK;
+            
+            // Results
+            const narboendeReward = grossRevenue * distShare;
+            const arrendeReward = grossRevenue * royaltyShare;
+            
+            // Output
+            document.getElementById('res-narboende').textContent = formatCurrency(narboendeReward);
+            document.getElementById('res-arrende').textContent = formatCurrency(arrendeReward);
+        }
+
+        // Event listeners
+        document.getElementById('comp-capacity').addEventListener('input', calculateComparison);
+        document.getElementById('comp-price').addEventListener('input', calculateComparison);
+        document.getElementById('comp-distance').addEventListener('change', calculateComparison);
+        document.getElementById('comp-royalty').addEventListener('change', calculateComparison);
+
+        // Initial calc
+        calculateComparison();
+
+        // Lead form handling
+        document.getElementById('compare-lead-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('lead-email').value;
+            
+            try {
+                // Skicka the lead to the general API endpoint
+                const response = await fetch('/api/lead', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        email: email,
+                        source: 'jamforelse_vs_arrende_tool' 
+                    })
+                });
+
+                if (response.ok) {
+                    document.getElementById('compare-lead-form').classList.add('hidden');
+                    document.getElementById('lead-success').classList.remove('hidden');
+                } else {
+                    alert('Kunde inte spara e-posten. Försök igen.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Nätverksfel. Försök igen senare.');
+            }
+        });
+    </script>
+</body>
+</html>

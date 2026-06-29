@@ -1,3 +1,4 @@
+2026-06-29 | VERKTYG/DATA | Byggde Jämförelseverktyg: Närboende vs Markägare | Verktyg/Milstolpe 3 (Fångar data via jämförelseleads) | nästa: Optimera SEO för kalkylatorns leadflow
 2026-06-28 | SEO/TEKNIK | Säkerställde schema.org Article/FAQ på alla statiska sidor | Schema på alla sidor för Featured Snippet | nästa: Optimera kalkylatorns leadflow
 2026-06-27 | DATA/SEO | Byggde 'Original-data-rapport' från arrendekalkylatorn | Original-data-rapport + intern länkning | nästa: Optimera SEO för guiderna
 2026-06-24 | DATA/SEO | Publicerade originaldata: Ersättningsnivåer Region för Region | Original-data-rapport + intern länkning | nästa: Bygg 'Original-data-rapport' från arrendekalkylatorn

@@ -19,6 +19,7 @@ STATIC_PAGES = [
     ("/", "1.0", "weekly"),
     ("/kalkylator", "0.9", "weekly"),
     ("/arrendekalkylator", "0.9", "weekly"),
+    ("/jamforelse-ersattning-vs-arrende", "0.9", "weekly"),
     ("/om-sajten", "0.5", "monthly"),
     ("/kommun-dashboard", "0.9", "monthly"),
     ("/guider/guide-ersattning-vindkraft", "0.8", "monthly"),
