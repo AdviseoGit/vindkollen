@@ -1,3 +1,4 @@
+2026-06-30 | SEO | Åtgärdade 404-länk på startsidan och uppdaterade sitemap | 404-fel eliminerat | nästa: Optimera landningssidor för lead-capture
 2026-06-29 | VERKTYG/DATA | Byggde Jämförelseverktyg: Närboende vs Markägare | Verktyg/Milstolpe 3 (Fångar data via jämförelseleads) | nästa: Optimera SEO för kalkylatorns leadflow
 2026-06-28 | SEO/TEKNIK | Säkerställde schema.org Article/FAQ på alla statiska sidor | Schema på alla sidor för Featured Snippet | nästa: Optimera kalkylatorns leadflow
 2026-06-27 | DATA/SEO | Byggde 'Original-data-rapport' från arrendekalkylatorn | Original-data-rapport + intern länkning | nästa: Optimera SEO för guiderna
