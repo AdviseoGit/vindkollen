@@ -335,6 +335,7 @@ async def ersattning_html_alias():
 # ---------------------------------------------------------------------------
 
 
+@app.get("/intaktsdelning-vindkraft", response_class=HTMLResponse)
 @app.get("/sitemap.xml")
 async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")
