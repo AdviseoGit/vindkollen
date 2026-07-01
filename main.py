@@ -18,6 +18,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request, BackgroundTasks
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
+from mailer import send_email, notify_owner
 from pydantic import BaseModel, EmailStr, Field
 from sqlalchemy import Column, DateTime, Float, Integer, String, Text, func, select, text
 from sqlalchemy.dialects.postgresql import insert as pg_insert
@@ -384,11 +385,34 @@ async def capture_lead(lead: LeadIn, background: BackgroundTasks):
                 "source": lead.source or "newsletter",
             },
         )
+
         await session.execute(stmt)
         await session.commit()
+    
+    background.add_task(deliver_report, email, lead.name, lead.estimated_compensation_sek)
+
     background.add_task(_deliver_newsletter, email, lead.source or "newsletter")
     return {"status": "ok", "persisted": True}
 
+
+
+def deliver_report(email: str, name: str, est: int):
+    subject = "Din marknadsrapport för vindkraftsersättning"
+    html = f"""
+    <html>
+    <body style="font-family: sans-serif; line-height: 1.6; color: #333;">
+        <h2>Hej {name or ''},</h2>
+        <p>Här är din personliga uträkning från Vindkollen.</p>
+        <p>Enligt kalkylen är din estimerade årliga ersättning: <b>{est} kr/år</b>.</p>
+        <p>Vi arbetar just nu med att ta fram en mer detaljerad rapport. Vi hör av oss om vi behöver kompletterande information om din fastighet.</p>
+        <p>Vänliga hälsningar,<br>Teamet på Vindkollen</p>
+    </body>
+    </html>
+    """
+    send_email(email, subject, html)
+    
+    notify_html = f"<p>Ny kalkylator-lead: {email} (Est: {est} kr/år)</p>"
+    notify_owner("Ny lead - Vindkollen", notify_html)
 
 @app.post("/api/lead/report")
 async def capture_lead_report(lead: LeadReportIn, background: BackgroundTasks):
@@ -419,8 +443,12 @@ async def capture_lead_report(lead: LeadReportIn, background: BackgroundTasks):
             index_elements=["email"],
             set_={k: v for k, v in payload.items() if k != "email"},
         )
+
         await session.execute(stmt)
         await session.commit()
+    
+    background.add_task(deliver_report, email, lead.name, lead.estimated_compensation_sek)
+
 
     background.add_task(_deliver_report, dict(payload))
     return {"status": "ok", "persisted": True, "report": "queued"}
