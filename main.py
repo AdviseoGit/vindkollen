@@ -163,7 +163,10 @@ def _deliver_newsletter(email: str, source: str):
         'ersattningskalkylator</a> for en personlig uppskattning.</p>'
         '<p>Vanliga halsningar,<br><b>Vindkollen</b></p></div>'
     )
-    mailer.send_email(email, "Valkommen till Vindkollen", html)
+    try:
+        mailer.send_email(email, "Valkommen till Vindkollen", html)
+    except Exception as e:
+        print(f"Failed to send newsletter email: {e}")
     mailer.notify_owner("Ny prenumerant - Vindkollen",
                         f"<p>Ny lead: <b>{email}</b> (kalla: {source})</p>", reply_to=email)
 
