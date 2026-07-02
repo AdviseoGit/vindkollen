@@ -390,7 +390,6 @@ async def capture_lead(lead: LeadIn, background: BackgroundTasks):
         await session.execute(stmt)
         await session.commit()
     
-    background.add_task(deliver_report, email, lead.name, lead.estimated_compensation_sek)
 
     background.add_task(_deliver_newsletter, email, lead.source or "newsletter")
     return {"status": "ok", "persisted": True}
@@ -448,7 +447,6 @@ async def capture_lead_report(lead: LeadReportIn, background: BackgroundTasks):
         await session.execute(stmt)
         await session.commit()
     
-    background.add_task(deliver_report, email, lead.name, lead.estimated_compensation_sek)
 
 
     background.add_task(_deliver_report, dict(payload))
