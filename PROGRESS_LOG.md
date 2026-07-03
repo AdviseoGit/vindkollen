@@ -1,3 +1,4 @@
+2026-07-03 | SEO/TEKNIK | Fixade saknad rutt och sitemap.xml för intäktsdelning-vindkraft | /intaktsdelning-vindkraft laddar korrekt | nästa: Optimera landningssidor för lead-capture
 2026-07-02 | LEADFLOW/TEKNIK | Fixade krashande kalkylator endpoints | Kalkylator leads + e-mail automation | nästa: Optimera landningssidor för lead-capture
 2026-07-01 | TILLVÄXT/SEO | Byggde dedikerad hub-sida för intäktsdelning | Äga huvudsökordet 'intäktsdelning vindkraft' (Milstolpe 2) | nästa: Optimera kalkylatorns leadflow för att få 200 leads/månad
 2026-06-30 | SEO | Åtgärdade 404-länk på startsidan och uppdaterade sitemap | 404-fel eliminerat | nästa: Optimera landningssidor för lead-capture
