@@ -1,3 +1,4 @@
+2026-07-05 | LEADFLOW | Injekterade e-postformulär på alla (18 st) guidesidor för att fånga upp "newsletter"-leads | Öka konverteringen totalt över sajten (lead-trappan) | nästa: Optimera SEO för kalkylatorns leadflow
 2026-07-04 | LEADFLOW/SEO | Fyllde i saknad AI-transparens & schema.org (Article) på guidesidor | Transparens-guardrails + SEO snippet-chans | nästa: Optimera landningssidor för lead-capture
 2026-07-03 | SEO/TEKNIK | Fixade saknad rutt och sitemap.xml för intäktsdelning-vindkraft | /intaktsdelning-vindkraft laddar korrekt | nästa: Optimera landningssidor för lead-capture
 2026-07-02 | LEADFLOW/TEKNIK | Fixade krashande kalkylator endpoints | Kalkylator leads + e-mail automation | nästa: Optimera landningssidor för lead-capture

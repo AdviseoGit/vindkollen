@@ -97,6 +97,78 @@
 <p>När avtalet är på plats kan byggnationen starta. Vägar anläggs, fundament gjuts och turbinerna monteras. Byggfasen tar normalt 1-2 år. När verken är driftsatta börjar du som markägare få din royalty-baserade ersättning.</p>
 <h3>Sammanfattning</h3>
 <p>Processen för att få vindkraft på sin mark är lång och kräver tålamod. Från första kontakt till ett producerande vindkraftverk kan det ta mellan 5 och 10 år. Som markägare är det viktigt att ta hjälp av juridiskt ombud vid avtalsskrivningen för att säkerställa en rättvis och långsiktigt hållbar affär.</p>
+
+<div class="mt-16 mb-8 bg-slate-900 border border-slate-800 rounded-2xl p-8 max-w-3xl mx-auto shadow-xl relative overflow-hidden">
+    <div class="absolute -top-24 -right-24 w-48 h-48 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="relative z-10">
+        <h3 class="text-2xl font-bold text-white mb-3 flex items-center gap-2">
+            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            Bevaka vindkraftsnyheter & ersättningar
+        </h3>
+        <p class="text-slate-300 mb-6">Missa inga viktiga lagändringar eller nya ersättningsnivåer. Få Vindkollens uppdateringar direkt till din inkorg.</p>
+        <form class="space-y-4" id="news-form-sa_far_du_vindkraft_pa_din_mark" onsubmit="submitLead(event, 'sa_far_du_vindkraft_pa_din_mark')">
+            <div class="grid sm:grid-cols-2 gap-4">
+                <input class="bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white placeholder-slate-500 w-full shadow-inner" id="news-name-sa_far_du_vindkraft_pa_din_mark" placeholder="Förnamn (valfritt)" type="text"/>
+                <input class="bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white placeholder-slate-500 w-full shadow-inner" id="news-municipality-sa_far_du_vindkraft_pa_din_mark" placeholder="Din kommun (valfritt)" type="text"/>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <input class="flex-1 bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white placeholder-slate-500 w-full shadow-inner" id="news-email-sa_far_du_vindkraft_pa_din_mark" placeholder="Din e-postadress" required="" type="email"/>
+                <button class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-xl font-bold transition-colors whitespace-nowrap shadow-lg shadow-blue-900/20" type="submit">Prenumerera</button>
+            </div>
+            <p class="text-xs text-slate-500 italic mt-3 text-center sm:text-left">Vi delar aldrig din data. Du kan avregistrera dig när som helst.</p>
+        </form>
+        <div class="hidden mt-4 p-5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 font-medium flex items-center gap-3" id="news-success-sa_far_du_vindkraft_pa_din_mark">
+            <svg class="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            Tack! Du är nu prenumerant på Vindkollens uppdateringar.
+        </div>
+    </div>
+</div>
+
+<script>
+async function submitLead(event, formId) {
+    event.preventDefault();
+    const email = document.getElementById('news-email-' + formId).value;
+    const name = document.getElementById('news-name-' + formId).value;
+    const municipality = document.getElementById('news-municipality-' + formId).value;
+    const form = document.getElementById('news-form-' + formId);
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.innerText;
+
+    btn.disabled = true;
+    btn.innerText = 'Skickar...';
+    btn.classList.add('opacity-70', 'cursor-not-allowed');
+
+    try {
+        const response = await fetch('/api/lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                email: email, 
+                name: name,
+                municipality: municipality,
+                source: window.location.pathname + '_newsletter'
+            })
+        });
+        
+        if (response.ok) {
+            form.classList.add('hidden');
+            document.getElementById('news-success-' + formId).classList.remove('hidden');
+        } else {
+            alert('Ett fel uppstod. Vänligen försök igen senare.');
+            btn.disabled = false;
+            btn.innerText = originalText;
+            btn.classList.remove('opacity-70', 'cursor-not-allowed');
+        }
+    } catch (err) {
+        console.error('Submit failed', err);
+        alert('Ett fel uppstod. Vänligen försök igen senare.');
+        btn.disabled = false;
+        btn.innerText = originalText;
+        btn.classList.remove('opacity-70', 'cursor-not-allowed');
+    }
+}
+</script>
+
 </main>
 
 <!-- Footer -->
