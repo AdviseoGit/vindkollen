@@ -33,6 +33,8 @@ STATIC_PAGES = [
     ("/kommunersattning-vindkraft-2026.html", "0.8", "monthly"),
     ("/ersattningsnivaer-region-for-region", "0.8", "monthly"),
     ("/original-data-rapport-arrende-2026", "0.8", "monthly"),
+    ("/bullerniva-minimiavstand-vindkraft", "0.8", "monthly"),
+    ("/avveckling-och-atervinning-vindkraft", "0.8", "monthly"),
 ]
 
 def generate_sitemap() -> None:

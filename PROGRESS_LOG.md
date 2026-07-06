@@ -1,3 +1,4 @@
+2026-07-06 | DESIGN | Integrerade nypublicerade guider (buller/avveckling) på startsidan + fixade länk | Enhetlig och tillgänglig navigering | nästa: Optimera UX/SEO för startsidan
 2026-07-05 | LEADFLOW | Injekterade e-postformulär på alla (18 st) guidesidor för att fånga upp "newsletter"-leads | Öka konverteringen totalt över sajten (lead-trappan) | nästa: Optimera SEO för kalkylatorns leadflow
 2026-07-04 | LEADFLOW/SEO | Fyllde i saknad AI-transparens & schema.org (Article) på guidesidor | Transparens-guardrails + SEO snippet-chans | nästa: Optimera landningssidor för lead-capture
 2026-07-03 | SEO/TEKNIK | Fixade saknad rutt och sitemap.xml för intäktsdelning-vindkraft | /intaktsdelning-vindkraft laddar korrekt | nästa: Optimera landningssidor för lead-capture

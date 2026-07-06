@@ -342,6 +342,14 @@ async def ersattning_html_alias():
 async def intaktsdelning_vindkraft():
     return _serve_static_html("static/intaktsdelning-vindkraft.html")
 
+@app.get("/bullerniva-minimiavstand-vindkraft", response_class=HTMLResponse)
+async def bullerniva_vindkraft():
+    return _serve_static_html("static/bullerniva-minimiavstand-vindkraft.html")
+
+@app.get("/avveckling-och-atervinning-vindkraft", response_class=HTMLResponse)
+async def avveckling_vindkraft():
+    return _serve_static_html("static/avveckling-och-atervinning-vindkraft.html")
+
 @app.get("/sitemap.xml")
 async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")
