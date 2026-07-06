@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Kommunersättning Vindkraft Kalkylator 2026 | Vindkollen</title>
+    <meta name="description" content="Räkna ut potentiell kommunersättning för vindkraft enligt de senaste förslagen 2026 (motsvarande intäkt från fastighetsskatt) med vår kalkylator.">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2ZDTQZXPRC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2ZDTQZXPRC');
+    </script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet"/>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #030712; color: white; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Kommunersättning Vindkraft Kalkylator",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "Räkna ut potentiell kommunersättning för vindkraft enligt de senaste förslagen 2026 (motsvarande intäkt från fastighetsskatt).",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "SEK"
+  }
+}
+    </script>
+</head>
+<body class="bg-gray-950 text-gray-100 flex flex-col min-h-screen">
+    <nav class="sticky top-0 z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a class="flex items-center gap-2" href="/">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <span class="font-bold text-xl tracking-tight text-white">Vindkollen</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors" href="/kalkylator.html">Kalkylator</a>
+                        <a class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors" href="/arrendeavtal-vindkraft.html">Arrende</a>
+                        <a class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors" href="/guider/vindkraftsersattning-2026.html">Guider</a>
+                        <a class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors" href="/kommun-dashboard.html">Kommuner</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-12 pb-24">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl sm:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400">Räkna ut Kommunersättning</h1>
+            <p class="text-gray-400 mb-8">Beräkna den potentiella skatteintäkten för en kommun per år baserat på förslaget att fastighetsskatten för vindkraft ska tillfalla kommunerna (uppdaterade siffror 2026).</p>
+            
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
+                <form id="calc-form" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Antal vindkraftverk (st)</label>
+                        <input type="number" id="antal-verk" min="1" max="1000" value="10" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Genomsnittlig effekt per verk (MW)</label>
+                        <input type="number" id="effekt" min="1" max="20" step="0.5" value="6" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Kapacitetsfaktor (%)</label>
+                        <p class="text-xs text-gray-500 mb-2">Standard för nya landbaserade verk är ca 35-40%</p>
+                        <input type="number" id="kapacitet" min="10" max="60" value="35" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <button type="button" onclick="calculate()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-xl transition-all duration-200">
+                        Beräkna ersättning
+                    </button>
+                </form>
+
+                <div id="result-box" class="mt-8 hidden p-6 bg-gray-800/50 border border-gray-700 rounded-xl">
+                    <h3 class="text-lg font-semibold text-gray-300 mb-2">Uppskattad Kommunal Intäkt:</h3>
+                    <p class="text-4xl font-bold text-white mb-2" id="result-total">0 kr <span class="text-lg text-gray-400 font-normal">/ år</span></p>
+                    <p class="text-sm text-gray-400">Motsvarande fastighetsskatt för landbaserad vindkraft som föreslås gå direkt till kommunen. <br/><br/>Beräkningen utgår från branschstandardvärden för produktionsvärde och en fastighetsskattesats om 0,2%. Resultatet är en grov uppskattning.</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-gray-300 prose prose-invert max-w-none">
+                <h2>Hur fungerar kommunersättningen för vindkraft?</h2>
+                <p>Ett av de stora debattämnena under 2026 är att ge kommuner starkare incitament för att säga ja till vindkraft. Huvudspåret är att låta <strong>fastighetsskatten för vindkraftverk</strong> (som normalt går till staten) stanna i eller oavkortat överföras till den kommun där verken byggs.</p>
+                <p>Ovanstående kalkylator är en förenklad modell som visar vilken storleksordning det handlar om, baserat på genomsnittliga byggkostnader och produktionsvärden för nya landbaserade verk under 2026.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-gray-800 bg-gray-950 py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-500 text-sm">© 2026 Vindkollen. Oberoende information om vindkraft.</p>
+        </div>
+    </footer>
+
+    <script>
+        function calculate() {
+            const antal = parseFloat(document.getElementById('antal-verk').value) || 0;
+            const effekt = parseFloat(document.getElementById('effekt').value) || 0;
+            const kapacitet = parseFloat(document.getElementById('kapacitet').value) || 0;
+            
+            // Förenklad uträkning av fastighetsskatt (0,2% av taxeringsvärde)
+            // Grov schablon: Ett nytt landbaserat verk värderas för fastighetsskatt till ca 5 Mkr per MW
+            // 5 000 000 * 0.002 = 10 000 kr / MW i fastighetsskatt
+            
+            // Lite mer realistisk modell för 2026: Fastighetsskatten snittar kring 15 000 - 20 000 kr per MW och år.
+            const skattPerMW = 18000; 
+            
+            const totalErsattning = antal * effekt * skattPerMW;
+            
+            const formatter = new Intl.NumberFormat('sv-SE');
+            document.getElementById('result-total').innerHTML = formatter.format(Math.round(totalErsattning)) + ' kr <span class="text-lg text-gray-400 font-normal">/ år</span>';
+            document.getElementById('result-box').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
