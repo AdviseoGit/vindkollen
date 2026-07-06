@@ -348,7 +348,7 @@ async def bullerniva_vindkraft():
 
 @app.get("/avveckling-och-atervinning-vindkraft", response_class=HTMLResponse)
 async def avveckling_vindkraft():
-    return _serve_static_html("static/avveckling-och-atervinning-vindkraft.html")
+    return _serve_static_html("static/avveckling-och-atervinning-vindkraftverk.html")
 
 @app.get("/sitemap.xml")
 async def sitemap():
