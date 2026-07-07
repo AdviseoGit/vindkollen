@@ -1,0 +1,1 @@
+echo "2026-07-07 | TEKNIK/SEO | Lagade trasig avveckling-route (rename html), uppdaterade sitemap och verifierade lead/stats API endpoints | Fixade teknisk skuld (404/500/SEO) | nästa: Optimera SEO för guiderna/kalkylator" | cat - /data/workspace/projects/vindkollen/PROGRESS_LOG.md > temp && mv temp /data/workspace/projects/vindkollen/PROGRESS_LOG.md
