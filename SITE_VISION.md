@@ -50,7 +50,7 @@ Vindkollen äger nischen "ersättning vindkraft Sverige" — #1 på BÅDE SEO oc
 - [x] Kalkylatorn + lead-capture end-to-end verifierad (formulär -> DB -> mejl)
 - [x] Alla sidor har samma design (nav, footer, stil)
 - [x] 0 trasiga länkar, 0 föräldralösa sidor
-- [☐] GA4 + GSC korrekt uppsatt, data flödar
+- [x] GA4 + GSC korrekt uppsatt, data flödar
 
 ### ☐ Milstolpe 2: INNEHÅLLSKÄRNAN (3–4 veckor)
 - [☐] 8–10 djupa guider som täcker hela beslutsresan (markägare, närboende, kommun)
