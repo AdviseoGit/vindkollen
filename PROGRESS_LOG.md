@@ -1,5 +1,5 @@
+2026-07-09 | LEADFLOW/TILLVÄXT | Nyhetsbrev-sektion inlagd på startsidan | Ökad leadkonvertering från startsidans hjälte-CTA | nästa: Optimera e-post automation
 2026-07-08 | LEADFLOW/TILLVÄXT | A/B-test CTA + publicera vindkraftsersattning guide | Ökad CTR på startsida + SEO pillar | nästa: Optimera e-post automation
-2026-07-07 | TEKNIK/SEO | Lagade trasig avveckling-route (rename html), uppdaterade sitemap och verifierade lead/stats API endpoints | Fixade teknisk skuld (404/500/SEO) | nästa: Optimera SEO för guiderna/kalkylator
 2026-07-07 | TEKNIK/SEO | Lagade trasig avveckling-route (rename html), uppdaterade sitemap och verifierade lead/stats API endpoints | Fixade teknisk skuld (404/500/SEO) | nästa: Optimera SEO för guiderna/kalkylator
 2026-07-06 | DESIGN | Integrerade nypublicerade guider (buller/avveckling) på startsidan + fixade länk | Enhetlig och tillgänglig navigering | nästa: Optimera UX/SEO för startsidan
 2026-07-05 | LEADFLOW | Injekterade e-postformulär på alla (18 st) guidesidor för att fånga upp "newsletter"-leads | Öka konverteringen totalt över sajten (lead-trappan) | nästa: Optimera SEO för kalkylatorns leadflow
