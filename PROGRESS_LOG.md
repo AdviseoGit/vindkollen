@@ -1,3 +1,4 @@
+2026-07-10 | SEO | Åtgärdade brutna länkar och icke-indexerade sidor (arrendeavtal, nackdelar) + sitemap uppdatering | Intern länkstruktur starkare, bättre indexeringschans för viktiga sidor | nästa: Optimera e-post automation
 2026-07-09 | LEADFLOW/TILLVÄXT | Nyhetsbrev-sektion inlagd på startsidan | Ökad leadkonvertering från startsidans hjälte-CTA | nästa: Optimera e-post automation
 2026-07-08 | LEADFLOW/TILLVÄXT | A/B-test CTA + publicera vindkraftsersattning guide | Ökad CTR på startsida + SEO pillar | nästa: Optimera e-post automation
 2026-07-07 | TEKNIK/SEO | Lagade trasig avveckling-route (rename html), uppdaterade sitemap och verifierade lead/stats API endpoints | Fixade teknisk skuld (404/500/SEO) | nästa: Optimera SEO för guiderna/kalkylator
