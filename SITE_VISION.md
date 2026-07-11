@@ -81,7 +81,7 @@ Vindkollen äger nischen "ersättning vindkraft Sverige" — #1 på BÅDE SEO oc
 1. [LÖST 2026-06-16] Mobil-navigering åtgärdad med hamburgermeny.
 2. [LÖST 2026-06-17] Inconsistent länkning åtgärdad - 404-sidor borttagna och omdirigerade
 3. [LÖST 2026-06-28] Footer saknas på flera sidor åtgärdad
-4. Formulär-styling: vissa formulär ser moderna ut, andra känns "2015"
+4. [LÖST 2026-07-11] Formulär-styling standardiserad över hela sajten (bg-slate-950, rounded-xl, blå focus).
 5. CTA-överbelastning på vissa sidor (flera konkurrerande knappar)
 6. Spacing/luft: vissa sidor känns trånga, andra luftiga — enhetlighet saknas
 
