@@ -350,7 +350,7 @@ async def bullerniva_vindkraft():
 async def avveckling_vindkraft():
     return _serve_static_html("static/avveckling-och-atervinning-vindkraft.html")
 
-@app.get("/guider/vindkraftsersattning-2026.html", response_class=HTMLResponse)
+@app.get("/guider/vindkraftsersattning-2026", response_class=HTMLResponse)
 async def vindkraftsersattning_guide():
     return _serve_static_html("static/guider/vindkraftsersattning-2026.html")
 
