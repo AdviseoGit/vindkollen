@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrende för Vindkraft vs Solpark: Vad ger bäst avkastning? | Vindkollen</title>
+    <meta name="description" content="Står du i valet mellan att arrendera ut din mark för vindkraft eller en solpark? Jämför intäkter, avtalstider, markpåverkan och risker för markägare i vår guide för 2026.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="canonical" href="https://vindkoll.se/arrende-vindkraft-vs-solpark" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#151e2e',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .prose h2 { color: #f8fafc; font-size: 1.875rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1.25rem; }
+        .prose h3 { color: #f1f5f9; font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; }
+        .prose p { color: #cbd5e1; line-height: 1.8; margin-bottom: 1.25rem; font-size: 1.125rem; }
+        .prose ul { color: #cbd5e1; margin-bottom: 1.5rem; padding-left: 1.5rem; list-style-type: disc; }
+        .prose li { margin-bottom: 0.5rem; }
+        .prose strong { color: #f8fafc; font-weight: 600; }
+        .table-container { overflow-x: auto; margin: 2rem 0; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { background-color: #1e293b; color: #f8fafc; padding: 1rem; font-weight: 600; border-bottom: 2px solid #334155; }
+        td { padding: 1rem; border-bottom: 1px solid #334155; color: #cbd5e1; }
+        tr:nth-child(even) { background-color: #0f172a; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-300 min-h-screen flex flex-col antialiased">
+    <!-- Navbar -->
+    <nav class="bg-slate-900/80 backdrop-blur-lg border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
+                        <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Vindkollen
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-8">
+                        <a href="/kalkylator" class="hover:text-white transition font-medium">Kalkylator</a>
+                        <a href="/arrendekalkylator" class="hover:text-white transition font-medium">Arrendekalkylator</a>
+                        <a href="/ersattning-for-vindkraft" class="hover:text-white transition font-medium">Markägare</a>
+                        <a href="/guider/guide-ersattning-vindkraft" class="hover:text-white transition font-medium">Guider</a>
+                        <a href="/kommun-dashboard" class="hover:text-white transition font-medium">Kommuner</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button type="button" class="text-slate-400 hover:text-white" aria-controls="mobile-menu" aria-expanded="false" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                        <span class="sr-only">Öppna huvudmenyn</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-slate-900 border-b border-slate-800" id="mobile-menu">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="/" class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition">Hem</a>
+                <a href="/kalkylator" class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition">Kalkylator</a>
+                <a href="/arrendekalkylator" class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition">Arrendekalkylator</a>
+                <a href="/ersattning-for-vindkraft" class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition">Markägare</a>
+                <a href="/guider/guide-ersattning-vindkraft" class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition">Guider</a>
+                <a href="/kommun-dashboard" class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition">Kommuner</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <!-- Breadcrumbs -->
+            <nav class="flex mb-8 text-sm text-slate-400" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <a href="/" class="inline-flex items-center hover:text-white transition">Hem</a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="w-3 h-3 mx-1 text-slate-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/></svg>
+                            <a href="/guider/guide-ersattning-vindkraft" class="ml-1 hover:text-white transition">Guider</a>
+                        </div>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <svg class="w-3 h-3 mx-1 text-slate-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/></svg>
+                            <span class="ml-1 text-slate-300 font-medium">Arrende vindkraft vs solpark</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+
+            <header class="mb-12">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="bg-blue-900/50 text-blue-400 text-sm font-semibold px-4 py-1.5 rounded-full border border-blue-800/50">Jämförelse</span>
+                    <span class="text-slate-400 text-sm flex items-center gap-1.5">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Lästid: 6 minuter
+                    </span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight font-heading">
+                    Arrende för vindkraft vs solpark: <span class="gradient-text">Vad ger bäst avkastning?</span>
+                </h1>
+                <p class="text-xl text-slate-400 leading-relaxed max-w-3xl">
+                    Sverige står inför en massiv utbyggnad av förnybar energi och för dig som markägare innebär det stora möjligheter. Men vad ska du välja om du får erbjudande om både vindkraft och solcellspark på din mark? Vi jämför arrendeintäkter, avtalstider, risker och markpåverkan för 2026.
+                </p>
+            </header>
+
+            <div class="prose max-w-none">
+                <p>Ett arrendeavtal för energiproduktion låser upp din mark för lång tid framöver. Valet mellan vindkraft och storskaliga solparker (solcellsparker) handlar inte bara om vilken teknik du föredrar, utan om fundamentalt olika affärsmodeller, ersättningsnivåer och hur marken kan användas under arrendetiden.</p>
+
+                <h2>1. Ersättningsmodeller och intäkter</h2>
+                <p>Den mest uppenbara skillnaden mellan vind- och solkraft är hur ersättningen beräknas och betalas ut till dig som markägare.</p>
+                
+                <h3>Vindkraft: Rörlig och volymbaserad ersättning</h3>
+                <p>För vindkraft baseras ersättningen nästan uteslutande på en <strong>procentuell intäktsdelning (arrende)</strong> av bruttointäkterna, oftast med en fast årlig minimiersättning (garantiarrende). Vindkraftsavtal ger ofta höga intäkter när elpriset och produktionen är hög, men innebär en viss risk om elpriset faller (även om garantinivån skyddar mot totala inkomstbortfall).</p>
+                <ul>
+                    <li><strong>Ersättningsnivå:</strong> Vanligtvis 3-5 % av verkets bruttointäkter.</li>
+                    <li><strong>Årlig avkastning:</strong> Cirka 300 000 - 800 000 kr per verk och år (beroende på elområde och verkets storlek).</li>
+                    <li>Du kan beräkna din förväntade intäkt i vår <a href="/arrendekalkylator" class="text-blue-400 hover:text-blue-300 underline">arrendekalkylator för vindkraft</a>.</li>
+                </ul>
+
+                <h3>Solparker: Fast ersättning per hektar</h3>
+                <p>För solparker är normen en <strong>fast årlig ersättning per ianspråktagen hektar mark</strong>, indexuppräknad (ofta enligt KPI). Viss intäktsdelning börjar förekomma, men fastpris är fortfarande standard eftersom solparker kräver stora markarealer med relativt låg produktion per kvadratmeter jämfört med ett vindkraftverk.</p>
+                <ul>
+                    <li><strong>Ersättningsnivå:</strong> Historiskt 10 000 - 15 000 kr per hektar/år, men ligger nu ofta runt 20 000 - 30 000 kr per hektar/år i södra Sverige (SE3 och SE4) där marknaden är het.</li>
+                    <li><strong>Årlig avkastning:</strong> För en typisk solpark på 10 hektar ger det cirka 200 000 - 300 000 kr per år.</li>
+                </ul>
+
+                <div class="bg-blue-900/20 border border-blue-800/50 rounded-2xl p-8 my-10">
+                    <h3 class="text-2xl font-bold text-white mt-0 mb-4 flex items-center gap-3">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Huvudregel för intäkter
+                    </h3>
+                    <p class="mb-0 text-blue-100">Vindkraft ger oftast <strong>betydligt högre intäkter per påverkad kvadratmeter</strong>, men kräver specifika vindlägen. Solkraft kräver enorma arealer mark för att ge samma avkastning som ett enda modernt vindkraftverk, men kan byggas på sämre mark (t.ex. impediment) där vindkraft inte är aktuellt.</p>
+                </div>
+
+                <h2>2. Markanvändning och påverkan</h2>
+                <p>Hur din mark påverkas under arrendetiden skiljer sig drastiskt mellan de två energislagen.</p>
+
+                <h3>Markpåverkan Vindkraft</h3>
+                <p>Ett modernt vindkraftverk kräver vägar, kranuppställningsplats och fundament. Själva fotavtrycket för ett verk ligger på cirka <strong>0,5 - 1 hektar</strong>. Den absolut största fördelen med vindkraft är att marken runt omkring (ofta över 95 % av den totala fastigheten) kan fortsätta användas för skogsbruk eller jordbruk precis som vanligt.</p>
+
+                <h3>Markpåverkan Solpark</h3>
+                <p>En solpark lägger beslag på <strong>100 % av den aktuella ytan</strong> under hela avtalstiden. Marken inhägnas med stängsel, vilket gör den obrukbar för traditionellt skogs- och jordbruk. Viss kombination med fårbetning (så kallad agrivoltaics) blir allt vanligare, men ytan är i övrigt helt låst för annan verksamhet. Skog måste avverkas permanent under parkens livstid.</p>
+
+                <h2>3. Avtalstider och tidsaspekter</h2>
+                <p>Energiprojekt är långsiktiga investeringar och det återspeglas i avtalen.</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Aspekt</th>
+                                <th>Vindkraft</th>
+                                <th>Solcellspark</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Projekteringstid (före byggstart)</strong></td>
+                                <td>Lång (ofta 5-10 år pga tillstånd och veto)</td>
+                                <td>Snabb (ofta 1-3 år, kräver oftast bara bygglov/anmälan)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Arrendetid (driftfas)</strong></td>
+                                <td>Normalt 25-35 år</td>
+                                <td>Normalt 30-40 år</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Förlängningsrätt</strong></td>
+                                <td>Ofta rätt till förlängning (5+ år)</td>
+                                <td>Standard med 5-10 års option</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Möjlighet att påverka utformning</strong></td>
+                                <td>Vägar kan anpassas till skogsbruket</td>
+                                <td>Marken stängslas in och blir en industriell anläggning</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>4. Tillstånd och Byråkrati</h2>
+                <p>Det är här den stora flaskhalsen skiljer projekten åt.</p>
+                <p><strong>Vindkraft</strong> styrs av Miljöbalken och kräver miljötillstånd (oftast från Länsstyrelsen). Dessutom har kommunen ett kommunalt veto, vilket innebär att de kan stoppa projektet oavsett vad du som markägare eller Länsstyrelsen tycker. Det gör att det finns en hög risk att ett vindkraftsprojekt aldrig blir av, trots påskrivet arrendeavtal.</p>
+                <p><strong>Solparker</strong> är betydligt enklare tillståndsmässigt. Det krävs oftast inget miljötillstånd, utan en "12:6-anmälan" till Länsstyrelsen (samråd om ändrad markanvändning) och ibland ett bygglov från kommunen. Risken att projektet stoppas sent i processen är avsevärt lägre än för vindkraft.</p>
+
+                <div class="ad-slot my-12 bg-slate-900 border border-slate-800 rounded-xl p-8 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-purple-900/20 opacity-50"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-bold text-white mb-2">Vad kan vindkraft på din mark ge?</h3>
+                        <p class="text-slate-400 mb-6 max-w-lg mx-auto">Vår kalkylator hjälper dig att uppskatta din förväntade ersättning från ett vindkraftsarrende utifrån elområde och avtalsmodell.</p>
+                        <a href="/arrendekalkylator" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-bold transition shadow-lg">Testa Arrendekalkylatorn</a>
+                    </div>
+                </div>
+
+                <h2>5. Avveckling och återställning</h2>
+                <p>Vad händer när avtalstiden löper ut? Det är kritiskt att det finns en ekonomisk säkerhet (bankgaranti eller spärrat konto) för nedmontering, så att du som markägare inte står med notan.</p>
+                <ul>
+                    <li><strong>Vindkraft:</strong> Det är lagstadgat och branschstandard att en säkerhet för avveckling (ofta 500 000 - 1 000 000 kr per verk) ställs innan bygget påbörjas. Läs mer i vår guide om <a href="/avveckling-och-atervinning-vindkraft" class="text-blue-400 hover:text-blue-300 underline">avveckling och återvinning av vindkraft</a>.</li>
+                    <li><strong>Solparker:</strong> Här finns inte samma historik eller lagkrav. Materialet i solpaneler har ett högt skrotvärde (aluminium, koppar), vilket ofta lyfts som en inbyggd säkerhet av bolagen. <strong>Du måste dock kräva att en formell ekonomisk säkerhet för bortforsling skrivs in i avtalet!</strong> Lita aldrig enbart på ett teoretiskt skrotvärde.</li>
+                </ul>
+
+                <h2>Sammanfattning: Vad ska du välja?</h2>
+                <p>I slutändan beror valet på din marktyp och din risktolerans:</p>
+                <ol>
+                    <li><strong>Välj vindkraft om:</strong> Du har ett bra vindläge, driver aktivt skogsbruk/jordbruk som du vill fortsätta med (eftersom verkens fotavtryck är litet), och du vill maximera intäkten per påverkad hektar. Du måste dock ha tålamod för en långdragen tillståndsprocess.</li>
+                    <li><strong>Välj solpark om:</strong> Du har stora arealer relativt lågproduktiv mark (impediment, gammal torvtäkt eller hygge), ligger nära en bra nätanslutning (ställverk), och vill ha en snabbare process med garanterad och stabil intäkt utan risk för att bli stoppad av kommunalt veto.</li>
+                </ol>
+                <p>Oavsett vad du väljer: teckna aldrig ett arrendeavtal utan att låta en jurist som är specialiserad på energiarrenden granska det. Läs gärna mer om fallgropar i vår guide om <a href="/arrendeavtal-vindkraft" class="text-blue-400 hover:text-blue-300 underline">arrendeavtal för vindkraft</a>.</p>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div class="lg:col-span-1">
+                    <a href="/" class="text-2xl font-extrabold tracking-tight text-white mb-4 block flex items-center gap-2">
+                        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Vindkollen
+                    </a>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Oberoende information och verktyg kring ersättningsmodeller, arrenden och intäkter från vindkraft för markägare, närboende och kommuner.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Verktyg & Tjänster</h3>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><a href="/kalkylator" class="hover:text-blue-400 transition">Ersättningskalkylator</a></li>
+                        <li><a href="/arrendekalkylator" class="hover:text-blue-400 transition">Arrendekalkylator</a></li>
+                        <li><a href="/kommun-dashboard" class="hover:text-blue-400 transition">Kommun-dashboard</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">För Markägare</h3>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><a href="/ersattning-for-vindkraft" class="hover:text-blue-400 transition">Ersättning för markägare</a></li>
+                        <li><a href="/arrendeavtal-vindkraft" class="hover:text-blue-400 transition">Arrendeavtal vindkraft</a></li>
+                        <li><a href="/sa-far-du-vindkraft-pa-din-mark" class="hover:text-blue-400 transition">Skaffa vindkraft på din mark</a></li>
+                        <li><a href="/arrende-vindkraft-vs-solpark" class="hover:text-blue-400 transition">Vindkraft vs Solpark</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Lag & Rätt</h3>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><a href="/intaktsdelning-vindkraft" class="hover:text-blue-400 transition">Nya lagen om intäktsdelning</a></li>
+                        <li><a href="/kommunersattning-vindkraft-2026.html" class="hover:text-blue-400 transition">Kommunersättning 2026</a></li>
+                        <li><a href="/paverkar-vindkraft-fastighetsvarde" class="hover:text-blue-400 transition">Påverkan på fastighetsvärde</a></li>
+                        <li><a href="/skatt-vindkraftersattning" class="hover:text-blue-400 transition">Skatt på ersättning</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
+                <p>Denna sajt skapas och drivs delvis av AI &middot; <a href="/om-sajten" class="hover:text-blue-400 transition-colors underline decoration-slate-700 underline-offset-4">Om sajten</a> &middot; &copy; 2026 Vindkollen.se</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
