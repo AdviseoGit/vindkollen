@@ -1,3 +1,4 @@
+2026-07-13 | TILLVÄXT | Injekterade lead-capture formulär (Original Data Rapport) i alla artiklar/guider för att maximera konvertering | Ökad CTR på lead magnets från informationssidor | nästa: Fortsätt med Milstolpe 2 (Innehållskärnan)
 2026-07-12 | SEO/TEKNIK | Åtgärdade brutna .html-länkar för arrendeavtal, fixade sitemap för 4 oindexerade URL:er | URL:er kan nu crawlas & indexeras | nästa: Optimera landningssidor för lead-capture
 2026-07-11 | DESIGN/SEO | Standardiserade formulär-design (bg-slate-950, rounded-xl) & injicerade saknad AI-footer på 5 sidor | Enhetlig nordstjärnedesign & core-guardrails | nästa: Optimera e-post automation (Milstolpe 3)
 2026-07-10 | SEO | Åtgärdade brutna länkar och icke-indexerade sidor (arrendeavtal, nackdelar) + sitemap uppdatering | Intern länkstruktur starkare, bättre indexeringschans för viktiga sidor | nästa: Optimera e-post automation
