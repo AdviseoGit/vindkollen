@@ -211,7 +211,57 @@
             </form>
         </div>
 
-    </main>
+    
+    <!-- Lead Capture Form -->
+    <div class="mt-12 bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl max-w-3xl mx-auto mb-16">
+        <h3 class="text-2xl font-bold text-white mb-3">Få vår detaljerade rapport om vindkraftsersättning</h3>
+        <p class="text-slate-300 mb-6">Ladda ner vår senaste analys av arrendenivåer, intäktsdelning och förhandlingstips för 2026. Helt gratis.</p>
+        <form class="space-y-4" id="lead-form-article" onsubmit="submitLead(event)">
+            <div class="grid sm:grid-cols-2 gap-4">
+                <input class="bg-slate-950 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white w-full" id="lead-name" placeholder="Förnamn" required type="text">
+                <input class="bg-slate-950 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white w-full" id="lead-email" placeholder="Din e-postadress" required type="email">
+            </div>
+            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg" type="submit">
+                Skicka rapporten till min e-post &rarr;
+            </button>
+            <div id="lead-success-msg" class="hidden text-green-400 font-medium text-center mt-2">Tack! Rapporten skickas till din e-post.</div>
+            <div id="lead-error-msg" class="hidden text-red-400 font-medium text-center mt-2">Något gick fel. Försök igen.</div>
+            <p class="text-xs text-slate-500 text-center mt-3">Vi delar aldrig din data. Avregistrera när som helst.</p>
+        </form>
+        <script>
+            async function submitLead(e) {
+                e.preventDefault();
+                const name = document.getElementById("lead-name").value;
+                const email = document.getElementById("lead-email").value;
+                const btn = e.target.querySelector("button");
+                btn.disabled = true;
+                btn.innerText = "Skickar...";
+                
+                try {
+                    const res = await fetch("/api/lead", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email: email, name: name, source: "article_form" })
+                    });
+                    
+                    if(res.ok) {
+                        document.getElementById("lead-success-msg").classList.remove("hidden");
+                        document.getElementById("lead-error-msg").classList.add("hidden");
+                        e.target.reset();
+                        btn.innerText = "Skickat!";
+                    } else {
+                        throw new Error("Failed");
+                    }
+                } catch (err) {
+                    document.getElementById("lead-error-msg").classList.remove("hidden");
+                    btn.disabled = false;
+                    btn.innerText = "Skicka rapporten till min e-post →";
+                }
+            }
+        </script>
+    </div>
+    
+</main>
 
     <!-- Footer -->
     <footer class="border-t border-slate-800 bg-[#030712] py-12 mt-auto">
