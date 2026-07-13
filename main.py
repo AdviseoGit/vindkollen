@@ -354,6 +354,10 @@ async def avveckling_vindkraft():
 async def vindkraftsersattning_guide():
     return _serve_static_html("static/guider/vindkraftsersattning-2026.html")
 
+@app.get("/nio-verkshojder-ersattning", response_class=HTMLResponse)
+async def nio_verkshojder_ersattning():
+    return _serve_static_html("static/nio-verkshojder-ersattning.html")
+
 @app.get("/sitemap.xml")
 async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")
