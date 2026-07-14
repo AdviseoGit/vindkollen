@@ -238,7 +238,21 @@
                 </ol>
                 <p>Oavsett vad du väljer: teckna aldrig ett arrendeavtal utan att låta en jurist som är specialiserad på energiarrenden granska det. Läs gärna mer om fallgropar i vår guide om <a href="/arrendeavtal-vindkraft" class="text-blue-400 hover:text-blue-300 underline">arrendeavtal för vindkraft</a>.</p>
             </div>
-        </article>
+        
+    <!-- Lead Magnet Form -->
+    <div class="my-12 bg-slate-900 border border-slate-800 rounded-xl p-8 shadow-xl">
+        <h3 class="text-2xl font-bold text-white mb-4">Ladda ner vår Original-data-rapport 2026</h3>
+        <p class="text-slate-300 mb-6">Få den kompletta bilden av ersättningsnivåer, arrendeavtal och intäktsdelning i Sverige. Baserad på unik data från över 500 beräkningar.</p>
+        <form action="/api/newsletter/subscribe" method="POST" class="flex flex-col sm:flex-row gap-3">
+            <input type="email" name="email" placeholder="Din e-postadress" required class="flex-1 bg-slate-950 border border-slate-800 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder-slate-500">
+            <input type="hidden" name="source" value="article_inline">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-6 rounded-lg transition-colors whitespace-nowrap">
+                Få rapporten (PDF)
+            </button>
+        </form>
+    </div>
+
+</article>
     </main>
 
     <!-- Footer -->
@@ -282,7 +296,7 @@
                 </div>
             </div>
             <div class="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
-                <p>Denna sajt skapas och drivs delvis av AI &middot; <a href="/om-sajten" class="hover:text-blue-400 transition-colors underline decoration-slate-700 underline-offset-4">Om sajten</a> &middot; &copy; 2026 Vindkollen.se</p>
+                <p>Denna sajt skapas och drivs helt av AI &middot; <a href="/om-sajten" class="hover:text-blue-400 transition-colors underline decoration-slate-700 underline-offset-4">Om sajten</a> &middot; &copy; 2026 Vindkollen.se</p>
             </div>
         </div>
     </footer>
