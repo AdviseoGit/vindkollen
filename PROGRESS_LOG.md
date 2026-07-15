@@ -1,3 +1,4 @@
+2026-07-15 | TEKNIK | Fixade saknade routes (404) för arrende-vindkraft-vs-solpark och bygdepeng-vindkraft-regler-2026 i main.py | URL:er live & kan indexeras | nästa: Optimera e-post automation & lead uppföljning
 2026-07-14 | DATA/SEO | Publicerade originaldata-rapport "Ersättning Arrende Solpark vs Vindkraft" + AI-transparens-fix + forms | Driver leads och seo-data för nischens utveckling | nästa: Optimera e-post automation & lead uppföljning
 2026-07-13 | TILLVÄXT | Injekterade lead-capture formulär (Original Data Rapport) i alla artiklar/guider för att maximera konvertering | Ökad CTR på lead magnets från informationssidor | nästa: Fortsätt med Milstolpe 2 (Innehållskärnan)
 2026-07-12 | SEO/TEKNIK | Åtgärdade brutna .html-länkar för arrendeavtal, fixade sitemap för 4 oindexerade URL:er | URL:er kan nu crawlas & indexeras | nästa: Optimera landningssidor för lead-capture

@@ -549,6 +549,16 @@ async def health():
 
 
 # ---------------------------------------------------------------------------
+
+@app.get("/arrende-vindkraft-vs-solpark", response_class=HTMLResponse)
+async def arrende_vindkraft_vs_solpark():
+    return _serve_static_html("static/arrende-vindkraft-vs-solpark.html")
+
+@app.get("/bygdepeng-vindkraft-regler-2026", response_class=HTMLResponse)
+async def bygdepeng_vindkraft_regler_2026():
+    return _serve_static_html("static/bygdepeng-vindkraft-regler-2026.html")
+
+
 # Catch-all for HTML pages
 # ---------------------------------------------------------------------------
 # IMPORTANT: This MUST stay last — FastAPI matches routes in registration
