@@ -1,3 +1,4 @@
+2026-07-16 | TEKNIK/SEO | Fixade felaktig canonical URL på nio-verkshojder-ersattning + uppdaterade sitemap och index logg | Bättre förutsättningar för indexering av informationssidor | nästa: Optimera interna länkar för oindexerade sidor
 2026-07-15 | TEKNIK | Fixade saknade routes (404) för arrende-vindkraft-vs-solpark och bygdepeng-vindkraft-regler-2026 i main.py | URL:er live & kan indexeras | nästa: Optimera e-post automation & lead uppföljning
 2026-07-14 | DATA/SEO | Publicerade originaldata-rapport "Ersättning Arrende Solpark vs Vindkraft" + AI-transparens-fix + forms | Driver leads och seo-data för nischens utveckling | nästa: Optimera e-post automation & lead uppföljning
 2026-07-13 | TILLVÄXT | Injekterade lead-capture formulär (Original Data Rapport) i alla artiklar/guider för att maximera konvertering | Ökad CTR på lead magnets från informationssidor | nästa: Fortsätt med Milstolpe 2 (Innehållskärnan)
