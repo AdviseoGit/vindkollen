@@ -4,7 +4,6 @@ import os
 from datetime import datetime
 
 BASE_URL = "https://vindkoll.se"
-CONTENT_DIR = "content"
 SITEMAP_PATH = "sitemap.xml"
 
 STATIC_PAGES = [
@@ -26,11 +25,10 @@ STATIC_PAGES = [
     ("/paverkar-vindkraft-fastighetsvarde", "0.8", "monthly"),
     ("/skatt-vindkraftersattning", "0.8", "monthly"),
     ("/guider/bygdepeng-guide-2026", "0.8", "monthly"),
-    ("/ersattningsmodeller-vindkraft.html", "0.8", "monthly"),
-    ("/guider/bygdepeng-och-kommunersattning-2026.html", "0.8", "monthly"),
-    ("/guider/nackdelar-vindkraft-detaljerad-guide.html", "0.8", "monthly"),
+    ("/guider/bygdepeng-och-kommunersattning-2026", "0.8", "monthly"),
+    ("/guider/nackdelar-vindkraft-detaljerad-guide", "0.8", "monthly"),
     ("/guider/vindkraftsersattning-2026", "0.8", "monthly"),
-    ("/kommunersattning-vindkraft-2026.html", "0.8", "monthly"),
+    ("/kommunersattning-vindkraft-2026", "0.8", "monthly"),
     ("/ersattningsnivaer-region-for-region", "0.8", "monthly"),
     ("/original-data-rapport-arrende-2026", "0.8", "monthly"),
     ("/bullerniva-minimiavstand-vindkraft", "0.8", "monthly"),
