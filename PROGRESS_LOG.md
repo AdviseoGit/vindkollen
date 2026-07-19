@@ -1,3 +1,4 @@
+2026-07-19 | TEKNIK | Fixade ofiltrerade .html länk-rutter (15+ filer) på hela sajten | 0 trasiga/felaktiga interna länkar | nästa: Optimera SEO content för guider
 2026-07-17 | SEO/TEKNIK | Fixade saknade .html länk-rutter i sitemap och lade till relaterade guider på 7 kärnsidor | Driver interna länkar för oindexerade sidor (buller/avveckling/arrendeavtal) | nästa: Optimera content unikt värde för arrende-vindkraft-vs-solpark
 2026-07-16 | TEKNIK/SEO | Fixade felaktig canonical URL på nio-verkshojder-ersattning + uppdaterade sitemap och index logg | Bättre förutsättningar för indexering av informationssidor | nästa: Optimera interna länkar för oindexerade sidor
 2026-07-15 | TEKNIK | Fixade saknade routes (404) för arrende-vindkraft-vs-solpark och bygdepeng-vindkraft-regler-2026 i main.py | URL:er live & kan indexeras | nästa: Optimera e-post automation & lead uppföljning
