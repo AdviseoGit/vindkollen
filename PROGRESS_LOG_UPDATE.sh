@@ -1,1 +1,1 @@
-echo "2026-07-20 | TEKNIK/SEO | Lagade saknad route till /havsbaserad-vindkraft-ersattning i main.py och uppdaterade sitemap | Tillgängliggör sidan för indexering och fixar 404 | nästa: Optimera unikt värde för arrende-vindkraft-vs-solpark" | cat - PROGRESS_LOG.md > temp && mv temp PROGRESS_LOG.md
+echo "2026-07-20 | SEO/TEKNIK | AI-transparens footer fixad för havsbaserad-vindkraft-ersattning | Uppfyller core guardrails | nästa: Optimera unikt värde för arrende-vindkraft-vs-solpark" | cat - PROGRESS_LOG.md > temp && mv temp PROGRESS_LOG.md
