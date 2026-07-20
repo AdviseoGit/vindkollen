@@ -1,1 +1,1 @@
-echo "2026-07-20 | TEKNIK/SEO | Fixade felaktig canonical tagg (.html) på bygdepeng-vindkraft-regler-2026 | Tar bort indexeringsblockerande canonical tag | nästa: Optimera design/konvertering" | cat - PROGRESS_LOG.md > temp && mv temp PROGRESS_LOG.md
+echo "2026-07-20 | TEKNIK/SEO | Lagade interna .html fel-länkar (t.ex. index.html) i flera filer till korrekta rutter | Nollställde brutna interna länkar (0 broken links) | nästa: Optimera design/konvertering" | cat - PROGRESS_LOG.md > temp && mv temp PROGRESS_LOG.md
