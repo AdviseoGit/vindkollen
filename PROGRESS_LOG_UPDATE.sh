@@ -1,1 +1,1 @@
-echo "2026-07-20 | SEO/TEKNIK | AI-transparens footer fixad för havsbaserad-vindkraft-ersattning | Uppfyller core guardrails | nästa: Optimera unikt värde för arrende-vindkraft-vs-solpark" | cat - PROGRESS_LOG.md > temp && mv temp PROGRESS_LOG.md
+echo "2026-07-20 | SEO/TEKNIK | AI-transparens footer fixad för havsbaserad-vindkraft-ersattning (korrekt html) | Uppfyller core guardrails | nästa: Optimera unikt värde för arrende-vindkraft-vs-solpark" | cat - PROGRESS_LOG.md > temp && mv temp PROGRESS_LOG.md
