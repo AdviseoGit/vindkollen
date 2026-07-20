@@ -9,4 +9,4 @@ https://vindkoll.se/avveckling-och-atervinning-vindkraft | Discovered - currentl
 https://vindkoll.se/guider/vindkraftsersattning-2026 | Crawled - currently not indexed | 2026-07-16 | kvalitet/uniktvärde-problem; fördjupa/differentiera sidan
 https://vindkoll.se/arrendeavtal-vindkraft | Discovered - currently not indexed | 2026-07-16 | förstärkt interna länkar
 
-https://vindkoll.se/arrende-vindkraft-vs-solpark | Crawled - currently not indexed | 2026-07-19 | Åtgärdade interna länkar (html bort)
+https://vindkoll.se/arrende-vindkraft-vs-solpark | Crawled - currently not indexed | 2026-07-19 | Åtgärdade interna länkar (html bort)https://vindkoll.se/havsbaserad-vindkraft-ersattning | Submitted and indexed | 2026-07-20 | Nyligen publicerad, indexering kollad OK

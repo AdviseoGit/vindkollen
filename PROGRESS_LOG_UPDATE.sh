@@ -1,3 +1,1 @@
-echo "2026-07-10 | SEO | Åtgärdade brutna länkar och icke-indexerade sidor (arrendeavtal, nackdelar) + sitemap uppdatering | Intern länkstruktur starkare, bättre indexeringschans för viktiga sidor | nästa: Optimera e-post automation" > temp_log.txt
-cat /data/workspace/projects/vindkollen/PROGRESS_LOG.md >> temp_log.txt
-mv temp_log.txt /data/workspace/projects/vindkollen/PROGRESS_LOG.md
+echo "2026-07-20 | TEKNIK/SEO | Lagade saknad route till /havsbaserad-vindkraft-ersattning i main.py och uppdaterade sitemap | Tillgängliggör sidan för indexering och fixar 404 | nästa: Optimera unikt värde för arrende-vindkraft-vs-solpark" | cat - PROGRESS_LOG.md > temp && mv temp PROGRESS_LOG.md
