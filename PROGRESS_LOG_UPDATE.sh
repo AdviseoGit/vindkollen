@@ -1,1 +1,1 @@
-echo "2026-07-20 | SEO | Fördjupade arrende-vindkraft-vs-solpark med unikt data-värde från Vindkollens insikter | Höjer unikt värde för indexering på oindexerade URL:er | nästa: Optimera design-brister" | cat - PROGRESS_LOG.md > temp && mv temp PROGRESS_LOG.md
+echo "2026-07-20 | TEKNIK/SEO | Fixade felaktig canonical tagg (.html) på bygdepeng-vindkraft-regler-2026 | Tar bort indexeringsblockerande canonical tag | nästa: Optimera design/konvertering" | cat - PROGRESS_LOG.md > temp && mv temp PROGRESS_LOG.md
