@@ -1,3 +1,4 @@
+-e 2026-07-21 | SEO | Fördjupade oindexerade sidor med unikt Vindkollen-data | Höjer unikt värde för indexering på 6 URLs | nästa: Optimera kalkylatorns leadflow
 2026-07-19 | SEO | Fördjupade guider (vindkraftsersättnings-guider & bygdepeng) med unikt data-värde och uppdaterad info om lagen 2026 | Höjer unikt värde för indexering på oindexerade URL:er | nästa: Optimera design-brister
 2026-07-19 | TEKNIK | Fixade ofiltrerade .html länk-rutter (15+ filer) på hela sajten | 0 trasiga/felaktiga interna länkar | nästa: Optimera SEO content för guider
 2026-07-17 | SEO/TEKNIK | Fixade saknade .html länk-rutter i sitemap och lade till relaterade guider på 7 kärnsidor | Driver interna länkar för oindexerade sidor (buller/avveckling/arrendeavtal) | nästa: Optimera content unikt värde för arrende-vindkraft-vs-solpark
