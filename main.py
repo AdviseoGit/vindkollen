@@ -576,6 +576,10 @@ async def havsbaserad_vindkraft_ersattning():
 async def redirect_guider():
     return RedirectResponse(url="/", status_code=301)
 
+@app.get("/guider/", response_class=RedirectResponse)
+async def redirect_guider_slash():
+    return RedirectResponse(url="/", status_code=301)
+
 @app.get("/{path:path}", response_class=HTMLResponse)
 async def serve_page(path: str):
     """Serve any .html file from static/ or content/ directories."""
