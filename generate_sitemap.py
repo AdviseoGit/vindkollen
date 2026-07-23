@@ -11,6 +11,7 @@ STATIC_PAGES = [
     ("/kalkylator", "0.9", "weekly"),
     ("/arrendekalkylator", "0.9", "weekly"),
     ("/jamforelse-ersattning-vs-arrende", "0.9", "weekly"),
+    ("/skillnad-arrende-intaktsdelning", "0.9", "monthly"),
     ("/om-sajten", "0.5", "monthly"),
     ("/kommun-dashboard", "0.9", "monthly"),
     ("/intaktsdelning-vindkraft", "0.9", "monthly"),

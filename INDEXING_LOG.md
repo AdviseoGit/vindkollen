@@ -8,3 +8,6 @@ https://vindkoll.se/bullerniva-minimiavstand-vindkraft | Discovered - currently 
 https://vindkoll.se/avveckling-och-atervinning-vindkraft | Discovered - currently not indexed | 2026-07-21 | Fördjupade med Vindkollen-data & lade till i mobilmeny
 https://vindkoll.se/guider/vindkraftsersattning-2026 | Crawled - currently not indexed | 2026-07-21 | Lade till unika insiktssektioner & omskrivningar
 https://vindkoll.se/arrendeavtal-vindkraft | Discovered - currently not indexed | 2026-07-16 | förstärkt interna länkar
+
+https://vindkoll.se/jamfor-narboende-markagare | URL is unknown to Google | 2026-07-23 | FIX: Ersatt med https://vindkoll.se/skillnad-arrende-intaktsdelning
+https://vindkoll.se/skillnad-arrende-intaktsdelning | Ny URL | 2026-07-23 | Publicerad och upplagd i sitemap

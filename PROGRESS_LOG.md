@@ -1,3 +1,4 @@
+2026-07-23 | TILLVÄXT/SEO | Skapade djupgående guide: "Skillnaden mellan markarrende och intäktsdelning" (intent: commercial) | Äga intentet & binda samman funneln (Milstolpe 2) | nästa: Bygg klart DB för leads/stats
 2026-07-22 | LEADFLOW/SEO | Optimerade jämförelseverktyget med Schema  redirect | Höjer CTR på sök via FAQ Schema och städar 301-redirects | nästa: Optimera startsidans CTA
 -e 2026-07-21 | SEO | Fördjupade oindexerade sidor med unikt Vindkollen-data | Höjer unikt värde för indexering på 6 URLs | nästa: Optimera kalkylatorns leadflow
 2026-07-19 | SEO | Fördjupade guider (vindkraftsersättnings-guider & bygdepeng) med unikt data-värde och uppdaterad info om lagen 2026 | Höjer unikt värde för indexering på oindexerade URL:er | nästa: Optimera design-brister

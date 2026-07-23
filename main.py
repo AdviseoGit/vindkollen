@@ -307,6 +307,10 @@ async def bygga_vindkraftverk_steg_for_steg():
     return _serve_static_html("static/guider/bygga-vindkraftverk-steg-for-steg.html")
 
 
+@app.get("/skillnad-arrende-intaktsdelning", response_class=HTMLResponse)
+async def skillnad_arrende_intaktsdelning():
+    return _serve_static_html("static/skillnad-arrende-intaktsdelning.html")
+
 @app.get("/guider/guide-ersattning-vindkraft", response_class=HTMLResponse)
 async def guide_ersattning_vindkraft():
     return _serve_static_html("static/guider/guide-ersattning-vindkraft.html")
