@@ -72,9 +72,10 @@
     <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400 items-center">
         <a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
         <a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
-        <a class="hover:text-white transition" href="/ersattning-for-vindkraft">Markägare</a>
+        <a class="hover:text-white transition" href="/markagare">Markägare</a>
+        <a class="hover:text-white transition" href="/narboende">Närboende</a>
         <a class="hover:text-white transition" href="/guider/guide-ersattning-vindkraft">Guider</a>
-        <a class="hover:text-white transition" href="/kommun-dashboard">Kommuner</a>
+        <a class="hover:text-white transition" href="/kommun">Kommuner</a>
     </div>
     <!-- Mobile Menu Button -->
     <button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Meny">
@@ -100,10 +101,11 @@
             <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
             <a class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
             <a class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
-            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/ersattning-for-vindkraft">Markägare</a>
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/markagare">Markägare</a>
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/narboende">Närboende</a>
             <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/guider/guide-ersattning-vindkraft">Guider</a>
             <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/guider/vindkraftsersattning-2026">Vindkraftsersättning 2026</a>
-            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun-dashboard">Kommuner</a>
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun">Kommuner</a>
         </div>
     </div>
 </div>
@@ -194,13 +196,73 @@
 </ul>
 </div>
 </div>
-<form class="space-y-3" id="report-form" onsubmit="submitReport(event)">
+<form class="space-y-4" id="report-form" onsubmit="submitReport(event)">
+<!-- Silo-frågan. En markägare som råkar räkna på intäktsdelning är fortfarande
+                             ett markägarlead – och får en annan rapport och en annan uppföljning. -->
+<fieldset class="bg-slate-900/50 border border-slate-700 rounded-xl p-4">
+<legend class="px-2 text-sm font-semibold text-slate-300">Vad stämmer bäst in på dig?</legend>
+<div class="grid sm:grid-cols-2 gap-3 mt-1">
+<label class="flex gap-3 items-start bg-slate-950/60 border border-slate-700 rounded-xl p-3 cursor-pointer hover:border-blue-500 transition">
+<input checked class="mt-1 h-4 w-4" id="rep-seg-narboende" name="rep-segment" type="radio" value="narboende"/>
+<span class="text-sm text-slate-200"><b>Jag bor nära</b><br/><span class="text-slate-400">Bostadshus i närheten av parken</span></span>
+</label>
+<label class="flex gap-3 items-start bg-slate-950/60 border border-slate-700 rounded-xl p-3 cursor-pointer hover:border-emerald-500 transition">
+<input class="mt-1 h-4 w-4" id="rep-seg-markagare" name="rep-segment" type="radio" value="markagare"/>
+<span class="text-sm text-slate-200"><b>Jag äger marken</b><br/><span class="text-slate-400">Mark där verk kan placeras</span></span>
+</label>
+</div>
+</fieldset>
 <div class="grid sm:grid-cols-2 gap-3">
 <input class="bg-slate-900/70 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white" id="rep-name" placeholder="Förnamn" required="" type="text"/>
 <input class="bg-slate-900/70 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white" id="rep-municipality" placeholder="Kommun (t.ex. Östersund)" type="text"/>
 </div>
+<div class="grid sm:grid-cols-2 gap-3">
+<select class="bg-slate-900/70 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white" id="rep-county">
+<option value="">Län (för regionala nivåer)</option>
+<option value="Blekinge">Blekinge</option>
+<option value="Dalarna">Dalarna</option>
+<option value="Gotland">Gotland</option>
+<option value="Gävleborg">Gävleborg</option>
+<option value="Halland">Halland</option>
+<option value="Jämtland">Jämtland</option>
+<option value="Jönköping">Jönköping</option>
+<option value="Kalmar">Kalmar</option>
+<option value="Kronoberg">Kronoberg</option>
+<option value="Norrbotten">Norrbotten</option>
+<option value="Skåne">Skåne</option>
+<option value="Stockholm">Stockholm</option>
+<option value="Södermanland">Södermanland</option>
+<option value="Uppsala">Uppsala</option>
+<option value="Värmland">Värmland</option>
+<option value="Västerbotten">Västerbotten</option>
+<option value="Västernorrland">Västernorrland</option>
+<option value="Västmanland">Västmanland</option>
+<option value="Västra Götaland">Västra Götaland</option>
+<option value="Örebro">Örebro</option>
+<option value="Östergötland">Östergötland</option>
+</select>
+<input class="bg-slate-900/70 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white" id="rep-phone" placeholder="Telefon (valfritt)" type="tel"/>
+</div>
 <input class="w-full bg-slate-900/70 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white" id="rep-address" placeholder="Fastighetsadress (valfritt)" type="text"/>
+<!-- Visas bara för markägare: arealen avgör om marken alls är intressant. -->
+<div class="hidden space-y-3" id="rep-markagare-fields">
+<input class="w-full bg-slate-900/70 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white" id="rep-hectares" min="0" placeholder="Markareal i hektar" step="1" type="number"/>
+<select class="w-full bg-slate-900/70 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white" id="rep-stage">
+<option value="ingen_kontakt">Ingen kontakt med projektör än</option>
+<option value="kontaktad">Kontaktad av projektör</option>
+<option value="forhandlar">Avtalsförslag på bordet</option>
+<option value="har_avtal">Har redan avtal</option>
+</select>
+<label class="flex gap-3 text-sm text-slate-300"><input class="mt-1 h-4 w-4" id="rep-projector" type="checkbox"/>
+<span>Jag vill bli matchad med projektörer som är aktiva i mitt län.</span></label>
+</div>
 <input class="w-full bg-slate-900/70 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white" id="rep-email" placeholder="Din e-postadress" required="" type="email"/>
+<div class="space-y-2 pt-1">
+<label class="flex gap-3 text-sm text-slate-300"><input class="mt-1 h-4 w-4" id="rep-legal" type="checkbox"/>
+<span>Jag vill ha kontakt med en jurist som kan avtal och ersättningsfrågor.</span></label>
+<label class="flex gap-3 text-sm text-slate-300"><input class="mt-1 h-4 w-4" id="rep-consent" type="checkbox"/>
+<span>Jag samtycker till att mina uppgifter får delas med utvalda samarbetspartner i mitt län.</span></label>
+</div>
 <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg" type="submit">
                             Skicka mig rapporten →
                         </button>
@@ -234,9 +296,21 @@
 </ul>
 </section>
 
+                    <!-- Fel silo? Skicka vidare i stället för att låta besökaren
+                         räkna på det som ger tio gånger mindre. -->
+                    <div class="mt-12 p-6 bg-emerald-900/20 rounded-xl border border-emerald-500/25">
+                        <h3 class="text-xl font-bold text-white mb-2">Äger du marken där verken planeras?</h3>
+                        <p class="text-slate-300 mb-4">Då är intäktsdelningen den mindre delen av kalkylen. Ett arrendeavtal ger normalt 150 000–300 000 kr per verk och år.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <a class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-3 rounded-xl font-semibold transition" data-vk-segment="markagare" href="/arrendekalkylator">Räkna på arrendet →</a>
+                            <a class="bg-slate-900/60 hover:bg-slate-800 border border-slate-700 text-slate-200 px-5 py-3 rounded-xl font-semibold transition" data-vk-segment="markagare" href="/markagare">Till markägarspåret →</a>
+                        </div>
+                    </div>
+
                     <div class="mt-12 p-6 bg-slate-900 rounded-xl border border-slate-800">
                         <h3 class="text-xl font-bold text-white mb-4">Relaterade guider</h3>
                         <ul class="space-y-3">
+                            <li><a href="/narboende" class="text-blue-400 hover:text-blue-300 transition">Allt för dig som är närboende – ersättning, anmälan och rättigheter →</a></li>
                             <li><a href="/bullerniva-minimiavstand-vindkraft" class="text-blue-400 hover:text-blue-300 transition">Läs vår kompletta guide om bullernivå och minimiavstånd för vindkraft →</a></li>
                             <li><a href="/avveckling-och-atervinning-vindkraft" class="text-blue-400 hover:text-blue-300 transition">Så fungerar avveckling och återvinning av vindkraft (2026) →</a></li>
                             <li><a href="/arrendeavtal-vindkraft" class="text-blue-400 hover:text-blue-300 transition">Detaljerad genomgång av arrendeavtal för vindkraft →</a></li>
@@ -320,7 +394,7 @@
             estimate: 0, promille: 0
         };
 
-        function calculate() {
+        function calculate(scroll = true) {
             const area = document.getElementById('elarea').value;
             const dist = parseFloat(document.getElementById('distance').value);
             const height = parseFloat(document.getElementById('height').value);
@@ -368,12 +442,39 @@
             }
 
             reportCard.classList.remove('hidden');
-            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (scroll) resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         // -----------------------------------------------------------------
         // Lead capture — enriched report funnel
         // -----------------------------------------------------------------
+
+        // Markägarfälten visas bara när besökaren sagt att hen äger marken.
+        function currentSegment() {
+            const checked = document.querySelector('input[name="rep-segment"]:checked');
+            return checked ? checked.value : 'narboende';
+        }
+
+        // Elområdet uppe i kalkylatorn står kvar på SE4 om besökaren inte rör
+        // det. Väljer man län i formuläret ska både beräkningen och det lead
+        // vi skickar vidare följa med dit — annars hamnar leadet hos fel
+        // regional köpare.
+        document.getElementById('rep-county')?.addEventListener('change', function (ev) {
+            const derived = window.VKSilo && VKSilo.elareaForCounty(ev.target.value);
+            const areaSelect = document.getElementById('elarea');
+            if (derived && areaSelect && areaSelect.value !== derived) {
+                areaSelect.value = derived;
+                calculate(false);
+            }
+        });
+
+        document.querySelectorAll('input[name="rep-segment"]').forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                const isOwner = currentSegment() === 'markagare';
+                document.getElementById('rep-markagare-fields').classList.toggle('hidden', !isOwner);
+                if (window.VKSilo) VKSilo.rememberSegment(currentSegment());
+            });
+        });
 
         async function submitReport(ev) {
             ev.preventDefault();
@@ -381,6 +482,11 @@
             const name = document.getElementById('rep-name').value.trim();
             const municipality = document.getElementById('rep-municipality').value.trim();
             const address = document.getElementById('rep-address').value.trim();
+            const county = document.getElementById('rep-county').value;
+            const phone = document.getElementById('rep-phone').value.trim();
+            const segment = currentSegment();
+            const isOwner = segment === 'markagare';
+            const hectares = parseInt(document.getElementById('rep-hectares').value, 10);
 
             if (!email || !email.includes('@')) {
                 alert('Vänligen ange en giltig e-postadress.');
@@ -402,7 +508,15 @@
                         turbine_count: calcState.turbines || null,
                         estimated_compensation_sek: calcState.estimate,
                         promille: calcState.promille,
-                        source: 'kalkylator_report'
+                        segment: segment,
+                        county: county || null,
+                        phone: phone || null,
+                        land_hectares: (isOwner && !isNaN(hectares)) ? hectares : null,
+                        project_stage: isOwner ? document.getElementById('rep-stage').value : null,
+                        wants_projector_contact: isOwner && document.getElementById('rep-projector').checked,
+                        wants_legal_help: document.getElementById('rep-legal').checked,
+                        consent_partner_share: document.getElementById('rep-consent').checked,
+                        source: isOwner ? 'kalkylator_markagare' : 'kalkylator_narboende'
                     })
                 });
 
@@ -410,6 +524,16 @@
                     document.getElementById('report-form').classList.add('hidden');
                     document.getElementById('report-success-name').innerText = name ? (name + '!') : '!';
                     document.getElementById('report-success').classList.remove('hidden');
+                    if (window.VKSilo) {
+                        VKSilo.rememberSegment(segment);
+                        VKSilo.track('generate_lead', {
+                            segment: segment,
+                            elarea: calcState.elarea,
+                            county: county || 'okand',
+                            currency: 'SEK',
+                            value: isOwner ? 800 : 60
+                        });
+                    }
                 } else {
                     alert('Något gick fel. Försök igen senare.');
                 }
@@ -468,6 +592,7 @@ mobileMenu?.querySelectorAll('a').forEach(link => {
     });
 });
 </script>
+<script src="/static/js/vk-silo.js"></script>
 <script src="/static/js/mobile-menu.js"></script>
 
 <script>

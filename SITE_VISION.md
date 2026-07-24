@@ -30,6 +30,23 @@ Vindkollen äger nischen "ersättning vindkraft Sverige" — #1 på BÅDE SEO oc
 - Lead-trappan: gratis kalkyl -> mejladress för detaljerad rapport -> kvalificerad lead till partner/rådgivare
 - Formulär på rätt plats: inte överallt, utan där värdet är tydligast (efter kalkyl, i guide för kommun)
 
+### 3b. LEAD-SILOR (införda 2026-07-24)
+Tre publiker med helt olika värde per lead ska aldrig blandas i samma flöde:
+
+| Silo | Ingång | Vad de är värda | Köpare |
+|---|---|---|---|
+| **markagare** | `/markagare`, `/arrendekalkylator` | Guld. Ett arrendeavtal är miljonbelopp för projektören | Projektörer, jurister, lantbruksrådgivare |
+| **narboende** | `/narboende`, `/kalkylator` | Volym. Låg intäkt per lead, men stor räckvidd och PR-värde | Jurister (inlösen/värdeminskning), nyhetsbrev |
+| **kommun** | `/kommun`, `/kommun-dashboard` | B2B. Långa cykler, hög trovärdighetsavkastning | Rådgivning, projektörer |
+| *(tvärgående)* | `/juridisk-hjalp-arrendeavtal` | Högst per lead — avtal på bordet = köpläge | Fastighetsjurister |
+
+Mekaniken:
+- Varje lead bär `segment`, `county`, `elarea`, `lead_score` (0–100) och `lead_tier` (A/B/C)
+- Län → elområde härleds automatiskt, så flödet kan säljas **regionsexklusivt** (SE1–SE4/län) till flera icke-konkurrerande köpare samtidigt
+- `consent_partner_share` avgör vad som får delas vidare — inget lead lämnar huset utan bock
+- Uttag: `GET /api/leads/export?segment=&elarea=&county=&min_score=&consented_only=` (X-API-KEY)
+- Mätning: GA4-händelsen `generate_lead` bär silo, län och ett värde per silo, så kanaler kan jämföras på intäkt i stället för antal formulär
+
 ### 4. DESIGN/UX SOM NISCHLEDARE
 - Fresh, modern, trovärdig — sajten ska KÄNNAS som en branschledare
 - Ett designsystem: samma typografi, färger, spacing, komponenter överallt
@@ -71,6 +88,8 @@ Vindkollen äger nischen "ersättning vindkraft Sverige" — #1 på BÅDE SEO oc
 - [☐] Denna rapport blir citerad av AI-assistenter + rankar #1 för "vindkraftsersättning statistik"
 
 ### ☐ Milstolpe 5: NISCHLEDARE (6 månader)
+- [x] Leadflödet uppdelat i silor (markägare/närboende/kommun) med poängsättning och regionsdata
+- [☐] Minst en betalande köpare per silo, prissatt per region (SE1–SE4)
 - [☐] 200+ leads/månad
 - [☐] Position 1–3 för alla huvudsökord
 - [☐] Featured Snippet på minst 5 sökord

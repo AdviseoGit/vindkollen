@@ -192,79 +192,77 @@
                 <h3 class="text-3xl font-bold text-white mb-4">Är ditt arrendeavtal bra nog?</h3>
                 <p class="text-slate-300">Vi har sammanställt en detaljerad PDF-guide om vad du som markägare <strong>måste</strong> ha med i avtalet innan du skriver på. Inkluderar checklistor för återställningsgarantier och indexering.</p>
             </div>
-            
-            <form id="arrende-lead-form" class="max-w-md mx-auto space-y-4" onsubmit="submitArrendeLead(event)">
-                <input type="hidden" id="lead-arr-turbines">
-                <input type="hidden" id="lead-arr-capacity">
-                <input type="hidden" id="lead-arr-royalty">
-                
-                <div>
-                    <input type="email" id="arrende-email" placeholder="Din e-postadress" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+
+            <!-- Arrendekalkylatorn används i praktiken bara av markägare, så
+                 formuläret går rakt in i markägarsilon och frågar om det som
+                 avgör leadets värde: län, areal och var i processen man står. -->
+            <form class="max-w-lg mx-auto space-y-4" data-vk-lead-form data-segment="markagare" data-source="arrendekalkylator">
+                <input name="message" type="hidden"/>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <input class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" name="name" placeholder="Förnamn" required type="text"/>
+                    <input class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" name="email" placeholder="Din e-postadress" required type="email"/>
                 </div>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <select class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" name="county">
+                        <option value="">Län</option>
+                        <option value="Blekinge">Blekinge</option>
+                        <option value="Dalarna">Dalarna</option>
+                        <option value="Gotland">Gotland</option>
+                        <option value="Gävleborg">Gävleborg</option>
+                        <option value="Halland">Halland</option>
+                        <option value="Jämtland">Jämtland</option>
+                        <option value="Jönköping">Jönköping</option>
+                        <option value="Kalmar">Kalmar</option>
+                        <option value="Kronoberg">Kronoberg</option>
+                        <option value="Norrbotten">Norrbotten</option>
+                        <option value="Skåne">Skåne</option>
+                        <option value="Stockholm">Stockholm</option>
+                        <option value="Södermanland">Södermanland</option>
+                        <option value="Uppsala">Uppsala</option>
+                        <option value="Värmland">Värmland</option>
+                        <option value="Västerbotten">Västerbotten</option>
+                        <option value="Västernorrland">Västernorrland</option>
+                        <option value="Västmanland">Västmanland</option>
+                        <option value="Västra Götaland">Västra Götaland</option>
+                        <option value="Örebro">Örebro</option>
+                        <option value="Östergötland">Östergötland</option>
+                    </select>
+                    <input class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" min="0" name="land_hectares" placeholder="Markareal (hektar)" step="1" type="number"/>
+                </div>
+                <select class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" name="project_stage">
+                    <option value="ingen_kontakt">Ingen kontakt med projektör än</option>
+                    <option value="kontaktad">Kontaktad av projektör</option>
+                    <option value="forhandlar">Avtalsförslag på bordet</option>
+                    <option value="har_avtal">Har redan avtal – vill jämföra</option>
+                </select>
+                <div class="space-y-2 text-left">
+                    <label class="flex gap-3 text-sm text-slate-300"><input class="mt-1 h-4 w-4" name="wants_legal_help" type="checkbox"/>
+                    <span>Jag vill ha kontakt med en jurist inför avtalet.</span></label>
+                    <label class="flex gap-3 text-sm text-slate-300"><input class="mt-1 h-4 w-4" name="consent_partner_share" type="checkbox"/>
+                    <span>Jag samtycker till att mina uppgifter får delas med utvalda samarbetspartner i mitt län.</span></label>
+                </div>
+                <div class="hidden text-red-400 text-sm" data-vk-error hidden></div>
                 <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-emerald-500/25 flex justify-center items-center gap-2">
                     Skicka guiden till min e-post
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </button>
-                <div id="arrende-lead-success" class="hidden text-center text-emerald-400 text-sm mt-4 p-3 bg-emerald-900/30 border border-emerald-800 rounded-lg">
-                    Tack! Guiden är på väg till din inkorg.
-                </div>
+                <p class="text-xs text-slate-500 text-center">Vi delar aldrig dina uppgifter utan din bock ovan. Avregistrera när du vill.</p>
             </form>
+            <div class="hidden max-w-lg mx-auto text-center text-emerald-300 mt-4 p-5 bg-emerald-900/30 border border-emerald-800 rounded-xl" data-vk-success hidden>
+                <b>Tack! Guiden är på väg till din inkorg.</b><br/>
+                Vill du att någon tittar på ett konkret avtalsförslag? Läs om <a class="underline" href="/juridisk-hjalp-arrendeavtal">juridisk hjälp inför arrendeavtal</a>.
+            </div>
         </div>
 
     
-    <!-- Lead Capture Form -->
-    <div class="mt-12 bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl max-w-3xl mx-auto mb-16">
-        <h3 class="text-2xl font-bold text-white mb-3">Få vår detaljerade rapport om vindkraftsersättning</h3>
-        <p class="text-slate-300 mb-6">Ladda ner vår senaste analys av arrendenivåer, intäktsdelning och förhandlingstips för 2026. Helt gratis.</p>
-        <form class="space-y-4" id="lead-form-article" onsubmit="submitLead(event)">
-            <div class="grid sm:grid-cols-2 gap-4">
-                <input class="bg-slate-950 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white w-full" id="lead-name" placeholder="Förnamn" required type="text">
-                <input class="bg-slate-950 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white w-full" id="lead-email" placeholder="Din e-postadress" required type="email">
-            </div>
-            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg" type="submit">
-                Skicka rapporten till min e-post &rarr;
-            </button>
-            <div id="lead-success-msg" class="hidden text-green-400 font-medium text-center mt-2">Tack! Rapporten skickas till din e-post.</div>
-            <div id="lead-error-msg" class="hidden text-red-400 font-medium text-center mt-2">Något gick fel. Försök igen.</div>
-            <p class="text-xs text-slate-500 text-center mt-3">Vi delar aldrig din data. Avregistrera när som helst.</p>
-        </form>
-        <script>
-            async function submitLead(e) {
-                e.preventDefault();
-                const name = document.getElementById("lead-name").value;
-                const email = document.getElementById("lead-email").value;
-                const btn = e.target.querySelector("button");
-                btn.disabled = true;
-                btn.innerText = "Skickar...";
-                
-                try {
-                    const res = await fetch("/api/lead", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ email: email, name: name, source: "article_form" })
-                    });
-                    
-                    if(res.ok) {
-                        document.getElementById("lead-success-msg").classList.remove("hidden");
-                        document.getElementById("lead-error-msg").classList.add("hidden");
-                        e.target.reset();
-                        btn.innerText = "Skickat!";
-                    } else {
-                        throw new Error("Failed");
-                    }
-                } catch (err) {
-                    document.getElementById("lead-error-msg").classList.remove("hidden");
-                    btn.disabled = false;
-                    btn.innerText = "Skicka rapporten till min e-post →";
-                }
-            }
-        </script>
-    </div>
-    
-
-                    <div class="mt-12 p-6 bg-slate-900 rounded-xl border border-slate-800">
-                        <h3 class="text-xl font-bold text-white mb-4">Relaterade guider</h3>
+                    <!-- Ett formulär per sida. Det generiska rapportformuläret som
+                         låg här konkurrerade med silo-formuläret ovan. -->
+                    <div class="mt-12 p-6 bg-slate-900 rounded-xl border border-slate-800 max-w-3xl mx-auto">
+                        <h3 class="text-xl font-bold text-white mb-4">Relaterade guider för markägare</h3>
                         <ul class="space-y-3">
+                            <li><a href="/markagare" class="text-blue-400 hover:text-blue-300 transition">Markägarspåret – arrende, avtal och bedömning av din mark →</a></li>
+                            <li><a href="/arrendeavtal-vindkraft" class="text-blue-400 hover:text-blue-300 transition">Detaljerad genomgång av arrendeavtal för vindkraft →</a></li>
+                            <li><a href="/juridisk-hjalp-arrendeavtal" class="text-blue-400 hover:text-blue-300 transition">Juridisk hjälp inför arrendeavtal – tio punkter att granska →</a></li>
                             <li><a href="/bullerniva-minimiavstand-vindkraft" class="text-blue-400 hover:text-blue-300 transition">Läs vår kompletta guide om bullernivå och minimiavstånd för vindkraft →</a></li>
                             <li><a href="/avveckling-och-atervinning-vindkraft" class="text-blue-400 hover:text-blue-300 transition">Så fungerar avveckling och återvinning av vindkraft (2026) →</a></li>
                             <li><a href="/arrendeavtal-vindkraft" class="text-blue-400 hover:text-blue-300 transition">Detaljerad genomgång av arrendeavtal för vindkraft →</a></li>
@@ -338,11 +336,15 @@
             document.getElementById('pre-calc').classList.add('hidden');
             document.getElementById('post-calc').classList.remove('hidden');
             document.getElementById('lead-capture-section').classList.remove('hidden');
-            
-            // Fyll lead capture hidden fields
-            document.getElementById('lead-arr-turbines').value = turbines;
-            document.getElementById('lead-arr-capacity').value = capacityMW;
-            document.getElementById('lead-arr-royalty').value = royaltyLevel;
+
+            // Skicka med vad besökaren faktiskt räknade på — det är den bästa
+            // kvalificeringen vi får utan att ställa en enda extra fråga.
+            const context = document.querySelector('[data-vk-lead-form] input[name="message"]');
+            if (context) {
+                context.value = `Kalkyl: ${turbines} verk à ${capacityMW} MW, ${hours} fullasttimmar, `
+                    + `${priceSEK} kr/kWh, royalty ${Math.round(royaltyLevel * 100)} % `
+                    + `→ ${formatCurrency(annualRoyalty)} kr/år`;
+            }
 
             // Animera siffrorna (simpel bounce effekt)
             const resContainer = document.getElementById('res-royalty');
@@ -350,41 +352,9 @@
             setTimeout(() => resContainer.classList.remove('scale-110', 'text-white'), 300);
         }
 
-        async function submitArrendeLead(ev) {
-            ev.preventDefault();
-            const email = document.getElementById('arrende-email').value.trim();
-            const turbines = document.getElementById('lead-arr-turbines').value;
-            
-            if(!email) return;
-            
-            const btn = ev.target.querySelector('button[type="submit"]');
-            btn.innerHTML = '<svg class="animate-spin h-5 w-5 mr-3 text-white inline" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Skickar...';
-            btn.disabled = true;
-
-            try {
-                // Vi använder samma lead endpoint för att fånga emailet + källan
-                const response = await fetch('/api/lead', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        email: email, 
-                        source: `arrendekalkylator_${turbines}_verk` 
-                    })
-                });
-
-                if (response.ok) {
-                    btn.classList.add('hidden');
-                    document.getElementById('arrende-email').classList.add('hidden');
-                    document.getElementById('arrende-lead-success').classList.remove('hidden');
-                } else {
-                    throw new Error('API Error');
-                }
-            } catch (err) {
-                btn.innerHTML = 'Något gick fel, försök igen';
-                btn.disabled = false;
-            }
-        }
+        // Inskicket sköts av /static/js/vk-silo.js (segment: markagare).
     </script>
+<script src="/static/js/vk-silo.js"></script>
 
 <script>
     // Mobile Menu Logic

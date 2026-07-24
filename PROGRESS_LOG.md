@@ -1,3 +1,4 @@
+2026-07-24 | LEADFLOW/ARKITEKTUR | Delade upp sajten i lead-silor: fyra ingångssidor (markägare/närboende/kommun/juridik), segment+län+poäng på varje lead, /api/lead/qualify och regionsfiltrerad export | Guld-leads (markägare) separeras från volym-leads (närboende) och kan säljas regionsexklusivt | nästa: prissätt och sälj SE1-SE4-exklusivitet till projektörer och jurister
 2026-07-24 | LEADFLOW/DATA | Förbättrade formulärspårning & backend (db-schema verification) för kalkylator-leads | Robustare data capture infrastruktur (Milstolpe 3) | nästa: Optimera e-postuppföljning
 2026-07-23 | TILLVÄXT/SEO | Skapade djupgående guide: "Skillnaden mellan markarrende och intäktsdelning" (intent: commercial) | Äga intentet & binda samman funneln (Milstolpe 2) | nästa: Bygg klart DB för leads/stats
 2026-07-22 | LEADFLOW/SEO | Optimerade jämförelseverktyget med Schema  redirect | Höjer CTR på sök via FAQ Schema och städar 301-redirects | nästa: Optimera startsidans CTA

@@ -8,6 +8,11 @@ SITEMAP_PATH = "sitemap.xml"
 
 STATIC_PAGES = [
     ("/", "1.0", "weekly"),
+    # Silo-ingångar: en per publik, högsta prioritet efter startsidan.
+    ("/markagare", "0.95", "weekly"),
+    ("/narboende", "0.95", "weekly"),
+    ("/kommun", "0.9", "weekly"),
+    ("/juridisk-hjalp-arrendeavtal", "0.9", "monthly"),
     ("/kalkylator", "0.9", "weekly"),
     ("/arrendekalkylator", "0.9", "weekly"),
     ("/jamforelse-ersattning-vs-arrende", "0.9", "weekly"),
@@ -38,6 +43,8 @@ STATIC_PAGES = [
     ("/arrende-vindkraft-vs-solpark", "0.8", "monthly"),
     ("/bygdepeng-vindkraft-regler-2026", "0.8", "monthly"),
     ("/havsbaserad-vindkraft-ersattning", "0.8", "monthly"),
+    ("/ratt-till-inlosen-fastighet-vindkraft", "0.8", "monthly"),
+    ("/kommunersattning-kalkylator", "0.7", "monthly"),
 ]
 
 def generate_sitemap() -> None:

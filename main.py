@@ -20,7 +20,7 @@ from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTex
 from fastapi.staticfiles import StaticFiles
 from mailer import send_email, notify_owner
 from pydantic import BaseModel, EmailStr, Field
-from sqlalchemy import Column, DateTime, Float, Integer, String, Text, func, select, text
+from sqlalchemy import Boolean, Column, DateTime, Float, Integer, String, Text, func, select, text
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
@@ -71,6 +71,26 @@ class Lead(Base):
     turbine_count = Column(Integer, nullable=True)
     estimated_compensation_sek = Column(Float, nullable=True)
     promille = Column(Float, nullable=True)
+
+    # --- Lead-silo (se leads.py) -------------------------------------------
+    # Vilken publik leadet tillhör avgör både uppföljning och vad det är värt.
+    segment = Column(String(32), nullable=True, index=True)
+    # Län + elområde gör att flödet kan säljas regionsexklusivt utan att köparna
+    # krockar med varandra.
+    county = Column(String(64), nullable=True, index=True)
+    phone = Column(String(32), nullable=True)
+    organisation = Column(String(255), nullable=True)
+    role = Column(String(128), nullable=True)
+    land_hectares = Column(Integer, nullable=True)
+    project_stage = Column(String(32), nullable=True)
+    timeframe = Column(String(16), nullable=True)
+    wants_legal_help = Column(Boolean, nullable=True)
+    wants_projector_contact = Column(Boolean, nullable=True)
+    consent_partner_share = Column(Boolean, nullable=True)
+    lead_score = Column(Integer, nullable=True, index=True)
+    lead_tier = Column(String(1), nullable=True, index=True)
+    message = Column(Text, nullable=True)
+
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)
 
 
@@ -102,8 +122,28 @@ _MIGRATIONS = [
     "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS turbine_count INTEGER",
     "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS estimated_compensation_sek DOUBLE PRECISION",
     "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS promille DOUBLE PRECISION",
+    # Lead-silo-kolumnerna (segment, geografi, kvalificering, poäng).
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS segment VARCHAR(32)",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS county VARCHAR(64)",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS phone VARCHAR(32)",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS organisation VARCHAR(255)",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS role VARCHAR(128)",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS land_hectares INTEGER",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS project_stage VARCHAR(32)",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS timeframe VARCHAR(16)",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS wants_legal_help BOOLEAN",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS wants_projector_contact BOOLEAN",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS consent_partner_share BOOLEAN",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS lead_score INTEGER",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS lead_tier VARCHAR(1)",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS message TEXT",
     # The new model marks created_at with index=True; back-fill the index.
     "CREATE INDEX IF NOT EXISTS ix_vindkollen_leads_created_at ON vindkollen_leads (created_at)",
+    # Silo-uppslagningarna vi faktiskt kör: per segment, per län, per poäng.
+    "CREATE INDEX IF NOT EXISTS ix_vindkollen_leads_segment ON vindkollen_leads (segment)",
+    "CREATE INDEX IF NOT EXISTS ix_vindkollen_leads_county ON vindkollen_leads (county)",
+    "CREATE INDEX IF NOT EXISTS ix_vindkollen_leads_lead_score ON vindkollen_leads (lead_score)",
+    "CREATE INDEX IF NOT EXISTS ix_vindkollen_leads_lead_tier ON vindkollen_leads (lead_tier)",
 ]
 
 
@@ -131,13 +171,20 @@ app = FastAPI(title="Vindkollen", lifespan=lifespan)
 
 import mailer
 import report as vk_report
+import leads as vk_leads
 
 
 def _deliver_report(data: dict):
     pdf = None
     try:
         pdf = vk_report.build_report_pdf(data)
-    except Exception as e:
+    except (KeyboardInterrupt, SystemExit):
+        raise
+    except BaseException as e:  # noqa: BLE001
+        # fpdf2 drar in cryptography, som kan kasta en pyo3-panic. Den ärver
+        # från BaseException och slapp därför igenom ett vanligt `except
+        # Exception` — och sänkte hela leveransen fast leadet redan var sparat.
+        # Rapporten är trevlig att ha; mejlet och ägarnotisen är affären.
         print(f"[report] PDF build failed: {e}")
     atts = [("Vindkollen-marknadsrapport.pdf", pdf, "application/pdf")] if pdf else None
     mailer.send_email(
@@ -146,9 +193,40 @@ def _deliver_report(data: dict):
         vk_report.build_user_email_html(data),
         attachments=atts,
     )
+    # Samma notisformat som silo-formulären: silo och poäng i ämnesraden, så
+    # att alla leads kan triageras i inkorgen oavsett vilket formulär de kom via.
+    score = data.get("lead_score") or 0
+    tier = data.get("lead_tier") or vk_leads.tier_for_score(score)
+    label = vk_leads.segment_label(data.get("segment"))
+    region = data.get("county") or data.get("elarea") or "okänd region"
     mailer.notify_owner(
-        "Ny lead - Vindkollen (rapport)",
-        vk_report.build_owner_email_html(data),
+        f"[{tier}·{score}] {label} – {region} | Vindkollen (kalkylator)",
+        vk_leads.build_owner_email_html(data, score, tier)
+        + vk_report.build_owner_email_html(data),
+        reply_to=data.get("email"),
+    )
+
+
+def _deliver_qualified(data: dict, score: int, tier: str):
+    """Bekräftelse till leadet + prioriterad notis till oss.
+
+    Ämnesraden på ägarnotisen bär silo och tier så att A-leads syns direkt i
+    inkorgen utan att mejlet behöver öppnas.
+    """
+    try:
+        mailer.send_email(
+            data["email"],
+            "Tack – dina uppgifter är mottagna | Vindkollen",
+            vk_leads.build_welcome_email_html(data),
+        )
+    except Exception as e:  # noqa: BLE001
+        print(f"[qualify] welcome mail failed: {e}")
+
+    label = vk_leads.segment_label(data.get("segment"))
+    region = data.get("county") or data.get("elarea") or "okänd region"
+    mailer.notify_owner(
+        f"[{tier}·{score}] {label} – {region} | Vindkollen",
+        vk_leads.build_owner_email_html(data, score, tier),
         reply_to=data.get("email"),
     )
 
@@ -184,6 +262,39 @@ class LeadIn(BaseModel):
     name: Optional[str] = None
     municipality: Optional[str] = None
     source: Optional[str] = Field(default="newsletter", max_length=64)
+    # Vilken silo besökaren surfade i när den skrev upp sig. Även ett rent
+    # nyhetsbrevs-lead är värt mer när vi vet om det är markägare eller närboende.
+    segment: Optional[str] = Field(default=None, max_length=32)
+
+
+class QualifiedLeadIn(BaseModel):
+    """Kvalificerat lead från en silo-sida.
+
+    Alla silor postar hit; det är segment + de silo-specifika fälten som skiljer
+    dem åt. Fälten är medvetet frivilliga — ett halvifyllt formulär ska aldrig
+    tappas bort, det får bara lägre poäng.
+    """
+
+    email: EmailStr
+    segment: str = Field(max_length=32)
+    name: Optional[str] = Field(default=None, max_length=255)
+    phone: Optional[str] = Field(default=None, max_length=32)
+    county: Optional[str] = Field(default=None, max_length=64)
+    municipality: Optional[str] = Field(default=None, max_length=255)
+    elarea: Optional[str] = Field(default=None, max_length=8)
+    organisation: Optional[str] = Field(default=None, max_length=255)
+    role: Optional[str] = Field(default=None, max_length=128)
+    property_address: Optional[str] = Field(default=None, max_length=512)
+    land_hectares: Optional[int] = Field(default=None, ge=0, le=100000)
+    project_stage: Optional[str] = Field(default=None, max_length=32)
+    timeframe: Optional[str] = Field(default=None, max_length=16)
+    distance_m: Optional[int] = Field(default=None, ge=0, le=20000)
+    estimated_compensation_sek: Optional[float] = Field(default=None, ge=0)
+    wants_legal_help: Optional[bool] = False
+    wants_projector_contact: Optional[bool] = False
+    consent_partner_share: Optional[bool] = False
+    message: Optional[str] = Field(default=None, max_length=4000)
+    source: Optional[str] = Field(default="silo_form", max_length=64)
 
 
 class LeadReportIn(BaseModel):
@@ -200,6 +311,17 @@ class LeadReportIn(BaseModel):
     estimated_compensation_sek: Optional[float] = Field(default=None, ge=0)
     promille: Optional[float] = Field(default=None, ge=0, le=10)
     source: Optional[str] = Field(default="kalkylator_report", max_length=64)
+    # Silo-fälten. Kalkylatorn är sajtens största konverteringsyta, så det är
+    # här separationen markägare/närboende måste ske — en markägare som råkar
+    # räkna på intäktsdelning är fortfarande ett markägarlead.
+    segment: Optional[str] = Field(default=None, max_length=32)
+    county: Optional[str] = Field(default=None, max_length=64)
+    phone: Optional[str] = Field(default=None, max_length=32)
+    land_hectares: Optional[int] = Field(default=None, ge=0, le=100000)
+    project_stage: Optional[str] = Field(default=None, max_length=32)
+    wants_legal_help: Optional[bool] = False
+    wants_projector_contact: Optional[bool] = False
+    consent_partner_share: Optional[bool] = False
 
 
 class PostIn(BaseModel):
@@ -238,6 +360,31 @@ async def index():
 @app.get("/om-sajten", response_class=HTMLResponse)
 async def om_sajten():
     return _serve_static_html("static/om-sajten.html")
+
+
+# --- Silo-ingångar ---------------------------------------------------------
+# En sida per publik. Allt innehåll och varje CTA på sidan är skrivet för just
+# den publiken, och formuläret postar till /api/lead/qualify med rätt segment.
+
+
+@app.get("/markagare", response_class=HTMLResponse)
+async def silo_markagare():
+    return _serve_static_html("static/markagare.html")
+
+
+@app.get("/narboende", response_class=HTMLResponse)
+async def silo_narboende():
+    return _serve_static_html("static/narboende.html")
+
+
+@app.get("/kommun", response_class=HTMLResponse)
+async def silo_kommun():
+    return _serve_static_html("static/kommun.html")
+
+
+@app.get("/juridisk-hjalp-arrendeavtal", response_class=HTMLResponse)
+async def silo_juridik():
+    return _serve_static_html("static/juridisk-hjalp-arrendeavtal.html")
 
 
 @app.get("/original-data-rapport-arrende-2026", response_class=HTMLResponse)
@@ -386,6 +533,16 @@ def _normalise_email(email: str) -> str:
     return email.strip().lower()
 
 
+def _non_null(payload: dict, skip=()) -> dict:
+    """Fält att skriva vid en upsert.
+
+    Samma e-post kommer ofta tillbaka via flera formulär (kalkylator först,
+    silo-formulär sedan). Vid konflikt skriver vi bara de fält som faktiskt har
+    ett värde, så att en senare, tunnare inskickning inte nollar tidigare data.
+    """
+    return {k: v for k, v in payload.items() if k not in skip and v is not None}
+
+
 @app.post("/api/lead")
 async def capture_lead(lead: LeadIn, background: BackgroundTasks):
     """Persist a newsletter signup. Idempotent on email."""
@@ -395,27 +552,27 @@ async def capture_lead(lead: LeadIn, background: BackgroundTasks):
         return JSONResponse({"status": "ok", "persisted": False})
 
     email = _normalise_email(lead.email)
+    payload = {
+        "email": email,
+        "name": lead.name,
+        "municipality": lead.municipality,
+        "source": lead.source or "newsletter",
+        "segment": vk_leads.normalise_segment(lead.segment) if lead.segment else None,
+    }
+
     async with async_session() as session:
-        stmt = pg_insert(Lead).values(
-            email=email,
-            name=lead.name,
-            municipality=lead.municipality,
-            source=lead.source or "newsletter",
-        )
+        stmt = pg_insert(Lead).values(**payload)
         # If the same email comes in again, update the source/name/municipality
-        # rather than 500'ing the user.
+        # rather than 500'ing the user. Tomma fält skrivs aldrig över — ett
+        # nyhetsbrevsklick får inte radera en tidigare kvalificering.
         stmt = stmt.on_conflict_do_update(
             index_elements=["email"],
-            set_={
-                "name": lead.name,
-                "municipality": lead.municipality,
-                "source": lead.source or "newsletter",
-            },
+            set_=_non_null(payload, skip=("email",)),
         )
 
         await session.execute(stmt)
         await session.commit()
-    
+
 
     background.add_task(_deliver_newsletter, email, lead.source or "newsletter")
     return {"status": "ok", "persisted": True}
@@ -459,7 +616,20 @@ async def capture_lead_report(lead: LeadReportIn, background: BackgroundTasks):
         "estimated_compensation_sek": lead.estimated_compensation_sek,
         "promille": lead.promille,
         "source": lead.source or "kalkylator_report",
+        # Kalkylatorn räknar på intäktsdelning till boende — den som inte
+        # uttryckligen sagt något annat hamnar i närboende-silon.
+        "segment": vk_leads.normalise_segment(lead.segment or "narboende"),
+        "county": lead.county,
+        "phone": lead.phone,
+        "land_hectares": lead.land_hectares,
+        "project_stage": lead.project_stage,
+        "wants_legal_help": lead.wants_legal_help,
+        "wants_projector_contact": lead.wants_projector_contact,
+        "consent_partner_share": lead.consent_partner_share,
     }
+    if not payload["elarea"]:
+        payload["elarea"] = vk_leads.elarea_for_county(payload["county"])
+    payload["lead_score"], payload["lead_tier"] = vk_leads.score_lead(payload)
 
     async with async_session() as session:
         stmt = pg_insert(Lead).values(**payload)
@@ -467,16 +637,55 @@ async def capture_lead_report(lead: LeadReportIn, background: BackgroundTasks):
         # sales/research team will reach out about.
         stmt = stmt.on_conflict_do_update(
             index_elements=["email"],
-            set_={k: v for k, v in payload.items() if k != "email"},
+            set_=_non_null(payload, skip=("email",)),
         )
 
         await session.execute(stmt)
         await session.commit()
-    
-
 
     background.add_task(_deliver_report, dict(payload))
     return {"status": "ok", "persisted": True, "report": "queued"}
+
+
+@app.post("/api/lead/qualify")
+async def capture_qualified_lead(lead: QualifiedLeadIn, background: BackgroundTasks):
+    """Ta emot ett kvalificerat lead från en silo-sida.
+
+    Skillnaden mot /api/lead är att vi vet *vem* som skriver: silo, län,
+    markareal, var i processen de står och om de vill ha juridisk hjälp eller
+    projektörskontakt. Det är den informationen som gör leadet säljbart.
+    """
+    payload = lead.model_dump()
+    payload["email"] = _normalise_email(lead.email)
+    payload["segment"] = vk_leads.normalise_segment(lead.segment)
+    # Elområde styr både ersättningsnivå och vilken köpare leadet tillhör —
+    # härled det från länet när besökaren inte valt själv.
+    if not payload.get("elarea"):
+        payload["elarea"] = vk_leads.elarea_for_county(payload.get("county"))
+
+    score, tier = vk_leads.score_lead(payload)
+    payload["lead_score"] = score
+    payload["lead_tier"] = tier
+
+    if not async_session:
+        return JSONResponse({"status": "ok", "persisted": False, "segment": payload["segment"]})
+
+    async with async_session() as session:
+        stmt = pg_insert(Lead).values(**payload)
+        stmt = stmt.on_conflict_do_update(
+            index_elements=["email"],
+            set_=_non_null(payload, skip=("email",)),
+        )
+        await session.execute(stmt)
+        await session.commit()
+
+    background.add_task(_deliver_qualified, dict(payload), score, tier)
+    return {
+        "status": "ok",
+        "persisted": True,
+        "segment": payload["segment"],
+        "elarea": payload.get("elarea"),
+    }
 
 
 @app.get("/api/stats/leads")
@@ -501,6 +710,102 @@ async def lead_stats():
         last_7_days = week_q.scalar_one() or 0
 
     return {"total": baseline + total, "last_7_days": last_7_days}
+
+
+def _require_api_key(request: Request) -> None:
+    key = os.environ.get("INTERNAL_API_KEY")
+    if not key or request.headers.get("X-API-KEY") != key:
+        raise HTTPException(status_code=403, detail="Forbidden")
+
+
+_EXPORT_FIELDS = (
+    "id", "created_at", "segment", "lead_score", "lead_tier", "name", "email", "phone",
+    "county", "elarea", "municipality", "organisation", "role", "property_address",
+    "land_hectares", "project_stage", "timeframe", "distance_m", "turbine_count",
+    "estimated_compensation_sek", "wants_legal_help", "wants_projector_contact",
+    "consent_partner_share", "source", "message",
+)
+
+
+@app.get("/api/leads/export")
+async def export_leads(
+    request: Request,
+    segment: Optional[str] = None,
+    elarea: Optional[str] = None,
+    county: Optional[str] = None,
+    min_score: int = 0,
+    consented_only: bool = False,
+    limit: int = 500,
+    format: str = "json",
+):
+    """Internt uttag av leads per silo och region.
+
+    Det här är verktyget för att sälja regionsexklusivt: filtrera på elområde
+    eller län och lämna över just det urvalet till en köpare, utan att två
+    köpare får samma lead. `consented_only=true` ger bara de leads som aktivt
+    sagt ja till att delas med partner.
+    """
+    _require_api_key(request)
+    if not async_session:
+        raise HTTPException(status_code=503, detail="Database not configured")
+
+    query = select(Lead).order_by(Lead.created_at.desc()).limit(max(1, min(limit, 5000)))
+    if segment:
+        query = query.where(Lead.segment == vk_leads.normalise_segment(segment))
+    if elarea:
+        query = query.where(Lead.elarea == elarea.upper())
+    if county:
+        query = query.where(Lead.county == county)
+    if min_score:
+        query = query.where(Lead.lead_score >= min_score)
+    if consented_only:
+        query = query.where(Lead.consent_partner_share.is_(True))
+
+    async with async_session() as session:
+        result = await session.execute(query)
+        rows = result.scalars().all()
+
+    records = []
+    for r in rows:
+        rec = {}
+        for f in _EXPORT_FIELDS:
+            v = getattr(r, f, None)
+            rec[f] = v.isoformat() if isinstance(v, datetime) else v
+        records.append(rec)
+
+    if format == "csv":
+        import csv
+        import io
+
+        buf = io.StringIO()
+        writer = csv.DictWriter(buf, fieldnames=list(_EXPORT_FIELDS), extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(records)
+        return PlainTextResponse(buf.getvalue(), media_type="text/csv")
+
+    return {"count": len(records), "leads": records}
+
+
+@app.get("/api/stats/segments")
+async def segment_stats(request: Request):
+    """Fördelning per silo, elområde och tier — underlaget för prissättning."""
+    _require_api_key(request)
+    if not async_session:
+        raise HTTPException(status_code=503, detail="Database not configured")
+
+    async def _grouped(column):
+        async with async_session() as session:
+            res = await session.execute(
+                select(column, func.count(Lead.id)).group_by(column).order_by(func.count(Lead.id).desc())
+            )
+            return {(k or "okänd"): c for k, c in res.all()}
+
+    return {
+        "per_segment": await _grouped(Lead.segment),
+        "per_elarea": await _grouped(Lead.elarea),
+        "per_county": await _grouped(Lead.county),
+        "per_tier": await _grouped(Lead.lead_tier),
+    }
 
 
 # ---------------------------------------------------------------------------

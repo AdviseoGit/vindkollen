@@ -105,13 +105,14 @@
     <a class="text-2xl font-extrabold tracking-tight text-white" href="/">
         <span class="text-blue-500">Vind</span>kollen
     </a>
-    <!-- Desktop Menu -->
-    <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400 items-center">
+    <!-- Desktop Menu — silorna först, verktygen sedan -->
+    <div class="hidden md:flex gap-7 text-sm font-medium text-slate-400 items-center">
+        <a class="hover:text-white transition" href="/markagare">Markägare</a>
+        <a class="hover:text-white transition" href="/narboende">Närboende</a>
+        <a class="hover:text-white transition" href="/kommun">Kommun</a>
         <a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
         <a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
-        <a class="hover:text-white transition" href="/ersattning-for-vindkraft">Markägare</a>
         <a class="hover:text-white transition" href="#guider">Guider</a>
-        <a class="hover:text-white transition" href="/kommun-dashboard">Kommuner</a>
     </div>
     <!-- Mobile Menu Button -->
     <button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Meny">
@@ -135,11 +136,12 @@
         </div>
         <div class="flex flex-col gap-2 px-6 py-8">
             <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
-            <a class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
-            <a class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
-            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/ersattning-for-vindkraft">Markägare</a>
+            <a class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/markagare">Markägare</a>
+            <a class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/narboende">Närboende</a>
+            <a class="text-lg font-semibold text-blue-400 hover:text-blue-300 py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun">Kommun</a>
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
             <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="#guider">Guider</a>
-            <a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun-dashboard">Kommuner</a>
         </div>
     </div>
 </div>
@@ -204,126 +206,251 @@ mobileMenu?.querySelectorAll('a').forEach(link => {
 </div>
 </div>
 </header>
+<!-- Silo-väljare -->
+<!-- Sajtens viktigaste vägval. Markägare, närboende och kommuner har olika
+     frågor, olika verktyg och olika värde som lead — här delar vi upp trafiken
+     i tre spår i stället för att skicka alla till samma kalkylator. -->
+<section class="py-16 border-b border-slate-900" id="silos">
+<div class="max-w-7xl mx-auto px-6">
+<h2 class="text-3xl font-bold mb-3 text-center">Vad gäller det för dig?</h2>
+<p class="text-slate-400 text-center mb-10 max-w-2xl mx-auto">Reglerna ser helt olika ut beroende på om du äger marken, bor granne med parken eller företräder kommunen. Välj ditt spår så visar vi bara det som gäller dig.</p>
+<div class="grid md:grid-cols-3 gap-6">
+<a class="group bg-slate-900/40 p-8 border border-slate-800 hover:border-emerald-500/50 rounded-2xl transition block" data-vk-segment="markagare" href="/markagare">
+<div class="w-12 h-12 bg-emerald-500/15 rounded-xl flex items-center justify-center text-emerald-400 mb-5">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+</div>
+<span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Jag äger mark</span>
+<h3 class="text-2xl font-bold text-white mt-2 mb-3">Markägare</h3>
+<p class="text-slate-400 mb-5 leading-relaxed">Arrende, royalty och avtalsvillkor. Normalt 150 000–300 000 kr per verk och år i 30–40 år – om avtalet är rätt skrivet.</p>
+<span class="text-emerald-400 group-hover:text-emerald-300 font-semibold">Till markägarspåret →</span>
+</a>
+<a class="group bg-slate-900/40 p-8 border border-slate-800 hover:border-blue-500/50 rounded-2xl transition block" data-vk-segment="narboende" href="/narboende">
+<div class="w-12 h-12 bg-blue-500/15 rounded-xl flex items-center justify-center text-blue-400 mb-5">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+</div>
+<span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Jag bor nära</span>
+<h3 class="text-2xl font-bold text-white mt-2 mb-3">Närboende</h3>
+<p class="text-slate-400 mb-5 leading-relaxed">Skattefri intäktsdelning från 1 juli 2026 för bostäder inom nio verkshöjder – upp till 38 400 kr per år.</p>
+<span class="text-blue-400 group-hover:text-blue-300 font-semibold">Till närboendespåret →</span>
+</a>
+<a class="group bg-slate-900/40 p-8 border border-slate-800 hover:border-teal-500/50 rounded-2xl transition block" data-vk-segment="kommun" href="/kommun">
+<div class="w-12 h-12 bg-teal-500/15 rounded-xl flex items-center justify-center text-teal-400 mb-5">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+</div>
+<span class="text-xs font-bold text-teal-400 uppercase tracking-widest">Jag företräder en kommun</span>
+<h3 class="text-2xl font-bold text-white mt-2 mb-3">Kommun</h3>
+<p class="text-slate-400 mb-5 leading-relaxed">Fastighetsskatt, bygdepeng och veto. Vad en etablering faktiskt ger kommunkassan 2026 – med källor.</p>
+<span class="text-teal-400 group-hover:text-teal-300 font-semibold">Till kommunspåret →</span>
+</a>
+</div>
+<p class="text-center text-slate-500 text-sm mt-8">Har du ett avtalsförslag på bordet? <a class="text-amber-400 hover:text-amber-300 font-semibold" href="/juridisk-hjalp-arrendeavtal">Läs om juridisk hjälp inför arrendeavtal →</a></p>
+</div>
+</section>
 <!-- Featured Articles -->
+<!-- Guiderna är grupperade per silo. Besökaren ska aldrig behöva leta i ett
+     odelat kortflöde efter det som gäller just hens situation. -->
 <section id="guider" class="py-20 bg-slate-900/50">
 <div class="max-w-7xl mx-auto px-6">
-<h2 class="text-3xl font-bold mb-12 text-center">Guider &amp; Insikter</h2>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-                        <span class="text-xs font-bold text-yellow-400 uppercase tracking-widest">Fakta</span>
-                        <h3 class="text-xl font-semibold text-white mt-3 mb-2">Bullernivå & Minimiavstånd</h3>
-                        <p class="text-slate-400 mb-4">Vilka avståndskrav gäller i Sverige och vad säger reglerna om buller? Vi reder ut Naturvårdsverkets riktvärden.</p>
-                        <a class="text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-2" href="/bullerniva-minimiavstand-vindkraft">Läs guiden →</a>
-                    </div>
-                    
-                    <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-                        <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Avveckling</span>
-                        <h3 class="text-xl font-semibold mt-3 mb-2 text-white">Avveckling & Återvinning</h3>
-                        <p class="text-slate-400 mb-4">Vad kostar det att riva ett vindkraftverk och vem betalar? Läs om lagkrav på ekonomisk säkerhet och återvinning.</p>
-                        <a class="text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-2" href="/avveckling-och-atervinning-vindkraft">Läs guiden →</a>
-                    </div>
-
-                    <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-                        <span class="text-xs font-bold text-green-400 uppercase tracking-widest">Ny Guide</span>
-                        <h3 class="text-xl font-semibold text-white mt-3 mb-2">Din Guide till Ersättning</h3>
-                        <p class="text-slate-400 mb-4">Allt du behöver veta om ersättning för vindkraft på din mark. Förstå arrendeavtal, ersättningsmodeller och hur du maximerar din inkomst.</p>
-                        <a href="/guider/guide-ersattning-vindkraft" class="text-blue-400 hover:text-blue-300 font-semibold">Läs guiden →</a>
-                    </div>
-                    
-                                        <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-                        <span class="text-xs font-bold text-red-400 uppercase tracking-widest">Guide 2026</span>
-                        <h3 class="text-xl font-semibold text-white mt-3 mb-2">Rätt till inlösen</h3>
-                        <p class="text-slate-400 mb-4">Vad innebär förslaget om rätt till inlösen av fastigheter nära vindkraftverk? Vi förklarar vem som omfattas och hur värderingen görs.</p>
-                        <a href="/ratt-till-inlosen-fastighet-vindkraft" class="text-blue-400 hover:text-blue-300 font-semibold">Läs guiden &rarr;</a>
-                    </div>
-
-                    <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-                        <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Guide 2026</span>
-                        <h3 class="text-xl font-semibold text-white mt-3 mb-2">Vindkraftsersättning 2026</h3>
-                        <p class="text-slate-400 mb-4">Din kompletta guide till ersättning, rättigheter och trender. Så beräknas ersättningen för närboende och markägare.</p>
-                        <a href="/guider/vindkraftsersattning-2026" class="text-blue-400 hover:text-blue-300 font-semibold">Läs guiden &rarr;</a>
-                    </div>
-                </div>
-                
-                <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-                    <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Intäktsdelning</span>
-                    <h3 class="text-xl font-semibold text-white mt-3 mb-2">Nio verkshöjder (Intäktsdelning)</h3>
-                    <p class="text-slate-400 mb-4">Så fungerar den nya avståndsgränsen (9 verkshöjder) för intäktsdelning för bostadsägare enligt förslaget för 2026.</p>
-                    <a class="text-blue-400 hover:text-blue-300 font-semibold" href="/nio-verkshojder-ersattning">Läs guiden →</a>
-                </div>
-
-                <div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-                    <span class="text-xs font-bold text-teal-400 uppercase tracking-widest">Kommunersättning</span>
-                    <h3 class="text-xl font-semibold text-white mt-3 mb-2">Bygdepeng & Kommunersättning 2026</h3>
-                    <p class="text-slate-400 mb-4">Läs mer om hur lokalsamhället kompenseras för vindkraftsetableringar.</p>
-                    <a class="text-blue-400 hover:text-blue-300 font-semibold" href="/kommunersattning-vindkraft-2026">Läs guiden →</a>
-                </div>
-
-
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-<span class="text-xs font-bold text-green-400 uppercase tracking-widest">Ny Guide 2026</span>
-<h3 class="text-xl font-semibold text-white mt-3 mb-2">Bygdepeng & Regler</h3>
-<p class="text-slate-400 mb-4">Vad är bygdepeng för vindkraft och hur fördelas pengarna? Komplett guide till mikrostöd och föreningar.</p>
-<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/bygdepeng-vindkraft-regler-2026">Läs guiden →</a>
+<h2 class="text-3xl font-bold mb-4 text-center">Guider &amp; insikter</h2>
+<p class="text-slate-400 text-center mb-14 max-w-2xl mx-auto">Allt innehåll är sorterat efter vem det är skrivet för.</p>
+<div class="mb-16" id="guider-markagare">
+<div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+<div>
+<h3 class="text-2xl md:text-3xl font-bold text-white">För dig som äger mark</h3>
+<p class="text-slate-400 mt-2">Arrende, avtal och skatt – allt som avgör vad marken ger dig.</p>
 </div>
-
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-<span class="text-xs font-bold text-yellow-400 uppercase tracking-widest">Aktuellt 2026</span>
-<h3 class="text-xl font-semibold text-white mt-3 mb-2">Ny lag: Kommunersättning & Intäktsdelning</h3>
-<p class="text-slate-400 mb-4">Läs allt om de nya lagarna 2026. Så ska fastighetsskatten fördelas till kommunerna och så får närboende rätt till intäktsdelning.</p>
-<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/kommunersattning-vindkraft-2026">Läs nyheten →</a>
+<a class="text-emerald-400 hover:text-emerald-300 font-semibold whitespace-nowrap" data-vk-segment="markagare" href="/markagare">Till markägarspåret →</a>
 </div>
-
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-<span class="text-xs font-bold text-orange-400 uppercase tracking-widest">Skatteoptimering</span>
-<h3 class="text-xl font-semibold text-white mt-3 mb-2">Skatt på Vindkraftsersättning</h3>
-<p class="text-slate-400 mb-4">Hur beskattas arrendeintäkter och royalty? Komplett guide om skattesatser, avdrag och laglig optimering för markägare.</p>
-<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/skatt-vindkraftersattning">Läs skatteguiden →</a>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-emerald-500/40 transition">
+<span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Arrendeavtal</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Arrendeavtal för vindkraft</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Villkor, avtalstid, indexering och de fallgropar som kostar mest över 30–40 år.</p>
+<a class="text-emerald-400 hover:text-emerald-300 font-semibold" href="/arrendeavtal-vindkraft">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-emerald-500/40 transition">
+<span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Ersättning</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Hur beräknas ersättningen?</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Fast arrende, royalty eller hybrid – modellerna och faktorerna som styr din inkomst.</p>
+<a class="text-emerald-400 hover:text-emerald-300 font-semibold" href="/ersattning-for-vindkraft">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-emerald-500/40 transition">
+<span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Process</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Så får du vindkraft på din mark</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Från intresseanmälan till påskrivet avtal – hela processen steg för steg.</p>
+<a class="text-emerald-400 hover:text-emerald-300 font-semibold" href="/sa-far-du-vindkraft-pa-din-mark">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-emerald-500/40 transition">
+<span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Skatt</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Skatt på vindkraftsersättning</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Så beskattas arrende och royalty, vilka avdrag som finns och hur du planerar lagligt.</p>
+<a class="text-emerald-400 hover:text-emerald-300 font-semibold" href="/skatt-vindkraftersattning">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-emerald-500/40 transition">
+<span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Jämförelse</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Vindkraft eller solpark?</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Avkastning, risk och markpåverkan ställda mot varandra för dig som ska välja.</p>
+<a class="text-emerald-400 hover:text-emerald-300 font-semibold" href="/arrende-vindkraft-vs-solpark">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-emerald-500/40 transition">
+<span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Guide</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Din guide till ersättning</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Den kompletta genomgången av ersättningsmodeller för markägare.</p>
+<a class="text-emerald-400 hover:text-emerald-300 font-semibold" href="/guider/guide-ersattning-vindkraft">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-emerald-500/40 transition">
+<span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Byggprocess</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Bygga vindkraftverk steg för steg</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Från första idé till driftsatt park – tillstånd, tidplan och aktörer.</p>
+<a class="text-emerald-400 hover:text-emerald-300 font-semibold" href="/guider/bygga-vindkraftverk-steg-for-steg">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-emerald-500/40 transition">
+<span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Juridik</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Juridisk hjälp inför arrendeavtal</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Tio punkter en rådgivare granskar – och hur du blir matchad med en jurist.</p>
+<a class="text-emerald-400 hover:text-emerald-300 font-semibold" href="/juridisk-hjalp-arrendeavtal">Läs mer →</a>
+</article>
 </div>
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-<span class="text-xs font-bold text-blue-400 uppercase tracking-widest">För markägare</span>
-<h3 class="text-xl font-semibold text-white mt-3 mb-2">Hur Beräknas Ersättning?</h3>
-<p class="text-slate-400 mb-4">En genomgång av de vanligaste ersättningsmodellerna (fast, royalty, hybrid) och faktorerna som påverkar din inkomst.</p>
-<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/ersattning-for-vindkraft">Läs guiden →</a>
 </div>
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-<span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Verktyg</span>
-<h3 class="text-xl font-semibold text-white mt-3 mb-2">Ersättningskalkylator</h3>
-<p class="text-slate-400 mb-4">Räkna ut din skattefria ersättning som närboende – enligt regeringens trappstegsmodell (2,5–0,5 promille).</p>
-<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/kalkylator">Beräkna nu →</a>
+<div class="mb-16" id="guider-narboende">
+<div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+<div>
+<h3 class="text-2xl md:text-3xl font-bold text-white">För dig som bor nära</h3>
+<p class="text-slate-400 mt-2">Intäktsdelningen från 1 juli 2026, avståndsreglerna och dina rättigheter.</p>
 </div>
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-<span class="text-xs font-bold text-red-400 uppercase tracking-widest">Ny Guide 2026</span>
-<h3 class="text-xl font-semibold text-white mt-3 mb-2">Bullernivåer & Minimiavstånd</h3>
-<p class="text-slate-400 mb-4">Hur högt låter ett vindkraftverk? Vilka avstånd gäller? Komplett guide om riktvärden, mätmetoder och dina rättigheter.</p>
-<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/bullerniva-minimiavstand-vindkraft">Läs guiden →</a>
+<a class="text-blue-400 hover:text-blue-300 font-semibold whitespace-nowrap" data-vk-segment="narboende" href="/narboende">Till närboendespåret →</a>
 </div>
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-<span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Ärlig granskning</span>
-<h3 class="text-xl font-semibold text-white mt-3 mb-2">Nackdelar med vindkraft</h3>
-<p class="text-slate-400 mb-4">Buller, skuggor, fågelliv och ekonomi: en faktagranskad genomgång av de verkliga utmaningarna.</p>
-<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/nackdelar-med-vindkraft">Läs mer →</a>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-blue-500/40 transition">
+<span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Ny lag</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Intäktsdelning från vindkraft</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Trappstegsmodellen, vilka parker som omfattas och hur anmälan går till.</p>
+<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/intaktsdelning-vindkraft">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-blue-500/40 transition">
+<span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Avstånd</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Nio verkshöjder</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Så dras gränsen för vilka bostäder som får ersättning – med räkneexempel.</p>
+<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/nio-verkshojder-ersattning">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-blue-500/40 transition">
+<span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Verktyg</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Ersättningskalkylator</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Räkna ut din skattefria ersättning utifrån avstånd, verkshöjd och elområde.</p>
+<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/kalkylator">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-blue-500/40 transition">
+<span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Buller</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Bullernivå och minimiavstånd</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Naturvårdsverkets riktvärden, mätmetoder och vad du kan kräva.</p>
+<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/bullerniva-minimiavstand-vindkraft">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-blue-500/40 transition">
+<span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Värdering</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Påverkar vindkraft fastighetsvärdet?</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Forskning, rättsfall och kompensationsmodeller – faktabaserat.</p>
+<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/paverkar-vindkraft-fastighetsvarde">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-blue-500/40 transition">
+<span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Inlösen</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Rätt till inlösen av fastighet</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Vem omfattas av förslaget om inlösen och hur görs värderingen?</p>
+<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/ratt-till-inlosen-fastighet-vindkraft">Läs mer →</a>
+</article>
 </div>
-
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest">Originaldata</span><h3 class="text-xl font-semibold text-white mt-3 mb-2">Ersättningsnivåer Region för Region</h3><p class="text-slate-400 mb-4">Så mycket betalar vindkraften i arrende och intäktsdelning i Sveriges olika regioner (SE1-SE4).</p><a class="text-blue-400 hover:text-blue-300 font-semibold" href="/ersattningsnivaer-region-for-region">Läs rapporten &rarr;</a></div><div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300"><span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Markagare</span><h3 class="text-xl font-semibold text-white mt-3 mb-2">Arrendeavtal for vindkraft</h3><p class="text-slate-400 mb-4">Villkor, ersattning och fallgropar - komplett guide till arrendeavtal for dig som markagare.</p><a class="text-blue-400 hover:text-blue-300 font-semibold" href="/arrendeavtal-vindkraft">Las mer &rarr;</a></div>
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300"><span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Fakta</span><h3 class="text-xl font-semibold text-white mt-3 mb-2">Fordelar med vindkraft</h3><p class="text-slate-400 mb-4">Vilka ar fordelarna - for klimatet, ekonomin och lokalsamhallet? En faktagranskad genomgang.</p><a class="text-blue-400 hover:text-blue-300 font-semibold" href="/fordelar-med-vindkraft">Las mer &rarr;</a></div>
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300"><span class="text-xs font-bold text-yellow-400 uppercase tracking-widest">Steg for steg</span><h3 class="text-xl font-semibold text-white mt-3 mb-2">Sa far du vindkraft pa din mark</h3><p class="text-slate-400 mb-4">Fran intresseanmalan till avtal - sa gar processen att upplata din mark for vindkraft.</p><a class="text-blue-400 hover:text-blue-300 font-semibold" href="/sa-far-du-vindkraft-pa-din-mark">Las mer &rarr;</a></div>
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300"><span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Guide</span><h3 class="text-xl font-semibold text-white mt-3 mb-2">Bygga vindkraftverk: Steg för steg</h3><p class="text-slate-400 mb-4">En komplett guide som tar dig igenom hela processen, från första idé till färdigt projekt.</p><a class="text-blue-400 hover:text-blue-300 font-semibold" href="/guider/bygga-vindkraftverk-steg-for-steg">Läs guiden →</a></div>
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300"><span class="text-xs font-bold text-teal-400 uppercase tracking-widest">Kommunfokus</span><h3 class="text-xl font-semibold text-white mt-3 mb-2">Kommunernas intäkter 2026</h3><p class="text-slate-400 mb-4">Så påverkas den kommunala ekonomin och det kommunala vetot av den nya lagen om intäktsdelning.</p><a class="text-blue-400 hover:text-blue-300 font-semibold" href="/kommunersattning-vindkraft-2026">Läs guiden →</a></div>
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest">Lagstiftning</span><h3 class="text-xl font-semibold text-white mt-3 mb-2">Nya Lagen: Intäktsdelning</h3><p class="text-slate-400 mb-4">Från 1 juli 2026 införs en lagstadgad intäktsdelning till närboende. Vi förklarar trappstegsmodellen och reglerna.</p><a class="text-blue-400 hover:text-blue-300 font-semibold" href="/intaktsdelning-vindkraft">Läs den kompletta guiden →</a></div>
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300"><span class="text-xs font-bold text-red-400 uppercase tracking-widest">Värdering</span><h3 class="text-xl font-semibold text-white mt-3 mb-2">Påverkar vindkraft fastighetsvärdet?</h3><p class="text-slate-400 mb-4">Forskning, rättsfall och kompensationsmodeller – en faktabaserad genomgång av hur vindkraft kan påverka fastighetsvärden.</p><a class="text-blue-400 hover:text-blue-300 font-semibold" href="/paverkar-vindkraft-fastighetsvarde">Läs analysen →</a></div>
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-<span class="text-xs font-bold text-red-500 uppercase tracking-widest">Ny Detaljerad Guide</span>
-<h3 class="text-xl font-semibold text-white mt-3 mb-2">Nackdelar med Vindkraft</h3>
-<p class="text-slate-400 mb-4">En djupgående guide om de verkliga nackdelarna med vindkraft. Läs om buller, skuggor, och påverkan på djurliv.</p>
-<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/nackdelar-med-vindkraft">Läs den detaljerade guiden →</a></div><div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300"><span class="text-xs font-bold text-orange-400 uppercase tracking-widest">Jämförelse</span><h3 class="text-xl font-semibold text-white mt-3 mb-2">Arrende för vindkraft vs solpark</h3><p class="text-slate-400 mb-4">Står du i valet mellan vindkraft och solcellspark på din mark? Vi jämför avkastning, risker och markpåverkan.</p><a class="text-blue-400 hover:text-blue-300 font-semibold" href="/arrende-vindkraft-vs-solpark">Läs jämförelsen →</a>
 </div>
-
-<div class="bg-slate-900/40 p-8 border border-slate-800 rounded-2xl transform hover:-translate-y-1 transition-transform duration-300">
-<span class="text-xs font-bold text-indigo-400 uppercase tracking-widest">Havet</span>
-<h3 class="text-xl font-semibold text-white mt-3 mb-2">Havsbaserad vindkraft: Ersättning 2026</h3>
-<p class="text-slate-400 mb-4">Hur fungerar ersättningen för vindkraft till havs? Vi reder ut skillnaderna mellan territorialvatten och ekonomisk zon.</p>
-<a class="text-blue-400 hover:text-blue-300 font-semibold" href="/havsbaserad-vindkraft-ersattning">Läs guiden →</a>
+<div class="mb-16" id="guider-kommun">
+<div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+<div>
+<h3 class="text-2xl md:text-3xl font-bold text-white">För kommuner och organisationer</h3>
+<p class="text-slate-400 mt-2">Intäkter, veto och underlag för nämnd och fullmäktige.</p>
+</div>
+<a class="text-teal-400 hover:text-teal-300 font-semibold whitespace-nowrap" data-vk-segment="kommun" href="/kommun">Till kommunspåret →</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-teal-500/40 transition">
+<span class="text-xs font-bold text-teal-400 uppercase tracking-widest">Verktyg</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Kommun-dashboard</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Räkna på vad en etablering ger kommunen i årliga intäkter.</p>
+<a class="text-teal-400 hover:text-teal-300 font-semibold" href="/kommun-dashboard">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-teal-500/40 transition">
+<span class="text-xs font-bold text-teal-400 uppercase tracking-widest">Lagstiftning</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Kommunersättning och intäktsdelning 2026</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Så fördelas fastighetsskatten och så påverkas den kommunala ekonomin.</p>
+<a class="text-teal-400 hover:text-teal-300 font-semibold" href="/kommunersattning-vindkraft-2026">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-teal-500/40 transition">
+<span class="text-xs font-bold text-teal-400 uppercase tracking-widest">Bygdepeng</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Bygdepeng: regler och fördelning</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Vad bygdepengen är, hur den fördelas och vad som är frivilligt.</p>
+<a class="text-teal-400 hover:text-teal-300 font-semibold" href="/bygdepeng-vindkraft-regler-2026">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-teal-500/40 transition">
+<span class="text-xs font-bold text-teal-400 uppercase tracking-widest">Verktyg</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Kommunersättningskalkylator</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Uppskatta kommunens intäkter utifrån antal verk och installerad effekt.</p>
+<a class="text-teal-400 hover:text-teal-300 font-semibold" href="/kommunersattning-kalkylator">Läs mer →</a>
+</article>
+</div>
+</div>
+<div class="mb-16" id="guider-fakta">
+<div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+<div>
+<h3 class="text-2xl md:text-3xl font-bold text-white">Fakta, data och analys</h3>
+<p class="text-slate-400 mt-2">Underlaget bakom siffrorna – för alla tre grupperna.</p>
+</div>
+<a class="text-purple-400 hover:text-purple-300 font-semibold whitespace-nowrap" data-vk-segment="fakta" href="/original-data-rapport-arrende-2026">Läs originaldatarapporten →</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-purple-500/40 transition">
+<span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Originaldata</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Ersättningsnivåer region för region</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Vad vindkraften betalar i arrende och intäktsdelning i SE1–SE4.</p>
+<a class="text-purple-400 hover:text-purple-300 font-semibold" href="/ersattningsnivaer-region-for-region">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-purple-500/40 transition">
+<span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Jämförelse</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Ersättning vs arrende</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Interaktivt verktyg som ställer intäktsdelning mot markarrende.</p>
+<a class="text-purple-400 hover:text-purple-300 font-semibold" href="/jamforelse-ersattning-vs-arrende">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-purple-500/40 transition">
+<span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Begrepp</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Markarrende eller intäktsdelning?</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Två helt olika ersättningar som ständigt blandas ihop – här är skillnaden.</p>
+<a class="text-purple-400 hover:text-purple-300 font-semibold" href="/skillnad-arrende-intaktsdelning">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-purple-500/40 transition">
+<span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Granskning</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Nackdelar med vindkraft</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Buller, skuggor, fågelliv och ekonomi – en faktagranskad genomgång.</p>
+<a class="text-purple-400 hover:text-purple-300 font-semibold" href="/nackdelar-med-vindkraft">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-purple-500/40 transition">
+<span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Granskning</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Fördelar med vindkraft</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Vad vindkraften ger klimatet, ekonomin och lokalsamhället.</p>
+<a class="text-purple-400 hover:text-purple-300 font-semibold" href="/fordelar-med-vindkraft">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-purple-500/40 transition">
+<span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Livscykel</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Avveckling och återvinning</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Vad rivningen kostar, vem som betalar och vilka garantier lagen kräver.</p>
+<a class="text-purple-400 hover:text-purple-300 font-semibold" href="/avveckling-och-atervinning-vindkraft">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-purple-500/40 transition">
+<span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Till havs</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Havsbaserad vindkraft: ersättning</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Skillnaderna mellan territorialvatten och ekonomisk zon.</p>
+<a class="text-purple-400 hover:text-purple-300 font-semibold" href="/havsbaserad-vindkraft-ersattning">Läs mer →</a>
+</article>
+<article class="bg-slate-900/40 p-7 border border-slate-800 rounded-2xl hover:border-purple-500/40 transition">
+<span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Guide 2026</span>
+<h4 class="text-xl font-semibold text-white mt-3 mb-2">Vindkraftsersättning 2026</h4>
+<p class="text-slate-400 mb-4 leading-relaxed">Den samlade guiden till ersättning, rättigheter och trender.</p>
+<a class="text-purple-400 hover:text-purple-300 font-semibold" href="/guider/vindkraftsersattning-2026">Läs mer →</a>
+</article>
 </div>
 </div>
 </div>
@@ -363,15 +490,28 @@ mobileMenu?.querySelectorAll('a').forEach(link => {
         <h2 class="text-3xl font-bold text-white mb-4">Missa inga viktiga lagändringar</h2>
         <p class="text-slate-400 mb-8">Få uppdateringar om nya ersättningsnivåer, lagkrav och intäktsdelning direkt till din inkorg. 100% oberoende.</p>
         
-        <form id="hero-form" class="max-w-md mx-auto space-y-4" onsubmit="event.preventDefault(); submitLead('hero');">
+        <!-- Även nyhetsbrevet frågar efter silo. Ett mejl utan segment är svårt
+             att följa upp; med segment vet vi vilket utskick som ska gå ut. -->
+        <form class="max-w-md mx-auto space-y-4 text-left" data-vk-lead-form data-source="index_newsletter">
+            <div>
+                <label class="block text-sm font-semibold text-slate-300 mb-2" for="news-segment">Jag är …</label>
+                <select class="w-full bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white" id="news-segment" name="segment" required>
+                    <option value="">Välj det som stämmer bäst</option>
+                    <option value="markagare">Markägare</option>
+                    <option value="narboende">Närboende</option>
+                    <option value="kommun">Kommun eller organisation</option>
+                    <option value="ovrig">Annat (projektör, rådgivare, journalist)</option>
+                </select>
+            </div>
             <div class="flex flex-col sm:flex-row gap-3">
-                <input type="email" id="hero-email" placeholder="Din e-postadress" required class="flex-1 bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white placeholder-slate-500 shadow-inner">
+                <input type="email" name="email" placeholder="Din e-postadress" required class="flex-1 bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white placeholder-slate-500 shadow-inner">
                 <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold transition whitespace-nowrap">Prenumerera</button>
             </div>
+            <div class="hidden text-red-400 text-sm" data-vk-error hidden></div>
             <p class="text-xs text-slate-500 italic">Vi delar aldrig din data. Du kan avregistrera dig när som helst.</p>
         </form>
-        
-        <div id="success-msg" class="hidden mt-6 p-5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 font-medium flex items-center justify-center gap-3">
+
+        <div class="hidden mt-6 p-5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 font-medium flex items-center justify-center gap-3" data-vk-success hidden>
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
             Tack! Du är nu prenumerant på Vindkollens uppdateringar.
         </div>
@@ -392,24 +532,27 @@ mobileMenu?.querySelectorAll('a').forEach(link => {
             </p>
         </div>
         <div>
+            <h4 class="text-white font-bold mb-4">Din situation</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+                <li><a class="hover:text-blue-400 transition" href="/markagare">Jag äger mark</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/narboende">Jag bor nära en park</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/kommun">Jag företräder en kommun</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/juridisk-hjalp-arrendeavtal">Jag behöver juridisk hjälp</a></li>
+            </ul>
+        </div>
+        <div>
             <h4 class="text-white font-bold mb-4">Verktyg</h4>
             <ul class="space-y-2 text-sm text-slate-400">
                 <li><a class="hover:text-blue-400 transition" href="/kalkylator">Ersättningskalkylator</a></li>
                 <li><a class="hover:text-blue-400 transition" href="/arrendekalkylator">Arrendekalkylator</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4 class="text-white font-bold mb-4">Guider</h4>
-            <ul class="space-y-2 text-sm text-slate-400">
-                <li><a class="hover:text-blue-400 transition" href="/ersattning-for-vindkraft">Ersättning för markägare</a></li>
-                <li><a class="hover:text-blue-400 transition" href="/arrendeavtal-vindkraft">Arrendeavtal vindkraft</a></li>
-                <li><a class="hover:text-blue-400 transition" href="/paverkar-vindkraft-fastighetsvarde">Påverkan på fastighetsvärde</a></li>
-                <li><a class="hover:text-blue-400 transition" href="/nackdelar-med-vindkraft">Nackdelar med vindkraft</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/jamforelse-ersattning-vs-arrende">Jämför ersättning vs arrende</a></li>
+                <li><a class="hover:text-blue-400 transition" href="/kommun-dashboard">Kommun-dashboard</a></li>
             </ul>
         </div>
         <div>
             <h4 class="text-white font-bold mb-4">Om oss</h4>
             <ul class="space-y-2 text-sm text-slate-400">
+                <li><a class="hover:text-blue-400 transition" href="/om-sajten">Om sajten</a></li>
                 <li><a class="hover:text-blue-400 transition" href="mailto:simon@adviseo.se">Kontakt</a></li>
             </ul>
         </div>
@@ -425,38 +568,8 @@ mobileMenu?.querySelectorAll('a').forEach(link => {
 </footer>
 
 <script>
-        async function submitLead(scope) {
-            const email = document.getElementById(scope + '-email').value.trim();
-            const name = (document.getElementById(scope + '-name')?.value || '').trim();
-            const municipality = (document.getElementById(scope + '-municipality')?.value || '').trim();
-
-            if (!email || !email.includes('@')) {
-                alert('Vänligen ange en giltig e-postadress.');
-                return;
-            }
-
-            try {
-                const response = await fetch('/api/lead', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: email,
-                        name: name || null,
-                        municipality: municipality || null,
-                        source: scope === 'footer' ? 'index_footer' : 'index_hero'
-                    })
-                });
-                if (response.ok) {
-                    document.getElementById(scope + '-form').classList.add('hidden');
-                    document.getElementById('success-msg').classList.remove('hidden');
-                } else {
-                    alert('Något gick fel. Försök igen senare.');
-                }
-            } catch (err) {
-                console.error('Lead submit failed', err);
-                alert('Kunde inte ansluta till servern.');
-            }
-        }
+        // Formulärinskick sköts av /static/js/vk-silo.js — den skickar med
+        // silo, härleder elområde ur länet och rapporterar GA4-händelsen.
 
         // Social-proof counter — live total from /api/stats/leads.
         (async function loadStats() {
@@ -474,6 +587,7 @@ mobileMenu?.querySelectorAll('a').forEach(link => {
             } catch (e) { /* non-fatal */ }
         })();
     </script>
+<script src="/static/js/vk-silo.js"></script>
 <script src="/static/js/mobile-menu.js"></script>
 
 <script>
