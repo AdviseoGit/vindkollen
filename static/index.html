@@ -492,7 +492,10 @@ mobileMenu?.querySelectorAll('a').forEach(link => {
         
         <!-- Även nyhetsbrevet frågar efter silo. Ett mejl utan segment är svårt
              att följa upp; med segment vet vi vilket utskick som ska gå ut. -->
-        <form class="max-w-md mx-auto space-y-4 text-left" data-vk-lead-form data-source="index_newsletter">
+        <!-- onsubmit="return false" är skyddsnätet: laddar inte vk-silo.js av någon
+             anledning gör formuläret annars en vanlig submit, sidan laddas om och
+             leadet är borta. -->
+        <form class="max-w-md mx-auto space-y-4 text-left" onsubmit="return false" data-vk-lead-form data-source="index_newsletter">
             <div>
                 <label class="block text-sm font-semibold text-slate-300 mb-2" for="news-segment">Jag är …</label>
                 <select class="w-full bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white" id="news-segment" name="segment" required>

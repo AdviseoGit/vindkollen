@@ -315,22 +315,26 @@ def build_welcome_email_html(d: dict) -> str:
         for title, url in links
     )
 
+    # Vi har inga avtalade partner ännu. Bekräftelsen ska säga det rakt ut —
+    # ett löfte vi inte kan hålla kostar mer än det lead det fångar.
     legal_block = ""
     if d.get("wants_legal_help"):
         legal_block = (
             '<p style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;'
-            'padding:12px 14px">Du har markerat att du vill ha kontakt med en jurist som är '
-            'specialiserad på markavtal. Vi återkommer med förslag på oberoende rådgivare i '
-            'ditt län – vi tar aldrig betalt av dig för den kontakten.</p>'
+            'padding:12px 14px">Du har markerat att du vill ha kontakt med en jurist som kan '
+            'markavtal. Vi bygger upp det nätverket just nu och har ingen avtalad rådgivare i '
+            'varje län ännu, så vi kan inte lova när vi hör av oss – bara att vi gör det när vi '
+            'har någon att förmedla till. Har du bråttom: vänta inte på oss, kontakta en '
+            'advokatbyrå med fastighetsrätt eller en lantbruksekonom direkt.</p>'
         )
 
     projector_block = ""
     if d.get("wants_projector_contact"):
         projector_block = (
             '<p style="background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;'
-            'padding:12px 14px">Du har sagt ja till att bli matchad med seriösa projektörer i '
-            'ditt område. Vi delar dina uppgifter först när du bekräftat vilken aktör du vill '
-            'prata med.</p>'
+            'padding:12px 14px">Du har sagt ja till kontakt med projektörer i ditt område. Vi '
+            'delar aldrig dina uppgifter innan du bekräftat vilken aktör du vill prata med, och '
+            'vi hör av oss först när vi har någon att förmedla till.</p>'
         )
 
     return f"""\
@@ -348,8 +352,9 @@ def build_welcome_email_html(d: dict) -> str:
     {projector_block}
     <p style="margin:18px 0 6px"><b>Börja här:</b></p>
     <ul style="margin:0 0 8px;padding-left:20px;line-height:1.7">{link_html}</ul>
-    <p>Vi hör av oss inom kort. Svara gärna på det här mejlet om du vill beskriva din situation
-       närmare – vi läser varje svar.</p>
+    <p>Vi läser varje inskickning och hör av oss när vi har något konkret för din situation.
+       Svara gärna på det här mejlet om du vill beskriva läget närmare – det är oftast den
+       snabbaste vägen till ett svar.</p>
     <p style="margin-top:22px">Vänliga hälsningar,<br><b>Vindkollen</b><br>
        <a href="https://vindkoll.se" style="color:{_BRAND}">vindkoll.se</a></p>
     <p style="font-size:11px;color:#94a3b8;margin-top:22px">Du får det här mejlet för att du fyllde

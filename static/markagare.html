@@ -97,9 +97,9 @@
 <div class="max-w-5xl mx-auto px-6">
 <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-6 uppercase tracking-wider">För dig som äger mark</div>
 <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.1]">Vad är din mark värd för <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">vindkraft?</span></h1>
-<p class="text-xl text-slate-400 mb-8 leading-relaxed max-w-3xl">Ett arrendeavtal ger normalt 150 000–300 000 kronor per verk och år i 30–40 år. Räkna på nivåerna, förstå villkoren – och få en oberoende bedömning av just din fastighet.</p>
+<p class="text-xl text-slate-400 mb-8 leading-relaxed max-w-3xl">Ett arrendeavtal ger normalt 150 000–300 000 kronor per verk och år i 30–40 år. Räkna på nivåerna, förstå villkoren – och anmäl din fastighet för en oberoende bedömning.</p>
 <div class="flex flex-col sm:flex-row gap-4 max-w-xl">
-<a class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition shadow-lg whitespace-nowrap" href="#anmalan">Få en bedömning av din mark</a>
+<a class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition shadow-lg whitespace-nowrap" href="#anmalan">Anmäl din mark</a>
 <a class="inline-flex items-center justify-center bg-slate-900/60 hover:bg-slate-800 text-slate-200 border border-slate-700 px-8 py-4 rounded-xl font-semibold transition" href="/arrendekalkylator">Räkna på arrendet</a>
 </div>
 <div class="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500"><span class="flex items-center gap-1"><svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"></path></svg> 100 % oberoende från kraftbolagen</span>
@@ -158,10 +158,11 @@
 
 <section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <div class="bg-gradient-to-br from-blue-900/40 to-emerald-900/25 border border-blue-500/30 rounded-3xl p-8 md:p-10">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-4 uppercase tracking-wider">Kostnadsfritt · svar inom 2 arbetsdagar</div>
-<h2 class="text-3xl font-bold text-white mb-3">Få en bedömning av din mark</h2>
-<p class="text-slate-300 mb-8 leading-relaxed">Beskriv din fastighet så återkommer vi med vad marken rimligen är värd i arrende, vilka aktörer som är aktiva i ditt län och vad du bör ha koll på innan du skriver på något. Du binder dig inte till någonting.</p>
-<form class="space-y-5" data-vk-lead-form data-segment="markagare" data-source="markagare_silo">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-4 uppercase tracking-wider">Kostnadsfritt · tjänsten byggs upp nu</div>
+<h2 class="text-3xl font-bold text-white mb-3">Anmäl din mark för bedömning</h2>
+<p class="text-slate-300 mb-4 leading-relaxed">Beskriv din fastighet så hör vi av oss när vi kan säga något vettigt om vad marken är värd i ditt län, vilka aktörer som är aktiva där och vad du bör ha koll på innan du skriver på något. Du binder dig inte till någonting.</p>
+<p class="text-slate-400 mb-8 text-sm leading-relaxed border-l-2 border-slate-700 pl-4">Ärligt om läget: Vindkollen är nystartat och vi har inga avtalade rådgivare eller projektörer på plats ännu. Vi sätter inget datum vi inte kan hålla — men vi läser varje inskickning, och du får våra marknadsuppdateringar under tiden.</p>
+<form class="space-y-5" onsubmit="return false" data-vk-lead-form data-segment="markagare" data-source="markagare_silo">
 <div class="grid sm:grid-cols-2 gap-4">
 <div><label class="block text-sm font-semibold text-slate-300 mb-2" for="mk-name">Namn</label>
 <input class="w-full bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white placeholder-slate-500" id="mk-name" name="name" placeholder="För- och efternamn" required type="text"/></div>
@@ -222,9 +223,9 @@
 <textarea class="w-full bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white placeholder-slate-500" id="mk-message" name="message" placeholder="t.ex. skogsmark på höjdläge, 3 km till befintlig kraftledning" rows="3"></textarea></div>
 <div class="space-y-3 pt-2 border-t border-slate-700/60">
 <label class="flex gap-3 text-sm text-slate-300"><input class="mt-1 h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="wants_projector_contact" type="checkbox"/>
-<span>Jag vill bli matchad med seriösa projektörer som är aktiva i mitt län.</span></label>
+<span>Jag är öppen för kontakt med projektörer i mitt län, om och när vi kan förmedla en sådan.</span></label>
 <label class="flex gap-3 text-sm text-slate-300"><input class="mt-1 h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="wants_legal_help" type="checkbox"/>
-<span>Jag vill ha kontakt med en jurist som är specialiserad på markavtal.</span></label>
+<span>Hör av er när ni kan förmedla kontakt med en jurist som kan markavtal.</span></label>
 <label class="flex gap-3 text-sm text-slate-300"><input class="mt-1 h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="consent_partner_share" type="checkbox"/>
 <span>Jag samtycker till att Vindkollen får dela mina uppgifter med utvalda samarbetspartner i mitt län. Utan bock hör bara vi av oss.</span></label>
 </div>
@@ -234,7 +235,7 @@
 </form>
 <div class="hidden p-6 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-200" data-vk-success hidden>
 <div class="font-bold text-lg mb-1">Tack – vi har fått dina uppgifter.</div>
-Du får en bekräftelse på mejlen direkt och en bedömning av din mark inom två arbetsdagar. Under tiden: testa <a class="underline" href="/arrendekalkylator">arrendekalkylatorn</a> för att se vad royaltynivån betyder i kronor.
+Du får en bekräftelse på mejlen direkt. Sedan hör vi av oss när vi har något konkret för ditt län. Under tiden: testa <a class="underline" href="/arrendekalkylator">arrendekalkylatorn</a> för att se vad royaltynivån betyder i kronor.
 </div>
 </div>
 </section>

@@ -300,10 +300,11 @@ def link_list(title, links):
 
 MARKAGARE_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <div class="bg-gradient-to-br from-blue-900/40 to-emerald-900/25 border border-blue-500/30 rounded-3xl p-8 md:p-10">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-4 uppercase tracking-wider">Kostnadsfritt · svar inom 2 arbetsdagar</div>
-<h2 class="text-3xl font-bold text-white mb-3">Få en bedömning av din mark</h2>
-<p class="text-slate-300 mb-8 leading-relaxed">Beskriv din fastighet så återkommer vi med vad marken rimligen är värd i arrende, vilka aktörer som är aktiva i ditt län och vad du bör ha koll på innan du skriver på något. Du binder dig inte till någonting.</p>
-<form class="space-y-5" data-vk-lead-form data-segment="markagare" data-source="markagare_silo">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-4 uppercase tracking-wider">Kostnadsfritt · tjänsten byggs upp nu</div>
+<h2 class="text-3xl font-bold text-white mb-3">Anmäl din mark för bedömning</h2>
+<p class="text-slate-300 mb-4 leading-relaxed">Beskriv din fastighet så hör vi av oss när vi kan säga något vettigt om vad marken är värd i ditt län, vilka aktörer som är aktiva där och vad du bör ha koll på innan du skriver på något. Du binder dig inte till någonting.</p>
+<p class="text-slate-400 mb-8 text-sm leading-relaxed border-l-2 border-slate-700 pl-4">Ärligt om läget: Vindkollen är nystartat och vi har inga avtalade rådgivare eller projektörer på plats ännu. Vi sätter inget datum vi inte kan hålla — men vi läser varje inskickning, och du får våra marknadsuppdateringar under tiden.</p>
+<form class="space-y-5" onsubmit="return false" data-vk-lead-form data-segment="markagare" data-source="markagare_silo">
 <div class="grid sm:grid-cols-2 gap-4">
 <div><label class="{LABEL}" for="mk-name">Namn</label>
 <input class="{FIELD}" id="mk-name" name="name" placeholder="För- och efternamn" required type="text"/></div>
@@ -341,9 +342,9 @@ MARKAGARE_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <textarea class="{FIELD}" id="mk-message" name="message" placeholder="t.ex. skogsmark på höjdläge, 3 km till befintlig kraftledning" rows="3"></textarea></div>
 <div class="space-y-3 pt-2 border-t border-slate-700/60">
 <label class="flex gap-3 text-sm text-slate-300"><input class="{CHECK}" name="wants_projector_contact" type="checkbox"/>
-<span>Jag vill bli matchad med seriösa projektörer som är aktiva i mitt län.</span></label>
+<span>Jag är öppen för kontakt med projektörer i mitt län, om och när vi kan förmedla en sådan.</span></label>
 <label class="flex gap-3 text-sm text-slate-300"><input class="{CHECK}" name="wants_legal_help" type="checkbox"/>
-<span>Jag vill ha kontakt med en jurist som är specialiserad på markavtal.</span></label>
+<span>Hör av er när ni kan förmedla kontakt med en jurist som kan markavtal.</span></label>
 <label class="flex gap-3 text-sm text-slate-300"><input class="{CHECK}" name="consent_partner_share" type="checkbox"/>
 <span>Jag samtycker till att Vindkollen får dela mina uppgifter med utvalda samarbetspartner i mitt län. Utan bock hör bara vi av oss.</span></label>
 </div>
@@ -353,7 +354,7 @@ MARKAGARE_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 </form>
 <div class="hidden p-6 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-200" data-vk-success hidden>
 <div class="font-bold text-lg mb-1">Tack – vi har fått dina uppgifter.</div>
-Du får en bekräftelse på mejlen direkt och en bedömning av din mark inom två arbetsdagar. Under tiden: testa <a class="underline" href="/arrendekalkylator">arrendekalkylatorn</a> för att se vad royaltynivån betyder i kronor.
+Du får en bekräftelse på mejlen direkt. Sedan hör vi av oss när vi har något konkret för ditt län. Under tiden: testa <a class="underline" href="/arrendekalkylator">arrendekalkylatorn</a> för att se vad royaltynivån betyder i kronor.
 </div>
 </div>
 </section>"""
@@ -435,10 +436,11 @@ MARKAGARE_FAQ = [
 
 NARBOENDE_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <div class="bg-gradient-to-br from-blue-900/40 to-emerald-900/25 border border-blue-500/30 rounded-3xl p-8 md:p-10">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-4 uppercase tracking-wider">Kostnadsfritt · bevakning av din adress</div>
-<h2 class="text-3xl font-bold text-white mb-3">Bevaka vad som händer nära dig</h2>
-<p class="text-slate-300 mb-8 leading-relaxed">Anmäl din adress så hör vi av oss när intäktsdelningen börjar gälla för en park i din närhet, när anmälningsfönstret öppnar och när reglerna ändras. Den som missar sin årliga anmälan går miste om hela årets ersättning.</p>
-<form class="space-y-5" data-vk-lead-form data-segment="narboende" data-source="narboende_silo">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-4 uppercase tracking-wider">Kostnadsfritt · uppdateringar om lagen</div>
+<h2 class="text-3xl font-bold text-white mb-3">Håll koll på vad som gäller</h2>
+<p class="text-slate-300 mb-4 leading-relaxed">Vi följer lagen om intäktsdelning och hör av oss när reglerna ändras eller anmälningsfönstret öppnar. Den som missar sin årliga anmälan går miste om hela årets ersättning – det är den påminnelsen som är värd mest.</p>
+<p class="text-slate-400 mb-8 text-sm leading-relaxed border-l-2 border-slate-700 pl-4">Lämnar du län och avstånd vet vi vilken situation utskicken ska passa. Vi övervakar inte enskilda parker automatiskt – vi bevakar lagstiftningen och skriver till dig när något faktiskt ändras.</p>
+<form class="space-y-5" onsubmit="return false" data-vk-lead-form data-segment="narboende" data-source="narboende_silo">
 <div class="grid sm:grid-cols-2 gap-4">
 <div><label class="{LABEL}" for="nb-name">Namn</label>
 <input class="{FIELD}" id="nb-name" name="name" placeholder="För- och efternamn" required type="text"/></div>
@@ -468,7 +470,7 @@ NARBOENDE_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <label class="flex gap-3 text-sm text-slate-300"><input class="{CHECK}" name="wants_legal_help" type="checkbox"/>
 <span>Jag vill veta mer om mina rättigheter vid värdeminskning eller inlösen av fastigheten.</span></label>
 <label class="flex gap-3 text-sm text-slate-300" data-vk-owns-land><input class="{CHECK}" name="wants_projector_contact" type="checkbox"/>
-<span>Jag äger också mark där verk skulle kunna placeras och är öppen för kontakt om det.</span></label>
+<span>Jag äger också mark där verk skulle kunna placeras och är öppen för kontakt om och när det blir aktuellt.</span></label>
 <label class="flex gap-3 text-sm text-slate-300"><input class="{CHECK}" name="consent_partner_share" type="checkbox"/>
 <span>Jag samtycker till att mina uppgifter får delas med utvalda samarbetspartner i mitt län.</span></label>
 </div>
@@ -477,8 +479,8 @@ NARBOENDE_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <p class="text-xs text-slate-400 italic">Vi delar aldrig dina uppgifter med kraftbolag utan ditt godkännande. Avregistrera när du vill.</p>
 </form>
 <div class="hidden p-6 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-200" data-vk-success hidden>
-<div class="font-bold text-lg mb-1">Tack – din adress är bevakad.</div>
-Du hör från oss när något händer som påverkar din ersättning. Räkna gärna på beloppet redan nu i <a class="underline" href="/kalkylator">ersättningskalkylatorn</a>.
+<div class="font-bold text-lg mb-1">Tack – du står på listan.</div>
+Vi hör av oss när reglerna ändras på ett sätt som påverkar din ersättning. Räkna gärna på beloppet redan nu i <a class="underline" href="/kalkylator">ersättningskalkylatorn</a>.
 </div>
 </div>
 </section>"""
@@ -554,10 +556,11 @@ NARBOENDE_FAQ = [
 
 KOMMUN_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <div class="bg-gradient-to-br from-teal-900/40 to-blue-900/25 border border-teal-500/30 rounded-3xl p-8 md:p-10">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/15 border border-teal-500/30 text-teal-300 text-xs font-semibold mb-4 uppercase tracking-wider">Underlag till nämnd och fullmäktige</div>
-<h2 class="text-3xl font-bold text-white mb-3">Beställ ett kommununderlag</h2>
-<p class="text-slate-300 mb-8 leading-relaxed">Vi sammanställer vad en planerad etablering betyder för er kommun i kronor: fastighetsskatt, intäktsdelning till närboende, bygdepeng och sysselsättning – med källor, i ett format som går att bifoga till ett tjänsteutlåtande.</p>
-<form class="space-y-5" data-vk-lead-form data-segment="kommun" data-source="kommun_silo">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/15 border border-teal-500/30 text-teal-300 text-xs font-semibold mb-4 uppercase tracking-wider">Kostnadsfritt · oberoende från kraftbolagen</div>
+<h2 class="text-3xl font-bold text-white mb-3">Ställ er fråga till oss</h2>
+<p class="text-slate-300 mb-4 leading-relaxed">Berätta vad ni behöver svar på om en planerad etablering – fastighetsskatt, intäktsdelning till närboende, bygdepeng eller sysselsättning – så återkommer vi med det underlag vi har, med källhänvisningar.</p>
+<p class="text-slate-400 mb-8 text-sm leading-relaxed border-l-2 border-slate-700 pl-4">Vi är nystartade och bygger upp kommununderlagen efter hand. Kan vi inte hjälpa er säger vi det rakt ut i stället för att dra ut på det. Under tiden kan ni räkna själva i kommun-dashboarden.</p>
+<form class="space-y-5" onsubmit="return false" data-vk-lead-form data-segment="kommun" data-source="kommun_silo">
 <div class="grid sm:grid-cols-2 gap-4">
 <div><label class="{LABEL}" for="km-org">Kommun eller organisation</label>
 <input class="{FIELD}" id="km-org" name="organisation" placeholder="t.ex. Ånge kommun" required type="text"/></div>
@@ -592,12 +595,12 @@ KOMMUN_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <div><label class="{LABEL}" for="km-message">Vad vill ni ha svar på?</label>
 <textarea class="{FIELD}" id="km-message" name="message" placeholder="t.ex. vad 24 verk på 6 MW ger kommunen i årliga intäkter" rows="3"></textarea></div>
 <div class="hidden text-red-400 text-sm" data-vk-error hidden></div>
-<button class="w-full bg-teal-600 hover:bg-teal-500 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg" type="submit">Beställ underlag →</button>
-<p class="text-xs text-slate-400 italic">Vi är oberoende från kraftbolagen. Underlaget är kostnadsfritt och innehåller källhänvisningar till propositioner och myndighetsdata.</p>
+<button class="w-full bg-teal-600 hover:bg-teal-500 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg" type="submit">Skicka er fråga →</button>
+<p class="text-xs text-slate-400 italic">Vi är oberoende från kraftbolagen och tar inte betalt av kommuner. Allt vi skickar har källhänvisningar till propositioner och myndighetsdata.</p>
 </form>
 <div class="hidden p-6 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-200" data-vk-success hidden>
-<div class="font-bold text-lg mb-1">Tack – förfrågan är mottagen.</div>
-Vi återkommer med ett underlag för er kommun. Under tiden kan ni räkna själva i <a class="underline" href="/kommun-dashboard">kommun-dashboarden</a>.
+<div class="font-bold text-lg mb-1">Tack – frågan är mottagen.</div>
+Vi återkommer så snart vi kan. Under tiden kan ni räkna själva i <a class="underline" href="/kommun-dashboard">kommun-dashboarden</a>.
 </div>
 </div>
 </section>"""
@@ -654,10 +657,13 @@ KOMMUN_FAQ = [
 
 JURIDIK_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <div class="bg-gradient-to-br from-amber-900/30 to-blue-900/25 border border-amber-500/30 rounded-3xl p-8 md:p-10">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-200 text-xs font-semibold mb-4 uppercase tracking-wider">Oberoende förmedling · kostnadsfritt för dig</div>
-<h2 class="text-3xl font-bold text-white mb-3">Bli kopplad till en jurist för markavtal</h2>
-<p class="text-slate-300 mb-8 leading-relaxed">Beskriv ditt ärende så matchar vi dig med en oberoende jurist eller lantbruksekonom som arbetar med arrende- och markupplåtelseavtal i ditt län. Vi tar inte betalt av dig, och du väljer själv om du går vidare.</p>
-<form class="space-y-5" data-vk-lead-form data-segment="markagare" data-source="juridik_silo">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-200 text-xs font-semibold mb-4 uppercase tracking-wider">Under uppbyggnad · kostnadsfritt för dig</div>
+<h2 class="text-3xl font-bold text-white mb-3">Anmäl intresse för juridisk hjälp</h2>
+<p class="text-slate-300 mb-4 leading-relaxed">Vi håller på att bygga upp ett nätverk av oberoende jurister och lantbruksekonomer som arbetar med arrende- och markupplåtelseavtal. Beskriv ditt ärende så hör vi av oss när vi kan förmedla en kontakt i ditt län. Vi tar inte betalt av dig, och du väljer själv om du går vidare.</p>
+<div class="p-4 mb-8 bg-amber-500/10 border border-amber-500/25 rounded-xl text-amber-100 text-sm leading-relaxed">
+<b>Har du bråttom?</b> Vi har ännu inga avtalade rådgivare och kan inte lova när vi har det. Ligger ett avtalsförslag på bordet med kort svarstid — vänta inte på oss. Kontakta en advokatbyrå som arbetar med fastighetsrätt eller en lantbruksekonom direkt. Checklistan ovan fungerar lika bra som underlag till ett möte du bokar själv.
+</div>
+<form class="space-y-5" onsubmit="return false" data-vk-lead-form data-segment="markagare" data-source="juridik_silo">
 <input checked hidden name="wants_legal_help" type="checkbox"/>
 <div class="grid sm:grid-cols-2 gap-4">
 <div><label class="{LABEL}" for="ju-name">Namn</label>
@@ -686,15 +692,15 @@ JURIDIK_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <textarea class="{FIELD}" id="ju-message" name="message" placeholder="t.ex. optionsavtal på 5 år, royalty 3 % efter nätförluster, ingen indexering av minimiarrendet" rows="4"></textarea></div>
 <div class="space-y-3 pt-2 border-t border-slate-700/60">
 <label class="flex gap-3 text-sm text-slate-300"><input class="{CHECK}" name="consent_partner_share" type="checkbox"/>
-<span>Jag samtycker till att Vindkollen delar mina uppgifter med den jurist eller rådgivare som matchas till mitt ärende.</span></label>
+<span>Jag samtycker till att Vindkollen delar mina uppgifter med den rådgivare som kan ta ärendet, när vi har en på plats i mitt län.</span></label>
 </div>
 <div class="hidden text-red-400 text-sm" data-vk-error hidden></div>
-<button class="w-full bg-amber-600 hover:bg-amber-500 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg" type="submit">Matcha mig med en rådgivare →</button>
-<p class="text-xs text-slate-400 italic">Vindkollen ger inte juridisk rådgivning och är inte part i avtalet. Vi förmedlar kontakt med oberoende rådgivare.</p>
+<button class="w-full bg-amber-600 hover:bg-amber-500 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg" type="submit">Anmäl mitt ärende →</button>
+<p class="text-xs text-slate-400 italic">Vindkollen ger inte juridisk rådgivning och är inte part i avtalet. Vi förmedlar kontakt med oberoende rådgivare i den mån vi kan.</p>
 </form>
 <div class="hidden p-6 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-200" data-vk-success hidden>
 <div class="font-bold text-lg mb-1">Tack – vi har fått ditt ärende.</div>
-Vi återkommer med förslag på rådgivare i ditt län. Läs gärna <a class="underline" href="/arrendeavtal-vindkraft">genomgången av arrendeavtalets villkor</a> under tiden.
+Vi hör av oss så snart vi kan förmedla en kontakt i ditt län. Har du bråttom: vänta inte på oss, ta kontakt med en fastighetsjurist direkt. Läs gärna <a class="underline" href="/arrendeavtal-vindkraft">genomgången av arrendeavtalets villkor</a> under tiden.
 </div>
 </div>
 </section>"""
@@ -709,8 +715,9 @@ JURIDIK_BODY = f"""<section class="max-w-5xl mx-auto px-6 py-14">
 ])}
 </section>
 
-<section class="max-w-5xl mx-auto px-6 py-14 border-t border-slate-900">
+<section class="max-w-5xl mx-auto px-6 py-14 border-t border-slate-900" id="punkterna">
 <h2 class="text-3xl font-bold text-white mb-3">Tio punkter en rådgivare går igenom</h2>
+<p class="text-slate-400 mb-6 max-w-3xl">Ta med listan till mötet – den fungerar lika bra oavsett om du bokar rådgivaren själv eller via oss.</p>
 <ol class="space-y-3 text-slate-300 list-decimal pl-6 marker:text-amber-400 marker:font-bold">
 <li><b class="text-white">Royaltybasen.</b> Bruttointäkt eller nettot efter nätförluster, balanskostnader och certifikat?</li>
 <li><b class="text-white">Minimiarrendet.</b> Nivå, och om det är ett golv eller avräknas mot royaltyn.</li>
@@ -752,8 +759,9 @@ JURIDIK_FAQ = [
      "En granskning av ett avtalsförslag ligger normalt på några timmars arbete, medan en fullständig förhandling "
      "kostar mer. Kostnaden ska alltid ställas mot avtalets totala värde – ofta flera miljoner kronor."),
     ("Kostar Vindkollens förmedling något?",
-     "Nej, förmedlingen är kostnadsfri för dig. Vi ger inte juridisk rådgivning själva utan kopplar ihop dig med "
-     "oberoende rådgivare, och du bestämmer själv om du går vidare med kontakten."),
+     "Nej, den är kostnadsfri för dig. Vindkollen är nystartat och nätverket av rådgivare byggs upp just nu, så vi "
+     "kan inte lova hur snabbt vi kan förmedla en kontakt i ditt län. Har du bråttom bör du kontakta en "
+     "fastighetsjurist eller lantbruksekonom direkt – vi ger inte juridisk rådgivning själva."),
     ("Kan flera markägare anlita samma rådgivare?",
      "Ja, och det är ofta klokt. Grannar som förhandlar samlat får både bättre villkor och lägre kostnad per fastighet, "
      "eftersom rådgivaren kan granska ett gemensamt avtalsupplägg."),
@@ -772,8 +780,8 @@ def build():
             badge="För dig som äger mark",
             h1_pre="Vad är din mark värd för",
             h1_accent="vindkraft?",
-            lead="Ett arrendeavtal ger normalt 150 000–300 000 kronor per verk och år i 30–40 år. Räkna på nivåerna, förstå villkoren – och få en oberoende bedömning av just din fastighet.",
-            primary=("Få en bedömning av din mark", "#anmalan"),
+            lead="Ett arrendeavtal ger normalt 150 000–300 000 kronor per verk och år i 30–40 år. Räkna på nivåerna, förstå villkoren – och anmäl din fastighet för en oberoende bedömning.",
+            primary=("Anmäl din mark", "#anmalan"),
             secondary=("Räkna på arrendet", "/arrendekalkylator"),
             trust=["100 % oberoende från kraftbolagen", "Kostnadsfritt för markägare", "Uppdaterad enligt prop. 2025/26:239"],
         ),
@@ -812,10 +820,10 @@ def build():
             badge="För kommuner och organisationer",
             h1_pre="Vad ger vindkraften",
             h1_accent="er kommun?",
-            lead="Fastighetsskatt, intäktsdelning och bygdepeng förändras 2026. Vi räknar på vad en etablering betyder för er ekonomi – med källor, oberoende från projektörerna.",
-            primary=("Beställ kommununderlag", "#anmalan"),
-            secondary=("Öppna kommun-dashboarden", "/kommun-dashboard"),
-            trust=["Oberoende från kraftbolagen", "Källhänvisat underlag", "Kostnadsfritt"],
+            lead="Fastighetsskatt, intäktsdelning och bygdepeng förändras 2026. Räkna på vad en etablering betyder för er ekonomi – med källor, oberoende från projektörerna.",
+            primary=("Öppna kommun-dashboarden", "/kommun-dashboard"),
+            secondary=("Ställ en fråga till oss", "#anmalan"),
+            trust=["Oberoende från kraftbolagen", "Källhänvisat", "Kostnadsfritt"],
         ),
         body=KOMMUN_BODY,
         faqs=KOMMUN_FAQ,
@@ -832,10 +840,10 @@ def build():
             badge="Avtal på bordet?",
             h1_pre="Skriv inte på förrän någon har",
             h1_accent="granskat avtalet",
-            lead="Ett arrendeavtal för vindkraft binder marken i 30–40 år. Vi kopplar dig kostnadsfritt till en oberoende jurist eller lantbruksekonom som förhandlar sådana avtal till vardags.",
-            primary=("Matcha mig med en rådgivare", "#anmalan"),
-            secondary=("Se vad avtalet bör innehålla", "/arrendeavtal-vindkraft"),
-            trust=["Kostnadsfri förmedling", "Oberoende rådgivare", "Du väljer själv om du går vidare"],
+            lead="Ett arrendeavtal för vindkraft binder marken i 30–40 år. Här är de tio punkter en rådgivare går igenom – och du kan anmäla intresse för kontakt med en oberoende jurist eller lantbruksekonom när vi har en på plats i ditt län.",
+            primary=("Se de tio punkterna", "#punkterna"),
+            secondary=("Anmäl intresse för rådgivare", "#anmalan"),
+            trust=["Kostnadsfritt för dig", "Nätverket byggs upp nu", "Du väljer själv om du går vidare"],
         ),
         body=JURIDIK_BODY,
         faqs=JURIDIK_FAQ,

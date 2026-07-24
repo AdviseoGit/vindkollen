@@ -188,15 +188,15 @@
             <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px]"></div>
             
             <div class="relative z-10 text-center mb-8">
-                <span class="inline-block py-1 px-3 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-4 border border-emerald-500/30">Ladda ner gratis rapport</span>
+                <span class="inline-block py-1 px-3 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-4 border border-emerald-500/30">Kostnadsfritt</span>
                 <h3 class="text-3xl font-bold text-white mb-4">Är ditt arrendeavtal bra nog?</h3>
-                <p class="text-slate-300">Vi har sammanställt en detaljerad PDF-guide om vad du som markägare <strong>måste</strong> ha med i avtalet innan du skriver på. Inkluderar checklistor för återställningsgarantier och indexering.</p>
+                <p class="text-slate-300">Vi mejlar vår genomgång av vad du som markägare <strong>bör</strong> ha med i avtalet innan du skriver på – återställningsgaranti, indexering och royaltybas – plus marknadsuppdateringar om arrendenivåerna i ditt län.</p>
             </div>
 
             <!-- Arrendekalkylatorn används i praktiken bara av markägare, så
                  formuläret går rakt in i markägarsilon och frågar om det som
                  avgör leadets värde: län, areal och var i processen man står. -->
-            <form class="max-w-lg mx-auto space-y-4" data-vk-lead-form data-segment="markagare" data-source="arrendekalkylator">
+            <form class="max-w-lg mx-auto space-y-4" onsubmit="return false" data-vk-lead-form data-segment="markagare" data-source="arrendekalkylator">
                 <input name="message" type="hidden"/>
                 <div class="grid sm:grid-cols-2 gap-4">
                     <input class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" name="name" placeholder="Förnamn" required type="text"/>
@@ -243,14 +243,14 @@
                 </div>
                 <div class="hidden text-red-400 text-sm" data-vk-error hidden></div>
                 <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-emerald-500/25 flex justify-center items-center gap-2">
-                    Skicka guiden till min e-post
+                    Skicka genomgången till min e-post
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </button>
                 <p class="text-xs text-slate-500 text-center">Vi delar aldrig dina uppgifter utan din bock ovan. Avregistrera när du vill.</p>
             </form>
             <div class="hidden max-w-lg mx-auto text-center text-emerald-300 mt-4 p-5 bg-emerald-900/30 border border-emerald-800 rounded-xl" data-vk-success hidden>
-                <b>Tack! Guiden är på väg till din inkorg.</b><br/>
-                Vill du att någon tittar på ett konkret avtalsförslag? Läs om <a class="underline" href="/juridisk-hjalp-arrendeavtal">juridisk hjälp inför arrendeavtal</a>.
+                <b>Tack! Ett mejl är på väg till din inkorg.</b><br/>
+                Vill du att någon tittar på ett konkret avtalsförslag? Läs <a class="underline" href="/juridisk-hjalp-arrendeavtal">de tio punkter en rådgivare går igenom</a>.
             </div>
         </div>
 
