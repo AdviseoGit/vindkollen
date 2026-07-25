@@ -110,8 +110,16 @@
         <a class="hover:text-white transition" href="/markagare">Markägare</a>
         <a class="hover:text-white transition" href="/narboende">Närboende</a>
         <a class="hover:text-white transition" href="/kommun">Kommun</a>
-        <a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
-        <a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
+        
+        
+        <div class="relative group">
+            <button class="hover:text-white transition flex items-center gap-1">Verktyg <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+            <div class="absolute top-full right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all flex flex-col py-2">
+                <a href="/kalkylator" class="px-4 py-2 hover:bg-slate-800 hover:text-white transition">Kalkylator</a>
+                <a href="/arrendekalkylator" class="px-4 py-2 hover:bg-slate-800 hover:text-white transition">Arrendekalkylator</a>
+                <a href="/kommun-dashboard" class="px-4 py-2 hover:bg-slate-800 hover:text-white transition">Kommun-dashboard</a>
+            </div>
+        </div>
         <a class="hover:text-white transition" href="#guider">Guider</a>
     </div>
     <!-- Mobile Menu Button -->
