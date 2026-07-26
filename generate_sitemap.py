@@ -20,7 +20,6 @@ STATIC_PAGES = [
     ("/om-sajten", "0.5", "monthly"),
     ("/kommun-dashboard", "0.9", "monthly"),
     ("/intaktsdelning-vindkraft", "0.9", "monthly"),
-    ("/guider/guide-ersattning-vindkraft", "0.8", "monthly"),
     ("/sa-far-du-vindkraft-pa-din-mark", "0.7", "monthly"),
     ("/fordelar-med-vindkraft", "0.7", "monthly"),
     ("/arrendeavtal-vindkraft", "0.7", "monthly"),

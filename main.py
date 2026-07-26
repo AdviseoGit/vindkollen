@@ -458,9 +458,9 @@ async def bygga_vindkraftverk_steg_for_steg():
 async def skillnad_arrende_intaktsdelning():
     return _serve_static_html("static/skillnad-arrende-intaktsdelning.html")
 
-@app.get("/guider/guide-ersattning-vindkraft", response_class=HTMLResponse)
+@app.get("/guider/guide-ersattning-vindkraft")
 async def guide_ersattning_vindkraft():
-    return _serve_static_html("static/guider/guide-ersattning-vindkraft.html")
+    return RedirectResponse(url="/guider/vindkraftsersattning-2026", status_code=301)
 
 @app.get("/ersattningsnivaer-region-for-region", response_class=HTMLResponse)
 async def ersattningsnivaer_region_for_region():

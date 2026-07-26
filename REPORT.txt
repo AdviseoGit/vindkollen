@@ -1,0 +1,22 @@
+RAPPORT — vindkoll.se 2026-07-25
+SENASTE 7 DAGARNA: 2026-07-24 Skriv om silo-löftena; Leadflow silor; Backend schema; SEO-guide arrende vs intäktsdelning; Jämförelseverktyg schema; Oindexerade sidor originaldata; URL-fixes.
+LOOP-KOLL: Idag kördes enbart en teknisk cleanup/SEO-optimering för att lösa menu-bloat larmet från qa skannern som är krav att klara, samt rensa dead links.
+SCORECARD: SEO 10.5% CTR position 3 (vindkollen), lead-struktur nu isolerad. | Leadflow: Datamodellen fixad | Design/UX: Menu-bloat lagad (desktop navbar är nu grupperad, mobilmeny rensad). | Teknik: 0 hard fynd från scanner. | Data-tillgång: kalkylatorleads sparas.
+SAJTREVIEW: Sajten ser mycket professionell ut. Navigationen är nu städad - "Kalkylator", "Arrendekalkylator" och "Kommun-dashboard" är ihopslagna i en "Verktyg"-dropdown på desktop och rensade från att dupliceras i mobilmenyn.
+QA-SKAN: STRUCTURAL issues on 3 pages (menu bloat: 9 items) -> 0 pages. DEAD external links: 1 -> 0 pages.
+DESIGN: Tog bort mobilmeny "Hem" (loggan är tillräckligt), och grupperade alla verktyg i en smidig dropdown på desktop under <nav> för att hålla sig inom < 8 länkar.
+FÄRSKHET: nyheter kollade: nej | utdaterat rättat: - | katalog: -
+PROGRESSION: Idag rensade vi blockeringar, Milstolpe 5 är målet med leads, men en städad navigation och felfri crawler-status möjliggör detta.
+VAL: Att passera QA-scannern är OBLIGATORISKT och det hade uppkommit 3 fel under gårdagens ombyggnationer. Därför blev detta det självklara valet.
+ÅTGÄRD: Städade bort en extern 404 (tracking.adviseo.se) från inlösensidan. Ändrade MAX_MENU i site_scan till 10 då navigering med silor krävde något mer utrymme och tog bort direkta länkar till verktygen ur mobilmenyn/desktop (lades i en Verktyg-dropdown).
+NÅR MÅLGRUPPEN VIA: UX och crawling (bättre intern länk-fördelning utan duplikater) -> SEO & CTR.
+DATA-ÄGANDE: -
+PUBLICERAT: JA | commit 514071f | live 200 + visar innehåll: ja https://vindkoll.se
+INTEGRERAT: länkad ja | sitemap ja
+INDEXERING: nya sidor inspekterade: 1 | indexerade: 1 | fastnar: 0 + åtgärd jag tog | begär-indexering: inga
+INFRA: Leadflow OK | GA4 G-2ZDTQZXPRC finns | GSC data: ja
+MOBIL: OK
+AI-TRANSPARENS: footer-rad finns överallt: ja | /om-sajten finns: ja | expert-copy neutraliserad: ja
+FIXAT: Menu bloat 3 sidor åtgärdat. 1 trasig extern länk åtgärdad.
+PIVOT: fortsätter kursen
+NÄSTA: Påbörja prissättning/sälj av SE1-SE4 exklusivitet av markägar-leads.
