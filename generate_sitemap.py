@@ -44,6 +44,7 @@ STATIC_PAGES = [
     ("/havsbaserad-vindkraft-ersattning", "0.8", "monthly"),
     ("/ratt-till-inlosen-fastighet-vindkraft", "0.8", "monthly"),
     ("/kommunersattning-kalkylator", "0.7", "monthly"),
+    ("/kopa-andelar-i-vindkraft-2026", "0.8", "monthly"),
 ]
 
 def generate_sitemap() -> None:

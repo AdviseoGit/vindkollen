@@ -871,6 +871,10 @@ async def bygdepeng_vindkraft_regler_2026():
 async def havsbaserad_vindkraft_ersattning():
     return _serve_static_html("static/havsbaserad-vindkraft-ersattning.html")
 
+@app.get("/kopa-andelar-i-vindkraft-2026", response_class=HTMLResponse)
+async def kopa_andelar_i_vindkraft_2026():
+    return _serve_static_html("static/kopa-andelar-i-vindkraft-2026.html")
+
 
 # Catch-all for HTML pages
 # ---------------------------------------------------------------------------

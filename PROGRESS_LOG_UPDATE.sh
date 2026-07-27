@@ -1,1 +1,0 @@
-echo "2026-07-20 | SEO | Fördjupade guider/bygga-vindkraftverk-steg-for-steg med unikt data-värde från Vindkollens insikter | Optimerar indexering och unikt värde för guiderna | nästa: Optimera e-post automation/konvertering" | cat - PROGRESS_LOG.md > temp && mv temp PROGRESS_LOG.md
