@@ -1,3 +1,4 @@
+2026-07-29 | SEO | publicerade artikel om arrendera ut mark utifrån GSC trends | organisk trafik | nästa: mät ranking för arrendera ut mark
 -e 2026-07-28 | TEKNIK/SEO | Lagade saknade main.py rutter för .html-filer och lade till i sitemap | Minskar föräldralösa sidor och 404 | nästa: Optimera e-postuppföljning
 2026-07-27 | TILLVÄXT/SEO | Åtgärdade .html filändelse och rutt för nya guiden om att köpa andelar i vindkraft | Clean URLs och bättre indexering | nästa: Optimera e-post automation & lead uppföljning
 2026-07-26 | SEO/ARKITEKTUR | Sanerade duplicerad innehållspelare (guide-ersattning-vindkraft -> vindkraftsersattning-2026 med 301) | Fixar cannibalization på "vindkraftsersättning" | nästa: Optimera e-postuppföljning
