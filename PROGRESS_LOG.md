@@ -1,3 +1,4 @@
+2026-07-30 | SEO | Fördjupade oindexerade sidor med unikt Vindkollen-data | Höjer unikt värde för indexering på 4 URL:er | nästa: Optimera kalkylatorns leadflow
 -e 2026-07-29 | SEO | Fördjupade ersättning för vindkraft och fixade kannibalisering | ersättning vindkraft ranking | nästa: Optimera kalkylatorns leadflow
 2026-07-29 | SEO | publicerade artikel om arrendera ut mark utifrån GSC trends | organisk trafik | nästa: mät ranking för arrendera ut mark
 -e 2026-07-28 | TEKNIK/SEO | Lagade saknade main.py rutter för .html-filer och lade till i sitemap | Minskar föräldralösa sidor och 404 | nästa: Optimera e-postuppföljning
