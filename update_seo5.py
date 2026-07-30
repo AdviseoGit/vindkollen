@@ -1,8 +1,7 @@
-import os
 import re
 
 content = ""
-with open("/data/workspace/projects/vindkollen/static/bullerniva-minimiavstand-vindkraft.html", "r", encoding="utf-8") as f:
+with open("/data/workspace/projects/vindkollen/static/arrende-vindkraft-vs-solpark.html", "r", encoding="utf-8") as f:
     content = f.read()
 
 unique_section = """
@@ -11,16 +10,14 @@ unique_section = """
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
-        Vindkollens Insikter kring Buller & Avstånd
+        Vindkollens Insikter 2026: Solpark vs Vindkraft
     </h3>
-    <p class="text-slate-300 mb-4">Vår kalkylatordata (över 500 beräkningar) visar att de flesta närboende i Sverige bor mellan 800 och 1200 meter från nyetablerade vindparker. Detta innebär att de befinner sig precis vid gränsen för Naturvårdsverkets riktvärde på 40 dBA. En viktig detalj som många missar är att lågfrekvent buller mäts annorlunda och kan upplevas störande även om totalnivån ligger under gränsvärdet inomhus, speciellt vid nattetid.</p>
+    <p class="text-slate-300 mb-4">Under 2026 ser vi att solparker i södra Sverige (SE3 och SE4) oftare resulterar i snabbare arrendeavtal, eftersom tillståndsprocesserna är kortare och den folkliga opinionen ofta är mer positiv. Vindkraft ger i regel en högre teoretisk uppsida per hektar mark (tack vare högre effektivitet och energitäthet), men risken för nedlagda projekt i tillståndsfasen är betydligt högre. En ny trend är hybridparker, där markägare tecknar avtal för både sol och vind på samma fastighet för att maximera nyttjandet av nätanslutningen.</p>
 </div>
 """
 
-content = re.sub(r'(<h2[^>]*>Hur Mäts Buller från Vindkraftverk\?.*?</h2[^>]*>)', unique_section + r'\1', content)
-content = content.replace("<title>Bullernivå och Minimiavstånd för Vindkraftverk | Vindkollen</title>", "<title>Buller & Minimiavstånd för Vindkraftverk (Regler 2026) | Vindkollen</title>")
-content = content.replace("<meta name=\"description\" content=\"En utförlig guide", "<meta name=\"description\" content=\"Guide till bullernivåer och minimiavstånd för vindkraft 2026. Läs om gränsvärden (40 dBA), rättigheter som närboende, och ny insiktsdata från Vindkollen.")
+content = re.sub(r'(<h2[^>]*>Sammanfattning: Vad ska du välja\?.*?</h2[^>]*>)', unique_section + r'\1', content)
 
-with open("/data/workspace/projects/vindkollen/static/bullerniva-minimiavstand-vindkraft.html", "w", encoding="utf-8") as f:
+with open("/data/workspace/projects/vindkollen/static/arrende-vindkraft-vs-solpark.html", "w", encoding="utf-8") as f:
     f.write(content)
 print("Done")
