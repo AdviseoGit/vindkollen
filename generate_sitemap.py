@@ -38,6 +38,7 @@ STATIC_PAGES = [
     ("/original-data-rapport-arrende-2026", "0.8", "monthly"),
     ("/bullerniva-minimiavstand-vindkraft", "0.8", "monthly"),
     ("/avveckling-och-atervinning-vindkraft", "0.8", "monthly"),
+    ("/llms.txt", "0.5", "monthly"),
     ("/nio-verkshojder-ersattning", "0.8", "monthly"),
     ("/arrende-vindkraft-vs-solpark", "0.8", "monthly"),
     ("/bygdepeng-vindkraft-regler-2026", "0.8", "monthly"),

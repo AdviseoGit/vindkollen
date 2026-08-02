@@ -534,6 +534,10 @@ async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")
 
 
+@app.get("/llms.txt")
+async def get_llms_txt():
+    return FileResponse("static/llms.txt", media_type="text/plain")
+
 @app.get("/robots.txt")
 async def robots():
     return FileResponse("static/robots.txt", media_type="text/plain")
