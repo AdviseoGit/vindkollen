@@ -354,7 +354,7 @@ async def _match_and_stage(session, email: str):
     )
     # Bara partners med uttryckligt auto_send går ut utan granskning, och högst
     # en per typ — samma urval som förslaget i mejlet.
-    auto_partners = [p for p in vk_matching.best_per_kind(matches) if p.auto_send]
+    auto_partners = [p for p in vk_matching.best_per_group(matches) if p.auto_send]
 
     # Rådgivaren först, projektören efter karenstiden. Poängen är att markägaren
     # ska hinna få råd innan motparten ringer.
@@ -1313,7 +1313,7 @@ async def rematch_backlog(request: Request, background: BackgroundTasks,
                     "lead_id": lead.id, "email": lead.email, "segment": lead.segment,
                     "county": lead.county, "score": lead.lead_score,
                     "would_match": [p.name for p in matches],
-                    "auto_send": [p.name for p in vk_matching.best_per_kind(matches)
+                    "auto_send": [p.name for p in vk_matching.best_per_group(matches)
                                   if p.auto_send],
                 })
 

@@ -136,17 +136,33 @@ def disqualifications(lead, partner, assigned_this_month: int,
     return reasons
 
 
-def best_per_kind(matches: list) -> list:
-    """Högst rankad partner per typ.
+# Vem konkurrerar med vem. En jurist och en projektör konkurrerar inte — ett
+# lead som bett om båda ska kunna lämnas till båda. Men en jurist och en
+# lantbruksekonom gör det: ur markägarens perspektiv är de alternativ för samma
+# behov, och två kalla samtal om samma sak gör leadet sämre för alla.
+COMPETITION_GROUPS = {
+    "jurist": "radgivning",
+    "radgivare": "radgivning",
+    "projektor": "projektering",
+    "kommunradgivning": "kommun",
+}
 
-    En jurist och en projektör konkurrerar inte om samma affär — ett lead som
-    bett om båda ska kunna lämnas till båda. Konkurrensen finns inom en
-    partnertyp, och där går bara den högst rankade vidare.
+
+def competition_group(kind: Optional[str]) -> str:
+    return COMPETITION_GROUPS.get(kind or "", kind or "okand")
+
+
+def best_per_group(matches: list) -> list:
+    """Högst rankad partner per konkurrensgrupp.
+
+    Matchningarna är redan rankade, så den som ligger först i sin grupp är den
+    med snävast täckning — den lokala rådgivaren går före den rikstäckande.
     """
     seen, out = set(), []
     for p in matches:
-        if p.kind not in seen:
-            seen.add(p.kind)
+        grupp = competition_group(p.kind)
+        if grupp not in seen:
+            seen.add(grupp)
             out.append(p)
     return out
 
@@ -385,7 +401,7 @@ def build_proposal_html(lead, matches, rejected, base_url, token_for) -> str:
                 f'<b>Ingen matchande partner för det här leadet.</b>'
                 f'<ul style="margin:8px 0 0;padding-left:18px;font-size:13px">{rows}</ul></div>')
 
-    per_kind = best_per_kind(matches)
+    per_kind = best_per_group(matches)
     forst, koade = split_by_order([p for p in per_kind if p.auto_send])
     koade_ids = {p.id for p in koade}
 
@@ -411,7 +427,12 @@ def build_proposal_html(lead, matches, rejected, base_url, token_for) -> str:
             '<div style="margin-top:12px;font-size:13px;color:#b45309">Ingen '
             'godkännandelänk: INTERNAL_API_KEY saknas i miljön.</div>'
         )
-        alternatives = [x.name for x in matches if x.kind == p.kind and x.id != p.id][:3]
+        # Alternativen är de som konkurrerar om samma uppdrag, inte bara de med
+        # exakt samma partnertyp — en lantbruksekonom är ett alternativ till en
+        # jurist för markägaren som vill ha hjälp med avtalet.
+        alternatives = [x.name for x in matches
+                        if competition_group(x.kind) == competition_group(p.kind)
+                        and x.id != p.id][:3]
         alt_html = (f'<div style="font-size:12px;color:#64748b;margin-top:8px">Alternativ: '
                     f'{", ".join(alternatives)}</div>' if alternatives else "")
         blocks.append(f"""

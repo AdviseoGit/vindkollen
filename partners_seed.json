@@ -130,15 +130,15 @@
       "relationship": "kall"
     },
     {
-      "name": "Hushållningssällskapet",
+      "name": "Hushållningssällskapet Norrbotten-Västerbotten",
       "kind": "radgivare",
-      "email": "",
-      "email_kalla": "hushallningssallskapet.se/tjanster/juridik/arrende-och-nyttjanderatter — regionala sällskap har egna adresser",
-      "counties": "",
+      "email": "infonord@hushallningssallskapet.se",
+      "email_kalla": "uppgiven av Simon. Regional adress (Nord) — verksamhetsområdet är bekräftat till Norrbotten och Västerbotten, med kontor i Luleå, Kalix, Öjebyn, Umeå och Lycksele.",
+      "counties": "Norrbotten,Västerbotten",
       "min_score": 35,
       "monthly_cap": 20,
       "auto_send": true,
-      "notes": "Jurister med både arrenderätt och ekonomisk värdering. Dela ev. upp per region.",
+      "notes": "Jurister med både arrenderätt och ekonomisk värdering. Regional täckning gör att de går före rikstäckande rådgivare för leads i norr. Övriga sällskap har egna adresser — lägg upp dem som separata rader per region.",
       "relationship": "kall"
     },
     {
