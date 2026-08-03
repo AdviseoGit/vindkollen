@@ -119,13 +119,14 @@
     {
       "name": "Ludvig & Co",
       "kind": "jurist",
-      "email": "",
-      "email_kalla": "ludvig.se/tjanster/juristbyra/arrende-och-nyttjanderatt",
+      "email": "amanda.torege.gustafsson@ludvig.se",
+      "contact_name": "Amanda",
+      "email_kalla": "uppgiven av Simon. Rollen är inte bekräftad i sökning — Ludvig & Co är stort och de flesta anställda syns inte publikt. Det kalla mejlet frågar vem hos dem leadsen ska gå till, så fel mottagare rättar sig själv.",
       "counties": "",
       "min_score": 35,
       "monthly_cap": 20,
       "auto_send": true,
-      "notes": "Arrende, mark- och miljörätt, lantbruk. Rikstäckande kontorsnät. Företräder markägare.",
+      "notes": "Arrende, mark- och miljörätt, lantbruk. Rikstäckande kontorsnät. Företräder markägare. FÖRSTA RÅDGIVAREN i registret — det är den här raden som aktiverar ordningen rådgivare-före-projektör.",
       "relationship": "kall"
     },
     {
