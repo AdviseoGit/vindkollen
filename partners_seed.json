@@ -1,0 +1,139 @@
+{
+  "_om_filen": [
+    "Startlista för partnerregistret. Kör: python scripts/seed_partners.py",
+    "auto_send: true betyder att leadet mejlas till partnern direkt när det kommer in,",
+    "utan att du behöver godkänna. Leadet får samtidigt veta vem som fått uppgifterna.",
+    "",
+    "Rader med tom email hoppas över av skriptet. Hämta adressen från bolagets egen",
+    "kontaktsida och klistra in — jag kunde inte öppna sidorna härifrån (403), så en",
+    "gissad adress hade riskerat att skicka en markägares uppgifter till fel mottagare.",
+    "email_kalla säger var en förifylld adress kommer ifrån och hur säker den är.",
+    "",
+    "counties/elareas: tom = hela landet. Fyll i det bolaget faktiskt säger i samtalet.",
+    "min_score: 0-100. 50 = ungefär 'markägare med areal och kontaktuppgifter'."
+  ],
+
+  "partners": [
+    {
+      "name": "Rabbalshede Kraft",
+      "kind": "projektor",
+      "email": "info@rabbalshedekraft.se",
+      "email_kalla": "sökträff på deras kontaktsida (även tel 0525-197 00) — verifiera gärna",
+      "elareas": "SE3,SE4",
+      "min_score": 50,
+      "monthly_cap": 10,
+      "auto_send": true,
+      "notes": "Tar emot mark för både vind och sol. Egen markägarsida."
+    },
+    {
+      "name": "Vasa Vind",
+      "kind": "projektor",
+      "email": "",
+      "email_kalla": "sökträff angav produktion@vasavind.se men det är en driftadress — be om rätt markägarkontakt (Mattias Sjöberg, 08-545 184 80)",
+      "elareas": "SE1,SE2",
+      "min_score": 50,
+      "monthly_cap": 10,
+      "auto_send": true,
+      "notes": "Har markägarportal med BankID för arrendeutbetalningar. Tyngdpunkt norr."
+    },
+    {
+      "name": "SR Energy",
+      "kind": "projektor",
+      "email": "",
+      "email_kalla": "kontaktsidan anger Jessica Nylander som ansvarig för markägare/närboende, tel 031-85 53 90 — hämta adressen där",
+      "elareas": "",
+      "min_score": 50,
+      "monthly_cap": 10,
+      "auto_send": true,
+      "notes": "Söker löpande nya platser för vindkraft."
+    },
+    {
+      "name": "OX2",
+      "kind": "projektor",
+      "email": "",
+      "email_kalla": "press@ox2.com finns publikt men är FEL kanal för leads — be om markägarkontakten",
+      "elareas": "SE2,SE3",
+      "min_score": 60,
+      "monthly_cap": 10,
+      "auto_send": true,
+      "notes": "Enhetligt produktionsbaserat arrendeavtal till alla markägare i en park."
+    },
+    {
+      "name": "Eolus Vind",
+      "kind": "projektor",
+      "email": "",
+      "email_kalla": "eolus.com/vad-vi-gor/markagare",
+      "elareas": "",
+      "min_score": 50,
+      "monthly_cap": 10,
+      "auto_send": true,
+      "notes": "Projekterar och bygger, säljer vidare. Ersättning som andel av produktion."
+    },
+    {
+      "name": "Vattenfall Vindkraft",
+      "kind": "projektor",
+      "email": "",
+      "email_kalla": "projekt.vattenfall.se/vindprojekt",
+      "elareas": "SE1,SE2",
+      "min_score": 60,
+      "monthly_cap": 5,
+      "auto_send": false,
+      "notes": "Norrbäck, Storlandet, planer på 373 verk i Norrbotten. Stor org — börja med en namngiven kontakt innan auto_send."
+    },
+    {
+      "name": "Svevind",
+      "kind": "projektor",
+      "email": "",
+      "email_kalla": "svevind.se",
+      "elareas": "SE1",
+      "min_score": 60,
+      "monthly_cap": 5,
+      "auto_send": false,
+      "notes": "Bolaget bakom Markbygden. Söker vindfyndigheter i norr."
+    },
+    {
+      "name": "Euro Wind Energy",
+      "kind": "projektor",
+      "email": "",
+      "email_kalla": "eurowindenergy.com/se/markagare",
+      "elareas": "",
+      "min_score": 50,
+      "monthly_cap": 10,
+      "auto_send": true,
+      "notes": "Egen markägarsida."
+    },
+    {
+      "name": "Ludvig & Co",
+      "kind": "jurist",
+      "email": "",
+      "email_kalla": "ludvig.se/tjanster/juristbyra/arrende-och-nyttjanderatt",
+      "counties": "",
+      "min_score": 35,
+      "monthly_cap": 20,
+      "auto_send": true,
+      "notes": "Arrende, mark- och miljörätt, lantbruk. Rikstäckande kontorsnät. Företräder markägare."
+    },
+    {
+      "name": "Hushållningssällskapet",
+      "kind": "radgivare",
+      "email": "",
+      "email_kalla": "hushallningssallskapet.se/tjanster/juridik/arrende-och-nyttjanderatter — regionala sällskap har egna adresser",
+      "counties": "",
+      "min_score": 35,
+      "monthly_cap": 20,
+      "auto_send": true,
+      "notes": "Jurister med både arrenderätt och ekonomisk värdering. Dela ev. upp per region."
+    },
+    {
+      "name": "Svefa",
+      "kind": "jurist",
+      "email": "",
+      "email_kalla": "svefa.se/tjanster/juridisk-radgivning",
+      "counties": "",
+      "min_score": 35,
+      "monthly_cap": 20,
+      "auto_send": true,
+      "notes": "Markintrång och förhandling mot fastighetsägare — passar även närboende (värdeminskning, inlösen)."
+    }
+  ]
+}

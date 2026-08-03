@@ -83,12 +83,20 @@ with TestClient(main.app) as c:
           c.get("/handover/1-2-deadbeefdeadbeefdeadbeefdeadbeef").status_code == 404)
 
     print("\nÖverlämning")
+    LEAD_MAIL = "zz-verify-markagare@zz-verify.example.se"
     for token in links:
-        check("POST skickar", c.post(f"/api/handover/{token}/send").status_code == 200,
-              SENT[-1][0])
-    handover = SENT[-1][2]
+        check("POST skickar", c.post(f"/api/handover/{token}/send").status_code == 200)
+
+    to_partner = [s for s in SENT if s[0].startswith(("zz-projektor@", "zz-jurist@"))]
+    check("båda partnerna fick var sitt lead-mejl", len(to_partner) == 2, len(to_partner))
     check("mejlet bär fastighet, areal och samtyckesrad",
-          all(x in handover for x in ("Granliden 1:29", "300", "samtyckt")))
+          all(x in to_partner[-1][2] for x in ("Granliden 1:29", "300", "samtyckt")))
+
+    notices = [s for s in SENT if s[0] == LEAD_MAIL and "förmedlat" in s[1]]
+    check("leadet får veta vem som fått uppgifterna", len(notices) == 2, len(notices))
+    check("beskedet namnger mottagaren och går att invända mot",
+          "ZZ-verify" in notices[-1][2] and "inte</b> bli kontaktad" in notices[-1][2])
+
     check("samma länk igen ger 409",
           c.post(f"/api/handover/{links[0]}/send").status_code == 409)
 

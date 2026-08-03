@@ -355,6 +355,20 @@ def _send_handover(lead, partner, approved_by: str):
         reply_to=lead.email,
     )
     print(f"[handover] lead={lead.id} partner={partner.id} by={approved_by} ok={ok} {info}")
+
+    # Berätta för leadet vem som fått uppgifterna. Samtycket namnger ingen
+    # mottagare, så det här mejlet är både det ärliga och det praktiska:
+    # den som ångrar sig säger till nu i stället för när telefonen ringer.
+    if ok:
+        try:
+            mailer.send_email(
+                lead.email,
+                f"Vi har förmedlat din förfrågan till {partner.name} | Vindkollen",
+                vk_matching.build_lead_notice_html(lead, partner),
+            )
+        except Exception as e:  # noqa: BLE001
+            print(f"[handover] notice to lead failed: {e}")
+
     return ok, info
 
 

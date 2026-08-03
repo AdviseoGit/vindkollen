@@ -236,6 +236,42 @@ def build_handover_email_html(lead, partner) -> str:
 </div>"""
 
 
+def build_lead_notice_html(lead, partner) -> str:
+    """Besked till leadet om vem som fått uppgifterna.
+
+    Samtycket på sajten talar om "utvalda samarbetspartner" utan att namnge
+    någon. Det här mejlet namnger mottagaren i efterhand, vilket både är det
+    ärliga och det praktiska: den som inte vill bli uppringd säger till direkt
+    i stället för att bli irriterad när telefonen ringer.
+    """
+    name = (lead.name or "").strip()
+    hej = f"Hej {name}," if name else "Hej,"
+    kind_label = PARTNER_KINDS.get(partner.kind, {}).get("label", partner.kind)
+    return f"""\
+<div style="font-family:Segoe UI,Arial,sans-serif;max-width:560px;margin:auto;color:#1e293b">
+  <div style="background:{_BRAND};color:#fff;padding:20px 22px;border-radius:12px 12px 0 0">
+    <h2 style="margin:0;font-size:19px">Vi har förmedlat din förfrågan</h2>
+  </div>
+  <div style="border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px;padding:22px">
+    <p>{hej}</p>
+    <p>Du bad oss förmedla kontakt, och nu har vi gjort det. Dina uppgifter har lämnats
+       till:</p>
+    <p style="background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;padding:14px 16px">
+      <b style="font-size:16px">{partner.name}</b><br>
+      <span style="color:#047857">{kind_label}</span>
+    </p>
+    <p>De hör av sig direkt till dig. Vi är inte part i det som händer sedan — du bestämmer
+       själv om du går vidare, och du är inte bunden till någonting.</p>
+    <p style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px;
+              font-size:14px">Vill du <b>inte</b> bli kontaktad, eller vill du att vi tar bort
+       dina uppgifter? Svara på det här mejlet så ordnar vi det — och hör av dig till oss
+       även om kontakten inte sköts som den ska.</p>
+    <p style="margin-top:20px">Vänliga hälsningar,<br><b>Vindkollen</b><br>
+       <a href="https://vindkoll.se" style="color:{_BRAND}">vindkoll.se</a></p>
+  </div>
+</div>"""
+
+
 def build_proposal_html(lead, matches, rejected, base_url, token_for) -> str:
     """Blocket som läggs in i ägarnotisen: föreslagen mottagare + godkännandelänk.
 
