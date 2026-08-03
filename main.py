@@ -9,6 +9,8 @@ Audience: (1) Swedish landowners looking to host wind turbines,
           (2) Swedish municipalities and organisations evaluating wind power.
 """
 
+import hashlib
+import hmac
 import os
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
@@ -94,6 +96,57 @@ class Lead(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)
 
 
+class Partner(Base):
+    """En köpare av leads: projektör, jurist, rådgivare eller kommunrådgivning.
+
+    Täckningen (silo + län/elområde) är det som gör regionsexklusiviteten
+    hanterbar — två projektörer i olika elområden kan ligga i samma register
+    utan att någonsin få samma lead.
+    """
+
+    __tablename__ = "vindkollen_partners"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255), nullable=False)
+    kind = Column(String(32), nullable=False)  # se matching.PARTNER_KINDS
+    email = Column(String(255), nullable=False)
+    contact_name = Column(String(255), nullable=True)
+    # Kommaseparerade listor. Tom = ingen begränsning.
+    segments = Column(String(255), nullable=True)
+    counties = Column(String(512), nullable=True)
+    elareas = Column(String(64), nullable=True)
+    min_score = Column(Integer, nullable=True, default=0)
+    monthly_cap = Column(Integer, nullable=True)
+    priority = Column(Integer, nullable=True, default=0)
+    exclusive = Column(Boolean, nullable=False, default=False)
+    requires_consent = Column(Boolean, nullable=False, default=True)
+    # Av som standard. Slås på först när det finns ett avtal som säger att
+    # partnern får ta emot leads utan manuell granskning.
+    auto_send = Column(Boolean, nullable=False, default=False)
+    active = Column(Boolean, nullable=False, default=True)
+    notes = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+
+
+class LeadAssignment(Base):
+    """Logg över vilket lead som lämnats till vem, och när.
+
+    Behövs för tre saker: att aldrig skicka samma lead till två konkurrenter,
+    att kunna fakturera, och att kunna svara på vart en persons uppgifter tagit
+    vägen om hen frågar.
+    """
+
+    __tablename__ = "vindkollen_lead_assignments"
+
+    id = Column(Integer, primary_key=True, index=True)
+    lead_id = Column(Integer, nullable=False, index=True)
+    partner_id = Column(Integer, nullable=False, index=True)
+    status = Column(String(16), nullable=False, default="sent")  # sent | failed
+    approved_by = Column(String(32), nullable=True)  # "manual" | "auto"
+    detail = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)
+
+
 class Post(Base):
     __tablename__ = "vindkollen_posts"
     id = Column(Integer, primary_key=True, index=True)
@@ -172,6 +225,10 @@ app = FastAPI(title="Vindkollen", lifespan=lifespan)
 import mailer
 import report as vk_report
 import leads as vk_leads
+import matching as vk_matching
+
+# Publik bas-URL, används i godkännandelänkarna i ägarnotisen.
+BASE_URL = os.environ.get("PUBLIC_BASE_URL", "https://vindkoll.se").rstrip("/")
 
 
 def _deliver_report(data: dict):
@@ -207,11 +264,13 @@ def _deliver_report(data: dict):
     )
 
 
-def _deliver_qualified(data: dict, score: int, tier: str):
+def _deliver_qualified(data: dict, score: int, tier: str, proposal_html: str = ""):
     """Bekräftelse till leadet + prioriterad notis till oss.
 
     Ämnesraden på ägarnotisen bär silo och tier så att A-leads syns direkt i
-    inkorgen utan att mejlet behöver öppnas.
+    inkorgen utan att mejlet behöver öppnas. `proposal_html` är matchningens
+    förslag på mottagare med godkännandelänk — själva utskicket till partnern
+    sker först när länken bekräftats.
     """
     try:
         mailer.send_email(
@@ -226,9 +285,77 @@ def _deliver_qualified(data: dict, score: int, tier: str):
     region = data.get("county") or data.get("elarea") or "okänd region"
     mailer.notify_owner(
         f"[{tier}·{score}] {label} – {region} | Vindkollen",
-        vk_leads.build_owner_email_html(data, score, tier),
+        vk_leads.build_owner_email_html(data, score, tier) + (proposal_html or ""),
         reply_to=data.get("email"),
     )
+
+
+# ---------------------------------------------------------------------------
+# Matchning mot partnerregistret
+# ---------------------------------------------------------------------------
+
+
+def _handover_token(lead_id: int, partner_id: int) -> Optional[str]:
+    """Signerad engångsidentitet för en överlämning.
+
+    Signeras med INTERNAL_API_KEY. Saknas nyckeln kan vi inte signera, och då
+    ska ingen länk skickas ut alls — hellre ett förslag utan knapp än en länk
+    vem som helst kan gissa.
+    """
+    key = os.environ.get("INTERNAL_API_KEY")
+    if not key:
+        return None
+    sig = hmac.new(key.encode(), f"{lead_id}:{partner_id}".encode(), hashlib.sha256).hexdigest()
+    return f"{lead_id}-{partner_id}-{sig[:32]}"
+
+
+def _parse_handover_token(token: str):
+    """Returnera (lead_id, partner_id) om signaturen håller, annars None."""
+    try:
+        lead_id_s, partner_id_s, sig = token.split("-", 2)
+        lead_id, partner_id = int(lead_id_s), int(partner_id_s)
+    except (ValueError, AttributeError):
+        return None
+    expected = _handover_token(lead_id, partner_id)
+    if not expected or not hmac.compare_digest(expected, token):
+        return None
+    return lead_id, partner_id
+
+
+async def _match_for_lead(session, lead):
+    """Rangordna partners för ett lead. Returnerar (matchningar, avvisade)."""
+    partners = (await session.execute(select(Partner))).scalars().all()
+    if not partners:
+        return [], []
+
+    month_start = datetime.utcnow().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    counts_q = await session.execute(
+        select(LeadAssignment.partner_id, func.count(LeadAssignment.id))
+        .where(LeadAssignment.created_at >= month_start,
+               LeadAssignment.status == "sent")
+        .group_by(LeadAssignment.partner_id)
+    )
+    counts = dict(counts_q.all())
+
+    assigned_q = await session.execute(
+        select(LeadAssignment.partner_id).where(LeadAssignment.lead_id == lead.id)
+    )
+    already = set(assigned_q.scalars().all())
+
+    return vk_matching.rank_partners(lead, partners, counts, already)
+
+
+def _send_handover(lead, partner, approved_by: str):
+    """Skicka leadet till partnern. Returnerar (ok, detalj)."""
+    ok, info = mailer.send_email(
+        partner.email,
+        f"Nytt lead från Vindkollen – {vk_leads.segment_label(lead.segment)}, "
+        f"{lead.county or lead.elarea or 'Sverige'}",
+        vk_matching.build_handover_email_html(lead, partner),
+        reply_to=lead.email,
+    )
+    print(f"[handover] lead={lead.id} partner={partner.id} by={approved_by} ok={ok} {info}")
+    return ok, info
 
 
 def _deliver_newsletter(email: str, source: str):
@@ -679,12 +806,41 @@ async def capture_qualified_lead(lead: QualifiedLeadIn, background: BackgroundTa
         await session.execute(stmt)
         await session.commit()
 
-    background.add_task(_deliver_qualified, dict(payload), score, tier)
+        # Matcha mot partnerregistret medan vi ändå har en session. Förslaget
+        # följer med i ägarnotisen; utskicket till partnern sker först när
+        # länken bekräftats, eller direkt om partnern har auto_send påslaget.
+        stored = (await session.execute(
+            select(Lead).where(Lead.email == payload["email"])
+        )).scalar_one_or_none()
+
+        proposal_html, auto_partners = "", []
+        if stored:
+            matches, rejected = await _match_for_lead(session, stored)
+            proposal_html = vk_matching.build_proposal_html(
+                stored, matches, rejected, BASE_URL,
+                lambda p: _handover_token(stored.id, p.id) or "",
+            )
+            # Bara partners med uttryckligt auto_send går ut utan granskning,
+            # och högst en per typ — samma urval som förslaget i mejlet.
+            auto_partners = [p for p in vk_matching.best_per_kind(matches) if p.auto_send]
+            for p in auto_partners:
+                session.add(LeadAssignment(
+                    lead_id=stored.id, partner_id=p.id,
+                    status="sent", approved_by="auto",
+                ))
+            if auto_partners:
+                await session.commit()
+
+    background.add_task(_deliver_qualified, dict(payload), score, tier, proposal_html)
+    for p in auto_partners:
+        background.add_task(_send_handover, stored, p, "auto")
+
     return {
         "status": "ok",
         "persisted": True,
         "segment": payload["segment"],
         "elarea": payload.get("elarea"),
+        "matched": [p.name for p in auto_partners] or None,
     }
 
 
@@ -806,6 +962,209 @@ async def segment_stats(request: Request):
         "per_county": await _grouped(Lead.county),
         "per_tier": await _grouped(Lead.lead_tier),
     }
+
+
+# ---------------------------------------------------------------------------
+# Partnerregister och överlämning
+# ---------------------------------------------------------------------------
+
+
+class PartnerIn(BaseModel):
+    """En köpare. `counties`/`elareas` är kommaseparerade; tom = hela landet."""
+
+    name: str = Field(max_length=255)
+    kind: str = Field(max_length=32)
+    email: EmailStr
+    contact_name: Optional[str] = Field(default=None, max_length=255)
+    segments: Optional[str] = Field(default=None, max_length=255)
+    counties: Optional[str] = Field(default=None, max_length=512)
+    elareas: Optional[str] = Field(default=None, max_length=64)
+    min_score: Optional[int] = Field(default=0, ge=0, le=100)
+    monthly_cap: Optional[int] = Field(default=None, ge=1, le=10000)
+    priority: Optional[int] = Field(default=0)
+    exclusive: bool = False
+    requires_consent: bool = True
+    # Av som standard: ett lead lämnar inte huset utan att du sett det, förrän
+    # det finns ett avtal som säger något annat.
+    auto_send: bool = False
+    active: bool = True
+    notes: Optional[str] = None
+
+
+def _partner_dict(p: Partner) -> dict:
+    return {
+        "id": p.id, "name": p.name, "kind": p.kind, "email": p.email,
+        "contact_name": p.contact_name, "segments": p.segments,
+        "counties": p.counties, "elareas": p.elareas, "min_score": p.min_score,
+        "monthly_cap": p.monthly_cap, "priority": p.priority,
+        "exclusive": p.exclusive, "requires_consent": p.requires_consent,
+        "auto_send": p.auto_send, "active": p.active, "notes": p.notes,
+    }
+
+
+@app.post("/api/partners")
+async def create_partner(partner: PartnerIn, request: Request):
+    """Lägg upp eller uppdatera en köpare (matchar på namn)."""
+    _require_api_key(request)
+    if partner.kind not in vk_matching.PARTNER_KINDS:
+        raise HTTPException(
+            status_code=422,
+            detail=f"kind måste vara en av {list(vk_matching.PARTNER_KINDS)}",
+        )
+    if not async_session:
+        raise HTTPException(status_code=503, detail="Database not configured")
+
+    values = partner.model_dump()
+    values["email"] = _normalise_email(partner.email)
+
+    async with async_session() as session:
+        existing = (await session.execute(
+            select(Partner).where(Partner.name == partner.name)
+        )).scalar_one_or_none()
+        if existing:
+            for k, v in values.items():
+                setattr(existing, k, v)
+            row = existing
+        else:
+            row = Partner(**values)
+            session.add(row)
+        await session.commit()
+        return {"status": "ok", "partner": _partner_dict(row)}
+
+
+@app.get("/api/partners")
+async def list_partners(request: Request):
+    _require_api_key(request)
+    if not async_session:
+        raise HTTPException(status_code=503, detail="Database not configured")
+    async with async_session() as session:
+        rows = (await session.execute(select(Partner).order_by(Partner.name))).scalars().all()
+        return {"count": len(rows), "partners": [_partner_dict(p) for p in rows]}
+
+
+@app.get("/api/leads/{lead_id}/matches")
+async def lead_matches(lead_id: int, request: Request):
+    """Vem skulle få det här leadet, och varför inte de andra?
+
+    Avvisningsskälen är med med flit: en matchning som uteblir ska gå att
+    förklara utan att läsa koden.
+    """
+    _require_api_key(request)
+    if not async_session:
+        raise HTTPException(status_code=503, detail="Database not configured")
+
+    async with async_session() as session:
+        lead = (await session.execute(select(Lead).where(Lead.id == lead_id))).scalar_one_or_none()
+        if not lead:
+            raise HTTPException(status_code=404, detail="Lead not found")
+        matches, rejected = await _match_for_lead(session, lead)
+        return {
+            "lead": {"id": lead.id, "segment": lead.segment, "county": lead.county,
+                     "elarea": lead.elarea, "score": lead.lead_score,
+                     "consent": lead.consent_partner_share},
+            "matches": [{"id": p.id, "name": p.name, "kind": p.kind,
+                         "auto_send": p.auto_send} for p in matches],
+            "rejected": [{"name": p.name, "reasons": r} for p, r in rejected],
+        }
+
+
+@app.get("/handover/{token}", response_class=HTMLResponse)
+async def handover_page(token: str):
+    """Bekräftelsesida för en överlämning.
+
+    Medvetet utan sidoeffekter: mejlklienter och säkerhetsskannrar hämtar
+    länkar i förväg, och en sådan hämtning får aldrig lämna ut personuppgifter.
+    Utskicket sker på POST från knappen här.
+    """
+    parsed = _parse_handover_token(token)
+    if not parsed or not async_session:
+        return HTMLResponse("<h1>Ogiltig eller utgången länk</h1>", status_code=404)
+    lead_id, partner_id = parsed
+
+    async with async_session() as session:
+        lead = (await session.execute(select(Lead).where(Lead.id == lead_id))).scalar_one_or_none()
+        partner = (await session.execute(
+            select(Partner).where(Partner.id == partner_id))).scalar_one_or_none()
+        if not lead or not partner:
+            return HTMLResponse("<h1>Leadet eller partnern finns inte</h1>", status_code=404)
+        prior = (await session.execute(
+            select(LeadAssignment).where(
+                LeadAssignment.lead_id == lead_id,
+                LeadAssignment.partner_id == partner_id,
+                LeadAssignment.status == "sent",
+            ).order_by(LeadAssignment.created_at.desc())
+        )).scalars().first()
+
+    return HTMLResponse(vk_matching.build_confirmation_page(
+        lead, partner, token, prior.created_at if prior else None))
+
+
+@app.post("/api/handover/{token}/send", response_class=HTMLResponse)
+async def handover_send(token: str):
+    """Genomför överlämningen: mejla partnern och logga tilldelningen."""
+    parsed = _parse_handover_token(token)
+    if not parsed or not async_session:
+        return HTMLResponse("<h1>Ogiltig länk</h1>", status_code=404)
+    lead_id, partner_id = parsed
+
+    async with async_session() as session:
+        lead = (await session.execute(select(Lead).where(Lead.id == lead_id))).scalar_one_or_none()
+        partner = (await session.execute(
+            select(Partner).where(Partner.id == partner_id))).scalar_one_or_none()
+        if not lead or not partner:
+            return HTMLResponse("<h1>Leadet eller partnern finns inte</h1>", status_code=404)
+
+        already = (await session.execute(
+            select(func.count(LeadAssignment.id)).where(
+                LeadAssignment.lead_id == lead_id,
+                LeadAssignment.partner_id == partner_id,
+                LeadAssignment.status == "sent",
+            )
+        )).scalar_one()
+        if already:
+            return HTMLResponse(
+                f"<h1>Redan skickat</h1><p>{lead.email} har redan lämnats till "
+                f"{partner.name}.</p>", status_code=409)
+
+        ok, info = _send_handover(lead, partner, "manual")
+        session.add(LeadAssignment(
+            lead_id=lead_id, partner_id=partner_id,
+            status="sent" if ok else "failed",
+            approved_by="manual", detail=None if ok else info[:500],
+        ))
+        await session.commit()
+
+    if not ok:
+        return HTMLResponse(
+            f"<h1>Utskicket misslyckades</h1><p>{info}</p>"
+            f"<p>Inget har lämnats ut. Försök igen via samma länk.</p>", status_code=502)
+    return HTMLResponse(
+        f"<div style='font-family:sans-serif;padding:24px'>"
+        f"<h1 style='color:#059669'>Skickat</h1>"
+        f"<p>{lead.email} är överlämnat till {partner.name} ({partner.email}).</p></div>")
+
+
+@app.get("/api/assignments")
+async def list_assignments(request: Request, limit: int = 200):
+    """Vem har fått vad. Underlaget för fakturering och för att kunna svara på
+    var en persons uppgifter tagit vägen."""
+    _require_api_key(request)
+    if not async_session:
+        raise HTTPException(status_code=503, detail="Database not configured")
+    async with async_session() as session:
+        rows = (await session.execute(
+            select(LeadAssignment, Lead.email, Partner.name)
+            .join(Lead, Lead.id == LeadAssignment.lead_id, isouter=True)
+            .join(Partner, Partner.id == LeadAssignment.partner_id, isouter=True)
+            .order_by(LeadAssignment.created_at.desc())
+            .limit(max(1, min(limit, 2000)))
+        )).all()
+        return {"count": len(rows), "assignments": [
+            {"id": a.id, "lead_id": a.lead_id, "lead_email": email,
+             "partner_id": a.partner_id, "partner": pname, "status": a.status,
+             "approved_by": a.approved_by, "detail": a.detail,
+             "created_at": a.created_at.isoformat()}
+            for a, email, pname in rows]}
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,356 @@
+"""
+Matchning av leads mot köpare.
+
+Regelmotor, inte modell. Vilken partner som ska ha ett lead avgörs av silo,
+geografi, poäng, samtycke och kapacitet — allt deterministiskt, så att samma
+lead alltid ger samma svar och beslutet går att förklara för både köparen och
+den vars uppgifter det gäller.
+
+Det som INTE finns här är utskicket. Motorn föreslår mottagare och skriver
+mejlet; någon måste godkänna innan det går iväg (se auto_send per partner).
+"""
+
+from datetime import datetime
+from typing import List, Optional, Tuple
+
+import leads as vk_leads
+
+# ---------------------------------------------------------------------------
+# Partnertyper
+# ---------------------------------------------------------------------------
+#
+# Typen styr vilket *intresse* hos leadet som krävs. En jurist ska inte få ett
+# lead som aldrig bett om juridisk hjälp, hur högt det än är poängsatt.
+
+PARTNER_KINDS = {
+    "projektor": {
+        "label": "Projektör",
+        "requires_flag": "wants_projector_contact",
+        "segments": ("markagare",),
+    },
+    "jurist": {
+        "label": "Jurist / juridisk rådgivare",
+        "requires_flag": "wants_legal_help",
+        "segments": ("markagare", "narboende"),
+    },
+    "radgivare": {
+        "label": "Rådgivare / lantbruksekonom",
+        "requires_flag": "wants_legal_help",
+        "segments": ("markagare",),
+    },
+    "kommunradgivning": {
+        "label": "Kommunrådgivning",
+        "requires_flag": None,
+        "segments": ("kommun",),
+    },
+}
+
+
+def _csv_set(value: Optional[str]) -> set:
+    """Kommaseparerad kolumn -> mängd. Tom kolumn betyder 'ingen begränsning'."""
+    if not value:
+        return set()
+    return {v.strip() for v in value.split(",") if v.strip()}
+
+
+# ---------------------------------------------------------------------------
+# Matchning
+# ---------------------------------------------------------------------------
+
+
+def disqualifications(lead, partner, assigned_this_month: int,
+                      already_assigned: bool) -> List[str]:
+    """Skälen att INTE skicka det här leadet till den här partnern.
+
+    Tom lista = matchning. Att returnera skälen i stället för bara True/False
+    gör att en utebliven matchning går att felsöka utan att läsa koden.
+    """
+    reasons = []
+    kind = PARTNER_KINDS.get(partner.kind)
+
+    if not partner.active:
+        reasons.append("partnern är pausad")
+    if not kind:
+        reasons.append(f"okänd partnertyp: {partner.kind}")
+        return reasons
+
+    segment = vk_leads.normalise_segment(lead.segment)
+    allowed_segments = _csv_set(partner.segments) or set(kind["segments"])
+    if segment not in allowed_segments:
+        reasons.append(f"fel silo ({segment})")
+
+    # Geografi: tom täckning = hela landet.
+    counties = _csv_set(partner.counties)
+    elareas = _csv_set(partner.elareas)
+    if counties or elareas:
+        in_county = bool(lead.county and lead.county in counties)
+        in_elarea = bool(lead.elarea and lead.elarea in elareas)
+        if not (in_county or in_elarea):
+            reasons.append(f"utanför täckningen ({lead.county or lead.elarea or 'okänd region'})")
+
+    if (lead.lead_score or 0) < (partner.min_score or 0):
+        reasons.append(f"under poänggränsen ({lead.lead_score or 0} < {partner.min_score})")
+
+    # Samtycket är hårdare än allt annat: utan bock lämnar leadet aldrig huset.
+    if partner.requires_consent and not lead.consent_partner_share:
+        reasons.append("leadet har inte samtyckt till partnerdelning")
+
+    flag = kind["requires_flag"]
+    if flag and not getattr(lead, flag, False):
+        reasons.append(f"leadet har inte begärt {kind['label'].lower()}")
+
+    if partner.monthly_cap and assigned_this_month >= partner.monthly_cap:
+        reasons.append(f"månadstaket nått ({assigned_this_month}/{partner.monthly_cap})")
+
+    if already_assigned:
+        reasons.append("redan tilldelat den här partnern")
+
+    return reasons
+
+
+def best_per_kind(matches: list) -> list:
+    """Högst rankad partner per typ.
+
+    En jurist och en projektör konkurrerar inte om samma affär — ett lead som
+    bett om båda ska kunna lämnas till båda. Konkurrensen finns inom en
+    partnertyp, och där går bara den högst rankade vidare.
+    """
+    seen, out = set(), []
+    for p in matches:
+        if p.kind not in seen:
+            seen.add(p.kind)
+            out.append(p)
+    return out
+
+
+def _coverage_specificity(partner) -> int:
+    """Snävare täckning vinner. Den som köpt ett enskilt län ska gå före den
+    som köpt hela Sverige — annars är regionsexklusiviteten meningslös."""
+    if _csv_set(partner.counties):
+        return 2
+    if _csv_set(partner.elareas):
+        return 1
+    return 0
+
+
+def rank_partners(lead, partners, assignment_counts: dict,
+                  already_assigned_ids: set) -> Tuple[list, list]:
+    """Returnera (matchande partners rankade, avvisade med skäl).
+
+    Ranking: exklusivitet först, sedan snävast täckning, sedan högst prioritet,
+    och sist minst antal tilldelningar den här månaden — så att två likvärdiga
+    köpare i samma län delar flödet jämnt i stället för att den ena svälter.
+    """
+    matches, rejected = [], []
+
+    for p in partners:
+        reasons = disqualifications(
+            lead, p,
+            assignment_counts.get(p.id, 0),
+            p.id in already_assigned_ids,
+        )
+        if reasons:
+            rejected.append((p, reasons))
+        else:
+            matches.append(p)
+
+    # Har någon exklusivitet i regionen försvinner alla andra.
+    exclusive = [p for p in matches if p.exclusive]
+    if exclusive:
+        matches = exclusive
+
+    matches.sort(key=lambda p: (
+        -_coverage_specificity(p),
+        -(p.priority or 0),
+        assignment_counts.get(p.id, 0),
+        p.id,
+    ))
+    return matches, rejected
+
+
+# ---------------------------------------------------------------------------
+# Mejl
+# ---------------------------------------------------------------------------
+
+_BRAND = "#105e4e"
+
+
+def _row(label, value):
+    shown = value if value not in (None, "", False) else "—"
+    if value is True:
+        shown = "Ja"
+    return (f'<tr><td style="padding:5px 12px;color:#64748b;white-space:nowrap">{label}</td>'
+            f'<td style="padding:5px 12px;font-weight:600">{shown}</td></tr>')
+
+
+def build_handover_email_html(lead, partner) -> str:
+    """Överlämningen till köparen.
+
+    Innehåller det köparen behöver för att ringa — och en rad om att personen
+    själv bett om kontakten, eftersom det är den raden som avgör om samtalet
+    tas emot väl.
+    """
+    stage = vk_leads.PROJECT_STAGES.get((lead.project_stage or "").lower(), {}).get("label")
+    timeframe = vk_leads.TIMEFRAMES.get((lead.timeframe or "").lower(), {}).get("label")
+    rows = "".join([
+        _row("Namn", lead.name),
+        _row("E-post", lead.email),
+        _row("Telefon", lead.phone),
+        _row("Län", lead.county),
+        _row("Kommun", lead.municipality),
+        _row("Elområde", lead.elarea),
+        _row("Fastighet", lead.property_address),
+        _row("Markareal (ha)", lead.land_hectares),
+        _row("Status i processen", stage),
+        _row("Tidshorisont", timeframe),
+        _row("Vill ha juridisk hjälp", lead.wants_legal_help),
+        _row("Öppen för projektörskontakt", lead.wants_projector_contact),
+        _row("Registrerad", lead.created_at.strftime("%Y-%m-%d") if lead.created_at else None),
+    ])
+    fritext = ""
+    if lead.message:
+        fritext = (f'<p style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;'
+                   f'padding:12px 14px"><b>Egen beskrivning:</b><br>{lead.message}</p>')
+
+    return f"""\
+<div style="font-family:Segoe UI,Arial,sans-serif;max-width:600px;color:#1e293b">
+  <div style="background:{_BRAND};color:#fff;padding:20px 22px;border-radius:12px 12px 0 0">
+    <h2 style="margin:0;font-size:19px">Nytt lead från Vindkollen</h2>
+    <div style="opacity:.85;font-size:13px;margin-top:4px">
+      {vk_leads.segment_label(lead.segment)} · {lead.county or lead.elarea or 'okänd region'}
+    </div>
+  </div>
+  <div style="border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px;padding:20px">
+    <p>Hej {partner.contact_name or partner.name},</p>
+    <p>Nedan följer ett lead som matchar er täckning. Personen har själv fyllt i formulär
+       på vindkoll.se och <b>samtyckt till att uppgifterna delas</b> med utvald
+       samarbetspartner i sitt län.</p>
+    <table style="border-collapse:collapse;font-size:14px;width:100%">{rows}</table>
+    {fritext}
+    <p style="font-size:13px;color:#475569;margin-top:18px">Vi är oberoende från
+       kraftbolagen och tar inte betalt av markägare eller närboende. Hör av er om något
+       saknas — svara bara på det här mejlet.</p>
+    <p style="margin-top:18px">Vänliga hälsningar,<br><b>Vindkollen</b><br>
+       <a href="https://vindkoll.se" style="color:{_BRAND}">vindkoll.se</a></p>
+  </div>
+</div>"""
+
+
+def build_proposal_html(lead, matches, rejected, base_url, token_for) -> str:
+    """Blocket som läggs in i ägarnotisen: föreslagen mottagare + godkännandelänk.
+
+    Det här är hela poängen med motorn — du ska kunna se förslaget i mobilen och
+    trycka en gång, i stället för att leta upp rätt partner och skriva mejlet.
+    """
+    if not matches:
+        if not rejected:
+            return ('<div style="font-family:Segoe UI,Arial,sans-serif;max-width:600px;'
+                    'background:#f1f5f9;border:1px solid #cbd5e1;border-radius:10px;'
+                    'padding:14px 16px;margin-top:14px;color:#475569">'
+                    '<b>Ingen partner att matcha mot ännu.</b><br>'
+                    'Lägg upp en partner via /api/partners så föreslås mottagare automatiskt '
+                    'nästa gång.</div>')
+        rows = "".join(
+            f'<li style="margin-bottom:4px">{p.name}: {", ".join(r)}</li>'
+            for p, r in rejected[:6]
+        )
+        return (f'<div style="font-family:Segoe UI,Arial,sans-serif;max-width:600px;'
+                f'background:#fffbeb;border:1px solid #fde68a;border-radius:10px;'
+                f'padding:14px 16px;margin-top:14px;color:#78350f">'
+                f'<b>Ingen matchande partner för det här leadet.</b>'
+                f'<ul style="margin:8px 0 0;padding-left:18px;font-size:13px">{rows}</ul></div>')
+
+    per_kind = best_per_kind(matches)
+
+    blocks = []
+    for p in per_kind[:3]:
+        token = token_for(p)
+        kind_label = PARTNER_KINDS.get(p.kind, {}).get("label", p.kind)
+        button = (
+            f'<a href="{base_url}/handover/{token}" style="display:inline-block;margin-top:12px;'
+            f'background:{_BRAND};color:#fff;text-decoration:none;padding:11px 18px;'
+            f'border-radius:8px;font-weight:700">Granska och skicka →</a>'
+            if token else
+            '<div style="margin-top:12px;font-size:13px;color:#b45309">Ingen '
+            'godkännandelänk: INTERNAL_API_KEY saknas i miljön.</div>'
+        )
+        alternatives = [x.name for x in matches if x.kind == p.kind and x.id != p.id][:3]
+        alt_html = (f'<div style="font-size:12px;color:#64748b;margin-top:8px">Alternativ: '
+                    f'{", ".join(alternatives)}</div>' if alternatives else "")
+        blocks.append(f"""
+  <div style="border-top:1px solid #a7f3d0;padding-top:14px;margin-top:14px">
+    <div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#047857">
+      {kind_label}
+    </div>
+    <div style="font-size:18px;font-weight:800;color:#065f46;margin:4px 0 2px">{p.name}</div>
+    <div style="font-size:13px;color:#047857">{p.email}</div>
+    {button}
+    {alt_html}
+  </div>""")
+
+    return f"""\
+<div style="font-family:Segoe UI,Arial,sans-serif;max-width:600px;background:#ecfdf5;
+            border:1px solid #a7f3d0;border-radius:10px;padding:16px 18px;margin-top:14px">
+  <div style="font-size:15px;font-weight:800;color:#065f46">
+    Föreslagna mottagare ({len(per_kind)})
+  </div>
+  <div style="font-size:12px;color:#64748b;margin-top:4px">
+    Inget skickas förrän du bekräftat på sidan som öppnas.
+  </div>
+  {"".join(blocks)}
+</div>"""
+
+
+def build_confirmation_page(lead, partner, token: str, sent_at: Optional[datetime]) -> str:
+    """Bekräftelsesidan bakom godkännandelänken.
+
+    GET får aldrig skicka något: mejlklienter och säkerhetsskannrar förhandshämtar
+    länkar, och en sådan hämtning skulle annars lämna ut personuppgifter av sig
+    själv. Därför visar GET bara vad som kommer att hända — utskicket sker på POST.
+    """
+    if sent_at:
+        body = (f'<p class="done">Redan överlämnat till {partner.name} '
+                f'{sent_at.strftime("%Y-%m-%d %H:%M")}.</p>')
+    else:
+        body = f"""
+      <form method="post" action="/api/handover/{token}/send">
+        <button type="submit">Skicka leadet till {partner.name}</button>
+      </form>
+      <p class="fine">Mejlet går till {partner.email}. Uppgifterna nedan lämnas ut.</p>"""
+
+    stage = vk_leads.PROJECT_STAGES.get((lead.project_stage or "").lower(), {}).get("label", "—")
+    return f"""<!DOCTYPE html>
+<html lang="sv"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Överlämning av lead | Vindkollen</title>
+<style>
+  body {{ font-family: -apple-system, Segoe UI, Arial, sans-serif; background:#030712;
+         color:#e2e8f0; margin:0; padding:24px; }}
+  .card {{ max-width:520px; margin:0 auto; background:#0f172a; border:1px solid #1e293b;
+           border-radius:16px; padding:24px; }}
+  h1 {{ font-size:20px; margin:0 0 4px; }}
+  .sub {{ color:#94a3b8; font-size:14px; margin-bottom:20px; }}
+  table {{ width:100%; border-collapse:collapse; font-size:14px; margin-bottom:20px; }}
+  td {{ padding:6px 0; border-bottom:1px solid #1e293b; }}
+  td:first-child {{ color:#94a3b8; width:45%; }}
+  button {{ width:100%; background:#059669; color:#fff; border:0; border-radius:10px;
+            padding:15px; font-size:16px; font-weight:700; }}
+  .fine {{ color:#64748b; font-size:12px; margin-top:12px; }}
+  .done {{ color:#34d399; font-weight:600; }}
+</style></head>
+<body><div class="card">
+  <h1>Överlämna lead</h1>
+  <div class="sub">{vk_leads.segment_label(lead.segment)} · {lead.county or '—'} ·
+      {lead.lead_tier or '?'}·{lead.lead_score or 0}</div>
+  <table>
+    <tr><td>Namn</td><td>{lead.name or '—'}</td></tr>
+    <tr><td>E-post</td><td>{lead.email}</td></tr>
+    <tr><td>Telefon</td><td>{lead.phone or '—'}</td></tr>
+    <tr><td>Fastighet</td><td>{lead.property_address or '—'}</td></tr>
+    <tr><td>Areal (ha)</td><td>{lead.land_hectares or '—'}</td></tr>
+    <tr><td>Status</td><td>{stage}</td></tr>
+    <tr><td>Samtycke</td><td>{'Ja' if lead.consent_partner_share else 'NEJ'}</td></tr>
+  </table>
+  {body}
+</div></body></html>"""

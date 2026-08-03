@@ -40,6 +40,25 @@ Tre publiker med helt olika värde per lead ska aldrig blandas i samma flöde:
 | **kommun** | `/kommun`, `/kommun-dashboard` | B2B. Långa cykler, hög trovärdighetsavkastning | Rådgivning, projektörer |
 | *(tvärgående)* | `/juridisk-hjalp-arrendeavtal` | Högst per lead — avtal på bordet = köpläge | Fastighetsjurister |
 
+### 3c. MATCHNING MOT KÖPARE (införd 2026-08-03)
+Partnerregister (`vindkollen_partners`) + deterministisk regelmotor (`matching.py`).
+Varje köpare har typ (projektör/jurist/rådgivare/kommunrådgivning), täckning
+(silo + län eller elområde), poänggräns, månadstak, prioritet och exklusivitet.
+
+- Matchning körs när leadet kommer in. Ägarnotisen bär förslag på mottagare
+  **per partnertyp** — en jurist och en projektör konkurrerar inte, så ett lead
+  som bett om båda ger två knappar.
+- Godkännandelänken är HMAC-signerad. **GET visar bara sidan**; utskicket sker på
+  POST, eftersom mejlskannrar förhandshämtar länkar och en sådan hämtning annars
+  hade lämnat ut personuppgifter av sig själv.
+- `auto_send` per partner, av som standard. Slås på först när det finns avtal.
+- Varje överlämning loggas i `vindkollen_lead_assignments`: underlag för
+  fakturering, spärr mot dubbelutskick, och svar på "vart tog mina uppgifter vägen".
+- Verifiering: `DATABASE_URL=... python scripts/verify_matching.py` (14 kontroller).
+
+Vad som **inte** är automatiserat, med flit: att teckna upp partners (det är
+engångsarbete som skapar utbudssidan) och själva utskicket utan `auto_send`.
+
 Mekaniken:
 - Varje lead bär `segment`, `county`, `elarea`, `lead_score` (0–100) och `lead_tier` (A/B/C)
 - Län → elområde härleds automatiskt, så flödet kan säljas **regionsexklusivt** (SE1–SE4/län) till flera icke-konkurrerande köpare samtidigt
