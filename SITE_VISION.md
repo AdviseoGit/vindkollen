@@ -56,6 +56,24 @@ Varje köpare har typ (projektör/jurist/rådgivare/kommunrådgivning), täcknin
   fakturering, spärr mot dubbelutskick, och svar på "vart tog mina uppgifter vägen".
 - Verifiering: `DATABASE_URL=... python scripts/verify_matching.py` (14 kontroller).
 
+**Ordningen: rådgivare före projektör.** Ett lead som bett om juridisk hjälp
+skickas först till rådgivaren. Projektörens överlämning läggs i kö och släpps
+efter `LEAD_HOLD_DAYS` (3 som standard), så att markägaren hunnit få råd innan
+motparten ringer. Finns ingen rådgivare att vänta på går projektören direkt —
+fördröjningen ska tjäna markägaren, inte fördröja för sakens skull.
+
+Det är också vår enda försvarbara position i intressekonflikten: vi får betalt
+av projektören men förmedlar till en rådgivare vars uppdrag är att pressa just
+den projektören. Utan ordningen är "oberoende" bara en rubrik.
+
+Karenstiden är dessutom ett ångerfönster — återkallas samtycket innan släppet
+går överlämningen aldrig iväg.
+
+- Kö: `GET /api/handovers/queue`, släpp: `POST /api/handovers/release`
+- Släpps automatiskt vid varje inkommande lead; peka ett schemalagt jobb på
+  release-endpointen så töms kön även under tysta dygn
+- Manuell knapp i ägarmejlet går alltid före kön — du kan skicka direkt
+
 Vad som **inte** är automatiserat, med flit: att teckna upp partners (det är
 engångsarbete som skapar utbudssidan) och själva utskicket utan `auto_send`.
 

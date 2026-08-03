@@ -100,6 +100,35 @@ with TestClient(main.app) as c:
     check("samma länk igen ger 409",
           c.post(f"/api/handover/{links[0]}/send").status_code == 409)
 
+    print("\nOrdning: rådgivare före projektör")
+    for spec in [
+        {"name": f"{PREFIX} Auto Jurist", "kind": "jurist",
+         "email": "zz-autojurist@zz-verify.example.se", "counties": "Dalarna",
+         "min_score": 20, "auto_send": True},
+        {"name": f"{PREFIX} Auto Projektör", "kind": "projektor",
+         "email": "zz-autoprojektor@zz-verify.example.se", "elareas": "SE3",
+         "min_score": 20, "auto_send": True},
+    ]:
+        c.post("/api/partners", headers=KEY, json=spec)
+
+    SENT.clear()
+    c.post("/api/lead/qualify", json={
+        "email": "zz-verify-ordning@zz-verify.example.se", "segment": "markagare",
+        "name": "Ordning", "county": "Dalarna", "land_hectares": 120,
+        "wants_legal_help": True, "wants_projector_contact": True,
+        "consent_partner_share": True, "source": PREFIX})
+    mottagare = [s[0] for s in SENT if s[0].startswith(("zz-autojurist@", "zz-autoprojektor@"))]
+    check("dag 0: bara rådgivaren får leadet",
+          mottagare == ["zz-autojurist@zz-verify.example.se"], mottagare)
+
+    kö = c.get("/api/handovers/queue", headers=KEY).json()
+    check("projektören ligger i kö med släpptid",
+          kö["count"] == 1 and kö["queue"][0]["release_at"] is not None,
+          kö["queue"][0]["partner"] if kö["count"] else "tom kö")
+    check("kön är inte förfallen än", kö["queue"][0]["forfallen"] is False)
+    check("släpp innan karenstiden gått ut skickar inget",
+          c.post("/api/handovers/release", headers=KEY).json()["released"] == 0)
+
     print("\nSpärrar")
     c.post("/api/lead/qualify", json={
         "email": "zz-verify-utan@zz-verify.example.se", "segment": "markagare",

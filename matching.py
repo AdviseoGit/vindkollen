@@ -10,6 +10,7 @@ Det som INTE finns här är utskicket. Motorn föreslår mottagare och skriver
 mejlet; någon måste godkänna innan det går iväg (se auto_send per partner).
 """
 
+import os
 from datetime import datetime
 from typing import List, Optional, Tuple
 
@@ -44,6 +45,33 @@ PARTNER_KINDS = {
         "segments": ("kommun",),
     },
 }
+
+
+# Rådgivarsidan. Ett lead som bett om juridisk hjälp ska ha fått den kontakten
+# innan projektören ringer — annars förhandlar markägaren ensam mot en motpart
+# som gör tiotals sådana avtal om året, och vårt löfte om oberoende är tomt.
+LEGAL_KINDS = ("jurist", "radgivare")
+
+# Hur länge projektörens överlämning hålls tillbaka när en rådgivare fått leadet.
+HOLD_DAYS = int(os.environ.get("LEAD_HOLD_DAYS", "3"))
+
+
+def is_legal(kind: Optional[str]) -> bool:
+    return (kind or "") in LEGAL_KINDS
+
+
+def split_by_order(partners: list) -> Tuple[list, list]:
+    """Dela upp mottagare i (skickas nu, hålls tillbaka).
+
+    Rådgivare går alltid först. Projektörer hålls bara tillbaka om en rådgivare
+    faktiskt fick leadet — finns ingen rådgivare att vänta på fyller fördröjningen
+    ingen funktion, den skulle bara försena den enda nytta leadet ger.
+    """
+    legal = [p for p in partners if is_legal(p.kind)]
+    others = [p for p in partners if not is_legal(p.kind)]
+    if legal:
+        return legal, others
+    return others, []
 
 
 def _csv_set(value: Optional[str]) -> set:
@@ -297,11 +325,23 @@ def build_proposal_html(lead, matches, rejected, base_url, token_for) -> str:
                 f'<ul style="margin:8px 0 0;padding-left:18px;font-size:13px">{rows}</ul></div>')
 
     per_kind = best_per_kind(matches)
+    forst, koade = split_by_order([p for p in per_kind if p.auto_send])
+    koade_ids = {p.id for p in koade}
 
     blocks = []
     for p in per_kind[:3]:
         token = token_for(p)
         kind_label = PARTNER_KINDS.get(p.kind, {}).get("label", p.kind)
+        ordning = ""
+        if p.id in koade_ids:
+            ordning = (f'<div style="font-size:12px;color:#b45309;margin-top:6px">'
+                       f'Köad — skickas automatiskt om {HOLD_DAYS} dagar, så att '
+                       f'rådgivaren hinner först. Knappen skickar direkt om du vill '
+                       f'gå före.</div>')
+        elif p in forst and is_legal(p.kind):
+            ordning = ('<div style="font-size:12px;color:#047857;margin-top:6px">'
+                       'Skickas först — markägaren ska vara rådgiven innan '
+                       'projektören hör av sig.</div>')
         button = (
             f'<a href="{base_url}/handover/{token}" style="display:inline-block;margin-top:12px;'
             f'background:{_BRAND};color:#fff;text-decoration:none;padding:11px 18px;'
@@ -320,6 +360,7 @@ def build_proposal_html(lead, matches, rejected, base_url, token_for) -> str:
     </div>
     <div style="font-size:18px;font-weight:800;color:#065f46;margin:4px 0 2px">{p.name}</div>
     <div style="font-size:13px;color:#047857">{p.email}</div>
+    {ordning}
     {button}
     {alt_html}
   </div>""")

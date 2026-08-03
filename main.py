@@ -141,8 +141,10 @@ class LeadAssignment(Base):
     id = Column(Integer, primary_key=True, index=True)
     lead_id = Column(Integer, nullable=False, index=True)
     partner_id = Column(Integer, nullable=False, index=True)
-    status = Column(String(16), nullable=False, default="sent")  # sent | failed
-    approved_by = Column(String(32), nullable=True)  # "manual" | "auto"
+    # pending = köad bakom en rådgivare, släpps när release_at passerat
+    status = Column(String(16), nullable=False, default="sent")  # sent | pending | failed
+    release_at = Column(DateTime, nullable=True, index=True)
+    approved_by = Column(String(32), nullable=True)  # "manual" | "auto" | "auto-slapp"
     detail = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)
 
@@ -197,6 +199,10 @@ _MIGRATIONS = [
     "CREATE INDEX IF NOT EXISTS ix_vindkollen_leads_county ON vindkollen_leads (county)",
     "CREATE INDEX IF NOT EXISTS ix_vindkollen_leads_lead_score ON vindkollen_leads (lead_score)",
     "CREATE INDEX IF NOT EXISTS ix_vindkollen_leads_lead_tier ON vindkollen_leads (lead_tier)",
+    # Kön för överlämningar som väntar bakom en rådgivare.
+    "ALTER TABLE vindkollen_lead_assignments ADD COLUMN IF NOT EXISTS release_at TIMESTAMP",
+    "CREATE INDEX IF NOT EXISTS ix_vindkollen_assignments_release_at "
+    "ON vindkollen_lead_assignments (release_at)",
 ]
 
 
@@ -344,13 +350,24 @@ async def _match_and_stage(session, email: str):
     # Bara partners med uttryckligt auto_send går ut utan granskning, och högst
     # en per typ — samma urval som förslaget i mejlet.
     auto_partners = [p for p in vk_matching.best_per_kind(matches) if p.auto_send]
-    for p in auto_partners:
+
+    # Rådgivaren först, projektören efter karenstiden. Poängen är att markägaren
+    # ska hinna få råd innan motparten ringer.
+    send_now, held = vk_matching.split_by_order(auto_partners)
+    release_at = datetime.utcnow() + timedelta(days=vk_matching.HOLD_DAYS)
+
+    for p in send_now:
         session.add(LeadAssignment(
             lead_id=stored.id, partner_id=p.id, status="sent", approved_by="auto",
         ))
-    if auto_partners:
+    for p in held:
+        session.add(LeadAssignment(
+            lead_id=stored.id, partner_id=p.id, status="pending",
+            release_at=release_at, approved_by="auto",
+        ))
+    if send_now or held:
         await session.commit()
-    return stored, proposal_html, auto_partners
+    return stored, proposal_html, send_now
 
 
 async def _match_for_lead(session, lead):
@@ -828,6 +845,8 @@ async def capture_lead_report(lead: LeadReportIn, background: BackgroundTasks):
     background.add_task(_deliver_report, dict(payload), proposal_html)
     for p in auto_partners:
         background.add_task(_send_handover, stored, p, "auto")
+    # Passa på att tömma kön av karensatta överlämningar medan vi ändå kör.
+    background.add_task(_release_due_handovers)
 
     return {
         "status": "ok",
@@ -877,6 +896,8 @@ async def capture_qualified_lead(lead: QualifiedLeadIn, background: BackgroundTa
     background.add_task(_deliver_qualified, dict(payload), score, tier, proposal_html)
     for p in auto_partners:
         background.add_task(_send_handover, stored, p, "auto")
+    # Passa på att tömma kön av karensatta överlämningar medan vi ändå kör.
+    background.add_task(_release_due_handovers)
 
     return {
         "status": "ok",
@@ -1111,6 +1132,90 @@ async def lead_matches(lead_id: int, request: Request):
         }
 
 
+async def _release_due_handovers() -> list:
+    """Skicka de köade överlämningarna vars karenstid gått ut.
+
+    Öppnar egen session, så den kan köras både som bakgrundsuppgift efter ett
+    inkommande lead och från /api/handovers/release (t.ex. ett schemalagt jobb).
+    Statusen sätts efter utfallet — misslyckas utskicket ligger raden kvar som
+    pending och försöks igen nästa gång.
+    """
+    if not async_session:
+        return []
+
+    released = []
+    async with async_session() as session:
+        due = (await session.execute(
+            select(LeadAssignment)
+            .where(LeadAssignment.status == "pending",
+                   LeadAssignment.release_at <= datetime.utcnow())
+            .order_by(LeadAssignment.release_at)
+            .limit(100)
+        )).scalars().all()
+
+        for a in due:
+            lead = (await session.execute(
+                select(Lead).where(Lead.id == a.lead_id))).scalar_one_or_none()
+            partner = (await session.execute(
+                select(Partner).where(Partner.id == a.partner_id))).scalar_one_or_none()
+            if not lead or not partner:
+                a.status = "failed"
+                a.detail = "lead eller partner saknas"
+                continue
+            # Samtycket kan ha dragits tillbaka under karenstiden.
+            if partner.requires_consent and not lead.consent_partner_share:
+                a.status = "failed"
+                a.detail = "samtycket återkallat under karenstiden"
+                continue
+
+            ok, info = _send_handover(lead, partner, "auto-slapp")
+            a.status = "sent" if ok else "pending"
+            a.approved_by = "auto-slapp"
+            if not ok:
+                a.detail = info[:500]
+            else:
+                released.append({"lead_id": lead.id, "partner": partner.name})
+        await session.commit()
+
+    if released:
+        print(f"[release] {len(released)} köade överlämningar skickade")
+    return released
+
+
+@app.post("/api/handovers/release")
+async def release_handovers(request: Request):
+    """Släpp köade överlämningar vars karenstid gått ut.
+
+    Körs automatiskt efter varje inkommande lead, men den vägen kräver trafik.
+    Peka ett schemalagt jobb hit så släpps kön även under tysta dygn.
+    """
+    _require_api_key(request)
+    released = await _release_due_handovers()
+    return {"released": len(released), "handovers": released}
+
+
+@app.get("/api/handovers/queue")
+async def handover_queue(request: Request):
+    """Vad ligger och väntar på att släppas, och när."""
+    _require_api_key(request)
+    if not async_session:
+        raise HTTPException(status_code=503, detail="Database not configured")
+    async with async_session() as session:
+        rows = (await session.execute(
+            select(LeadAssignment, Lead.email, Partner.name)
+            .join(Lead, Lead.id == LeadAssignment.lead_id, isouter=True)
+            .join(Partner, Partner.id == LeadAssignment.partner_id, isouter=True)
+            .where(LeadAssignment.status == "pending")
+            .order_by(LeadAssignment.release_at)
+        )).all()
+        now = datetime.utcnow()
+        return {"count": len(rows), "queue": [
+            {"lead_id": a.lead_id, "lead_email": email, "partner": pname,
+             "release_at": a.release_at.isoformat() if a.release_at else None,
+             "forfallen": bool(a.release_at and a.release_at <= now)}
+            for a, email, pname in rows]}
+
+
 def _lead_to_dict(lead) -> dict:
     """Lead-raden som den dict mejlbyggarna vill ha."""
     return {c.name: getattr(lead, c.name) for c in Lead.__table__.columns}
@@ -1140,6 +1245,8 @@ async def _rematch(session, lead, background: BackgroundTasks) -> dict:
     )
     for p in auto_partners:
         background.add_task(_send_handover, stored, p, "auto")
+    # Passa på att tömma kön av karensatta överlämningar medan vi ändå kör.
+    background.add_task(_release_due_handovers)
 
     return {
         "lead_id": (stored or lead).id,
@@ -1260,24 +1367,31 @@ async def handover_send(token: str):
         if not lead or not partner:
             return HTMLResponse("<h1>Leadet eller partnern finns inte</h1>", status_code=404)
 
-        already = (await session.execute(
-            select(func.count(LeadAssignment.id)).where(
+        prior = (await session.execute(
+            select(LeadAssignment).where(
                 LeadAssignment.lead_id == lead_id,
                 LeadAssignment.partner_id == partner_id,
-                LeadAssignment.status == "sent",
-            )
-        )).scalar_one()
-        if already:
+            ).order_by(LeadAssignment.created_at.desc())
+        )).scalars().first()
+
+        if prior and prior.status == "sent":
             return HTMLResponse(
                 f"<h1>Redan skickat</h1><p>{lead.email} har redan lämnats till "
                 f"{partner.name}.</p>", status_code=409)
 
         ok, info = _send_handover(lead, partner, "manual")
-        session.add(LeadAssignment(
-            lead_id=lead_id, partner_id=partner_id,
-            status="sent" if ok else "failed",
-            approved_by="manual", detail=None if ok else info[:500],
-        ))
+        if prior and prior.status == "pending":
+            # Låg i karens bakom rådgivaren — du väljer att skicka nu ändå.
+            # Uppdatera raden i stället för att lägga en dubblett.
+            prior.status = "sent" if ok else "pending"
+            prior.approved_by = "manual"
+            prior.detail = None if ok else info[:500]
+        else:
+            session.add(LeadAssignment(
+                lead_id=lead_id, partner_id=partner_id,
+                status="sent" if ok else "failed",
+                approved_by="manual", detail=None if ok else info[:500],
+            ))
         await session.commit()
 
     if not ok:
