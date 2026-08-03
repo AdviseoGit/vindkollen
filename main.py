@@ -120,6 +120,9 @@ class Partner(Base):
     priority = Column(Integer, nullable=True, default=0)
     exclusive = Column(Boolean, nullable=False, default=False)
     requires_consent = Column(Boolean, nullable=False, default=True)
+    # "kall" = inget avtal ännu, utskicket skrivs som en presentation där leadet
+    # är pitchen. "avtalad" = etablerad partner, kortare mejl utan säljdel.
+    relationship = Column(String(16), nullable=False, default="kall")
     # Av som standard. Slås på först när det finns ett avtal som säger att
     # partnern får ta emot leads utan manuell granskning.
     auto_send = Column(Boolean, nullable=False, default=False)
@@ -201,6 +204,8 @@ _MIGRATIONS = [
     "CREATE INDEX IF NOT EXISTS ix_vindkollen_leads_lead_tier ON vindkollen_leads (lead_tier)",
     # Kön för överlämningar som väntar bakom en rådgivare.
     "ALTER TABLE vindkollen_lead_assignments ADD COLUMN IF NOT EXISTS release_at TIMESTAMP",
+    "ALTER TABLE vindkollen_partners ADD COLUMN IF NOT EXISTS relationship VARCHAR(16) "
+    "DEFAULT 'kall' NOT NULL",
     "CREATE INDEX IF NOT EXISTS ix_vindkollen_assignments_release_at "
     "ON vindkollen_lead_assignments (release_at)",
 ]
@@ -397,8 +402,7 @@ def _send_handover(lead, partner, approved_by: str):
     """Skicka leadet till partnern. Returnerar (ok, detalj)."""
     ok, info = mailer.send_email(
         partner.email,
-        f"Nytt lead från Vindkollen – {vk_leads.segment_label(lead.segment)}, "
-        f"{lead.county or lead.elarea or 'Sverige'}",
+        vk_matching.handover_subject(lead, partner),
         vk_matching.build_handover_email_html(lead, partner),
         reply_to=lead.email,
     )
@@ -1048,6 +1052,8 @@ class PartnerIn(BaseModel):
     priority: Optional[int] = Field(default=0)
     exclusive: bool = False
     requires_consent: bool = True
+    # "kall" tills ni har avtal — styr om utskicket skrivs som presentation.
+    relationship: str = Field(default="kall", max_length=16)
     # Av som standard: ett lead lämnar inte huset utan att du sett det, förrän
     # det finns ett avtal som säger något annat.
     auto_send: bool = False
@@ -1062,6 +1068,7 @@ def _partner_dict(p: Partner) -> dict:
         "counties": p.counties, "elareas": p.elareas, "min_score": p.min_score,
         "monthly_cap": p.monthly_cap, "priority": p.priority,
         "exclusive": p.exclusive, "requires_consent": p.requires_consent,
+        "relationship": p.relationship,
         "auto_send": p.auto_send, "active": p.active, "notes": p.notes,
     }
 

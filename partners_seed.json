@@ -1,18 +1,21 @@
 {
   "_om_filen": [
     "Startlista för partnerregistret. Kör: python scripts/seed_partners.py",
-    "auto_send: true betyder att leadet mejlas till partnern direkt när det kommer in,",
-    "utan att du behöver godkänna. Leadet får samtidigt veta vem som fått uppgifterna.",
     "",
-    "Rader med tom email hoppas över av skriptet. Hämta adressen från bolagets egen",
-    "kontaktsida och klistra in — jag kunde inte öppna sidorna härifrån (403), så en",
-    "gissad adress hade riskerat att skicka en markägares uppgifter till fel mottagare.",
-    "email_kalla säger var en förifylld adress kommer ifrån och hur säker den är.",
+    "relationship: 'kall' = inget avtal ännu. Då skrivs utskicket som en",
+    "presentation — leadet är kostnadsfritt, och mejlet frågar om de vill ha fler",
+    "och vem hos dem det ska gå till. Sätt 'avtalad' när avtalet finns, då blir",
+    "mejlet kortare och utan säljdel.",
     "",
-    "counties/elareas: tom = hela landet. Fyll i det bolaget faktiskt säger i samtalet.",
-    "min_score: 0-100. 50 = ungefär 'markägare med areal och kontaktuppgifter'."
+    "auto_send: true skickar leadet direkt när det kommer in. Rådgivare går alltid",
+    "före projektörer — projektörens utskick köas LEAD_HOLD_DAYS dygn.",
+    "",
+    "Rader med tom email hoppas över av skriptet. email_kalla säger var en",
+    "förifylld adress kommer ifrån och hur säker den är. Skicka gärna ett testmejl",
+    "till en härledd adress innan den får skarpa leads.",
+    "",
+    "counties/elareas: tom = hela landet. min_score: 0-100."
   ],
-
   "partners": [
     {
       "name": "Rabbalshede Kraft",
@@ -23,19 +26,21 @@
       "min_score": 50,
       "monthly_cap": 10,
       "auto_send": true,
-      "notes": "Tar emot mark för både vind och sol. Egen markägarsida."
+      "notes": "Tar emot mark för både vind och sol. Egen markägarsida.",
+      "relationship": "kall"
     },
     {
       "name": "Vasa Vind",
       "kind": "projektor",
       "email": "anna.wenell@vasavind.se",
       "contact_name": "Anna",
-      "email_kalla": "HÄRLEDD, inte bekräftad: Anna Wenell leder projektutvecklingen (rätt funktion för markägarleads), och adressmönstret fornamn.efternamn@vasavind.se är bekräftat via patrik.idvall@vasavind.se. Skicka ett testmejl innan auto_send slås på. Patrik Idvall (Head of Investments) är rätt person att teckna själva avtalet med.",
+      "email_kalla": "HÄRLEDD ur bekräftat mönster (patrik.idvall@vasavind.se). Anna Wenell leder projektutvecklingen. Patrik Idvall (Head of Investments) är alternativ mottagare för ett kallt utskick.",
       "elareas": "SE1,SE2",
       "min_score": 50,
       "monthly_cap": 10,
-      "auto_send": false,
-      "notes": "Har markägarportal med BankID för arrendeutbetalningar. Tyngdpunkt norr. auto_send av tills rätt mottagaradress är bekräftad — annars går markägardata till en investeringschef som inte väntar sig det."
+      "auto_send": true,
+      "notes": "Har markägarportal med BankID för arrendeutbetalningar. Tyngdpunkt norr. Adressen är härledd — studsar den, byt till patrik.idvall@vasavind.se som är bekräftad.",
+      "relationship": "kall"
     },
     {
       "name": "SR Energy",
@@ -46,7 +51,8 @@
       "min_score": 50,
       "monthly_cap": 10,
       "auto_send": true,
-      "notes": "Söker löpande nya platser för vindkraft."
+      "notes": "Söker löpande nya platser för vindkraft.",
+      "relationship": "kall"
     },
     {
       "name": "OX2",
@@ -57,18 +63,21 @@
       "min_score": 60,
       "monthly_cap": 10,
       "auto_send": true,
-      "notes": "Enhetligt produktionsbaserat arrendeavtal till alla markägare i en park."
+      "notes": "Enhetligt produktionsbaserat arrendeavtal till alla markägare i en park.",
+      "relationship": "kall"
     },
     {
       "name": "Eolus Vind",
       "kind": "projektor",
-      "email": "",
-      "email_kalla": "eolus.com/vad-vi-gor/markagare",
+      "email": "per.witalisson@eolus.com",
+      "email_kalla": "Per Witalisson (vd) — bekräftad i sökträff, mönstret fornamn.efternamn@eolus.com. För ett kallt utskick är en beslutsfattare rätt mottagare; be honom peka ut vem som ska ha dem löpande.",
       "elareas": "",
       "min_score": 50,
       "monthly_cap": 10,
       "auto_send": true,
-      "notes": "Projekterar och bygger, säljer vidare. Ersättning som andel av produktion."
+      "notes": "Projekterar och bygger, säljer vidare. Ersättning som andel av produktion.",
+      "contact_name": "Per",
+      "relationship": "kall"
     },
     {
       "name": "Vattenfall Vindkraft",
@@ -80,7 +89,8 @@
       "min_score": 60,
       "monthly_cap": 5,
       "auto_send": false,
-      "notes": "Norrbäck, Storlandet, planer på 373 verk i Norrbotten. Stor org — leadsen måste till vindkraftsutveckling, inte till koncernens kundtjänst."
+      "notes": "Norrbäck, Storlandet, planer på 373 verk i Norrbotten. Stor org — leadsen måste till vindkraftsutveckling, inte till koncernens kundtjänst.",
+      "relationship": "kall"
     },
     {
       "name": "Svevind",
@@ -91,7 +101,8 @@
       "min_score": 60,
       "monthly_cap": 5,
       "auto_send": false,
-      "notes": "Bolaget bakom Markbygden. Söker vindfyndigheter i norr."
+      "notes": "Bolaget bakom Markbygden. Söker vindfyndigheter i norr.",
+      "relationship": "kall"
     },
     {
       "name": "Euro Wind Energy",
@@ -102,7 +113,8 @@
       "min_score": 50,
       "monthly_cap": 10,
       "auto_send": true,
-      "notes": "Egen markägarsida."
+      "notes": "Egen markägarsida.",
+      "relationship": "kall"
     },
     {
       "name": "Ludvig & Co",
@@ -113,7 +125,8 @@
       "min_score": 35,
       "monthly_cap": 20,
       "auto_send": true,
-      "notes": "Arrende, mark- och miljörätt, lantbruk. Rikstäckande kontorsnät. Företräder markägare."
+      "notes": "Arrende, mark- och miljörätt, lantbruk. Rikstäckande kontorsnät. Företräder markägare.",
+      "relationship": "kall"
     },
     {
       "name": "Hushållningssällskapet",
@@ -124,7 +137,8 @@
       "min_score": 35,
       "monthly_cap": 20,
       "auto_send": true,
-      "notes": "Jurister med både arrenderätt och ekonomisk värdering. Dela ev. upp per region."
+      "notes": "Jurister med både arrenderätt och ekonomisk värdering. Dela ev. upp per region.",
+      "relationship": "kall"
     },
     {
       "name": "Svefa",
@@ -135,7 +149,8 @@
       "min_score": 35,
       "monthly_cap": 20,
       "auto_send": true,
-      "notes": "Markintrång och förhandling mot fastighetsägare — passar även närboende (värdeminskning, inlösen)."
+      "notes": "Markintrång och förhandling mot fastighetsägare — passar även närboende (värdeminskning, inlösen).",
+      "relationship": "kall"
     }
   ]
 }

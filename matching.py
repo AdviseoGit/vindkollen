@@ -211,12 +211,72 @@ def _row(label, value):
             f'<td style="padding:5px 12px;font-weight:600">{shown}</td></tr>')
 
 
+def handover_subject(lead, partner) -> str:
+    """Ämnesrad. En kall mottagare öppnar inte 'Nytt lead' från en avsändare de
+    aldrig hört talas om — då måste raden säga vad de får och att det är gratis."""
+    region = lead.county or lead.elarea or "Sverige"
+    if is_cold(partner):
+        areal = f", {lead.land_hectares} ha" if lead.land_hectares else ""
+        # Sammansättningen skrivs ut, inte byggd av etiketten: "markägarelead"
+        # av "Markägare" + "lead" är inte svenska.
+        ord_ = {"markagare": "markägarlead", "narboende": "närboendelead",
+                "kommun": "kommunärende"}.get(
+            vk_leads.normalise_segment(lead.segment), "lead")
+        return f"Kostnadsfritt {ord_} – {region}{areal} | Vindkollen"
+    return (f"Nytt lead från Vindkollen – {vk_leads.segment_label(lead.segment)}, "
+            f"{region}")
+
+
+def is_cold(partner) -> bool:
+    """Har vi inget avtal med mottagaren? Då är utskicket en presentation."""
+    return getattr(partner, "relationship", "kall") != "avtalad"
+
+
+def _cold_intro(partner) -> str:
+    """Ingress till en mottagare som aldrig hört talas om oss.
+
+    Leadet är pitchen: de får något värdefullt utan motprestation, och frågan
+    om fortsättning ställs efter att de sett vad det är.
+    """
+    return f"""
+    <p>Hej{(' ' + partner.contact_name) if partner.contact_name else ''},</p>
+    <p>Ni känner inte oss ännu. <b>Vindkollen</b> är en oberoende sajt om
+       vindkraftsersättning, arrende och intäktsdelning. Markägare och närboende
+       kommer till oss för att räkna på vad marken är värd och för att förstå
+       reglerna — vi är inte knutna till något kraftbolag och tar inte betalt av
+       dem som hör av sig.</p>
+    <p>Personen nedan har fyllt i vårt formulär, bett om kontakt med projektörer i
+       sitt län och samtyckt till att uppgifterna delas. <b>Leadet är kostnadsfritt
+       och utan villkor</b> — vi skickar det för att ni ska kunna bedöma om det är
+       värt något för er.</p>"""
+
+
+def _warm_intro(partner) -> str:
+    return f"""
+    <p>Hej {partner.contact_name or partner.name},</p>
+    <p>Nedan följer ett lead som matchar er täckning. Personen har själv fyllt i
+       formulär på vindkoll.se och <b>samtyckt till att uppgifterna delas</b> med
+       utvald samarbetspartner i sitt län.</p>"""
+
+
+def _cold_ask() -> str:
+    """Frågan som gör utskicket till en affärsöppning i stället för ett brev."""
+    return """
+    <div style="background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;
+                padding:14px 16px;margin-top:18px">
+      <b>Vill ni ha fler?</b><br>
+      Svara på det här mejlet med två saker: vem hos er de ska gå till, och vilka
+      län eller elområden ni är intresserade av. Då riktar vi flödet dit.
+      Vill ni <b>inte</b> ha fler, svara "nej tack" så tar vi bort er direkt.
+    </div>"""
+
+
 def build_handover_email_html(lead, partner) -> str:
     """Överlämningen till köparen.
 
     Innehåller det köparen behöver för att ringa — och en rad om att personen
     själv bett om kontakten, eftersom det är den raden som avgör om samtalet
-    tas emot väl.
+    tas emot väl. Ser olika ut beroende på om vi har avtal eller inte.
     """
     stage = vk_leads.PROJECT_STAGES.get((lead.project_stage or "").lower(), {}).get("label")
     timeframe = vk_leads.TIMEFRAMES.get((lead.timeframe or "").lower(), {}).get("label")
@@ -240,21 +300,22 @@ def build_handover_email_html(lead, partner) -> str:
         fritext = (f'<p style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;'
                    f'padding:12px 14px"><b>Egen beskrivning:</b><br>{lead.message}</p>')
 
+    kall = is_cold(partner)
+    rubrik = ("Ett kostnadsfritt lead från Vindkollen" if kall
+              else "Nytt lead från Vindkollen")
     return f"""\
 <div style="font-family:Segoe UI,Arial,sans-serif;max-width:600px;color:#1e293b">
   <div style="background:{_BRAND};color:#fff;padding:20px 22px;border-radius:12px 12px 0 0">
-    <h2 style="margin:0;font-size:19px">Nytt lead från Vindkollen</h2>
+    <h2 style="margin:0;font-size:19px">{rubrik}</h2>
     <div style="opacity:.85;font-size:13px;margin-top:4px">
       {vk_leads.segment_label(lead.segment)} · {lead.county or lead.elarea or 'okänd region'}
     </div>
   </div>
   <div style="border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px;padding:20px">
-    <p>Hej {partner.contact_name or partner.name},</p>
-    <p>Nedan följer ett lead som matchar er täckning. Personen har själv fyllt i formulär
-       på vindkoll.se och <b>samtyckt till att uppgifterna delas</b> med utvald
-       samarbetspartner i sitt län.</p>
+    {_cold_intro(partner) if kall else _warm_intro(partner)}
     <table style="border-collapse:collapse;font-size:14px;width:100%">{rows}</table>
     {fritext}
+    {_cold_ask() if kall else ''}
     <p style="font-size:13px;color:#475569;margin-top:18px">Vi är oberoende från
        kraftbolagen och tar inte betalt av markägare eller närboende. Hör av er om något
        saknas — svara bara på det här mejlet.</p>
