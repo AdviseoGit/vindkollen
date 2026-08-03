@@ -231,7 +231,7 @@ import matching as vk_matching
 BASE_URL = os.environ.get("PUBLIC_BASE_URL", "https://vindkoll.se").rstrip("/")
 
 
-def _deliver_report(data: dict):
+def _deliver_report(data: dict, proposal_html: str = ""):
     pdf = None
     try:
         pdf = vk_report.build_report_pdf(data)
@@ -259,6 +259,7 @@ def _deliver_report(data: dict):
     mailer.notify_owner(
         f"[{tier}·{score}] {label} – {region} | Vindkollen (kalkylator)",
         vk_leads.build_owner_email_html(data, score, tier)
+        + (proposal_html or "")
         + vk_report.build_owner_email_html(data),
         reply_to=data.get("email"),
     )
@@ -320,6 +321,36 @@ def _parse_handover_token(token: str):
     if not expected or not hmac.compare_digest(expected, token):
         return None
     return lead_id, partner_id
+
+
+async def _match_and_stage(session, email: str):
+    """Matcha ett nyss sparat lead och förbered utskicken.
+
+    Returnerar (lead, förslags-HTML till ägarnotisen, partners med auto_send).
+    Tilldelningarna loggas här; själva mejlen skickas som bakgrundsuppgifter av
+    anroparen, så att svaret till besökaren inte väntar på SMTP.
+    """
+    stored = (await session.execute(
+        select(Lead).where(Lead.email == email)
+    )).scalar_one_or_none()
+    if not stored:
+        return None, "", []
+
+    matches, rejected = await _match_for_lead(session, stored)
+    proposal_html = vk_matching.build_proposal_html(
+        stored, matches, rejected, BASE_URL,
+        lambda p: _handover_token(stored.id, p.id) or "",
+    )
+    # Bara partners med uttryckligt auto_send går ut utan granskning, och högst
+    # en per typ — samma urval som förslaget i mejlet.
+    auto_partners = [p for p in vk_matching.best_per_kind(matches) if p.auto_send]
+    for p in auto_partners:
+        session.add(LeadAssignment(
+            lead_id=stored.id, partner_id=p.id, status="sent", approved_by="auto",
+        ))
+    if auto_partners:
+        await session.commit()
+    return stored, proposal_html, auto_partners
 
 
 async def _match_for_lead(session, lead):
@@ -766,8 +797,20 @@ async def capture_lead_report(lead: LeadReportIn, background: BackgroundTasks):
         await session.execute(stmt)
         await session.commit()
 
-    background.add_task(_deliver_report, dict(payload))
-    return {"status": "ok", "persisted": True, "report": "queued"}
+        # Kalkylatorn är den största konverteringsytan och fångar numera silo,
+        # län och samtycke — då ska den matchas som alla andra vägar in.
+        stored, proposal_html, auto_partners = await _match_and_stage(session, email)
+
+    background.add_task(_deliver_report, dict(payload), proposal_html)
+    for p in auto_partners:
+        background.add_task(_send_handover, stored, p, "auto")
+
+    return {
+        "status": "ok",
+        "persisted": True,
+        "report": "queued",
+        "matched": [p.name for p in auto_partners] or None,
+    }
 
 
 @app.post("/api/lead/qualify")
@@ -805,27 +848,7 @@ async def capture_qualified_lead(lead: QualifiedLeadIn, background: BackgroundTa
         # Matcha mot partnerregistret medan vi ändå har en session. Förslaget
         # följer med i ägarnotisen; utskicket till partnern sker först när
         # länken bekräftats, eller direkt om partnern har auto_send påslaget.
-        stored = (await session.execute(
-            select(Lead).where(Lead.email == payload["email"])
-        )).scalar_one_or_none()
-
-        proposal_html, auto_partners = "", []
-        if stored:
-            matches, rejected = await _match_for_lead(session, stored)
-            proposal_html = vk_matching.build_proposal_html(
-                stored, matches, rejected, BASE_URL,
-                lambda p: _handover_token(stored.id, p.id) or "",
-            )
-            # Bara partners med uttryckligt auto_send går ut utan granskning,
-            # och högst en per typ — samma urval som förslaget i mejlet.
-            auto_partners = [p for p in vk_matching.best_per_kind(matches) if p.auto_send]
-            for p in auto_partners:
-                session.add(LeadAssignment(
-                    lead_id=stored.id, partner_id=p.id,
-                    status="sent", approved_by="auto",
-                ))
-            if auto_partners:
-                await session.commit()
+        stored, proposal_html, auto_partners = await _match_and_stage(session, payload["email"])
 
     background.add_task(_deliver_qualified, dict(payload), score, tier, proposal_html)
     for p in auto_partners:
