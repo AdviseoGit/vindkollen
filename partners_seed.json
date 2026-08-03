@@ -28,13 +28,14 @@
     {
       "name": "Vasa Vind",
       "kind": "projektor",
-      "email": "",
-      "email_kalla": "sökträff angav produktion@vasavind.se men det är en driftadress — be om rätt markägarkontakt (Mattias Sjöberg, 08-545 184 80)",
+      "email": "patrik.idvall@vasavind.se",
+      "contact_name": "Patrik",
+      "email_kalla": "uppgiven av Simon. OBS: Patrik Idvall är Head of Investments, inte projektutveckling — rätt person att teckna avtalet med, men be honom peka ut adressen dit leadsen ska gå (Anna Wenell leder projektutvecklingen).",
       "elareas": "SE1,SE2",
       "min_score": 50,
       "monthly_cap": 10,
-      "auto_send": true,
-      "notes": "Har markägarportal med BankID för arrendeutbetalningar. Tyngdpunkt norr."
+      "auto_send": false,
+      "notes": "Har markägarportal med BankID för arrendeutbetalningar. Tyngdpunkt norr. auto_send av tills rätt mottagaradress är bekräftad — annars går markägardata till en investeringschef som inte väntar sig det."
     },
     {
       "name": "SR Energy",
@@ -73,12 +74,12 @@
       "name": "Vattenfall Vindkraft",
       "kind": "projektor",
       "email": "",
-      "email_kalla": "projekt.vattenfall.se/vindprojekt",
+      "email_kalla": "kundservice@vattenfall.com föreslogs men är elhandelns kundtjänst (fakturor, elavtal) — ett markägarlead dit hamnar i fel kö och når aldrig vindkraftsorganisationen. Sök kontakt via projekt.vattenfall.se/vindprojekt, deras projektsidor har ofta en namngiven projektledare per park.",
       "elareas": "SE1,SE2",
       "min_score": 60,
       "monthly_cap": 5,
       "auto_send": false,
-      "notes": "Norrbäck, Storlandet, planer på 373 verk i Norrbotten. Stor org — börja med en namngiven kontakt innan auto_send."
+      "notes": "Norrbäck, Storlandet, planer på 373 verk i Norrbotten. Stor org — leadsen måste till vindkraftsutveckling, inte till koncernens kundtjänst."
     },
     {
       "name": "Svevind",
