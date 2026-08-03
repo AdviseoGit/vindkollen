@@ -91,8 +91,18 @@ def candidates_for(lead, known_names: set, limit: int = 6) -> List[dict]:
             return 1
         return 0
 
+    segment = vk_leads.normalise_segment(lead.segment)
+
+    def profilerad(e):
+        """Aktörer som uttryckligen passar leadets silo går före de generella.
+        En jurist som arbetar med inlösen är rätt för en närboende; en
+        arrendejurist är det inte."""
+        segments = vk_matching._csv_set(e.get("segments"))
+        return 0 if segment in segments else 1
+
     träffar.sort(key=lambda e: (
         -specificitet(e),
+        profilerad(e),
         0 if e.get("email") else 1,
         0 if e.get("sakerhet") == "bekraftad" else 1,
         e.get("name", ""),

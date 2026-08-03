@@ -4,118 +4,317 @@
     "",
     "Katalogen svarar på 'vilka finns i det här området?'. Registret",
     "(vindkollen_partners) svarar på 'vilka får ta emot leads?'. När ett lead",
-    "kommer in och ingen partner täcker regionen plockar ägarnotisen kandidater",
-    "härifrån, så att listan fylls på i takt med att leads kommer — i stället för",
-    "att någon ska sitta och lägga in hela branschen i förväg.",
+    "kommer in plockar ägarnotisen kandidater härifrån, så att listan fylls på i",
+    "takt med att leads kommer — i stället för att någon ska lägga in hela",
+    "branschen i förväg.",
     "",
     "sakerhet: 'bekraftad' = sedd i sökning eller på bolagets egen sida under",
-    "research. 'kontrollera' = från allmän branschkännedom, stäm av innan den",
-    "får skarpa leads. Bolag går ihop, byter namn och lämnar marknaden.",
+    "research. 'kontrollera' = från allmän branschkännedom, stäm av innan den får",
+    "skarpa leads. Bolag går ihop, byter namn och lämnar marknaden.",
     "",
     "email fylls bara i när adressen är belagd. En gissad adress skickar en",
     "markägares namn, telefon och fastighetsbeteckning till fel mottagare.",
     "",
-    "elareas/counties tomt = hela landet."
+    "elareas/counties tomt = hela landet.",
+    "",
+    "segments: vilken silo aktören passar bäst för. Styr rankningen — Svefa hamnar",
+    "överst för närboende (värdeminskning, inlösen), arrendejuristerna överst för",
+    "markägare. Tomt = ingen profilering.",
+    "",
+    "Om juridiksidan: advokatbyråer lyder under Advokatsamfundets regler som",
+    "begränsar arvodesdelning med utomstående. Att skicka ett kostnadsfritt lead",
+    "är oproblematiskt, men bygg ingen provisionsmodell mot en advokatbyrå utan",
+    "att först kontrollera vad som gäller. Icke-advokater (Ludvig & Co, HS Juridik,",
+    "Svefa, Hushållningssällskapen) omfattas inte av de reglerna.",
+    "",
+    "Kontrollera alltid jäv: en byrå som också företräder kraftbolag och",
+    "projektörer kan ha motparten som klient."
   ],
-
   "aktorer": [
     {
-      "name": "OX2", "kind": "projektor", "elareas": "",
+      "name": "OX2",
+      "kind": "projektor",
+      "elareas": "",
       "url": "https://www.ox2.com/sv/sverige/verksamhet/landbaserad-vindkraft/information-till-markagare/",
-      "email": "", "sakerhet": "bekraftad",
+      "email": "",
+      "sakerhet": "bekraftad",
       "note": "Egen markägaringång. Enhetligt produktionsbaserat arrende till alla markägare i en park."
     },
     {
-      "name": "Eolus Vind", "kind": "projektor", "elareas": "",
+      "name": "Eolus Vind",
+      "kind": "projektor",
+      "elareas": "",
       "url": "https://www.eolus.com/vad-vi-gor/markagare/",
-      "email": "per.witalisson@eolus.com", "sakerhet": "bekraftad",
+      "email": "per.witalisson@eolus.com",
+      "sakerhet": "bekraftad",
       "note": "Egen markägarsida. Adressen går till vd — be om rätt löpande mottagare."
     },
     {
-      "name": "Vattenfall Vindkraft", "kind": "projektor", "elareas": "",
+      "name": "Vattenfall Vindkraft",
+      "kind": "projektor",
+      "elareas": "",
       "url": "https://projekt.vattenfall.se/vindprojekt/landbaserad-vindkraft/",
-      "email": "", "sakerhet": "bekraftad",
+      "email": "",
+      "sakerhet": "bekraftad",
       "note": "Norrbäck, Storlandet, 373 verk planerade i Norrbotten. Även 17 vindlägen på Sveaskogs mark i Halland, Västra Götaland, Kronoberg, Kalmar och Blekinge. Daniel Gustafsson är chef för projektutveckling landbaserat."
     },
     {
-      "name": "Statkraft", "kind": "projektor", "elareas": "",
+      "name": "Statkraft",
+      "kind": "projektor",
+      "elareas": "",
       "url": "https://www.statkraft.se/vara-verksamheter/vindkraft/utvecklingsprojekt/",
-      "email": "", "sakerhet": "bekraftad",
+      "email": "",
+      "sakerhet": "bekraftad",
       "note": "Utvecklar landbaserade vindparker i Sverige."
     },
     {
-      "name": "SR Energy", "kind": "projektor", "elareas": "SE3,SE4",
+      "name": "SR Energy",
+      "kind": "projektor",
+      "elareas": "SE3,SE4",
       "url": "https://srenergy.se/om-bolaget/markagare/",
-      "email": "", "sakerhet": "bekraftad",
+      "email": "",
+      "sakerhet": "bekraftad",
       "note": "Fokus södra Sverige. Jessica Nylander ansvarar för markägare och närboende, 031-85 53 90."
     },
     {
-      "name": "Vasa Vind", "kind": "projektor", "elareas": "SE1,SE2",
+      "name": "Vasa Vind",
+      "kind": "projektor",
+      "elareas": "SE1,SE2",
       "url": "https://www.vasavind.se/markagare/",
-      "email": "anna.wenell@vasavind.se", "sakerhet": "bekraftad",
+      "email": "anna.wenell@vasavind.se",
+      "sakerhet": "bekraftad",
       "note": "Markägarportal med BankID. Adressen är härledd ur bekräftat mönster."
     },
     {
-      "name": "Rabbalshede Kraft", "kind": "projektor", "elareas": "SE3,SE4",
+      "name": "Rabbalshede Kraft",
+      "kind": "projektor",
+      "elareas": "SE3,SE4",
       "url": "https://www.rabbalshedekraft.se/sv/kontakt/hej-markagare",
-      "email": "info@rabbalshedekraft.se", "sakerhet": "bekraftad",
+      "email": "info@rabbalshedekraft.se",
+      "sakerhet": "bekraftad",
       "note": "Tar emot mark för både vind och sol. Tel 0525-197 00."
     },
     {
-      "name": "Svevind", "kind": "projektor", "elareas": "SE1",
-      "url": "https://svevind.se/", "email": "", "sakerhet": "bekraftad",
+      "name": "Svevind",
+      "kind": "projektor",
+      "elareas": "SE1",
+      "url": "https://svevind.se/",
+      "email": "",
+      "sakerhet": "bekraftad",
       "note": "Bolaget bakom Markbygden. Söker vindfyndigheter i norr."
     },
     {
-      "name": "Euro Wind Energy", "kind": "projektor", "elareas": "",
+      "name": "Euro Wind Energy",
+      "kind": "projektor",
+      "elareas": "",
       "url": "https://eurowindenergy.com/se/markagare",
-      "email": "", "sakerhet": "bekraftad", "note": "Egen markägarsida."
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Egen markägarsida."
     },
     {
-      "name": "Vindin", "kind": "projektor", "elareas": "",
+      "name": "Vindin",
+      "kind": "projektor",
+      "elareas": "",
       "url": "https://www.vindin.se/om-vindin/arrenden/",
-      "email": "", "sakerhet": "bekraftad", "note": "Egen sida om arrenden."
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Egen sida om arrenden."
     },
     {
-      "name": "wpd Sweden", "kind": "projektor", "elareas": "",
-      "url": "https://www.wpd.se/", "email": "", "sakerhet": "bekraftad",
+      "name": "wpd Sweden",
+      "kind": "projektor",
+      "elareas": "",
+      "url": "https://www.wpd.se/",
+      "email": "",
+      "sakerhet": "bekraftad",
       "note": "Etablerad projektutvecklare, medlem i Svensk Vindenergi."
     },
     {
-      "name": "Arise", "kind": "projektor", "elareas": "",
-      "url": "https://www.arise.se/", "email": "", "sakerhet": "kontrollera",
+      "name": "Arise",
+      "kind": "projektor",
+      "elareas": "",
+      "url": "https://www.arise.se/",
+      "email": "",
+      "sakerhet": "kontrollera",
       "note": "En av de större projektutvecklarna, hela värdekedjan."
     },
     {
-      "name": "RES Renewable Norden", "kind": "projektor", "elareas": "",
-      "url": "https://www.res-group.com/sv/", "email": "", "sakerhet": "kontrollera",
+      "name": "RES Renewable Norden",
+      "kind": "projektor",
+      "elareas": "",
+      "url": "https://www.res-group.com/sv/",
+      "email": "",
+      "sakerhet": "kontrollera",
       "note": "Brittiskägd, vind- och vätgasprojekt i Sverige."
     },
-
     {
-      "name": "Ludvig & Co", "kind": "jurist", "counties": "",
+      "name": "Ludvig & Co",
+      "kind": "jurist",
+      "counties": "",
       "url": "https://ludvig.se/tjanster/juristbyra/arrende-och-nyttjanderatt/",
-      "email": "amanda.torege.gustafsson@ludvig.se", "sakerhet": "bekraftad",
-      "note": "Arrende, mark- och miljörätt, lantbruk. Rikstäckande kontorsnät."
+      "email": "amanda.torege.gustafsson@ludvig.se",
+      "sakerhet": "bekraftad",
+      "note": "Arrende, mark- och miljörätt, lantbruk. Rikstäckande kontorsnät.",
+      "segments": "markagare"
     },
     {
-      "name": "Hushållningssällskapet Norrbotten-Västerbotten", "kind": "radgivare",
+      "name": "Hushållningssällskapet Norrbotten-Västerbotten",
+      "kind": "radgivare",
       "counties": "Norrbotten,Västerbotten",
       "url": "https://hushallningssallskapet.se/hushallningssallskapet-norrbotten-vasterbotten/",
-      "email": "infonord@hushallningssallskapet.se", "sakerhet": "bekraftad",
-      "note": "Kontor i Luleå, Kalix, Öjebyn, Umeå och Lycksele. Jurister med både arrenderätt och ekonomisk värdering."
+      "email": "infonord@hushallningssallskapet.se",
+      "sakerhet": "bekraftad",
+      "note": "Kontor i Luleå, Kalix, Öjebyn, Umeå och Lycksele. Jurister med både arrenderätt och ekonomisk värdering.",
+      "segments": "markagare"
     },
     {
-      "name": "Hushållningssällskapet (övriga regioner)", "kind": "radgivare", "counties": "",
-      "url": "https://hushallningssallskapet.se/tjanster/juridik/arrende-och-nyttjanderatter/",
-      "email": "", "sakerhet": "bekraftad",
-      "note": "Regionala sällskap med egna adresser — lägg upp det som täcker leadets län som egen rad."
+      "name": "HS Juridik",
+      "kind": "jurist",
+      "counties": "",
+      "url": "https://hushallningssallskapet.se/hs-juridik/kontakta-hs-juridik/",
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Gemensamt juridikbolag som alla 15 regionala hushållningssällskap står bakom. Arrende- och nyttjanderätt, fastighetsrätt, miljörätt. Rikstäckande ingång när det regionala sällskapet saknas.",
+      "segments": "markagare"
     },
     {
-      "name": "Svefa", "kind": "jurist", "counties": "",
+      "name": "Hushållningssällskapet Skåne",
+      "kind": "radgivare",
+      "counties": "Skåne",
+      "url": "https://hushallningssallskapet.se/hushallningssallskapet-skane/",
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Regionalt sällskap.",
+      "segments": "markagare"
+    },
+    {
+      "name": "Hushållningssällskapet Kalmar Kronoberg Blekinge",
+      "kind": "radgivare",
+      "counties": "Kalmar,Kronoberg,Blekinge",
+      "url": "https://hushallningssallskapet.se/kontakt/verksamheter/",
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Regionalt sällskap. Täcker stora delar av SE4 vid sidan av Skåne.",
+      "segments": "markagare"
+    },
+    {
+      "name": "Hushållningssällskapet Halland",
+      "kind": "radgivare",
+      "counties": "Halland",
+      "url": "https://hushallningssallskapet.se/kontakt/verksamheter/",
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Regionalt sällskap.",
+      "segments": "markagare"
+    },
+    {
+      "name": "Hushållningssällskapet Jönköping",
+      "kind": "radgivare",
+      "counties": "Jönköping",
+      "url": "https://hushallningssallskapet.se/kontakt/verksamheter/",
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Regionalt sällskap.",
+      "segments": "markagare"
+    },
+    {
+      "name": "Hushållningssällskapet Östergötland",
+      "kind": "radgivare",
+      "counties": "Östergötland",
+      "url": "https://hushallningssallskapet.se/kontakt/verksamheter/",
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Regionalt sällskap.",
+      "segments": "markagare"
+    },
+    {
+      "name": "Hushållningssällskapet Sjuhärad",
+      "kind": "radgivare",
+      "counties": "Västra Götaland",
+      "url": "https://hushallningssallskapet.se/kontakt/verksamheter/",
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Regionalt sällskap med tyngdpunkt i Sjuhäradsbygden — täcker inte hela Västra Götaland.",
+      "segments": "markagare"
+    },
+    {
+      "name": "Hushållningssällskapet Gotland",
+      "kind": "radgivare",
+      "counties": "Gotland",
+      "url": "https://hushallningssallskapet.se/kontakt/verksamheter/",
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Regionalt sällskap.",
+      "segments": "markagare"
+    },
+    {
+      "name": "Hushållningssällskapet Dalarna Gävleborg",
+      "kind": "radgivare",
+      "counties": "Dalarna,Gävleborg",
+      "url": "https://hushallningssallskapet.se/kontakt/verksamheter/",
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Regionalt sällskap.",
+      "segments": "markagare"
+    },
+    {
+      "name": "Hushållningssällskapet Jämtland",
+      "kind": "radgivare",
+      "counties": "Jämtland",
+      "url": "https://hushallningssallskapet.se/kontakt/verksamheter/",
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Regionalt sällskap.",
+      "segments": "markagare"
+    },
+    {
+      "name": "Svefa",
+      "kind": "jurist",
+      "counties": "",
       "url": "https://www.svefa.se/tjanster/juridisk-radgivning",
-      "email": "", "sakerhet": "bekraftad",
-      "note": "Markintrång och förhandling mot fastighetsägare. Passar närboendeärenden: värdeminskning och inlösen."
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Markåtkomst, arrende, servitut, ledningsrätt och uttalat vind- och energirätt. Passar även närboendeärenden: värdeminskning och inlösen.",
+      "segments": "narboende,markagare"
+    },
+    {
+      "name": "AdvokatByrån Torbjörn Persson",
+      "kind": "jurist",
+      "counties": "Västmanland",
+      "url": "https://advokatbyran.net/fastighetsratt/",
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Torbjörn Persson kommer från LRF Konsult, specialist på lant- och skogsbruksfastigheter. Bistår markägare och arrendatorer inom alla arrendetyper. Bas i Västerås.",
+      "segments": "markagare"
+    },
+    {
+      "name": "Stegman",
+      "kind": "jurist",
+      "counties": "Stockholm,Östergötland",
+      "url": "https://stegman.se/juridiska-tjanster/fastighetsjuridik/",
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Lantbruksfastigheter, nämner uttryckligen vindkraftspark och tillstånd. Kontor i Stockholm och Linköping.",
+      "segments": "markagare"
+    },
+    {
+      "name": "Måres Advokatbyrå",
+      "kind": "jurist",
+      "counties": "",
+      "url": "https://www.maresadvokatbyra.se/",
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Renodlad fastighetsrättsbyrå sedan 1990."
+    },
+    {
+      "name": "Rosén Larsen Advokater",
+      "kind": "jurist",
+      "counties": "",
+      "url": "https://rosenlarsen.se/",
+      "email": "",
+      "sakerhet": "bekraftad",
+      "note": "Nischbyrå inom fastighetsrätt. VARNING: har enligt egen beskrivning även kraftbolag och projektutvecklare som klienter — kontrollera jäv innan en markägare skickas dit, motparten kan vara deras kund."
     }
   ]
 }
