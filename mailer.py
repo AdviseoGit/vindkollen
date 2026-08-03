@@ -23,6 +23,22 @@ def configured() -> bool:
     return bool(SMTP_USER and SMTP_PASS)
 
 
+def _as_document(html: str) -> str:
+    """Slå in ett HTML-fragment i ett riktigt dokument med teckenkodning.
+
+    MIME-delen deklarerar redan utf-8, men flera klienter tappar den kopplingen
+    när mejlet vidarebefordras, sparas eller visas i en webbvy — och då blir
+    åäö till Ã¥Ã¤Ã¶. En meta-tagg i själva dokumentet överlever de stegen.
+    """
+    if html.lstrip()[:15].lower().startswith(("<!doctype", "<html")):
+        return html
+    return (
+        '<!DOCTYPE html><html lang="sv"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">'
+        "</head><body>" + html + "</body></html>"
+    )
+
+
 def send_email(to, subject, html, text=None, attachments=None, reply_to=None, from_name=None):
     """Send one email. attachments = list of (filename, bytes, "mime/type").
 
@@ -38,8 +54,9 @@ def send_email(to, subject, html, text=None, attachments=None, reply_to=None, fr
         msg["Subject"] = subject
         if reply_to:
             msg["Reply-To"] = reply_to
-        msg.set_content(text or "Den här e-posten visas bäst i en klient som stödjer HTML.")
-        msg.add_alternative(html, subtype="html")
+        msg.set_content(text or "Den här e-posten visas bäst i en klient som stödjer HTML.",
+                        charset="utf-8")
+        msg.add_alternative(_as_document(html), subtype="html", charset="utf-8")
         for (fn, data, mime) in (attachments or []):
             maintype, _, subtype = mime.partition("/")
             msg.add_attachment(data, maintype=maintype, subtype=subtype or "octet-stream", filename=fn)

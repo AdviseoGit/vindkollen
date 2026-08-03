@@ -246,7 +246,7 @@ def _deliver_report(data: dict):
     atts = [("Vindkollen-marknadsrapport.pdf", pdf, "application/pdf")] if pdf else None
     mailer.send_email(
         data["email"],
-        "Din vindkraftsrapport fran Vindkollen",
+        "Din vindkraftsrapport från Vindkollen",
         vk_report.build_user_email_html(data),
         attachments=atts,
     )
@@ -375,15 +375,15 @@ def _send_handover(lead, partner, approved_by: str):
 def _deliver_newsletter(email: str, source: str):
     html = (
         '<div style="font-family:Segoe UI,Arial,sans-serif;max-width:520px;color:#1e293b">'
-        '<h2 style="color:#105e4e">Valkommen till Vindkollen</h2>'
-        '<p>Tack for att du prenumererar. Vi bevakar lagen om intaktsdelning dagligen '
-        'och hor av oss sa fort nagot viktigt hander for dig som markagare eller narboende.</p>'
-        '<p>Testa garna var <a href="https://vindkoll.se/kalkylator.html" style="color:#105e4e">'
-        'ersattningskalkylator</a> for en personlig uppskattning.</p>'
-        '<p>Vanliga halsningar,<br><b>Vindkollen</b></p></div>'
+        '<h2 style="color:#105e4e">Välkommen till Vindkollen</h2>'
+        '<p>Tack för att du prenumererar. Vi bevakar lagen om intäktsdelning dagligen '
+        'och hör av oss så fort något viktigt händer för dig som markägare eller närboende.</p>'
+        '<p>Testa gärna vår <a href="https://vindkoll.se/kalkylator" style="color:#105e4e">'
+        'ersättningskalkylator</a> för en personlig uppskattning.</p>'
+        '<p>Vänliga hälsningar,<br><b>Vindkollen</b></p></div>'
     )
     try:
-        mailer.send_email(email, "Valkommen till Vindkollen", html)
+        mailer.send_email(email, "Välkommen till Vindkollen", html)
     except Exception as e:
         print(f"Failed to send newsletter email: {e}")
     mailer.notify_owner("Ny prenumerant - Vindkollen",
@@ -719,24 +719,6 @@ async def capture_lead(lead: LeadIn, background: BackgroundTasks):
     return {"status": "ok", "persisted": True}
 
 
-
-def deliver_report(email: str, name: str, est: int):
-    subject = "Din marknadsrapport för vindkraftsersättning"
-    html = f"""
-    <html>
-    <body style="font-family: sans-serif; line-height: 1.6; color: #333;">
-        <h2>Hej {name or ''},</h2>
-        <p>Här är din personliga uträkning från Vindkollen.</p>
-        <p>Enligt kalkylen är din estimerade årliga ersättning: <b>{est} kr/år</b>.</p>
-        <p>Vi arbetar just nu med att ta fram en mer detaljerad rapport. Vi hör av oss om vi behöver kompletterande information om din fastighet.</p>
-        <p>Vänliga hälsningar,<br>Teamet på Vindkollen</p>
-    </body>
-    </html>
-    """
-    send_email(email, subject, html)
-    
-    notify_html = f"<p>Ny kalkylator-lead: {email} (Est: {est} kr/år)</p>"
-    notify_owner("Ny lead - Vindkollen", notify_html)
 
 @app.post("/api/lead/report")
 async def capture_lead_report(lead: LeadReportIn, background: BackgroundTasks):
