@@ -1087,6 +1087,109 @@ async def lead_matches(lead_id: int, request: Request):
         }
 
 
+def _lead_to_dict(lead) -> dict:
+    """Lead-raden som den dict mejlbyggarna vill ha."""
+    return {c.name: getattr(lead, c.name) for c in Lead.__table__.columns}
+
+
+async def _rematch(session, lead, background: BackgroundTasks) -> dict:
+    """Kör matchningen på ett lead som redan ligger i databasen.
+
+    Matchningen sker normalt när leadet kommer in, men leads som registrerades
+    innan motorn fanns — eller när registret var tomt, eller innan en ny partner
+    tecknades — har aldrig matchats. Den här vägen tar dem.
+    """
+    stored, proposal_html, auto_partners = await _match_and_stage(session, lead.email)
+    matches, rejected = await _match_for_lead(session, stored or lead)
+
+    data = _lead_to_dict(stored or lead)
+    score = data.get("lead_score") or 0
+    tier = data.get("lead_tier") or vk_leads.tier_for_score(score)
+    label = vk_leads.segment_label(data.get("segment"))
+    region = data.get("county") or data.get("elarea") or "okänd region"
+
+    background.add_task(
+        mailer.notify_owner,
+        f"[{tier}·{score}] {label} – {region} | Vindkollen (ommatchning)",
+        vk_leads.build_owner_email_html(data, score, tier) + proposal_html,
+        data.get("email"),
+    )
+    for p in auto_partners:
+        background.add_task(_send_handover, stored, p, "auto")
+
+    return {
+        "lead_id": (stored or lead).id,
+        "email": data.get("email"),
+        "segment": data.get("segment"),
+        "matches": [p.name for p in matches],
+        "auto_sent": [p.name for p in auto_partners],
+        "rejected": [{"name": p.name, "reasons": r} for p, r in rejected],
+    }
+
+
+@app.post("/api/leads/{lead_id}/rematch")
+async def rematch_lead(lead_id: int, request: Request, background: BackgroundTasks):
+    """Matcha ett befintligt lead och mejla förslaget till ägaren."""
+    _require_api_key(request)
+    if not async_session:
+        raise HTTPException(status_code=503, detail="Database not configured")
+
+    async with async_session() as session:
+        lead = (await session.execute(
+            select(Lead).where(Lead.id == lead_id))).scalar_one_or_none()
+        if not lead:
+            raise HTTPException(status_code=404, detail="Lead not found")
+        return await _rematch(session, lead, background)
+
+
+@app.post("/api/leads/rematch-backlog")
+async def rematch_backlog(request: Request, background: BackgroundTasks,
+                          limit: int = 25, min_score: int = 0, send: bool = False):
+    """Gå igenom leads som aldrig lämnats vidare och matcha dem.
+
+    Kör den när du tecknat en ny partner: allt som legat och väntat på en köpare
+    i just den regionen blir matchningsbart på en gång. Utan `send=true` visar
+    den bara vad som skulle hända — börja alltid där.
+    """
+    _require_api_key(request)
+    if not async_session:
+        raise HTTPException(status_code=503, detail="Database not configured")
+
+    async with async_session() as session:
+        assigned = select(LeadAssignment.lead_id).where(LeadAssignment.status == "sent")
+        rows = (await session.execute(
+            select(Lead)
+            .where(Lead.id.notin_(assigned), Lead.lead_score >= min_score)
+            .order_by(Lead.lead_score.desc().nullslast())
+            .limit(max(1, min(limit, 200)))
+        )).scalars().all()
+
+        planned, acted = [], []
+        for lead in rows:
+            if send:
+                acted.append(await _rematch(session, lead, background))
+                continue
+            matches, rejected = await _match_for_lead(session, lead)
+            if matches:
+                planned.append({
+                    "lead_id": lead.id, "email": lead.email, "segment": lead.segment,
+                    "county": lead.county, "score": lead.lead_score,
+                    "would_match": [p.name for p in matches],
+                    "auto_send": [p.name for p in vk_matching.best_per_kind(matches)
+                                  if p.auto_send],
+                })
+
+    if send:
+        return {"mode": "skarpt", "count": len(acted), "leads": acted}
+    return {
+        "mode": "torrkörning",
+        "granskade": len(rows),
+        "matchningsbara": len(planned),
+        "leads": planned,
+        "kör_skarpt_med": "?send=true",
+    }
+
+
 @app.get("/handover/{token}", response_class=HTMLResponse)
 async def handover_page(token: str):
     """Bekräftelsesida för en överlämning.
