@@ -1,8 +1,7 @@
-import os
 import re
 
 content = ""
-with open("/data/workspace/projects/vindkollen/static/bygdepeng-vindkraft-regler-2026.html", "r", encoding="utf-8") as f:
+with open("/data/workspace/projects/vindkollen/static/bullerniva-minimiavstand-vindkraft.html", "r", encoding="utf-8") as f:
     content = f.read()
 
 unique_section = """
@@ -11,15 +10,14 @@ unique_section = """
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
-        Vindkollens Insikter kring Bygdepengen 2026
+        Vindkollens Insikter 2026: Lågfrekvent buller
     </h3>
-    <p class="text-slate-300 mb-4">I vår senaste kartläggning av ersättningsnivåer (2026) ser vi en tydlig glidning i utbetalningarna av bygdepeng. Traditionellt har snittet legat runt 10 000 – 15 000 kr per MW installerad effekt. I nyare förhandlingar, speciellt i södra Sverige, pressas detta ofta mot 20 000 kr per MW och år genom lokala aktiebolagslösningar istället för rena föreningsstöd. Det lagstadgade minimikravet är sällan tillräckligt för att säkra det långsiktiga värdet för orten.</p>
+    <p class="text-slate-300 mb-4">Med de allt större vindkraftverken som byggs 2026 (ofta över 250 meter i totalhöjd) har diskussionen flyttats från enbart dBA-värden till lågfrekvent ljud och skuggkastning. Många kommuner kräver nu längre skyddsavstånd än de generella 1000 meterna, särskilt i områden med spridd bebyggelse. För närboende innebär detta att <a href="/kalkylator" class="text-blue-400 hover:underline">ersättningsnivåerna (ofta baserat på fastighetsvärdets minskning)</a> förhandlas mer aggressivt, då den upplevda störningen kan vara märkbar även under gällande riktvärden för buller.</p>
 </div>
 """
 
-content = re.sub(r'(<h2[^>]*>Vad är Bygdepeng\?.*?</h2[^>]*>)', unique_section + r'\1', content)
-content = content.replace("<title>Bygdepeng Vindkraft Regler 2026 | Vindkollen</title>", "<title>Bygdepeng Vindkraft Regler 2026 (Ny Ersättningsguide) | Vindkollen</title>")
+content = re.sub(r'(<h2[^>]*>Har du rätt till ersättning vid bullerstörningar\?.*?</h2[^>]*>)', unique_section + r'\1', content)
 
-with open("/data/workspace/projects/vindkollen/static/bygdepeng-vindkraft-regler-2026.html", "w", encoding="utf-8") as f:
+with open("/data/workspace/projects/vindkollen/static/bullerniva-minimiavstand-vindkraft.html", "w", encoding="utf-8") as f:
     f.write(content)
 print("Done")

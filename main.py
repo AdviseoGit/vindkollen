@@ -596,9 +596,29 @@ async def arrendeavtal_vindkraft():
     return _serve_static_html("static/arrendeavtal-vindkraft.html")
 
 
+@app.get("/salja-vindkraftverk-andelar-elcertifikat", response_class=HTMLResponse)
+async def salja_vindkraftverk_andelar_elcertifikat():
+    return _serve_static_html("static/salja-vindkraftverk-andelar-elcertifikat.html")
+
+@app.get("/ersattningsmodeller-vindkraft", response_class=HTMLResponse)
+async def ersattningsmodeller_vindkraft():
+    return _serve_static_html("static/ersattningsmodeller-vindkraft.html")
+
+@app.get("/ersattning-vindkraft", response_class=HTMLResponse)
+async def ersattning_vindkraft():
+    return _serve_static_html("static/ersattning-vindkraft.html")
+
+@app.get("/fastighetsskatt-vindkraft-2026", response_class=HTMLResponse)
+async def fastighetsskatt_vindkraft_2026():
+    return _serve_static_html("static/fastighetsskatt-vindkraft-2026.html")
+
 @app.get("/guider/nackdelar-med-vindkraft", response_class=HTMLResponse)
 async def nackdelar_med_vindkraft():
     return _serve_static_html("static/nackdelar-med-vindkraft.html")
+
+@app.get("/guider/nackdelar-vindkraft-detaljerad-guide", response_class=HTMLResponse)
+async def nackdelar_vindkraft_detaljerad_guide():
+    return _serve_static_html("static/guider/nackdelar-vindkraft-detaljerad-guide.html")
 
 @app.get("/paverkar-vindkraft-fastighetsvarde", response_class=HTMLResponse)
 async def paverkar_vindkraft_fastighetsvarde():
@@ -630,9 +650,9 @@ async def bygga_vindkraftverk_steg_for_steg():
 async def skillnad_arrende_intaktsdelning():
     return _serve_static_html("static/skillnad-arrende-intaktsdelning.html")
 
-@app.get("/guider/guide-ersattning-vindkraft", response_class=HTMLResponse)
+@app.get("/guider/guide-ersattning-vindkraft")
 async def guide_ersattning_vindkraft():
-    return _serve_static_html("static/guider/guide-ersattning-vindkraft.html")
+    return RedirectResponse(url="/guider/vindkraftsersattning-2026", status_code=301)
 
 @app.get("/ersattningsnivaer-region-for-region", response_class=HTMLResponse)
 async def ersattningsnivaer_region_for_region():
@@ -685,6 +705,10 @@ async def nio_verkshojder_ersattning():
 async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")
 
+
+@app.get("/llms.txt")
+async def get_llms_txt():
+    return FileResponse("static/llms.txt", media_type="text/plain")
 
 @app.get("/robots.txt")
 async def robots():
@@ -1352,6 +1376,22 @@ async def bygdepeng_vindkraft_regler_2026():
 async def havsbaserad_vindkraft_ersattning():
     return _serve_static_html("static/havsbaserad-vindkraft-ersattning.html")
 
+@app.get("/kopa-andelar-i-vindkraft-2026", response_class=HTMLResponse)
+async def kopa_andelar_i_vindkraft_2026():
+    return _serve_static_html("static/kopa-andelar-i-vindkraft-2026.html")
+
+@app.get("/kommunersattning-kalkylator", response_class=HTMLResponse)
+async def kommunersattning_kalkylator():
+    return _serve_static_html("static/kommunersattning-kalkylator.html")
+
+@app.get("/guider/bygdepeng-och-kommunersattning-2026", response_class=HTMLResponse)
+async def bygdepeng_och_kommunersattning_2026():
+    return _serve_static_html("static/guider/bygdepeng-och-kommunersattning-2026.html")
+
+@app.get("/ratt-till-inlosen-fastighet-vindkraft", response_class=HTMLResponse)
+async def ratt_till_inlosen_fastighet_vindkraft():
+    return _serve_static_html("static/ratt-till-inlosen-fastighet-vindkraft.html")
+
 
 # Catch-all for HTML pages
 # ---------------------------------------------------------------------------
@@ -1370,6 +1410,7 @@ async def redirect_guider():
 async def redirect_guider_slash():
     return RedirectResponse(url="/", status_code=301)
 
+@app.get("/arrendera-ut-mark-for-vindkraftverk", response_class=HTMLResponse)
 @app.get("/{path:path}", response_class=HTMLResponse)
 async def serve_page(path: str):
     """Serve any .html file from static/ or content/ directories."""

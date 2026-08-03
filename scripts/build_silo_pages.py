@@ -5,7 +5,16 @@ Sidorna delar allt utom innehållet: samma head, nav, footer, formulärmotor
 (/static/js/vk-silo.js) och samma CTA-hierarki. Att hålla dem i en mall är enda
 sättet att slippa den drift som redan finns mellan de handskrivna sidorna.
 
-Kör: python scripts/build_silo_pages.py
+    python scripts/build_silo_pages.py
+
+VARNING — skriptet SKRIVER ÖVER hela filerna:
+    static/markagare.html, narboende.html, kommun.html,
+    juridisk-hjalp-arrendeavtal.html
+
+Sidorna har redigerats för hand efter att de genererades (2026-08-03 lades
+FAQ-schema för AI-citerbarhet till direkt i HTML:en). En körning nu raderar
+det. Diffa mot git innan du kör, och flytta in handgjorda tillägg i mallen
+här i stället för i de genererade filerna.
 """
 
 import os

@@ -443,6 +443,21 @@
 
             reportCard.classList.remove('hidden');
             if (scroll) resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Track calculator completion as a key event
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', 'calculator_complete', {
+                    elarea: area,
+                    distance_m: Math.round(dist),
+                    turbine_height_m: Math.round(height),
+                    turbine_count: turbines,
+                    estimated_compensation_sek: final,
+                    promille: promille,
+                    within_limit: dist <= limit,
+                    currency: 'SEK',
+                    value: final  // For revenue attribution
+                });
+            }
         }
 
         // -----------------------------------------------------------------
@@ -593,6 +608,7 @@ mobileMenu?.querySelectorAll('a').forEach(link => {
 });
 </script>
 <script src="/static/js/vk-silo.js"></script>
+<script src="/static/js/vk-analytics.js"></script>
 <script src="/static/js/mobile-menu.js"></script>
 
 <script>

@@ -87,6 +87,7 @@ Mekaniken:
 - [x] Alla sidor har samma design (nav, footer, stil)
 - [x] 0 trasiga länkar, 0 föräldralösa sidor
 - [x] GA4 + GSC korrekt uppsatt, data flödar
+- [x] GA4 key events instrumenterade (calculator_complete, lease_calculator_complete, scroll_depth, engagement)
 
 ### ☐ Milstolpe 2: INNEHÅLLSKÄRNAN (3–4 veckor)
 - [☐] 8–10 djupa guider som täcker hela beslutsresan (markägare, närboende, kommun)
