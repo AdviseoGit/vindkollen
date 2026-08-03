@@ -152,6 +152,27 @@ class LeadAssignment(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)
 
 
+class DirectoryContact(Base):
+    """Kontaktadress som hämtats från en katalogaktörs egen sida.
+
+    Ligger i databasen och inte i directory.json, eftersom filsystemet på
+    Railway är flyktigt — en adress som skrevs till filen hade försvunnit vid
+    nästa deploy. Statusen styr allt: en adress används skarpt först när den
+    bekräftats.
+    """
+
+    __tablename__ = "vindkollen_directory_contacts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    slug = Column(String(64), nullable=False, unique=True, index=True)
+    name = Column(String(255), nullable=False)
+    email = Column(String(255), nullable=True)
+    source_url = Column(String(512), nullable=True)
+    candidates = Column(Text, nullable=True)  # övriga träffar, kommaseparerat
+    status = Column(String(16), nullable=False, default="foreslagen")
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+
+
 class Post(Base):
     __tablename__ = "vindkollen_posts"
     id = Column(Integer, primary_key=True, index=True)
@@ -238,6 +259,7 @@ import report as vk_report
 import leads as vk_leads
 import matching as vk_matching
 import directory as vk_directory
+import contacts as vk_contacts
 
 # Publik bas-URL, används i godkännandelänkarna i ägarnotisen.
 BASE_URL = os.environ.get("PUBLIC_BASE_URL", "https://vindkoll.se").rstrip("/")
@@ -401,7 +423,10 @@ async def _match_and_stage(session, email: str):
     # ännu inte finns i registret. Det är så listan växer: en region får sina
     # köpare när det kommer ett lead därifrån, inte i förväg.
     kanda = {p.name for p in (await session.execute(select(Partner))).scalars().all()}
-    kandidater = vk_directory.candidates_for(stored, kanda)
+    # Adresser vi hämtat och du bekräftat räknas som katalogens egna.
+    bekraftade = await _bekraftade_adresser(session)
+    kandidater = vk_directory.candidates_for(stored, kanda, kontakter=bekraftade,
+                                             slug_for=_slug)
     proposal_html += vk_directory.build_suggestions_html(
         stored, kandidater, BASE_URL,
         lambda e: _directory_token(stored.id, e["name"]) or "",
@@ -1505,6 +1530,205 @@ async def directory_list(request: Request):
     """Hela katalogen, för överblick."""
     _require_api_key(request)
     return {"count": len(vk_directory.load()), "aktorer": vk_directory.load()}
+
+
+async def _bekraftade_adresser(session) -> dict:
+    """slug -> bekräftad adress. Bara dessa får användas skarpt."""
+    rows = (await session.execute(
+        select(DirectoryContact).where(DirectoryContact.status == "bekraftad")
+    )).scalars().all()
+    return {r.slug: r.email for r in rows if r.email}
+
+
+@app.post("/api/katalog/hamta-adresser")
+async def fetch_directory_contacts(request: Request, limit: int = 8,
+                                   force: bool = False):
+    """Leta upp kontaktadresser på aktörernas egna sidor.
+
+    Hämtar bolagets egen kontaktsida och plockar ut publicerade adresser på
+    samma domän. Resultatet sparas som *förslag* — inget lead skickas dit
+    förrän adressen bekräftats.
+    """
+    _require_api_key(request)
+    if not async_session:
+        raise HTTPException(status_code=503, detail="Database not configured")
+
+    import asyncio
+
+    async with async_session() as session:
+        befintliga = {r.slug for r in (await session.execute(
+            select(DirectoryContact))).scalars().all()} if not force else set()
+
+        att_hamta = [
+            e for e in vk_directory.load()
+            if not e.get("email") and e.get("url") and _slug(e["name"]) not in befintliga
+        ][:max(1, min(limit, 40))]
+
+        resultat = []
+        for e in att_hamta:
+            slug = _slug(e["name"])
+            # Nätanropet är blockerande — kör det utanför event-loopen.
+            adress, sida, kandidater = await asyncio.to_thread(
+                vk_contacts.hitta_adress, e["url"])
+
+            rad = (await session.execute(
+                select(DirectoryContact).where(DirectoryContact.slug == slug)
+            )).scalar_one_or_none()
+            if not rad:
+                rad = DirectoryContact(slug=slug, name=e["name"])
+                session.add(rad)
+            rad.email = adress
+            rad.source_url = sida
+            rad.candidates = ",".join(kandidater[:5]) or None
+            rad.status = "foreslagen" if adress else "avvisad"
+
+            resultat.append({
+                "aktor": e["name"], "hittad": adress,
+                "kalla": sida, "ovriga": kandidater[1:4],
+                "bekrafta": f"{BASE_URL}/katalog/adress/{_contact_token(slug)}"
+                            if adress else None,
+            })
+        await session.commit()
+
+    hittade = [r for r in resultat if r["hittad"]]
+    return {
+        "genomsokta": len(resultat),
+        "hittade": len(hittade),
+        "status": "förslag — bekräfta innan de används skarpt",
+        "resultat": resultat,
+    }
+
+
+def _contact_token(slug: str) -> Optional[str]:
+    key = os.environ.get("INTERNAL_API_KEY")
+    if not key:
+        return None
+    sig = hmac.new(key.encode(), f"adr:{slug}".encode(), hashlib.sha256).hexdigest()
+    return f"{slug}-{sig[:32]}"
+
+
+def _parse_contact_token(token: str) -> Optional[str]:
+    parts = (token or "").split("-")
+    if len(parts) != 2:
+        return None
+    slug = parts[0]
+    expected = _contact_token(slug)
+    if not expected or not hmac.compare_digest(expected, token):
+        return None
+    return slug
+
+
+@app.get("/katalog/adress/{token}", response_class=HTMLResponse)
+async def contact_confirm_page(token: str):
+    """Bekräftelsesida för en hittad adress. Utan sidoeffekter."""
+    slug = _parse_contact_token(token)
+    if not slug or not async_session:
+        return HTMLResponse("<h1>Ogiltig länk</h1>", status_code=404)
+
+    async with async_session() as session:
+        rad = (await session.execute(
+            select(DirectoryContact).where(DirectoryContact.slug == slug)
+        )).scalar_one_or_none()
+    if not rad or not rad.email:
+        return HTMLResponse("<h1>Ingen adress att bekräfta</h1>", status_code=404)
+
+    ovriga = [e for e in (rad.candidates or "").split(",") if e and e != rad.email]
+    ovriga_html = (f'<div class="sub">Övriga träffar på sidan: {", ".join(ovriga)}</div>'
+                   if ovriga else "")
+
+    # Delade domäner ger delade adresser. Nio regionala hushållningssällskap
+    # ligger på samma sajt och landar därför på samma centrala adress — då är
+    # den regionala uppdelningen borta, och det ska synas innan du bekräftar.
+    async with async_session() as session:
+        delad = (await session.execute(
+            select(DirectoryContact.name).where(
+                DirectoryContact.email == rad.email,
+                DirectoryContact.slug != rad.slug)
+        )).scalars().all()
+    delad_html = (
+        f'<div style="background:#78350f;border:1px solid #b45309;border-radius:10px;'
+        f'padding:12px 14px;margin:12px 0;font-size:13px;color:#fde68a">'
+        f'<b>Delad adress.</b> Samma adress föreslås för {len(delad)} andra aktörer '
+        f'({", ".join(delad[:3])}{"…" if len(delad) > 3 else ""}). Det är sannolikt en '
+        f'central adress, inte den regionala kontakten — leadet når organisationen men '
+        f'inte nödvändigtvis rätt kontor. Leta upp det regionala kontorets adress om '
+        f'geografin ska betyda något.</div>' if delad else "")
+    klar = rad.status == "bekraftad"
+    kropp = ('<p class="done">Adressen är redan bekräftad.</p>' if klar else f"""
+      <form method="post" action="/api/katalog/adress/{token}/bekrafta">
+        <button type="submit">Bekräfta {rad.email}</button>
+      </form>
+      <p class="fine">Efter bekräftelse kan aktören läggas till i registret och ta
+         emot leads i sitt område.</p>""")
+
+    return HTMLResponse(f"""<!DOCTYPE html>
+<html lang="sv"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Bekräfta adress | Vindkollen</title>
+<style>
+  body {{ font-family:-apple-system,Segoe UI,Arial,sans-serif; background:#030712;
+         color:#e2e8f0; margin:0; padding:24px; }}
+  .card {{ max-width:520px; margin:0 auto; background:#0f172a; border:1px solid #1e293b;
+           border-radius:16px; padding:24px; }}
+  h1 {{ font-size:20px; margin:0 0 6px; }}
+  .adress {{ font-size:18px; font-weight:700; color:#34d399; margin:12px 0; }}
+  .sub {{ color:#94a3b8; font-size:13px; margin-bottom:10px; word-break:break-all; }}
+  button {{ width:100%; background:#0f766e; color:#fff; border:0; border-radius:10px;
+            padding:15px; font-size:16px; font-weight:700; }}
+  .fine {{ color:#64748b; font-size:12px; margin-top:12px; }}
+  .done {{ color:#34d399; font-weight:600; }}
+  a {{ color:#60a5fa; }}
+</style></head>
+<body><div class="card">
+  <h1>{rad.name}</h1>
+  <div class="adress">{rad.email}</div>
+  <div class="sub">Hittad på <a href="{rad.source_url}">{rad.source_url}</a></div>
+  {ovriga_html}
+  {delad_html}
+  {kropp}
+</div></body></html>""")
+
+
+@app.post("/api/katalog/adress/{token}/bekrafta", response_class=HTMLResponse)
+async def contact_confirm(token: str):
+    """Bekräfta adressen. Först nu får den ta emot leads."""
+    slug = _parse_contact_token(token)
+    if not slug or not async_session:
+        return HTMLResponse("<h1>Ogiltig länk</h1>", status_code=404)
+
+    async with async_session() as session:
+        rad = (await session.execute(
+            select(DirectoryContact).where(DirectoryContact.slug == slug)
+        )).scalar_one_or_none()
+        if not rad or not rad.email:
+            return HTMLResponse("<h1>Ingen adress att bekräfta</h1>", status_code=404)
+        rad.status = "bekraftad"
+        await session.commit()
+        namn, epost = rad.name, rad.email
+
+    return HTMLResponse(
+        f"<div style='font-family:sans-serif;padding:24px'>"
+        f"<h1 style='color:#0f766e'>Bekräftad</h1>"
+        f"<p>{namn} ({epost}) kan nu läggas till i registret och ta emot leads "
+        f"i sitt område.</p></div>")
+
+
+@app.get("/api/katalog/adresser")
+async def contact_list(request: Request):
+    """Alla hämtade adresser och deras status."""
+    _require_api_key(request)
+    if not async_session:
+        raise HTTPException(status_code=503, detail="Database not configured")
+    async with async_session() as session:
+        rows = (await session.execute(
+            select(DirectoryContact).order_by(DirectoryContact.name))).scalars().all()
+        return {"count": len(rows), "adresser": [
+            {"aktor": r.name, "slug": r.slug, "email": r.email, "status": r.status,
+             "kalla": r.source_url, "ovriga": r.candidates,
+             "bekrafta": f"{BASE_URL}/katalog/adress/{_contact_token(r.slug)}"
+                         if r.email and r.status != "bekraftad" else None}
+            for r in rows]}
 
 
 @app.get("/handover/{token}", response_class=HTMLResponse)

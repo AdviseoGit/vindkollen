@@ -66,23 +66,31 @@ def _relevant_kinds(lead) -> set:
     return kinds
 
 
-def candidates_for(lead, known_names: set, limit: int = 6) -> List[dict]:
+def candidates_for(lead, known_names: set, limit: int = 6,
+                   kontakter: Optional[dict] = None, slug_for=None) -> List[dict]:
     """Aktörer i leadets område som ännu inte finns i partnerregistret.
 
     Sorteras med de regionalt specifika först — en aktör med tyngdpunkt i
     leadets elområde är en bättre första kontakt än en rikstäckande — och
     därefter de vi har en belagd adress till, eftersom de går att aktivera direkt.
+
+    `kontakter` är slug -> bekräftad adress som hämtats från aktörens egen sida.
+    De vävs in som om de stått i katalogen, men bara efter bekräftelse.
     """
     kinds = _relevant_kinds(lead)
     if not kinds:
         return []
 
-    träffar = [
-        e for e in load()
-        if e.get("kind") in kinds
-        and e.get("name") not in known_names
-        and _covers(e, lead)
-    ]
+    träffar = []
+    for e in load():
+        if (e.get("kind") not in kinds or e.get("name") in known_names
+                or not _covers(e, lead)):
+            continue
+        if not e.get("email") and kontakter and slug_for:
+            hittad = kontakter.get(slug_for(e["name"]))
+            if hittad:
+                e = {**e, "email": hittad, "adress_hamtad": True}
+        träffar.append(e)
 
     def specificitet(e):
         if vk_matching._csv_set(e.get("counties")):
@@ -128,6 +136,9 @@ def build_suggestions_html(lead, kandidater: List[dict], base_url: str,
         tackning = e.get("counties") or e.get("elareas") or "hela landet"
         osaker = ('<span style="color:#b45309"> · uppgiften bör stämmas av</span>'
                   if e.get("sakerhet") != "bekraftad" else "")
+        if e.get("adress_hamtad"):
+            osaker += ('<span style="color:#0f766e"> · adress hämtad från deras sida '
+                       'och bekräftad</span>')
 
         if e.get("email") and token_for:
             token = token_for(e)
