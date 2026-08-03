@@ -129,6 +129,32 @@ with TestClient(main.app) as c:
     check("släpp innan karenstiden gått ut skickar inget",
           c.post("/api/handovers/release", headers=KEY).json()["released"] == 0)
 
+    print("\nBranschkatalogen fyller på registret")
+    r = c.post("/api/lead/qualify", json={
+        "email": "zz-verify-katalog@zz-verify.example.se", "segment": "markagare",
+        "name": "Katalog", "county": "Gotland", "land_hectares": 90,
+        "wants_legal_help": True, "wants_projector_contact": True,
+        "consent_partner_share": True, "source": PREFIX})
+    check("lead i region utan partner sparas", r.status_code == 200)
+
+    owner = [s for s in SENT if s[0] == "OWNER"][-1][2]
+    kat_tokens = re.findall(r'/katalog/([^"]+)"', owner)
+    check("ägarmejlet föreslår aktörer ur katalogen", len(kat_tokens) > 0,
+          f"{len(kat_tokens)} förslag")
+    check("förslagen har rubrik med regionen", "Aktörer i Gotland att kontakta" in owner)
+
+    innan = len(SENT)
+    check("GET på katalogknapp visar sida utan att skicka",
+          c.get(f"/katalog/{kat_tokens[0]}").status_code == 200 and len(SENT) == innan)
+    check("manipulerad katalogtoken avvisas",
+          c.get("/katalog/1-rabbalshedekraft-deadbeefdeadbeef").status_code == 404)
+
+    before_partners = c.get("/api/partners", headers=KEY).json()["count"]
+    check("klick lägger till aktören och skickar leadet",
+          c.post(f"/api/katalog/{kat_tokens[0]}/lagg-till").status_code == 200)
+    check("registret växte med en rad",
+          c.get("/api/partners", headers=KEY).json()["count"] == before_partners + 1)
+
     print("\nSpärrar")
     c.post("/api/lead/qualify", json={
         "email": "zz-verify-utan@zz-verify.example.se", "segment": "markagare",

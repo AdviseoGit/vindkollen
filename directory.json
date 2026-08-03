@@ -1,0 +1,121 @@
+{
+  "_om_filen": [
+    "Katalog över aktörer i branschen, per region. INTE partnerregistret.",
+    "",
+    "Katalogen svarar på 'vilka finns i det här området?'. Registret",
+    "(vindkollen_partners) svarar på 'vilka får ta emot leads?'. När ett lead",
+    "kommer in och ingen partner täcker regionen plockar ägarnotisen kandidater",
+    "härifrån, så att listan fylls på i takt med att leads kommer — i stället för",
+    "att någon ska sitta och lägga in hela branschen i förväg.",
+    "",
+    "sakerhet: 'bekraftad' = sedd i sökning eller på bolagets egen sida under",
+    "research. 'kontrollera' = från allmän branschkännedom, stäm av innan den",
+    "får skarpa leads. Bolag går ihop, byter namn och lämnar marknaden.",
+    "",
+    "email fylls bara i när adressen är belagd. En gissad adress skickar en",
+    "markägares namn, telefon och fastighetsbeteckning till fel mottagare.",
+    "",
+    "elareas/counties tomt = hela landet."
+  ],
+
+  "aktorer": [
+    {
+      "name": "OX2", "kind": "projektor", "elareas": "",
+      "url": "https://www.ox2.com/sv/sverige/verksamhet/landbaserad-vindkraft/information-till-markagare/",
+      "email": "", "sakerhet": "bekraftad",
+      "note": "Egen markägaringång. Enhetligt produktionsbaserat arrende till alla markägare i en park."
+    },
+    {
+      "name": "Eolus Vind", "kind": "projektor", "elareas": "",
+      "url": "https://www.eolus.com/vad-vi-gor/markagare/",
+      "email": "per.witalisson@eolus.com", "sakerhet": "bekraftad",
+      "note": "Egen markägarsida. Adressen går till vd — be om rätt löpande mottagare."
+    },
+    {
+      "name": "Vattenfall Vindkraft", "kind": "projektor", "elareas": "",
+      "url": "https://projekt.vattenfall.se/vindprojekt/landbaserad-vindkraft/",
+      "email": "", "sakerhet": "bekraftad",
+      "note": "Norrbäck, Storlandet, 373 verk planerade i Norrbotten. Även 17 vindlägen på Sveaskogs mark i Halland, Västra Götaland, Kronoberg, Kalmar och Blekinge. Daniel Gustafsson är chef för projektutveckling landbaserat."
+    },
+    {
+      "name": "Statkraft", "kind": "projektor", "elareas": "",
+      "url": "https://www.statkraft.se/vara-verksamheter/vindkraft/utvecklingsprojekt/",
+      "email": "", "sakerhet": "bekraftad",
+      "note": "Utvecklar landbaserade vindparker i Sverige."
+    },
+    {
+      "name": "SR Energy", "kind": "projektor", "elareas": "SE3,SE4",
+      "url": "https://srenergy.se/om-bolaget/markagare/",
+      "email": "", "sakerhet": "bekraftad",
+      "note": "Fokus södra Sverige. Jessica Nylander ansvarar för markägare och närboende, 031-85 53 90."
+    },
+    {
+      "name": "Vasa Vind", "kind": "projektor", "elareas": "SE1,SE2",
+      "url": "https://www.vasavind.se/markagare/",
+      "email": "anna.wenell@vasavind.se", "sakerhet": "bekraftad",
+      "note": "Markägarportal med BankID. Adressen är härledd ur bekräftat mönster."
+    },
+    {
+      "name": "Rabbalshede Kraft", "kind": "projektor", "elareas": "SE3,SE4",
+      "url": "https://www.rabbalshedekraft.se/sv/kontakt/hej-markagare",
+      "email": "info@rabbalshedekraft.se", "sakerhet": "bekraftad",
+      "note": "Tar emot mark för både vind och sol. Tel 0525-197 00."
+    },
+    {
+      "name": "Svevind", "kind": "projektor", "elareas": "SE1",
+      "url": "https://svevind.se/", "email": "", "sakerhet": "bekraftad",
+      "note": "Bolaget bakom Markbygden. Söker vindfyndigheter i norr."
+    },
+    {
+      "name": "Euro Wind Energy", "kind": "projektor", "elareas": "",
+      "url": "https://eurowindenergy.com/se/markagare",
+      "email": "", "sakerhet": "bekraftad", "note": "Egen markägarsida."
+    },
+    {
+      "name": "Vindin", "kind": "projektor", "elareas": "",
+      "url": "https://www.vindin.se/om-vindin/arrenden/",
+      "email": "", "sakerhet": "bekraftad", "note": "Egen sida om arrenden."
+    },
+    {
+      "name": "wpd Sweden", "kind": "projektor", "elareas": "",
+      "url": "https://www.wpd.se/", "email": "", "sakerhet": "bekraftad",
+      "note": "Etablerad projektutvecklare, medlem i Svensk Vindenergi."
+    },
+    {
+      "name": "Arise", "kind": "projektor", "elareas": "",
+      "url": "https://www.arise.se/", "email": "", "sakerhet": "kontrollera",
+      "note": "En av de större projektutvecklarna, hela värdekedjan."
+    },
+    {
+      "name": "RES Renewable Norden", "kind": "projektor", "elareas": "",
+      "url": "https://www.res-group.com/sv/", "email": "", "sakerhet": "kontrollera",
+      "note": "Brittiskägd, vind- och vätgasprojekt i Sverige."
+    },
+
+    {
+      "name": "Ludvig & Co", "kind": "jurist", "counties": "",
+      "url": "https://ludvig.se/tjanster/juristbyra/arrende-och-nyttjanderatt/",
+      "email": "amanda.torege.gustafsson@ludvig.se", "sakerhet": "bekraftad",
+      "note": "Arrende, mark- och miljörätt, lantbruk. Rikstäckande kontorsnät."
+    },
+    {
+      "name": "Hushållningssällskapet Norrbotten-Västerbotten", "kind": "radgivare",
+      "counties": "Norrbotten,Västerbotten",
+      "url": "https://hushallningssallskapet.se/hushallningssallskapet-norrbotten-vasterbotten/",
+      "email": "infonord@hushallningssallskapet.se", "sakerhet": "bekraftad",
+      "note": "Kontor i Luleå, Kalix, Öjebyn, Umeå och Lycksele. Jurister med både arrenderätt och ekonomisk värdering."
+    },
+    {
+      "name": "Hushållningssällskapet (övriga regioner)", "kind": "radgivare", "counties": "",
+      "url": "https://hushallningssallskapet.se/tjanster/juridik/arrende-och-nyttjanderatter/",
+      "email": "", "sakerhet": "bekraftad",
+      "note": "Regionala sällskap med egna adresser — lägg upp det som täcker leadets län som egen rad."
+    },
+    {
+      "name": "Svefa", "kind": "jurist", "counties": "",
+      "url": "https://www.svefa.se/tjanster/juridisk-radgivning",
+      "email": "", "sakerhet": "bekraftad",
+      "note": "Markintrång och förhandling mot fastighetsägare. Passar närboendeärenden: värdeminskning och inlösen."
+    }
+  ]
+}

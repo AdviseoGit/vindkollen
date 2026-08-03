@@ -237,6 +237,7 @@ import mailer
 import report as vk_report
 import leads as vk_leads
 import matching as vk_matching
+import directory as vk_directory
 
 # Publik bas-URL, används i godkännandelänkarna i ägarnotisen.
 BASE_URL = os.environ.get("PUBLIC_BASE_URL", "https://vindkoll.se").rstrip("/")
@@ -321,6 +322,49 @@ def _handover_token(lead_id: int, partner_id: int) -> Optional[str]:
     return f"{lead_id}-{partner_id}-{sig[:32]}"
 
 
+def _slug(name: str) -> str:
+    """URL-säker nyckel för ett aktörsnamn.
+
+    Namnet självt kan inte ligga i sökvägen: FastAPI URL-avkodar path-parametern
+    innan den når hit, så '%20' blir mellanslag och HMAC:en jämförs mot en annan
+    sträng än den signerades över. Slugen slås i stället upp mot katalogen.
+    """
+    return "".join(c for c in name.lower().replace("å", "a").replace("ä", "a")
+                   .replace("ö", "o") if c.isalnum())
+
+
+def _directory_entry_by_slug(slug: str) -> Optional[dict]:
+    return next((e for e in vk_directory.load() if _slug(e["name"]) == slug), None)
+
+
+def _directory_token(lead_id: int, name: str) -> Optional[str]:
+    """Signerad länk för 'lägg till aktören i registret och skicka leadet'."""
+    key = os.environ.get("INTERNAL_API_KEY")
+    if not key:
+        return None
+    slug = _slug(name)
+    sig = hmac.new(key.encode(), f"kat:{lead_id}:{slug}".encode(), hashlib.sha256).hexdigest()
+    return f"{lead_id}-{slug}-{sig[:32]}"
+
+
+def _parse_directory_token(token: str):
+    """Returnera (lead_id, katalogpost) om signaturen håller.
+
+    Slugen är ren alfanumerisk, så tre delar separerade av bindestreck räcker.
+    """
+    parts = (token or "").split("-")
+    if len(parts) != 3 or not parts[0].isdigit():
+        return None
+    lead_id, slug = int(parts[0]), parts[1]
+    entry = _directory_entry_by_slug(slug)
+    if not entry:
+        return None
+    expected = _directory_token(lead_id, entry["name"])
+    if not expected or not hmac.compare_digest(expected, token):
+        return None
+    return lead_id, entry
+
+
 def _parse_handover_token(token: str):
     """Returnera (lead_id, partner_id) om signaturen håller, annars None."""
     try:
@@ -351,6 +395,16 @@ async def _match_and_stage(session, email: str):
     proposal_html = vk_matching.build_proposal_html(
         stored, matches, rejected, BASE_URL,
         lambda p: _handover_token(stored.id, p.id) or "",
+    )
+
+    # Fyll på med aktörer ur branschkatalogen som täcker leadets område men
+    # ännu inte finns i registret. Det är så listan växer: en region får sina
+    # köpare när det kommer ett lead därifrån, inte i förväg.
+    kanda = {p.name for p in (await session.execute(select(Partner))).scalars().all()}
+    kandidater = vk_directory.candidates_for(stored, kanda)
+    proposal_html += vk_directory.build_suggestions_html(
+        stored, kandidater, BASE_URL,
+        lambda e: _directory_token(stored.id, e["name"]) or "",
     )
     # Bara partners med uttryckligt auto_send går ut utan granskning, och högst
     # en per typ — samma urval som förslaget i mejlet.
@@ -1326,6 +1380,131 @@ async def rematch_backlog(request: Request, background: BackgroundTasks,
         "leads": planned,
         "kör_skarpt_med": "?send=true",
     }
+
+
+def _directory_page(lead, entry: dict, token: str, redan: bool) -> str:
+    """Bekräftelsesida för 'lägg till aktör ur katalogen'."""
+    tackning = entry.get("counties") or entry.get("elareas") or "hela landet"
+    kropp = (f'<p class="done">{entry["name"]} finns redan i registret.</p>' if redan else f"""
+      <form method="post" action="/api/katalog/{token}/lagg-till">
+        <button type="submit">Lägg till {entry['name']} och skicka leadet</button>
+      </form>
+      <p class="fine">Aktören läggs till med täckning <b>{tackning}</b> och får även
+         framtida leads i samma område. Mejlet går till {entry['email']}.</p>""")
+    return f"""<!DOCTYPE html>
+<html lang="sv"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Lägg till aktör | Vindkollen</title>
+<style>
+  body {{ font-family:-apple-system,Segoe UI,Arial,sans-serif; background:#030712;
+         color:#e2e8f0; margin:0; padding:24px; }}
+  .card {{ max-width:520px; margin:0 auto; background:#0f172a; border:1px solid #1e293b;
+           border-radius:16px; padding:24px; }}
+  h1 {{ font-size:20px; margin:0 0 4px; }}
+  .sub {{ color:#94a3b8; font-size:14px; margin-bottom:18px; }}
+  .note {{ background:#111827; border:1px solid #1e293b; border-radius:10px;
+           padding:12px 14px; font-size:14px; color:#cbd5e1; margin-bottom:18px; }}
+  button {{ width:100%; background:#0f766e; color:#fff; border:0; border-radius:10px;
+            padding:15px; font-size:16px; font-weight:700; }}
+  .fine {{ color:#64748b; font-size:12px; margin-top:12px; }}
+  .done {{ color:#34d399; font-weight:600; }}
+</style></head>
+<body><div class="card">
+  <h1>{entry['name']}</h1>
+  <div class="sub">{vk_matching.PARTNER_KINDS.get(entry['kind'], {}).get('label', entry['kind'])}
+      · {tackning}</div>
+  <div class="note">{entry.get('note', '')}</div>
+  <div class="sub">Leadet: {lead.name or lead.email} ·
+      {vk_leads.segment_label(lead.segment)} · {lead.county or '—'} ·
+      {lead.lead_tier or '?'}·{lead.lead_score or 0}</div>
+  {kropp}
+</div></body></html>"""
+
+
+@app.get("/katalog/{token}", response_class=HTMLResponse)
+async def directory_page(token: str):
+    """Bekräftelsesida innan en katalogaktör läggs till. Utan sidoeffekter."""
+    parsed = _parse_directory_token(token)
+    if not parsed or not async_session:
+        return HTMLResponse("<h1>Ogiltig länk</h1>", status_code=404)
+    lead_id, entry = parsed
+    if not entry.get("email"):
+        return HTMLResponse("<h1>Aktören saknar adress i katalogen</h1>", status_code=404)
+    name = entry["name"]
+
+    async with async_session() as session:
+        lead = (await session.execute(
+            select(Lead).where(Lead.id == lead_id))).scalar_one_or_none()
+        if not lead:
+            return HTMLResponse("<h1>Leadet finns inte</h1>", status_code=404)
+        redan = (await session.execute(
+            select(Partner).where(Partner.name == name))).scalar_one_or_none() is not None
+
+    return HTMLResponse(_directory_page(lead, entry, token, redan))
+
+
+@app.post("/api/katalog/{token}/lagg-till", response_class=HTMLResponse)
+async def directory_add(token: str, background: BackgroundTasks):
+    """Lägg till aktören i registret och lämna över leadet.
+
+    Aktören ärver katalogens täckning, så nästa lead i samma område matchar
+    automatiskt utan att någon behöver göra något.
+    """
+    parsed = _parse_directory_token(token)
+    if not parsed or not async_session:
+        return HTMLResponse("<h1>Ogiltig länk</h1>", status_code=404)
+    lead_id, entry = parsed
+    if not entry.get("email"):
+        return HTMLResponse("<h1>Aktören saknar adress i katalogen</h1>", status_code=404)
+    name = entry["name"]
+
+    async with async_session() as session:
+        lead = (await session.execute(
+            select(Lead).where(Lead.id == lead_id))).scalar_one_or_none()
+        if not lead:
+            return HTMLResponse("<h1>Leadet finns inte</h1>", status_code=404)
+
+        partner = (await session.execute(
+            select(Partner).where(Partner.name == name))).scalar_one_or_none()
+        if not partner:
+            partner = Partner(
+                name=entry["name"], kind=entry["kind"],
+                email=_normalise_email(entry["email"]),
+                counties=entry.get("counties") or None,
+                elareas=entry.get("elareas") or None,
+                min_score=25, monthly_cap=10, auto_send=True,
+                relationship="kall", notes=entry.get("note"),
+            )
+            session.add(partner)
+            await session.flush()
+
+        ok, info = _send_handover(lead, partner, "katalog")
+        session.add(LeadAssignment(
+            lead_id=lead.id, partner_id=partner.id,
+            status="sent" if ok else "failed", approved_by="katalog",
+            detail=None if ok else info[:500],
+        ))
+        await session.commit()
+        namn, epost = partner.name, partner.email
+
+    if not ok:
+        return HTMLResponse(
+            f"<h1>Utskicket misslyckades</h1><p>{info}</p>"
+            f"<p>{namn} finns nu i registret — försök igen via samma länk.</p>",
+            status_code=502)
+    return HTMLResponse(
+        f"<div style='font-family:sans-serif;padding:24px'>"
+        f"<h1 style='color:#0f766e'>Tillagd och skickad</h1>"
+        f"<p>{namn} ({epost}) finns nu i registret och har fått leadet. "
+        f"Framtida leads i samma område matchas automatiskt.</p></div>")
+
+
+@app.get("/api/katalog")
+async def directory_list(request: Request):
+    """Hela katalogen, för överblick."""
+    _require_api_key(request)
+    return {"count": len(vk_directory.load()), "aktorer": vk_directory.load()}
 
 
 @app.get("/handover/{token}", response_class=HTMLResponse)
