@@ -1,1 +1,1 @@
-2026-08-02 | GEO | Tillagd llms.txt och optimerat markagare.html | AI-motorers förståelse och citerbarhet | nästa: Instrumentera GA4 key events
+2026-08-03 | GA4 | Instrumenterat key events: calculator_complete, lease_calculator_complete, scroll_depth, cta_click, navigation_click | Konvertering & engagement kan nu mätas i GA4 | nästa: Markera events som "Key Events" i GA4 admin

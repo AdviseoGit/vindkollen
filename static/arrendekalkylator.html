@@ -350,11 +350,28 @@
             const resContainer = document.getElementById('res-royalty');
             resContainer.classList.add('scale-110', 'text-white');
             setTimeout(() => resContainer.classList.remove('scale-110', 'text-white'), 300);
+
+            // Track lease calculator completion as a key event
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', 'lease_calculator_complete', {
+                    turbine_count: turbines,
+                    capacity_mw: capacityMW,
+                    full_load_hours: hours,
+                    price_sek_kwh: priceSEK,
+                    royalty_percent: Math.round(royaltyLevel * 100),
+                    annual_royalty_sek: Math.round(annualRoyalty),
+                    minimum_lease_sek: minArrende,
+                    upfront_sek: upfront,
+                    currency: 'SEK',
+                    value: Math.round(annualRoyalty)  // For revenue attribution
+                });
+            }
         }
 
         // Inskicket sköts av /static/js/vk-silo.js (segment: markagare).
     </script>
 <script src="/static/js/vk-silo.js"></script>
+<script src="/static/js/vk-analytics.js"></script>
 
 <script>
     // Mobile Menu Logic
