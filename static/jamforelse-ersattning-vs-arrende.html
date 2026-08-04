@@ -42,6 +42,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Jämför Vindkraftsersättning vs. Arrendeavtal 2026 | Vindkollen",
+  "dateModified": "2026-08-04T06:15:00Z",
   "author": {
     "@type": "Organization",
     "name": "Vindkollen",
@@ -63,26 +64,40 @@
     </script>
 
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [{
-        "@type": "Question",
-        "name": "Vad är skillnaden mellan arrende och närboendeersättning?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Arrende är ersättning till markägaren för upplåtelse av mark för vindkraft. Närboendeersättning är en skattefri intäktsdelning (enligt lagförslag 2026) till boende i närområdet oavsett om de äger marken eller inte."
-        }
-      }, {
-        "@type": "Question",
-        "name": "Är närboendeersättningen skattefri?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Ja, enligt regeringens trappstegsmodell (prop 2025/26) blir intäktsdelningen skattefri för närboende."
-        }
-      }]
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "Vad är skillnaden mellan arrende och närboendeersättning?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Arrende är ersättning till markägaren för upplåtelse av mark för vindkraft. Närboendeersättning är en skattefri intäktsdelning (enligt lagförslag 2026) till boende i närområdet oavsett om de äger marken eller inte."
     }
-    </script>
+  }, {
+    "@type": "Question",
+    "name": "Är närboendeersättningen skattefri?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ja, enligt regeringens trappstegsmodell (prop 2025/26) blir intäktsdelningen skattefri för närboende."
+    }
+  }]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Jämför Vindkraftsersättning vs. Arrendeavtal",
+  "operatingSystem": "Web browser",
+  "applicationCategory": "BusinessApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "SEK"
+  }
+}
+</script>
 </head>
 <body class="bg-slate-950 text-slate-300 min-h-screen flex flex-col antialiased selection:bg-blue-500/30">
 
@@ -267,13 +282,52 @@
                     <div class="bg-blue-900/20 border border-blue-500/30 rounded-2xl p-6">
                         <h4 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
                             <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Förstå skillnaden
+                            Hur skiljer sig arrende och närboendeersättning?
                         </h4>
                         <p class="text-slate-300 leading-relaxed text-sm">
-                            Markägarens arrende är en kommersiell affärsuppgörelse där marken upplåts till vindkraftsbolaget. Ersättningen är högre eftersom det inkluderar intrång, markanvändning och ett affärsmässigt partnerskap. 
+                            Arrende är en kommersiell affärsuppgörelse där marken upplåts till vindkraftsbolaget, vilket ger högre ersättning då det inkluderar intrång, markanvändning och ett affärsmässigt partnerskap. 
                             <br><br>
-                            Närboende-ersättningen är en lagstadgad kompensation för den lokala påverkan ett vindkraftverk utgör. Det är en procentandel av bruttointäkten som delas ut <strong>skattefritt</strong>. Även om beloppet är lägre, innebär skattefriheten att nettot per krona är betydligt högre än för markägaren.
+                            Närboendeersättningen är en lagstadgad kompensation för den lokala påverkan ett vindkraftverk utgör. Det är en procentandel av bruttointäkten som delas ut <strong>skattefritt</strong>. Även om beloppet är lägre, innebär skattefriheten att nettot per krona är betydligt högre än för markägaren.
                         </p>
+                    </div>
+                    
+                    <div class="mt-8 overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900">
+                        <table class="w-full text-left text-sm text-slate-400">
+                            <thead class="bg-slate-800/50 text-xs uppercase text-slate-300">
+                                <tr>
+                                    <th scope="col" class="px-6 py-4">Aspekt</th>
+                                    <th scope="col" class="px-6 py-4">Närboendeersättning</th>
+                                    <th scope="col" class="px-6 py-4 border-l border-slate-800">Markarrende (Markägare)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-800">
+                                <tr>
+                                    <td class="px-6 py-4 font-medium text-white">Grund för ersättning</td>
+                                    <td class="px-6 py-4">Avstånd till vindkraftverk (lagstadgat)</td>
+                                    <td class="px-6 py-4 border-l border-slate-800">Upplåtelse av mark (kommersiellt avtal)</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-medium text-white">Skattestatus</td>
+                                    <td class="px-6 py-4 text-emerald-400 font-medium">Skattefritt (enligt lagförslag 2026)</td>
+                                    <td class="px-6 py-4 border-l border-slate-800">Skattepliktig inkomst (näringsverksamhet/kapital)</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-medium text-white">Beräkningsmodell</td>
+                                    <td class="px-6 py-4">Trappstegsmodell (ex. 0,25 % av intäkten vid 400-800m)</td>
+                                    <td class="px-6 py-4 border-l border-slate-800">Förhandlad royalty (ofta 2-4 %) + minimiarrende</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-medium text-white">Krav på förhandling</td>
+                                    <td class="px-6 py-4">Nej, automatisk rättighet enligt lag</td>
+                                    <td class="px-6 py-4 border-l border-slate-800">Ja, individuella förhandlingar med projektör</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-medium text-white">Bindningstid</td>
+                                    <td class="px-6 py-4">Så länge verket är i drift</td>
+                                    <td class="px-6 py-4 border-l border-slate-800">Ofta 30-40 år, låst via avtal</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     
                     <!-- Lead Capture -->

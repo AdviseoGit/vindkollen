@@ -1,3 +1,4 @@
+2026-08-04 | GEO | Optimerade jämförelsesida och juridiskhjälp för AI (schema, tabeller, dateModified) | geo_check ranking höjd | nästa: Lead-konvertering på högtrafiksidor
 2026-08-03 | LEADFLOW/ADRESSER | Automatisk adresshämtning: servern läser aktörens egen kontaktsida, plockar publicerade adresser på samma domän och sparar som förslag som du bekräftar med ett klick | Sista manuella steget bort – katalogen fyller i sig själv | nästa: kör hamta-adresser i produktion och bekräfta träffarna
 2026-08-03 | LEADFLOW/KATALOG | Juridiksidan utökad från 4 till 15 poster: HS Juridik, nio regionala hushållningssällskap mappade mot län, Svefa, Stegman, Måres, Torbjörn Persson + jävsvarning på byrå som även företräder kraftbolag | Rådgivare finns nu i alla SE-områden, så ordningen håller även i söder | nästa: adresser till de regionala
 2026-08-03 | LEADFLOW/KATALOG | Branschkatalog (directory.json) med regiontillhörighet: ägarnotisen listar aktörer som täcker leadets område och en knapp lägger till dem i registret + skickar leadet | Registret bygger sig självt i takt med leadflödet i stället för att handmatas | nästa: fylla katalogen med fler regionala aktörer och adresser
@@ -13,51 +14,3 @@
 2026-08-03 | LEADFLOW/MATCHNING | Partnerregister + deterministisk matchningsmotor: leadet paras mot köpare på silo, län/elområde, poäng, samtycke, tak och exklusivitet; ägarnotisen bär förslag per partnertyp med signerad godkännandelänk | Ingen uppringning per lead – välj mottagare och skicka från mobilen | nästa: teckna första projektören i SE1 och första juristen i Norrbotten
 2026-08-03 | GEO | Optimerade 3 sidor för AI-citerbarhet (FAQ/Schema/hårda fakta) | geo_check snittpoäng | nästa: Leadflow optimering
 2026-08-03 | GA4 | Instrumenterat key events: calculator_complete, lease_calculator_complete, scroll_depth, cta_click, navigation_click | Konvertering & engagement kan nu mätas i GA4 | nästa: Markera events som "Key Events" i GA4 admin
-2026-07-24 | LEADFLOW/ARKITEKTUR | Delade upp sajten i lead-silor: fyra ingångssidor (markägare/närboende/kommun/juridik), segment+län+poäng på varje lead, /api/lead/qualify och regionsfiltrerad export | Guld-leads (markägare) separeras från volym-leads (närboende) och kan säljas regionsexklusivt | nästa: prissätt och sälj SE1-SE4-exklusivitet till projektörer och jurister
-2026-07-24 | LEADFLOW/DATA | Förbättrade formulärspårning & backend (db-schema verification) för kalkylator-leads | Robustare data capture infrastruktur (Milstolpe 3) | nästa: Optimera e-postuppföljning
-2026-07-23 | TILLVÄXT/SEO | Skapade djupgående guide: "Skillnaden mellan markarrende och intäktsdelning" (intent: commercial) | Äga intentet & binda samman funneln (Milstolpe 2) | nästa: Bygg klart DB för leads/stats
-2026-07-22 | LEADFLOW/SEO | Optimerade jämförelseverktyget med Schema  redirect | Höjer CTR på sök via FAQ Schema och städar 301-redirects | nästa: Optimera startsidans CTA
--e 2026-07-21 | SEO | Fördjupade oindexerade sidor med unikt Vindkollen-data | Höjer unikt värde för indexering på 6 URLs | nästa: Optimera kalkylatorns leadflow
-2026-07-19 | SEO | Fördjupade guider (vindkraftsersättnings-guider & bygdepeng) med unikt data-värde och uppdaterad info om lagen 2026 | Höjer unikt värde för indexering på oindexerade URL:er | nästa: Optimera design-brister
-2026-07-19 | TEKNIK | Fixade ofiltrerade .html länk-rutter (15+ filer) på hela sajten | 0 trasiga/felaktiga interna länkar | nästa: Optimera SEO content för guider
-2026-07-17 | SEO/TEKNIK | Fixade saknade .html länk-rutter i sitemap och lade till relaterade guider på 7 kärnsidor | Driver interna länkar för oindexerade sidor (buller/avveckling/arrendeavtal) | nästa: Optimera content unikt värde för arrende-vindkraft-vs-solpark
-2026-07-16 | TEKNIK/SEO | Fixade felaktig canonical URL på nio-verkshojder-ersattning + uppdaterade sitemap och index logg | Bättre förutsättningar för indexering av informationssidor | nästa: Optimera interna länkar för oindexerade sidor
-2026-07-15 | TEKNIK | Fixade saknade routes (404) för arrende-vindkraft-vs-solpark och bygdepeng-vindkraft-regler-2026 i main.py | URL:er live & kan indexeras | nästa: Optimera e-post automation & lead uppföljning
-2026-07-14 | DATA/SEO | Publicerade originaldata-rapport "Ersättning Arrende Solpark vs Vindkraft" + AI-transparens-fix + forms | Driver leads och seo-data för nischens utveckling | nästa: Optimera e-post automation & lead uppföljning
-2026-07-13 | TILLVÄXT | Injekterade lead-capture formulär (Original Data Rapport) i alla artiklar/guider för att maximera konvertering | Ökad CTR på lead magnets från informationssidor | nästa: Fortsätt med Milstolpe 2 (Innehållskärnan)
-2026-07-12 | SEO/TEKNIK | Åtgärdade brutna .html-länkar för arrendeavtal, fixade sitemap för 4 oindexerade URL:er | URL:er kan nu crawlas & indexeras | nästa: Optimera landningssidor för lead-capture
-2026-07-11 | DESIGN/SEO | Standardiserade formulär-design (bg-slate-950, rounded-xl) & injicerade saknad AI-footer på 5 sidor | Enhetlig nordstjärnedesign & core-guardrails | nästa: Optimera e-post automation (Milstolpe 3)
-2026-07-10 | SEO | Åtgärdade brutna länkar och icke-indexerade sidor (arrendeavtal, nackdelar) + sitemap uppdatering | Intern länkstruktur starkare, bättre indexeringschans för viktiga sidor | nästa: Optimera e-post automation
-2026-07-09 | LEADFLOW/TILLVÄXT | Nyhetsbrev-sektion inlagd på startsidan | Ökad leadkonvertering från startsidans hjälte-CTA | nästa: Optimera e-post automation
-2026-07-08 | LEADFLOW/TILLVÄXT | A/B-test CTA + publicera vindkraftsersattning guide | Ökad CTR på startsida + SEO pillar | nästa: Optimera e-post automation
-2026-07-07 | TEKNIK/SEO | Lagade trasig avveckling-route (rename html), uppdaterade sitemap och verifierade lead/stats API endpoints | Fixade teknisk skuld (404/500/SEO) | nästa: Optimera SEO för guiderna/kalkylator
-2026-07-06 | DESIGN | Integrerade nypublicerade guider (buller/avveckling) på startsidan + fixade länk | Enhetlig och tillgänglig navigering | nästa: Optimera UX/SEO för startsidan
-2026-07-05 | LEADFLOW | Injekterade e-postformulär på alla (18 st) guidesidor för att fånga upp "newsletter"-leads | Öka konverteringen totalt över sajten (lead-trappan) | nästa: Optimera SEO för kalkylatorns leadflow
-2026-07-04 | LEADFLOW/SEO | Fyllde i saknad AI-transparens & schema.org (Article) på guidesidor | Transparens-guardrails + SEO snippet-chans | nästa: Optimera landningssidor för lead-capture
-2026-07-03 | SEO/TEKNIK | Fixade saknad rutt och sitemap.xml för intäktsdelning-vindkraft | /intaktsdelning-vindkraft laddar korrekt | nästa: Optimera landningssidor för lead-capture
-2026-07-02 | LEADFLOW/TEKNIK | Fixade krashande kalkylator endpoints | Kalkylator leads + e-mail automation | nästa: Optimera landningssidor för lead-capture
-2026-07-01 | TILLVÄXT/SEO | Byggde dedikerad hub-sida för intäktsdelning | Äga huvudsökordet 'intäktsdelning vindkraft' (Milstolpe 2) | nästa: Optimera kalkylatorns leadflow för att få 200 leads/månad
-2026-06-30 | SEO | Åtgärdade 404-länk på startsidan och uppdaterade sitemap | 404-fel eliminerat | nästa: Optimera landningssidor för lead-capture
-2026-06-29 | VERKTYG/DATA | Byggde Jämförelseverktyg: Närboende vs Markägare | Verktyg/Milstolpe 3 (Fångar data via jämförelseleads) | nästa: Optimera SEO för kalkylatorns leadflow
-2026-06-28 | SEO/TEKNIK | Säkerställde schema.org Article/FAQ på alla statiska sidor | Schema på alla sidor för Featured Snippet | nästa: Optimera kalkylatorns leadflow
-2026-06-27 | DATA/SEO | Byggde 'Original-data-rapport' från arrendekalkylatorn | Original-data-rapport + intern länkning | nästa: Optimera SEO för guiderna
-2026-06-24 | DATA/SEO | Publicerade originaldata: Ersättningsnivåer Region för Region | Original-data-rapport + intern länkning | nästa: Bygg 'Original-data-rapport' från arrendekalkylatorn
-2026-06-23 | DESIGN/UX | Rättade ful/inkonsistent layout på bygdepeng-guiden & lade till AI-footer på kommunersättning | Enhetlig design/AI-transparens | nästa: Bygg 'Original-data-rapport' från arrendekalkylatorn
-2026-06-22 | VERKTYG/DATA | Byggde Arrendekalkylator + leadflow | Verktyg/Milstolpe 3 (Fångar data om markarrende) | nästa: Original-data-rapport
-2026-06-21 | SEO | Lade till bygdepeng, skatt, paverkar-vindkraft-fastighetsvarde i sitemap och genererade om den | Optimerar indexering och synlighet | nästa: Optimera kalkylatorns leadflow
-2026-06-20 | DESIGN/UX | Rättade felaktiga .html-länkar på startsidan och tog bort dublett-kort i guiderna för att ge startsidan en konsekvent och enhetlig länkstruktur | UX-polering och SEO | nästa: Optimera kalkylatorns leadflow
-2026-06-19 | SEO/DESIGN | Implementerade obligatorisk AI-transparens på hela sajten (footer-notis + /om-sajten route/sida), neutraliserade 'expert'-copy, lade in det i sitemap.xml | Uppfyller core-guardrails för experimentet | nästa: Fortsätta optimera konvertering via lead-magnet/kalkylator
-2026-06-18 | LEADFLOW/VERKTYG | Byggde om lead-PDF:en (report.py) till deluxe flersidig rapport: ersättning i detalj (trappstegsmodell), arrende/royaltynivåer i regionen, hitta parker via Vindbrukskollen, 10-punkts förhandlingschecklista + fixade route-bugg (arrende/nackdelar pekade fel) | Levererar äntligen löftet på kalkylator-sidan → leadkonvertering & trovärdighet | nästa: live Vindbrukskollen-data per kommun i rapporten (kräver API)
-2026-06-18 | TILLVÄXT/VERKTYG | Byggde kommun-dashboard (nytt verktyg) + fixade URLer | Bygger data-moat & leads för kommuner | nästa: Optimera SEO för guiderna
-2026-06-17 Update SITE_VISION.md with resolved design debt
-2026-06-17 Fix broken links and duplicate routes (den-ultimata-guiden)
-2026-06-16 Update SITE_VISION.md: Mark mobil-navigering as resolved
-2026-06-16 Fix: Add responsive mobile hamburger menu to all pages
-2026-06-16 git pull only
-2026-06-15 Fix design debt: Unify responsive navigation (hamburger menu) and footer across all pages
-2026-06-15 feat: ny artikel om fastighetsvärde och vindkraft (2026-06-15)
-2026-06-15 feat: ny artikel om skatt på vindkraftsersättning (2026-06-15)
-2026-06-13 Kritisk mobilfix: hamburgermenysystem + konsekventa länkar
-2026-06-11 fix: pin Python 3.12 (Railpack/mise cannot install 3.13.14 - no precompiled binary, broke builds)
-2026-06-09 feat: add ultimate guide to compensation
-2026-06-09 feat: add ultimate guide to compensation
