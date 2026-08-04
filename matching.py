@@ -152,17 +152,31 @@ def competition_group(kind: Optional[str]) -> str:
     return COMPETITION_GROUPS.get(kind or "", kind or "okand")
 
 
-def best_per_group(matches: list) -> list:
-    """Högst rankad partner per konkurrensgrupp.
+# Hur många projektörer som får samma lead. 1 = bara den bäst matchande.
+# Under den kalla fasen kan 2 vara rimligt: leadet är gratis och syftet är att
+# få någon att svara. Men markägaren blir uppringd av lika många bolag, så höj
+# inte utan att mena det. Rådgivarsidan är alltid 1 — två jurister som ringer
+# om samma avtal hjälper ingen.
+PROJEKTOR_FANOUT = max(1, int(os.environ.get("LEAD_FANOUT", "1")))
 
-    Matchningarna är redan rankade, så den som ligger först i sin grupp är den
+
+def best_per_group(matches: list) -> list:
+    """Mottagare per konkurrensgrupp, rankade.
+
+    Matchningarna är redan sorterade, så den som ligger först i sin grupp är den
     med snävast täckning — den lokala rådgivaren går före den rikstäckande.
+    En exklusiv partner har redan rensat bort de andra i rank_partners.
     """
-    seen, out = set(), []
+    per_grupp = {}
+    out = []
     for p in matches:
         grupp = competition_group(p.kind)
-        if grupp not in seen:
-            seen.add(grupp)
+        tak = PROJEKTOR_FANOUT if grupp == "projektering" else 1
+        if p.exclusive:
+            tak = 1
+        räknare = per_grupp.get(grupp, 0)
+        if räknare < tak:
+            per_grupp[grupp] = räknare + 1
             out.append(p)
     return out
 

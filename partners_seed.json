@@ -82,14 +82,14 @@
     {
       "name": "Vattenfall Vindkraft",
       "kind": "projektor",
-      "email": "",
-      "contact_name": "Daniel Gustafsson",
-      "email_kalla": "Daniel Gustafsson är chef för projektutveckling, landbaserad vindkraft på Vattenfall Vind Sverige — rätt motsvarighet till Anna Wenell. Adressen är INTE hittad och ska inte gissas: det finns både en Daniel Gustafsson på Vattenfall Vind och en Daniel Gustavsson på Vattenfall Vattenkraft, så en gissning kan landa hos fel person i fel division. Sök honom på LinkedIn eller be press@vattenfall.com (08-739 50 10) koppla vidare. kundservice@vattenfall.com är elhandelns kundtjänst och fel kanal.",
-      "elareas": "SE1,SE2",
-      "min_score": 60,
+      "email": "vincent.wretling@vattenfall.com",
+      "contact_name": "Vincent",
+      "email_kalla": "uppgiven av Simon. Vincent Wretling är projektledare för vindkraftsutveckling — rätt funktion för markägarleads. Bekräftar mönstret fornamn.efternamn@vattenfall.com.",
+      "elareas": "",
+      "min_score": 50,
       "monthly_cap": 5,
-      "auto_send": false,
-      "notes": "Norrbäck, Storlandet, planer på 373 verk i Norrbotten. Stor org — leadsen måste till vindkraftsutveckling, inte till koncernens kundtjänst.",
+      "auto_send": true,
+      "notes": "Aktiva i både norr (Norrbäck, Storlandet, Norrbotten) och söder (Sveaskogs mark i Halland, VG, Kronoberg, Kalmar, Blekinge). Rikstäckande täckning betyder att de förlorar mot regionala partners — höj priority om de ska få volym.",
       "relationship": "kall"
     },
     {
