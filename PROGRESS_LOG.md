@@ -1,3 +1,4 @@
+2026-08-05 | GEO | Optimerat arrendekalkylatorn för AI-citering och lagat Naturvårdsverk-länkar | geo_check | nästa: Fortsätta stärka konvertering på nyckelsidor
 2026-08-04 | GEO | Optimerade jämförelsesida och juridiskhjälp för AI (schema, tabeller, dateModified) | geo_check ranking höjd | nästa: Lead-konvertering på högtrafiksidor
 2026-08-03 | LEADFLOW/PARTNER | Vattenfall-kontakt (projektledare vindkraftsutveckling) inlagd + LEAD_FANOUT gör antal projektörer per lead konfigurerbart | Rikstäckande aktörer kan nå leads utan att slå ut den regionala rankingen | nästa: sätt LEAD_FANOUT=2 under kalla fasen om fler ska få chansen att svara
 2026-08-03 | LEADFLOW/ADRESSER | Automatisk adresshämtning: servern läser aktörens egen kontaktsida, plockar publicerade adresser på samma domän och sparar som förslag som du bekräftar med ett klick | Sista manuella steget bort – katalogen fyller i sig själv | nästa: kör hamta-adresser i produktion och bekräfta träffarna
