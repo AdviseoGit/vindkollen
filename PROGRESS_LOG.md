@@ -1,3 +1,4 @@
+2026-08-06 | SEO/GEO | Indexeringsfix: 4 sidor länkade från startsida + GEO-lyft (auktoritativ källa + frågeformad H2) | 4 sidor "unknown to Google" → crawlbara, startsida citerbar | nästa: Följ upp indexering + höj konvertering på kommun-dashboard
 2026-08-05 | GEO | Optimerat arrendekalkylatorn för AI-citering och lagat Naturvårdsverk-länkar | geo_check | nästa: Fortsätta stärka konvertering på nyckelsidor
 2026-08-04 | GEO | Optimerade jämförelsesida och juridiskhjälp för AI (schema, tabeller, dateModified) | geo_check ranking höjd | nästa: Lead-konvertering på högtrafiksidor
 2026-08-03 | LEADFLOW/PARTNER | Vattenfall-kontakt (projektledare vindkraftsutveckling) inlagd + LEAD_FANOUT gör antal projektörer per lead konfigurerbart | Rikstäckande aktörer kan nå leads utan att slå ut den regionala rankingen | nästa: sätt LEAD_FANOUT=2 under kalla fasen om fler ska få chansen att svara
