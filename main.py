@@ -998,7 +998,7 @@ async def lead_stats():
     Returns a padded baseline so the counter never reads as embarrassingly low
     while the project is still ramping up; the real count is added on top.
     """
-    baseline = 1247  # representative baseline for thought-leadership signal
+    baseline = 0  # FIX: Removed the fake baseline of 1247. Now returning the actual database lead count only.
     if not async_session:
         return {"total": baseline, "last_7_days": 0}
 

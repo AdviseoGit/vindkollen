@@ -659,8 +659,7 @@ mobileMenu?.querySelectorAll('a').forEach(link => {
                 if (stats && typeof stats.total === 'number') {
                     const el = document.getElementById('lead-counter');
                     if (el) {
-                        const rounded = Math.max(1200, Math.floor(stats.total / 50) * 50);
-                        el.textContent = 'Över ' + rounded.toLocaleString('sv-SE') + ' markägare & närboende';
+                        el.textContent = stats.total + ' markägare & närboende';
                     }
                 }
             } catch (e) { /* non-fatal */ }
