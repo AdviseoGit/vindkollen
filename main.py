@@ -993,14 +993,18 @@ async def capture_qualified_lead(lead: QualifiedLeadIn, background: BackgroundTa
 
 @app.get("/api/stats/leads")
 async def lead_stats():
-    """Public counter for social-proof copy ('Över N markägare har redan…').
+    """Real lead counts — no padding, ever.
 
-    Returns a padded baseline so the counter never reads as embarrassingly low
-    while the project is still ramping up; the real count is added on top.
+    This used to add a baseline of 1247 to the true count so the number would
+    not "read as embarrassingly low", and the homepage rendered the result as
+    "Över 1 250 markägare & närboende" while the real total was 15. That is a
+    fabricated statistic on a site whose entire value to a landowner is being
+    trustworthy, and it also made our own leadflow unmeasurable. The homepage
+    badge is gone; this endpoint reports what the database actually holds and
+    feeds scoreboard.py.
     """
-    baseline = 0  # FIX: Removed the fake baseline of 1247. Now returning the actual database lead count only.
     if not async_session:
-        return {"total": baseline, "last_7_days": 0}
+        return {"total": 0, "last_7_days": 0}
 
     async with async_session() as session:
         total_q = await session.execute(select(func.count(Lead.id)))
@@ -1012,7 +1016,7 @@ async def lead_stats():
         )
         last_7_days = week_q.scalar_one() or 0
 
-    return {"total": baseline + total, "last_7_days": last_7_days}
+    return {"total": total, "last_7_days": last_7_days}
 
 
 def _require_api_key(request: Request) -> None:

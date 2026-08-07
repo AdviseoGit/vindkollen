@@ -218,10 +218,7 @@ mobileMenu?.querySelectorAll('a').forEach(link => {
 <div class="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500">
 <span class="flex items-center gap-1"><svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"></path></svg> 100% oberoende</span>
 <span class="flex items-center gap-1"><svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"></path></svg> Uppdaterad enligt prop. 2025/26:239</span>
-<span class="flex items-center gap-1" id="social-proof">
-<svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewbox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path clip-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" fill-rule="evenodd"></path></svg>
-<span id="lead-counter">Över 1 200 markägare</span> har beräknat sin ersättning
-                    </span>
+<span class="flex items-center gap-1"><svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"></path></svg> Gratis · ingen inloggning</span>
 </div>
 </div>
 </div>
@@ -649,21 +646,6 @@ mobileMenu?.querySelectorAll('a').forEach(link => {
 <script>
         // Formulärinskick sköts av /static/js/vk-silo.js — den skickar med
         // silo, härleder elområde ur länet och rapporterar GA4-händelsen.
-
-        // Social-proof counter — live total from /api/stats/leads.
-        (async function loadStats() {
-            try {
-                const res = await fetch('/api/stats/leads');
-                if (!res.ok) return;
-                const stats = await res.json();
-                if (stats && typeof stats.total === 'number') {
-                    const el = document.getElementById('lead-counter');
-                    if (el) {
-                        el.textContent = stats.total + ' markägare & närboende';
-                    }
-                }
-            } catch (e) { /* non-fatal */ }
-        })();
     </script>
 <script src="/static/js/vk-silo.js"></script>
 <script src="/static/js/vk-analytics.js"></script>

@@ -1,3 +1,4 @@
+2026-08-07 | LEADFLOW | Tog bort den påhittade leads-siffran från startsidan | startsidan påstod 'Över 1 200 markägare', verkligt antal 15 | nästa: koppla leadmätningen till scoreboard.py
 -e 2026-08-07 | HYGIEN | Fixad falsk leads-statistik på sajt och i API | leads-mätning 0->1 | nästa: Bygga riktigt leads-mätsystem
 2026-08-06 | SEO/GEO | Indexeringsfix: 4 sidor länkade från startsida + GEO-lyft (auktoritativ källa + frågeformad H2) | 4 sidor "unknown to Google" → crawlbara, startsida citerbar | nästa: Följ upp indexering + höj konvertering på kommun-dashboard
 2026-08-05 | GEO | Optimerat arrendekalkylatorn för AI-citering och lagat Naturvårdsverk-länkar | geo_check | nästa: Fortsätta stärka konvertering på nyckelsidor
