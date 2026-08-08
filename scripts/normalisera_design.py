@@ -14,6 +14,7 @@ eller schema.org. Det är säkert att köra om.
 
 import argparse
 import glob
+import json
 import os
 import re
 import sys
@@ -353,6 +354,13 @@ def sla_in_fragment(html: str, sökväg: str, logg: list) -> str:
     ingress = re.sub(r"<[^>]+>", "", p.group(1)).strip()[:155] if p else ""
     slug = os.path.splitext(os.path.basename(sökväg))[0]
     url = f"https://vindkoll.se/blog/{slug}"
+    # json.dumps, inte repr — repr ger enkla citattecken och därmed ogiltig JSON-LD.
+    schema = json.dumps({
+        "@context": "https://schema.org", "@type": "Article", "headline": rubrik,
+        "inLanguage": "sv-SE", "url": url,
+        "publisher": {"@type": "Organization", "name": "Vindkollen",
+                      "url": "https://vindkoll.se/"},
+    }, ensure_ascii=False, indent=1)
 
     logg.append("fragment utan sidram — hela sidan byggd")
     return f"""<!DOCTYPE html>
@@ -383,9 +391,7 @@ def sla_in_fragment(html: str, sökväg: str, logg: list) -> str:
 {STIL}
 {ARTIKELSTIL}
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Article","headline":{rubrik!r},
- "inLanguage":"sv-SE","url":"{url}",
- "publisher":{{"@type":"Organization","name":"Vindkollen","url":"https://vindkoll.se/"}}}}
+{schema}
 </script>
 </head>
 <body class="{BODY}">
