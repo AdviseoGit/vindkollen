@@ -53,27 +53,42 @@
         .ad-slot { margin: 2rem 0; padding: 1rem; background: #0f172a; border-radius: 0.5rem; border: 1px dashed #334155; text-align: center; color: #64748b; font-size: 0.875rem; }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-200 antialiased selection:bg-blue-500/30">
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden selection:bg-blue-500/30">
 
     <!-- Navigation (reused from templates) -->
-    <nav class="fixed w-full z-50 top-0 transition-all duration-300 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <a href="/" class="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
-                    <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
-                    Vindkollen
-                </a>
-                <div class="hidden md:flex gap-8 items-center">
-                    <a href="/kalkylator" class="hover:text-white transition">Kalkylator</a>
-                    <a href="/arrendekalkylator" class="hover:text-white transition">Arrendekalkylator</a>
-                    <a href="/markagare" class="hover:text-white transition">Markägare</a>
-<a href="/narboende" class="hover:text-white transition">Närboende</a>
-                    <a href="/guider/guide-ersattning-vindkraft" class="text-blue-400 font-semibold">Guider</a>
-                    <a href="/kommun" class="hover:text-white transition">Kommuner</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+<span class="text-blue-500">Vind</span>kollen
+</a>
+<div class="hidden md:flex gap-7 text-sm font-medium text-slate-400 items-center">
+<a class="hover:text-white transition" href="/markagare">Markägare</a>
+<a class="hover:text-white transition" href="/narboende">Närboende</a>
+<a class="hover:text-white transition" href="/kommun">Kommun</a>
+<a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+<a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+<button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Öppna meny" aria-expanded="false" aria-controls="mobile-menu">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+</button>
+</nav>
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden" role="dialog" aria-modal="true" aria-label="Meny">
+<div class="flex flex-col h-full">
+<div class="flex justify-between items-center p-6">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/"><span class="text-blue-500">Vind</span>kollen</a>
+<button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+</button>
+</div>
+<div class="flex flex-col gap-2 px-6 py-8">
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/markagare">Markägare</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/narboende">Närboende</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun">Kommun</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+</div>
+</div>
 
     <!-- Header -->
     <header class="pt-32 pb-16 px-4 border-b border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950">
@@ -175,5 +190,6 @@
             </div>
         </div>
     </footer>
+<script src="/static/js/mobile-menu.js"></script>
 </body>
 </html>

@@ -31,22 +31,58 @@
   }
 }
     </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .hero-gradient { background: radial-gradient(circle at 50% 50%, #111827 0%, #030712 100%); }
+    </style>
+<link href="/static/favicon.svg" rel="icon" type="image/svg+xml"/>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden">
     <div class="container mx-auto px-4 py-8">
         <header class="text-center mb-8">
             <h1 class="text-4xl font-bold text-green-700">Vindkollen</h1>
-            <p class="text-xl text-gray-600">Din guide till ersättning från vindkraft</p>
+            <p class="text-xl text-slate-400">Din guide till ersättning från vindkraft</p>
         </header>
 
-        <nav class="bg-white shadow-md rounded-lg p-4 mb-8">
-            <ul class="flex justify-center space-x-4">
-                <li><a href="/" class="text-green-600 hover:text-green-800 font-semibold">Hem</a></li>
-                <li><a href="/guider/guide-ersattning-vindkraft" class="text-green-600 hover:text-green-800 font-semibold">Ersättningsguide</a></li>
-            </ul>
-        </nav>
+        <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+<span class="text-blue-500">Vind</span>kollen
+</a>
+<div class="hidden md:flex gap-7 text-sm font-medium text-slate-400 items-center">
+<a class="hover:text-white transition" href="/markagare">Markägare</a>
+<a class="hover:text-white transition" href="/narboende">Närboende</a>
+<a class="hover:text-white transition" href="/kommun">Kommun</a>
+<a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+<a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+<button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Öppna meny" aria-expanded="false" aria-controls="mobile-menu">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+</button>
+</nav>
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden" role="dialog" aria-modal="true" aria-label="Meny">
+<div class="flex flex-col h-full">
+<div class="flex justify-between items-center p-6">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/"><span class="text-blue-500">Vind</span>kollen</a>
+<button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+</button>
+</div>
+<div class="flex flex-col gap-2 px-6 py-8">
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/markagare">Markägare</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/narboende">Närboende</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun">Kommun</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+</div>
+</div>
 
-        <main class="bg-white p-8 rounded-lg shadow-md">
+        <main class="bg-slate-900/40 p-8 rounded-lg shadow-md">
             <article>
                 <h2 class="text-3xl font-bold mb-4">Din Kompletta Guide till Ersättning från Vindkraftverk</h2>
                 <p class="mb-4">Att arrendera ut mark för vindkraft kan vara en lönsam affär, men det är viktigt att förstå hur ersättningsmodellerna fungerar för att kunna teckna ett rättvist och fördelaktigt avtal. Den här guiden går igenom allt du behöver veta.</p>
@@ -71,7 +107,7 @@
                 <h2 class="text-2xl font-semibold mt-6 mb-3">Förhandling av Avtal</h2>
                 <p class="mb-4">Avtalet du tecknar är långsiktigt, ofta 20-25 år. Det är därför extremt viktigt att det blir rätt från början. Ta alltid hjälp av en jurist med erfarenhet av vindkraftsavtal. Se till att avtalet reglerar allt från ersättningsnivåer och indexering till ansvar för nedmontering och återställande av marken.</p>
 
-                <div class="ad-slot bg-gray-200 p-4 rounded-lg text-center mt-8">
+                <div class="ad-slot bg-slate-800 p-4 rounded-lg text-center mt-8">
                     <h3 class="font-bold">Annonsplats</h3>
                     <p>Optimera din ersättning. Använd vår kalkylator för att få en uppskattning.</p>
                     <a href="/#kalkylator" class="bg-green-600 text-white px-4 py-2 rounded-lg mt-2 inline-block hover:bg-green-700">Testa Kalkylatorn</a>
@@ -164,7 +200,7 @@ async function submitLead(event, formId) {
                     </div>
 </main>
 
-        <footer class="text-center mt-8 text-gray-600">
+        <footer class="text-center mt-8 text-slate-400">
             <p>&copy; 2026 Vindkollen. Alla rättigheter förbehållna.</p>
         
     <div class="border-t border-slate-800 mt-12 pt-8 text-center text-sm text-slate-500">
@@ -173,5 +209,6 @@ async function submitLead(event, formId) {
 
 </footer>
     </div>
+<script src="/static/js/mobile-menu.js"></script>
 </body>
 </html>

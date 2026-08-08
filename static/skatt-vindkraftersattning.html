@@ -85,7 +85,7 @@
     </button>
 </nav>
 <!-- Mobile Menu Overlay -->
-<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-40 hidden">
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden">
     <div class="flex flex-col h-full">
         <div class="flex justify-between items-center p-6">
             <a class="text-2xl font-extrabold tracking-tight text-white" href="/">
@@ -431,53 +431,11 @@
     </script>
 
 
-<script>
-// Mobile menu toggle
-const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-const mobileMenu = document.getElementById("mobile-menu");
-const mobileMenuClose = document.getElementById("mobile-menu-close");
 
-mobileMenuBtn?.addEventListener("click", () => {
-    mobileMenu?.classList.remove("hidden");
-    document.body.style.overflow = "hidden";
-});
-
-mobileMenuClose?.addEventListener("click", () => {
-    mobileMenu?.classList.add("hidden");
-    document.body.style.overflow = "";
-});
-
-// Close on link click
-mobileMenu?.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-        mobileMenu?.classList.add("hidden");
-        document.body.style.overflow = "";
-    });
-});
-</script>
 
 <script src="/static/js/mobile-menu.js"></script>
 
-<script>
-    // Mobile Menu Logic
-    document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenuClose = document.getElementById('mobile-menu-close');
-        const mobileMenu = document.getElementById('mobile-menu');
 
-        if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            });
-
-            mobileMenuClose.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            });
-        }
-    });
-</script>
 
 </body>
 </html>

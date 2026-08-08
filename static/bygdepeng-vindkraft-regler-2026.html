@@ -59,24 +59,42 @@
     }
     </script>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden font-sans">
     
     <!-- Navigation -->
-    <nav class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <a href="/" class="text-2xl font-bold tracking-tight flex items-center gap-2 text-white">
-                    <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    Vindkollen
-                </a>
-                <div class="hidden sm:flex space-x-6">
-                    <a href="/#calculator" class="text-sm font-semibold text-slate-300 hover:text-white transition-colors">Ersättningskalkylator</a>
-                    <a href="/intaktsdelning-vindkraft" class="text-sm font-semibold text-slate-300 hover:text-white transition-colors">Intäktsdelning 2026</a>
-                    <a href="/kommunersattning-vindkraft-2026" class="text-sm font-semibold text-slate-300 hover:text-white transition-colors">Kommunersättning</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+<span class="text-blue-500">Vind</span>kollen
+</a>
+<div class="hidden md:flex gap-7 text-sm font-medium text-slate-400 items-center">
+<a class="hover:text-white transition" href="/markagare">Markägare</a>
+<a class="hover:text-white transition" href="/narboende">Närboende</a>
+<a class="hover:text-white transition" href="/kommun">Kommun</a>
+<a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+<a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+<button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Öppna meny" aria-expanded="false" aria-controls="mobile-menu">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+</button>
+</nav>
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden" role="dialog" aria-modal="true" aria-label="Meny">
+<div class="flex flex-col h-full">
+<div class="flex justify-between items-center p-6">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/"><span class="text-blue-500">Vind</span>kollen</a>
+<button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+</button>
+</div>
+<div class="flex flex-col gap-2 px-6 py-8">
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/markagare">Markägare</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/narboende">Närboende</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun">Kommun</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+</div>
+</div>
 
     <!-- Header Section -->
     <header class="hero-gradient text-white pt-20 pb-16 border-b border-slate-800">
@@ -91,15 +109,15 @@
 
     <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12">
+        <article class="bg-slate-900/40 rounded-2xl shadow-sm border border-slate-800 p-8 md:p-12">
             
             <div class="prose prose-lg prose-blue max-w-none">
                 
-                <p class="lead text-xl text-gray-600 mb-8 font-medium">
+                <p class="lead text-xl text-slate-400 mb-8 font-medium">
                     Bygdepengen är ett etablerat sätt för vindkraftsbolag att ge tillbaka till de lokalsamhällen där de verkar. Inför de stora lagändringarna 2026 kring intäktsdelning väcks många frågor: Kommer bygdepengen att finnas kvar? Hur fördelas den, och vem kan ansöka om medel? Här är den kompletta guiden till bygdepeng.
                 </p>
 
-                <h2 class="text-3xl font-bold mt-10 mb-4 text-gray-900">Vad är bygdepeng från vindkraft?</h2>
+                <h2 class="text-3xl font-bold mt-10 mb-4 text-white">Vad är bygdepeng från vindkraft?</h2>
                 <p>
                     Bygdepeng (även kallat bygdemedel eller vindkraftsbonus) är en frivillig eller avtalad årlig summa som vindkraftsbolag betalar ut till det lokalsamhälle som påverkas av en vindkraftspark. Syftet är att skapa lokal nytta och kompensera för eventuella olägenheter under driftstiden.
                 </p>
@@ -114,7 +132,7 @@
                     </p>
                 </div>
 
-                <h2 class="text-3xl font-bold mt-10 mb-4 text-gray-900">Hur påverkas bygdepengen av nya lagen 2026?</h2>
+                <h2 class="text-3xl font-bold mt-10 mb-4 text-white">Hur påverkas bygdepengen av nya lagen 2026?</h2>
                 <p>
                     Den 1 juli 2026 träder den nya lagen om <a href="/intaktsdelning-vindkraft" class="text-blue-600 hover:underline">intäktsdelning</a> i kraft. Den lagstadgar att en andel av vindkraftverkens bruttointäkter ska gå till <strong>närboende</strong> och <strong>kommuner</strong>. Men vad händer då med den traditionella bygdepengen?
                 </p>
@@ -124,7 +142,7 @@
                     <li><strong>Befintliga anläggningar:</strong> De vindkraftsparker som redan är i drift, och som har ingått avtal om bygdepeng genom ekonomiska föreningar eller stiftelser, påverkas inte direkt av den nya lagen. Dessa avtal fortsätter att gälla enligt vad som överenskommits i arrende- eller nyttjanderättsavtalen.</li>
                 </ul>
 
-                <h2 class="text-3xl font-bold mt-10 mb-4 text-gray-900">Vem hanterar och fördelar bygdepengen?</h2>
+                <h2 class="text-3xl font-bold mt-10 mb-4 text-white">Vem hanterar och fördelar bygdepengen?</h2>
                 <p>
                     Hur bygdepengen administreras ser olika ut runt om i Sverige, men de tre vanligaste modellerna är:
                 </p>
@@ -140,15 +158,15 @@
                     </li>
                 </ol>
 
-                <div class="ad-slot my-8 p-4 bg-gray-100 rounded-lg text-center border border-gray-200">
-                    <p class="text-sm text-gray-500 mb-2">- Annons -</p>
+                <div class="ad-slot my-8 p-4 bg-slate-900/60 rounded-lg text-center border border-slate-800">
+                    <p class="text-sm text-slate-500 mb-2">- Annons -</p>
                     <!-- Ad placeholder -->
-                    <div class="w-full h-32 flex items-center justify-center bg-gray-200 text-gray-400 rounded">
+                    <div class="w-full h-32 flex items-center justify-center bg-slate-800 text-gray-400 rounded">
                         <span>Annonsutrymme</span>
                     </div>
                 </div>
 
-                <h2 class="text-3xl font-bold mt-10 mb-4 text-gray-900">Vem kan ansöka om bygdepeng?</h2>
+                <h2 class="text-3xl font-bold mt-10 mb-4 text-white">Vem kan ansöka om bygdepeng?</h2>
                 <p>
                     I de allra flesta fall är bygdepengen avsedd för <strong>kollektiva ändamål</strong> och inte för privatpersoner. De som i regel kan ansöka är:
                 </p>
@@ -163,31 +181,31 @@
                     För privatpersoner som vill ha ersättning för att de bor nära ett vindkraftverk är det istället <strong>den lagstadgade ersättningen till närboende</strong> (intäktsdelningen 2026) som är aktuell, inte bygdepengen. Du kan läsa mer om detta i vår <a href="/intaktsdelning-vindkraft" class="text-blue-600 hover:underline">guide till intäktsdelning</a>.
                 </p>
 
-                <h2 class="text-3xl font-bold mt-10 mb-4 text-gray-900">Sammanfattning: Bygdepeng vs. Lagstadgad ersättning</h2>
+                <h2 class="text-3xl font-bold mt-10 mb-4 text-white">Sammanfattning: Bygdepeng vs. Lagstadgad ersättning</h2>
                 <div class="overflow-x-auto my-6">
-                    <table class="min-w-full bg-white border border-gray-200 rounded-lg">
-                        <thead class="bg-gray-50">
+                    <table class="min-w-full bg-slate-900/40 border border-slate-800 rounded-lg">
+                        <thead class="bg-slate-900/40">
                             <tr>
-                                <th class="py-3 px-4 text-left font-semibold text-gray-700 border-b">Egenskap</th>
-                                <th class="py-3 px-4 text-left font-semibold text-gray-700 border-b">Bygdepeng (Frivillig)</th>
-                                <th class="py-3 px-4 text-left font-semibold text-gray-700 border-b">Lagstadgad intäktsdelning (2026)</th>
+                                <th class="py-3 px-4 text-left font-semibold text-slate-300 border-b">Egenskap</th>
+                                <th class="py-3 px-4 text-left font-semibold text-slate-300 border-b">Bygdepeng (Frivillig)</th>
+                                <th class="py-3 px-4 text-left font-semibold text-slate-300 border-b">Lagstadgad intäktsdelning (2026)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="py-3 px-4 border-b font-medium text-gray-900">Målgrupp</td>
-                                <td class="py-3 px-4 border-b text-gray-600">Föreningar och kollektiva projekt i bygden</td>
-                                <td class="py-3 px-4 border-b text-gray-600">Privatpersoner (närboende) och Kommuner</td>
+                                <td class="py-3 px-4 border-b font-medium text-white">Målgrupp</td>
+                                <td class="py-3 px-4 border-b text-slate-400">Föreningar och kollektiva projekt i bygden</td>
+                                <td class="py-3 px-4 border-b text-slate-400">Privatpersoner (närboende) och Kommuner</td>
                             </tr>
                             <tr>
-                                <td class="py-3 px-4 border-b font-medium text-gray-900">Natur</td>
-                                <td class="py-3 px-4 border-b text-gray-600">Frivillig eller avtalad via branschstandard</td>
-                                <td class="py-3 px-4 border-b text-gray-600">Lagkrav för nya anläggningar (SFS)</td>
+                                <td class="py-3 px-4 border-b font-medium text-white">Natur</td>
+                                <td class="py-3 px-4 border-b text-slate-400">Frivillig eller avtalad via branschstandard</td>
+                                <td class="py-3 px-4 border-b text-slate-400">Lagkrav för nya anläggningar (SFS)</td>
                             </tr>
                             <tr>
-                                <td class="py-3 px-4 border-b font-medium text-gray-900">Beslut om fördelning</td>
-                                <td class="py-3 px-4 border-b text-gray-600">Lokal förening, stiftelse eller kommun</td>
-                                <td class="py-3 px-4 border-b text-gray-600">Lagstiftad rätt / automatisk utbetalning</td>
+                                <td class="py-3 px-4 border-b font-medium text-white">Beslut om fördelning</td>
+                                <td class="py-3 px-4 border-b text-slate-400">Lokal förening, stiftelse eller kommun</td>
+                                <td class="py-3 px-4 border-b text-slate-400">Lagstiftad rätt / automatisk utbetalning</td>
                             </tr>
                         </tbody>
                     </table>
@@ -200,18 +218,18 @@
             </div>
             
             <!-- Internal Links Section -->
-            <div class="mt-12 pt-8 border-t border-gray-200">
-                <h3 class="text-2xl font-bold mb-6 text-gray-900">Läs vidare</h3>
+            <div class="mt-12 pt-8 border-t border-slate-800">
+                <h3 class="text-2xl font-bold mb-6 text-white">Läs vidare</h3>
                 <div class="grid md:grid-cols-2 gap-6">
-                    <a href="/intaktsdelning-vindkraft" class="block p-6 rounded-xl bg-slate-50 border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all">
+                    <a href="/intaktsdelning-vindkraft" class="block p-6 rounded-xl bg-slate-900/40 border border-slate-800 hover:border-blue-400 hover:shadow-md transition-all">
                         <span class="text-sm font-bold text-blue-500 uppercase tracking-wider mb-2 block">Regler</span>
-                        <h4 class="text-lg font-bold text-gray-900 mb-2">Intäktsdelning 2026</h4>
-                        <p class="text-gray-600 text-sm">Så fungerar den nya lagen om ersättning till närboende.</p>
+                        <h4 class="text-lg font-bold text-white mb-2">Intäktsdelning 2026</h4>
+                        <p class="text-slate-400 text-sm">Så fungerar den nya lagen om ersättning till närboende.</p>
                     </a>
-                    <a href="/kommunersattning-vindkraft-2026" class="block p-6 rounded-xl bg-slate-50 border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all">
+                    <a href="/kommunersattning-vindkraft-2026" class="block p-6 rounded-xl bg-slate-900/40 border border-slate-800 hover:border-blue-400 hover:shadow-md transition-all">
                         <span class="text-sm font-bold text-blue-500 uppercase tracking-wider mb-2 block">Guide</span>
-                        <h4 class="text-lg font-bold text-gray-900 mb-2">Kommunersättning</h4>
-                        <p class="text-gray-600 text-sm">Så mycket får kommunerna ta del av vindkraftens intäkter.</p>
+                        <h4 class="text-lg font-bold text-white mb-2">Kommunersättning</h4>
+                        <p class="text-slate-400 text-sm">Så mycket får kommunerna ta del av vindkraftens intäkter.</p>
                     </a>
                 </div>
             </div>
@@ -256,5 +274,6 @@
             </div>
         </div>
     </footer>
+<script src="/static/js/mobile-menu.js"></script>
 </body>
 </html>

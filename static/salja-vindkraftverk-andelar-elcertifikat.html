@@ -50,31 +50,42 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
 </head>
-<body class="bg-gray-950 text-slate-300 min-h-screen flex flex-col">
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden min-h-screen flex flex-col">
 
     <!-- Navigation -->
     <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
-        <a href="/" class="text-2xl font-extrabold tracking-tight text-white">
-            <span class="text-blue-500">Vind</span>kollen
-        </a>
-        
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex gap-7 text-sm font-medium text-slate-400 items-center">
-            <a href="/markagare" class="hover:text-white transition">Markägare</a>
-            <a href="/narboende" class="hover:text-white transition">Närboende</a>
-            <a href="/kommun" class="hover:text-white transition">Kommun</a>
-            
-            <div class="relative group">
-                <button class="hover:text-white transition flex items-center gap-1">Verktyg <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-                <div class="absolute top-full right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all flex flex-col py-2">
-                    <a href="/kalkylator" class="px-4 py-2 hover:bg-slate-800 hover:text-white transition">Kalkylator</a>
-                    <a href="/arrendekalkylator" class="px-4 py-2 hover:bg-slate-800 hover:text-white transition">Arrendekalkylator</a>
-                    <a href="/kommun-dashboard" class="px-4 py-2 hover:bg-slate-800 hover:text-white transition">Kommun-dashboard</a>
-                </div>
-            </div>
-            <a href="/#guider" class="hover:text-white transition">Guider</a>
-        </div>
-    </nav>
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+<span class="text-blue-500">Vind</span>kollen
+</a>
+<div class="hidden md:flex gap-7 text-sm font-medium text-slate-400 items-center">
+<a class="hover:text-white transition" href="/markagare">Markägare</a>
+<a class="hover:text-white transition" href="/narboende">Närboende</a>
+<a class="hover:text-white transition" href="/kommun">Kommun</a>
+<a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+<a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+<button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Öppna meny" aria-expanded="false" aria-controls="mobile-menu">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+</button>
+</nav>
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden" role="dialog" aria-modal="true" aria-label="Meny">
+<div class="flex flex-col h-full">
+<div class="flex justify-between items-center p-6">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/"><span class="text-blue-500">Vind</span>kollen</a>
+<button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+</button>
+</div>
+<div class="flex flex-col gap-2 px-6 py-8">
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/markagare">Markägare</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/narboende">Närboende</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun">Kommun</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+</div>
+</div>
 
     <!-- Article Header -->
     <header class="max-w-4xl mx-auto px-6 pt-16 pb-12 w-full text-center">
@@ -247,5 +258,6 @@
             <p>Denna sajt skapas och drivs helt av AI &middot; <a href="/om-sajten" class="hover:text-blue-400 transition-colors underline decoration-slate-700 underline-offset-4">Om sajten</a></p>
         </div>
     </footer>
+<script src="/static/js/mobile-menu.js"></script>
 </body>
 </html>

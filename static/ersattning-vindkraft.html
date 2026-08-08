@@ -31,35 +31,61 @@
   }
 }
     </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .hero-gradient { background: radial-gradient(circle at 50% 50%, #111827 0%, #030712 100%); }
+    </style>
+<link href="/static/favicon.svg" rel="icon" type="image/svg+xml"/>
 </head>
-<body class="bg-gray-100 text-gray-800">
-    <nav class="bg-white shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0">
-                    <a href="/" class="text-2xl font-bold text-green-600">Vindkollen.se</a>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="/guider/guide-ersattning-vindkraft" class="text-gray-600 hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Ersättning</a>
-                        <a href="#" class="text-gray-600 hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Kalkylator</a>
-                        <a href="#" class="text-gray-600 hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Om oss</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden">
+    <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+<span class="text-blue-500">Vind</span>kollen
+</a>
+<div class="hidden md:flex gap-7 text-sm font-medium text-slate-400 items-center">
+<a class="hover:text-white transition" href="/markagare">Markägare</a>
+<a class="hover:text-white transition" href="/narboende">Närboende</a>
+<a class="hover:text-white transition" href="/kommun">Kommun</a>
+<a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+<a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+<button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Öppna meny" aria-expanded="false" aria-controls="mobile-menu">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+</button>
+</nav>
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden" role="dialog" aria-modal="true" aria-label="Meny">
+<div class="flex flex-col h-full">
+<div class="flex justify-between items-center p-6">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/"><span class="text-blue-500">Vind</span>kollen</a>
+<button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+</button>
+</div>
+<div class="flex flex-col gap-2 px-6 py-8">
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/markagare">Markägare</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/narboende">Närboende</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun">Kommun</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+</div>
+</div>
 
     <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <article class="bg-white p-8 rounded-lg shadow-md">
-            <h1 class="text-4xl font-extrabold text-gray-900 mb-4">Din Guide till Ersättning från Vindkraftverk</h1>
-            <p class="text-lg text-gray-600 mb-6">Att upplåta sin mark för vindkraft kan vara en lönsam affär, men det är viktigt att förstå hur ersättningsmodellerna fungerar. Den här guiden hjälper dig att navigera i avtalen och förstå vilken ersättning du kan förvänta dig.</p>
+        <article class="bg-slate-900/40 p-8 rounded-lg shadow-md">
+            <h1 class="text-4xl font-extrabold text-white mb-4">Din Guide till Ersättning från Vindkraftverk</h1>
+            <p class="text-lg text-slate-400 mb-6">Att upplåta sin mark för vindkraft kan vara en lönsam affär, men det är viktigt att förstå hur ersättningsmodellerna fungerar. Den här guiden hjälper dig att navigera i avtalen och förstå vilken ersättning du kan förvänta dig.</p>
 
-            <div class="ad-slot my-8 h-40 bg-gray-200 flex items-center justify-center">
-                <p class="text-gray-500">Annonsplats</p>
+            <div class="ad-slot my-8 h-40 bg-slate-800 flex items-center justify-center">
+                <p class="text-slate-500">Annonsplats</p>
             </div>
 
-            <h2 class="text-3xl font-bold text-gray-900 mt-8 mb-4">Vanliga Ersättningsmodeller</h2>
+            <h2 class="text-3xl font-bold text-white mt-8 mb-4">Vanliga Ersättningsmodeller</h2>
             <p class="mb-4">Ersättningen till markägare baseras oftast på en kombination av fasta och rörliga delar. De vanligaste modellerna inkluderar:</p>
             <ul class="list-disc list-inside space-y-2 mb-6">
                 <li><strong>Fast arrendeavgift:</strong> En årlig, fast summa som betalas ut oavsett hur mycket el vindkraftverket producerar. Ger en förutsägbar och stabil inkomst.</li>
@@ -67,7 +93,7 @@
                 <li><strong>Kombinationsmodell:</strong> En vanlig lösning är en kombination av en lägre fast avgift och en mindre royalty-andel. Detta ger en grundtrygghet samtidigt som det finns en uppsida.</li>
             </ul>
 
-            <h2 class="text-3xl font-bold text-gray-900 mt-8 mb-4">Faktorer som Påverkar Ersättningens Storlek</h2>
+            <h2 class="text-3xl font-bold text-white mt-8 mb-4">Faktorer som Påverkar Ersättningens Storlek</h2>
             <p class="mb-4">Flera faktorer spelar in när ersättningsnivån ska bestämmas. Det är viktigt att ha dessa i åtanke under förhandlingarna:</p>
             <ul class="list-disc list-inside space-y-2 mb-6">
                 <li><strong>Vindkraftverkets effekt:</strong> Större och mer effektiva verk genererar mer el och därmed högre intäkter, vilket bör återspeglas i ersättningen.</li>
@@ -76,28 +102,28 @@
                 <li><strong>Markens värde och alternativ användning:</strong> Vilken annan användning har marken? Detta kan också spela in i förhandlingarna.</li>
             </ul>
 
-            <h2 class="text-3xl font-bold text-gray-900 mt-8 mb-4">Vad händer 2026? Nya regler och intäktsdelning</h2>
-<p class="text-lg text-gray-700 mb-6">Under 2026 införs nya riktlinjer för intäktsdelning och ersättning till lokalsamhällen och närboende. Den stora förändringen är att fokus flyttas från enbart arrenden för markägare till att omfatta en bredare grupp som påverkas av vindkraftsetableringar. Syftet är att öka acceptansen för vindkraft och säkerställa att den lokala bygden får en rimlig andel av de värden som skapas.</p>
-<h3 class="text-2xl font-semibold text-gray-800 mt-6 mb-3">Viktiga förändringar att hålla koll på:</h3>
-<ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
+            <h2 class="text-3xl font-bold text-white mt-8 mb-4">Vad händer 2026? Nya regler och intäktsdelning</h2>
+<p class="text-lg text-slate-300 mb-6">Under 2026 införs nya riktlinjer för intäktsdelning och ersättning till lokalsamhällen och närboende. Den stora förändringen är att fokus flyttas från enbart arrenden för markägare till att omfatta en bredare grupp som påverkas av vindkraftsetableringar. Syftet är att öka acceptansen för vindkraft och säkerställa att den lokala bygden får en rimlig andel av de värden som skapas.</p>
+<h3 class="text-2xl font-semibold text-slate-100 mt-6 mb-3">Viktiga förändringar att hålla koll på:</h3>
+<ul class="list-disc list-inside text-slate-300 mb-6 space-y-2">
     <li><strong>Lagstadgad intäktsdelning:</strong> Krav på att en procentandel av bruttointäkterna ska gå tillbaka till lokalsamhället eller närboende.</li>
     <li><strong>Kortare ledtider för utbetalningar:</strong> Nya standardavtal som säkerställer att ersättningar betalas ut mer regelbundet och transparent.</li>
     <li><strong>Tydligare regler för inlösen:</strong> Förbättrade möjligheter att kräva inlösen av fastigheter om vindkraftverken uppförs mycket nära bostadshus.</li>
 </ul>
 
-<h2 class="text-3xl font-bold text-gray-900 mt-8 mb-4">Skillnaden mellan Arrende, Bygdepeng och Intäktsdelning</h2>
-<p class="text-lg text-gray-700 mb-6">För att fullt ut förstå vilka möjligheter som finns är det viktigt att skilja på de olika typerna av ersättning. Hur mycket man kan få beror till stor del på vilken kategori man tillhör – är du markägare, närboende eller företräder du lokalsamhället?</p>
-<ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
+<h2 class="text-3xl font-bold text-white mt-8 mb-4">Skillnaden mellan Arrende, Bygdepeng och Intäktsdelning</h2>
+<p class="text-lg text-slate-300 mb-6">För att fullt ut förstå vilka möjligheter som finns är det viktigt att skilja på de olika typerna av ersättning. Hur mycket man kan få beror till stor del på vilken kategori man tillhör – är du markägare, närboende eller företräder du lokalsamhället?</p>
+<ul class="list-disc list-inside text-slate-300 mb-6 space-y-2">
     <li><strong>Arrende (För markägare):</strong> En överenskommelse där markägaren får betalt för att upplåta mark. Ofta kombineras en fast årlig avgift med en rörlig del baserad på elproduktionen.</li>
     <li><strong>Bygdepeng (För lokalsamhället):</strong> En fond eller årlig utbetalning som går till lokala föreningar och initiativ. Med de nya reglerna 2026 förväntas bygdepengen i många fall ersättas eller kompletteras av en formell intäktsdelningsmodell.</li>
     <li><strong>Intäktsdelning (För närboende):</strong> En modell där de som bor inom ett visst avstånd från vindparken får en direkt andel av parkens intäkter, som kompensation för lokal påverkan.</li>
 </ul>
 
-<h2 class="text-3xl font-bold text-gray-900 mt-8 mb-4">Skatteregler för vindkraftsersättning 2026</h2>
-<p class="text-lg text-gray-700 mb-6">När du tar emot ersättning för vindkraft är det viktigt att vara medveten om skattekonsekvenserna. För markägare beskattas arrendeintäkter vanligtvis som inkomst av näringsverksamhet. För närboende som tar emot intäktsdelning kan det dock finnas särskilda skatteregler beroende på hur utbetalningen är strukturerad.</p>
-<p class="text-lg text-gray-700 mb-6">Det är starkt rekommenderat att konsultera en skatteexpert för att förstå exakt hur dina ersättningar kommer att beskattas och om det finns möjlighet till skatteplanering eller avdrag kopplade till din fastighet.</p>
+<h2 class="text-3xl font-bold text-white mt-8 mb-4">Skatteregler för vindkraftsersättning 2026</h2>
+<p class="text-lg text-slate-300 mb-6">När du tar emot ersättning för vindkraft är det viktigt att vara medveten om skattekonsekvenserna. För markägare beskattas arrendeintäkter vanligtvis som inkomst av näringsverksamhet. För närboende som tar emot intäktsdelning kan det dock finnas särskilda skatteregler beroende på hur utbetalningen är strukturerad.</p>
+<p class="text-lg text-slate-300 mb-6">Det är starkt rekommenderat att konsultera en skatteexpert för att förstå exakt hur dina ersättningar kommer att beskattas och om det finns möjlighet till skatteplanering eller avdrag kopplade till din fastighet.</p>
 
-<h2 class="text-3xl font-bold text-gray-900 mt-8 mb-4">Att Tänka på Inför Avtalstecknande</h2>
+<h2 class="text-3xl font-bold text-white mt-8 mb-4">Att Tänka på Inför Avtalstecknande</h2>
             <p class="mb-4">Innan du skriver på ett arrendeavtal är det några saker som är extra viktiga att se över:</p>
             <ul class="list-disc list-inside space-y-2 mb-6">
                 <li><strong>Indexreglering:</strong> Se till att avtalet innehåller en klausul för indexreglering, så att ersättningen justeras för inflation över tid.</li>
@@ -179,8 +205,8 @@ async function submitLead(event, formId) {
 </article>
     </div>
 
-    <footer class="bg-white mt-12">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+    <footer class="bg-slate-900/40 mt-12">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-slate-500">
             <p>&copy; 2026 Vindkollen.se - All rights reserved.</p>
         
             <div class="mt-12 pt-8 border-t border-slate-800/60 text-center flex flex-col md:flex-row items-center justify-between text-slate-500 text-sm">
@@ -189,5 +215,6 @@ async function submitLead(event, formId) {
             </div>
 </div>
     </footer>
+<script src="/static/js/mobile-menu.js"></script>
 </body>
 </html>

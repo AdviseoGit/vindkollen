@@ -63,63 +63,44 @@
         .glass-panel { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.05); }
     </style>
 </head>
-<body class="bg-[#030712] text-slate-300 antialiased min-h-screen flex flex-col selection:bg-blue-500/30">
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden min-h-screen flex flex-col selection:bg-blue-500/30">
 
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 border-b border-slate-800 bg-[#030712]/80 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="/" class="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
-                <svg class="w-8 h-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                <span><span class="text-blue-500">Vind</span>kollen</span>
-            </a>
-            
-            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none p-2">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path id="mobile-menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
-            
-            <div class="hidden md:flex items-center gap-8 text-sm font-semibold">
-                <a href="/kalkylator" class="hover:text-white transition-colors">Ersättningskalkylator</a>
-                <a href="/arrendekalkylator" class="hover:text-white transition-colors">Arrendekalkylator</a>
-                <a href="/ersattning-for-vindkraft" class="hover:text-white transition-colors">Nya lagen 2026</a>
-                <a href="/guider/guide-ersattning-vindkraft" class="hover:text-white transition-colors">För markägare</a>
-            </div>
-            
-            <div class="hidden md:flex">
-                <a href="/kalkylator" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-lg font-semibold transition-all shadow-lg shadow-blue-900/20">
-                    Räkna ut ersättning
-                </a>
-            </div>
-        </div>
-        
-        <div id="mobile-menu" class="hidden md:hidden bg-[#030712] border-b border-slate-800">
-            <div class="px-6 py-4 flex flex-col space-y-4 text-sm font-semibold">
-                <a href="/kalkylator" class="hover:text-white transition-colors">Ersättningskalkylator</a>
-                <a href="/arrendekalkylator" class="hover:text-white transition-colors">Arrendekalkylator</a>
-                <a href="/ersattning-for-vindkraft" class="hover:text-white transition-colors">Nya lagen 2026</a>
-                <a href="/guider/guide-ersattning-vindkraft" class="hover:text-white transition-colors">För markägare</a>
-                <a href="/kalkylator" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-center mt-4">Räkna ut ersättning</a>
-            </div>
-        </div>
-    </nav>
+    <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+<span class="text-blue-500">Vind</span>kollen
+</a>
+<div class="hidden md:flex gap-7 text-sm font-medium text-slate-400 items-center">
+<a class="hover:text-white transition" href="/markagare">Markägare</a>
+<a class="hover:text-white transition" href="/narboende">Närboende</a>
+<a class="hover:text-white transition" href="/kommun">Kommun</a>
+<a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+<a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+<button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Öppna meny" aria-expanded="false" aria-controls="mobile-menu">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+</button>
+</nav>
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden" role="dialog" aria-modal="true" aria-label="Meny">
+<div class="flex flex-col h-full">
+<div class="flex justify-between items-center p-6">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/"><span class="text-blue-500">Vind</span>kollen</a>
+<button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+</button>
+</div>
+<div class="flex flex-col gap-2 px-6 py-8">
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/markagare">Markägare</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/narboende">Närboende</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun">Kommun</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+</div>
+</div>
     
-    <script>
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-        const icon = document.getElementById('mobile-menu-icon');
-        
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-            if (menu.classList.contains('hidden')) {
-                icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-            } else {
-                icon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
-            }
-        });
-    </script>
+    
 
     <!-- Main Content -->
     <main class="flex-grow">
@@ -360,26 +341,8 @@ async function submitLead(event, formId) {
     </footer>
 
 
-<script>
-    // Mobile Menu Logic
-    document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenuClose = document.getElementById('mobile-menu-close');
-        const mobileMenu = document.getElementById('mobile-menu');
 
-        if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            });
 
-            mobileMenuClose.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            });
-        }
-    });
-</script>
-
+<script src="/static/js/mobile-menu.js"></script>
 </body>
 </html>

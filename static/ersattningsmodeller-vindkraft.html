@@ -31,57 +31,84 @@
   }
 }
     </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .hero-gradient { background: radial-gradient(circle at 50% 50%, #111827 0%, #030712 100%); }
+    </style>
+<link href="/static/favicon.svg" rel="icon" type="image/svg+xml"/>
 </head>
-<body class="bg-gray-100 text-gray-800">
-    <nav class="bg-white shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <a href="/" class="text-2xl font-bold text-green-600">Vindkollen.se</a>
-                    </div>
-                </div>
-                <div class="hidden sm:ml-6 sm:flex sm:items-center">
-                    <a href="/#calculator" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-200">Ersättningskalkylator</a>
-                    <a href="/#faq" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-200">Vanliga Frågor</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden">
+    <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+<span class="text-blue-500">Vind</span>kollen
+</a>
+<div class="hidden md:flex gap-7 text-sm font-medium text-slate-400 items-center">
+<a class="hover:text-white transition" href="/markagare">Markägare</a>
+<a class="hover:text-white transition" href="/narboende">Närboende</a>
+<a class="hover:text-white transition" href="/kommun">Kommun</a>
+<a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+<a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+<button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Öppna meny" aria-expanded="false" aria-controls="mobile-menu">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+</button>
+</nav>
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden" role="dialog" aria-modal="true" aria-label="Meny">
+<div class="flex flex-col h-full">
+<div class="flex justify-between items-center p-6">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/"><span class="text-blue-500">Vind</span>kollen</a>
+<button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+</button>
+</div>
+<div class="flex flex-col gap-2 px-6 py-8">
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/markagare">Markägare</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/narboende">Närboende</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun">Kommun</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+</div>
+</div>
 
     <main class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <article class="bg-white p-8 rounded-lg shadow-md">
-            <h1 class="text-4xl font-extrabold text-gray-900 mb-6">Förstå Ersättningsmodeller för Vindkraft</h1>
-            <p class="text-lg text-gray-600 mb-8">När du överväger att arrendera ut din mark för vindkraft är en av de viktigaste frågorna hur du kommer att kompenseras. Det finns flera olika ersättningsmodeller, och att välja rätt kan ha stor inverkan på din totala avkastning. Här går vi igenom de vanligaste modellerna.</p>
+        <article class="bg-slate-900/40 p-8 rounded-lg shadow-md">
+            <h1 class="text-4xl font-extrabold text-white mb-6">Förstå Ersättningsmodeller för Vindkraft</h1>
+            <p class="text-lg text-slate-400 mb-8">När du överväger att arrendera ut din mark för vindkraft är en av de viktigaste frågorna hur du kommer att kompenseras. Det finns flera olika ersättningsmodeller, och att välja rätt kan ha stor inverkan på din totala avkastning. Här går vi igenom de vanligaste modellerna.</p>
 
-            <h2 class="text-3xl font-bold text-gray-900 mt-10 mb-4">1. Fast Ersättning (Arrende)</h2>
-            <p class="text-gray-700 leading-relaxed mb-4">Detta är den enklaste och mest förutsägbara modellen. Du får en fast, årlig summa för varje vindkraftverk som placeras på din mark. Beloppet bestäms i avtalet och är oberoende av hur mycket el verket producerar eller vad elpriset är.</p>
+            <h2 class="text-3xl font-bold text-white mt-10 mb-4">1. Fast Ersättning (Arrende)</h2>
+            <p class="text-slate-300 leading-relaxed mb-4">Detta är den enklaste och mest förutsägbara modellen. Du får en fast, årlig summa för varje vindkraftverk som placeras på din mark. Beloppet bestäms i avtalet och är oberoende av hur mycket el verket producerar eller vad elpriset är.</p>
             <ul class="list-disc list-inside space-y-2 mb-6">
                 <li><strong class="font-semibold">Fördelar:</strong> Förutsägbar och stabil inkomst. Ingen risk kopplad till produktionsvolym eller elpriser.</li>
                 <li><strong class="font-semibold">Nackdelar:</strong> Du tar inte del av eventuella vinster om vindkraftverket producerar mer el än förväntat eller om elpriset skjuter i höjden.</li>
             </ul>
 
-            <h2 class="text-3xl font-bold text-gray-900 mt-10 mb-4">2. Rörlig Ersättning (Royalty)</h2>
-            <p class="text-gray-700 leading-relaxed mb-4">Med en rörlig modell baseras din ersättning på en procentandel av de intäkter som vindkraftverket genererar. Detta innebär att din inkomst varierar beroende på två huvudfaktorer: producerad mängd el (kWh) och det aktuella elpriset.</p>
+            <h2 class="text-3xl font-bold text-white mt-10 mb-4">2. Rörlig Ersättning (Royalty)</h2>
+            <p class="text-slate-300 leading-relaxed mb-4">Med en rörlig modell baseras din ersättning på en procentandel av de intäkter som vindkraftverket genererar. Detta innebär att din inkomst varierar beroende på två huvudfaktorer: producerad mängd el (kWh) och det aktuella elpriset.</p>
             <ul class="list-disc list-inside space-y-2 mb-6">
                 <li><strong class="font-semibold">Fördelar:</strong> Potential för betydligt högre avkastning under år med bra vindförhållanden och höga elpriser. Du delar på framgången med operatören.</li>
                 <li><strong class="font-semibold">Nackdelar:</strong> Inkomsten är oförutsägbar och kan variera kraftigt från år till år. Du delar även på risken för dålig produktion eller låga elpriser.</li>
             </ul>
-            <div class="ad-slot my-8 p-4 bg-gray-200 rounded text-center">
+            <div class="ad-slot my-8 p-4 bg-slate-800 rounded text-center">
                 <p class="font-bold">Annonsplats</p>
                 <p class="text-sm">Här kan en relevant annons visas.</p>
             </div>
 
-            <h2 class="text-3xl font-bold text-gray-900 mt-10 mb-4">3. Hybridmodell (Kombination)</h2>
-            <p class="text-gray-700 leading-relaxed mb-4">En hybridmodell kombinerar det bästa från båda världar. Den består oftast av en garanterad, lägre fast ersättning (ett grundarrende) plus en rörlig del baserad på intäkterna. Detta ger en trygg basinkomst men också en möjlighet att ta del av vinsten.</p>
+            <h2 class="text-3xl font-bold text-white mt-10 mb-4">3. Hybridmodell (Kombination)</h2>
+            <p class="text-slate-300 leading-relaxed mb-4">En hybridmodell kombinerar det bästa från båda världar. Den består oftast av en garanterad, lägre fast ersättning (ett grundarrende) plus en rörlig del baserad på intäkterna. Detta ger en trygg basinkomst men också en möjlighet att ta del av vinsten.</p>
             <ul class="list-disc list-inside space-y-2 mb-6">
                 <li><strong class="font-semibold">Fördelar:</strong> Ger en ekonomisk trygghet med en garanterad miniminivå, samtidigt som du har en uppsida om projektet går bra.</li>
                 <li><strong class="font-semibold">Nackdelar:</strong> Den fasta delen är oftast lägre än i en ren fast ersättningsmodell, och den procentuella royaltyn är lägre än i en ren rörlig modell.</li>
             </ul>
 
-            <h2 class="text-3xl font-bold text-gray-900 mt-10 mb-4">Vilken modell ska du välja?</h2>
-            <p class="text-gray-700 leading-relaxed">Valet beror på din riskvilja och dina ekonomiska mål. Om du föredrar en säker och förutsägbar inkomst är en fast ersättning bäst. Om du är villig att ta en större risk för chansen till högre avkastning kan en rörlig modell vara intressant. För de flesta markägare är dock <strong class="font-semibold">hybridmodellen ofta den mest attraktiva</strong>, eftersom den balanserar trygghet med potential.</p>
-            <p class="mt-4 text-gray-700 leading-relaxed">Oavsett vilken modell du överväger, se till att du förstår alla detaljer i avtalet. Använd gärna vår <a href="/#calculator" class="text-green-600 hover:underline">ersättningskalkylator</a> för att få en uppskattning, och konsultera alltid en juridisk expert innan du skriver på.</p>
+            <h2 class="text-3xl font-bold text-white mt-10 mb-4">Vilken modell ska du välja?</h2>
+            <p class="text-slate-300 leading-relaxed">Valet beror på din riskvilja och dina ekonomiska mål. Om du föredrar en säker och förutsägbar inkomst är en fast ersättning bäst. Om du är villig att ta en större risk för chansen till högre avkastning kan en rörlig modell vara intressant. För de flesta markägare är dock <strong class="font-semibold">hybridmodellen ofta den mest attraktiva</strong>, eftersom den balanserar trygghet med potential.</p>
+            <p class="mt-4 text-slate-300 leading-relaxed">Oavsett vilken modell du överväger, se till att du förstår alla detaljer i avtalet. Använd gärna vår <a href="/#calculator" class="text-green-600 hover:underline">ersättningskalkylator</a> för att få en uppskattning, och konsultera alltid en juridisk expert innan du skriver på.</p>
 
         
 <div class="mt-16 mb-8 bg-slate-900 border border-slate-800 rounded-2xl p-8 max-w-3xl mx-auto shadow-xl relative overflow-hidden">
@@ -158,8 +185,8 @@ async function submitLead(event, formId) {
 </article>
     </main>
 
-    <footer class="bg-white mt-12">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+    <footer class="bg-slate-900/40 mt-12">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-slate-500">
             <p>&copy; 2026 Vindkollen.se - All information är vägledande.</p>
         
             <div class="mt-12 pt-8 border-t border-slate-800/60 text-center flex flex-col md:flex-row items-center justify-between text-slate-500 text-sm">
@@ -168,5 +195,6 @@ async function submitLead(event, formId) {
             </div>
 </div>
     </footer>
+<script src="/static/js/mobile-menu.js"></script>
 </body>
 </html>

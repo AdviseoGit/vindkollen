@@ -75,7 +75,7 @@ def nav(active):
 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
 </button>
 </nav>
-<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-40 hidden">
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden" role="dialog" aria-modal="true" aria-label="Meny">
 <div class="flex flex-col h-full">
 <div class="flex justify-between items-center p-6">
 <a class="text-2xl font-extrabold tracking-tight text-white" href="/"><span class="text-blue-500">Vind</span>kollen</a>
@@ -228,16 +228,7 @@ def page(*, filename, title, description, path, nav_active, hero, body, faqs, fa
 {body}
 {faq_block(faqs)}
 {FOOTER}
-<script>
-document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {{
-    document.getElementById('mobile-menu')?.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-}});
-document.getElementById('mobile-menu-close')?.addEventListener('click', () => {{
-    document.getElementById('mobile-menu')?.classList.add('hidden');
-    document.body.style.overflow = '';
-}});
-</script>
+<script src="/static/js/mobile-menu.js"></script>
 <script src="/static/js/vk-silo.js"></script>
 </body>
 </html>

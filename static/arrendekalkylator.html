@@ -64,8 +64,12 @@
     </script>
 
 
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="/static/favicon.svg" rel="icon" type="image/svg+xml"/>
 </head>
-<body class="bg-[#030712] text-slate-100 antialiased selection:bg-blue-500/30 min-h-screen flex flex-col">
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden selection:bg-blue-500/30 min-h-screen flex flex-col">
 
     <!-- Navigation (Unified) -->
     <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
@@ -86,7 +90,7 @@
     </nav>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-[#030712]/95 backdrop-blur-md z-40 hidden flex-col items-center justify-center space-y-8 text-xl font-medium border-b border-slate-800">
+    <div id="mobile-menu" class="fixed inset-0 bg-[#030712]/95 backdrop-blur-md z-[60] hidden flex-col items-center justify-center space-y-8 text-xl font-medium border-b border-slate-800">
         <a class="text-slate-300 hover:text-white transition-colors" href="/kalkylator">Närboende-kalkylator</a>
         <a class="text-white transition-colors" href="/arrendekalkylator">Arrendekalkylator (Ny)</a>
         <a class="text-slate-300 hover:text-white transition-colors" href="/kommun-dashboard">För Kommuner</a>
@@ -172,7 +176,7 @@
                     
                     <!-- Före beräkning -->
                     <div id="pre-calc" class="space-y-4 relative z-10">
-                        <svg class="w-16 h-16 mx-auto text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        <svg class="w-16 h-16 mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                         <p class="text-slate-400 font-medium">Fyll i uppgifterna till vänster och klicka på beräkna för att se din potentiella arrendeersättning.</p>
                     </div>
 
@@ -334,22 +338,9 @@
     </footer>
 
     <script>
-        // Mobilmeny logik
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-        const closeBtn = document.getElementById('mobile-menu-close');
-
-        btn.addEventListener('click', () => {
-            menu.classList.remove('hidden');
-            menu.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        });
-
-        closeBtn.addEventListener('click', () => {
-            menu.classList.add('hidden');
-            menu.classList.remove('flex');
-            document.body.style.overflow = '';
-        });
+        // Mobilmenyn sköts av /static/js/mobile-menu.js. Den logiken låg även
+        // här, vilket gav två lyssnare på samma knapp: den ena öppnade menyn
+        // och den andra stängde den i samma klick, så den gick inte att öppna.
 
         function formatCurrency(number) {
             return new Intl.NumberFormat('sv-SE', { maximumFractionDigits: 0 }).format(number);
@@ -427,26 +418,8 @@
 <script src="/static/js/vk-silo.js"></script>
 <script src="/static/js/vk-analytics.js"></script>
 
-<script>
-    // Mobile Menu Logic
-    document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenuClose = document.getElementById('mobile-menu-close');
-        const mobileMenu = document.getElementById('mobile-menu');
 
-        if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            });
 
-            mobileMenuClose.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            });
-        }
-    });
-</script>
-
+<script src="/static/js/mobile-menu.js"></script>
 </body>
 </html>

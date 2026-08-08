@@ -45,25 +45,41 @@
     }
     </script>
 </head>
-<body class="bg-gray-900 text-gray-100 flex flex-col min-h-screen">
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden flex flex-col min-h-screen">
     <!-- Navbar -->
-    <nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <a href="/" class="text-2xl font-extrabold tracking-tight text-white">
-                    <span class="text-blue-500">Vind</span>kollen
-                </a>
-                <div class="hidden md:flex space-x-8">
-                    <a href="/kalkylator" class="text-gray-300 hover:text-white transition">Kalkylator</a>
-                    <a href="/arrendekalkylator" class="text-gray-300 hover:text-white transition">Arrendekalkylator</a>
-                    <a href="/markagare" class="text-gray-300 hover:text-white transition">Markägare</a>
-<a href="/narboende" class="text-gray-300 hover:text-white transition">Närboende</a>
-                    <a href="/guider/guide-ersattning-vindkraft" class="text-gray-300 hover:text-white transition">Guider</a>
-                    <a href="/kommun" class="text-gray-300 hover:text-white transition">Kommuner</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+<span class="text-blue-500">Vind</span>kollen
+</a>
+<div class="hidden md:flex gap-7 text-sm font-medium text-slate-400 items-center">
+<a class="hover:text-white transition" href="/markagare">Markägare</a>
+<a class="hover:text-white transition" href="/narboende">Närboende</a>
+<a class="hover:text-white transition" href="/kommun">Kommun</a>
+<a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+<a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+<button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Öppna meny" aria-expanded="false" aria-controls="mobile-menu">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+</button>
+</nav>
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden" role="dialog" aria-modal="true" aria-label="Meny">
+<div class="flex flex-col h-full">
+<div class="flex justify-between items-center p-6">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/"><span class="text-blue-500">Vind</span>kollen</a>
+<button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+</button>
+</div>
+<div class="flex flex-col gap-2 px-6 py-8">
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/markagare">Markägare</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/narboende">Närboende</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun">Kommun</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+</div>
+</div>
 
     <!-- Main Content -->
     <main class="flex-grow container mx-auto px-4 py-12 max-w-4xl">
@@ -154,10 +170,11 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-500 text-sm">© 2026 Vindkollen. Alla rättigheter förbehållna.</p>
-                <p class="text-gray-500 text-sm mt-4 md:mt-0">Denna sajt skapas och drivs helt av AI &middot; <a href="/om-sajten" class="text-blue-500 hover:text-blue-400">Om sajten</a></p>
+                <p class="text-slate-500 text-sm">© 2026 Vindkollen. Alla rättigheter förbehållna.</p>
+                <p class="text-slate-500 text-sm mt-4 md:mt-0">Denna sajt skapas och drivs helt av AI &middot; <a href="/om-sajten" class="text-blue-500 hover:text-blue-400">Om sajten</a></p>
             </div>
         </div>
     </footer>
+<script src="/static/js/mobile-menu.js"></script>
 </body>
 </html>

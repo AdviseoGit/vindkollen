@@ -37,32 +37,42 @@
   }
 }
     </script>
+<link href="/static/favicon.svg" rel="icon" type="image/svg+xml"/>
 </head>
-<body class="bg-gray-950 text-gray-100 flex flex-col min-h-screen">
-    <nav class="sticky top-0 z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0">
-                    <a class="flex items-center gap-2" href="/">
-                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                        </div>
-                        <span class="font-bold text-xl tracking-tight text-white">Vindkollen</span>
-                    </a>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors" href="/kalkylator">Kalkylator</a>
-                        <a class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors" href="/arrendeavtal-vindkraft">Arrende</a>
-                        <a class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors" href="/guider/vindkraftsersattning-2026">Guider</a>
-                        <a class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors" href="/kommun">Kommuner</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden flex flex-col min-h-screen">
+    <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+<span class="text-blue-500">Vind</span>kollen
+</a>
+<div class="hidden md:flex gap-7 text-sm font-medium text-slate-400 items-center">
+<a class="hover:text-white transition" href="/markagare">Markägare</a>
+<a class="hover:text-white transition" href="/narboende">Närboende</a>
+<a class="hover:text-white transition" href="/kommun">Kommun</a>
+<a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+<a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+<button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Öppna meny" aria-expanded="false" aria-controls="mobile-menu">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+</button>
+</nav>
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden" role="dialog" aria-modal="true" aria-label="Meny">
+<div class="flex flex-col h-full">
+<div class="flex justify-between items-center p-6">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/"><span class="text-blue-500">Vind</span>kollen</a>
+<button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+</button>
+</div>
+<div class="flex flex-col gap-2 px-6 py-8">
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/markagare">Markägare</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/narboende">Närboende</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun">Kommun</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+</div>
+</div>
 
     <main class="flex-grow pt-12 pb-24">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,7 +91,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-300 mb-2">Kapacitetsfaktor (%)</label>
-                        <p class="text-xs text-gray-500 mb-2">Standard för nya landbaserade verk är ca 35-40%</p>
+                        <p class="text-xs text-slate-500 mb-2">Standard för nya landbaserade verk är ca 35-40%</p>
                         <input type="number" id="kapacitet" min="10" max="60" value="35" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     
@@ -157,7 +167,7 @@
 
     <footer class="border-t border-gray-800 bg-gray-950 py-12 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-500 text-sm">© 2026 Vindkollen. Oberoende information om vindkraft.</p>
+            <p class="text-slate-500 text-sm">© 2026 Vindkollen. Oberoende information om vindkraft.</p>
         </div>
     
     <div class="border-t border-slate-800 mt-12 pt-8 text-center text-sm text-slate-500">
@@ -186,5 +196,6 @@
             document.getElementById('result-box').classList.remove('hidden');
         }
     </script>
+<script src="/static/js/mobile-menu.js"></script>
 </body>
 </html>

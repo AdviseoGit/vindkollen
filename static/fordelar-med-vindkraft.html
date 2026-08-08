@@ -34,6 +34,10 @@
   }
 }
 </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="/static/favicon.svg" rel="icon" type="image/svg+xml"/>
 </head>
 <body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden">
 <!-- Navigation -->
@@ -58,7 +62,7 @@
     </button>
 </nav>
 <!-- Mobile Menu Overlay -->
-<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-40 hidden">
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden">
     <div class="flex flex-col h-full">
         <div class="flex justify-between items-center p-6">
             <a class="text-2xl font-extrabold tracking-tight text-white" href="/">
@@ -85,21 +89,21 @@
 
 <!-- Main Content -->
 <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-<div class="bg-white p-8 rounded-lg shadow-md">
-<h1 class="text-4xl font-bold text-gray-900 mb-4">Vilka är fördelarna med vindkraft?</h1>
-<p class="text-lg text-gray-600 mb-8">Vindkraft är en av de snabbast växande energikällorna i världen och en central del i omställningen till ett hållbart energisystem. För både samhället i stort och enskilda markägare finns det många betydande fördelar.</p>
-<div class="ad-slot my-8 p-4 bg-gray-100 rounded-md text-center">
-<p class="text-sm text-gray-500">Annonsplats</p>
+<div class="bg-slate-900/40 p-8 rounded-lg shadow-md">
+<h1 class="text-4xl font-bold text-white mb-4">Vilka är fördelarna med vindkraft?</h1>
+<p class="text-lg text-slate-400 mb-8">Vindkraft är en av de snabbast växande energikällorna i världen och en central del i omställningen till ett hållbart energisystem. För både samhället i stort och enskilda markägare finns det många betydande fördelar.</p>
+<div class="ad-slot my-8 p-4 bg-slate-900/60 rounded-md text-center">
+<p class="text-sm text-slate-500">Annonsplats</p>
 </div>
-<h2 class="text-3xl font-semibold text-gray-800 mt-12 mb-4">1. Förnybar och koldioxidfri energi</h2>
+<h2 class="text-3xl font-semibold text-slate-100 mt-12 mb-4">1. Förnybar och koldioxidfri energi</h2>
 <p class="mb-6">Den mest grundläggande fördelen är att vindkraft är en helt förnybar energikälla. Vinden kommer inte att ta slut. Under drift släpper vindkraftverk inte ut några växthusgaser, vilket gör dem avgörande för att bekämpa klimatförändringarna och minska beroendet av fossila bränslen som kol och olja.</p>
-<h2 class="text-3xl font-semibold text-gray-800 mt-12 mb-4">2. Låga driftskostnader och stabila elpriser</h2>
+<h2 class="text-3xl font-semibold text-slate-100 mt-12 mb-4">2. Låga driftskostnader och stabila elpriser</h2>
 <p class="mb-6">När ett vindkraftverk väl är byggt är bränslet – vinden – helt gratis. Detta leder till låga driftskostnader jämfört med andra energislag som kräver kontinuerligt bränsleinköp. En större andel vindkraft i elnätet kan bidra till mer stabila och förutsägbara elpriser på lång sikt.</p>
-<h2 class="text-3xl font-semibold text-gray-800 mt-12 mb-4">3. Ekonomisk möjlighet för markägare</h2>
+<h2 class="text-3xl font-semibold text-slate-100 mt-12 mb-4">3. Ekonomisk möjlighet för markägare</h2>
 <p class="mb-6">För markägare erbjuder vindkraft en attraktiv och långsiktig intäktskälla genom arrendeavtal. Ett enda vindkraftverk kan generera betydande årliga inkomster, vilket diversifierar ekonomin för jord- och skogsbrukare. Den mark som används för själva verket är liten, vilket innebär att jordbruket kan fortsätta som vanligt runtomkring. Använd vår <a class="text-green-600 hover:underline" href="/kalkylator">ersättningskalkylator</a> för att se potentialen.</p>
-<h2 class="text-3xl font-semibold text-gray-800 mt-12 mb-4">4. Lokal ekonomisk utveckling</h2>
+<h2 class="text-3xl font-semibold text-slate-100 mt-12 mb-4">4. Lokal ekonomisk utveckling</h2>
 <p class="mb-6">Vindkraftsprojekt skapar lokala arbetstillfällen, både under byggfasen och för långsiktigt underhåll. Dessutom betalar vindkraftsbolag fastighetsskatt till kommunen och erbjuder ofta en "bygdepeng" som kan användas för att utveckla lokalsamhället, till exempel genom att stödja föreningsliv eller infrastrukturprojekt.</p>
-<h2 class="text-3xl font-semibold text-gray-800 mt-12 mb-4">5. Energieffektivitet och snabb etablering</h2>
+<h2 class="text-3xl font-semibold text-slate-100 mt-12 mb-4">5. Energieffektivitet och snabb etablering</h2>
 <p class="mb-6">Det tar relativt kort tid att bygga en vindkraftspark jämfört med andra storskaliga energianläggningar som kärnkraftverk. Dessutom har moderna vindkraftverk en hög energieffektivitet; den energi som går åt för att tillverka, transportera och installera ett verk tjänas in på bara några månader av drift.</p>
 </div>
 
@@ -221,53 +225,11 @@ async function submitLead(event, formId) {
 </footer>
 
 
-<script>
-// Mobile menu toggle
-const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-const mobileMenu = document.getElementById("mobile-menu");
-const mobileMenuClose = document.getElementById("mobile-menu-close");
 
-mobileMenuBtn?.addEventListener("click", () => {
-    mobileMenu?.classList.remove("hidden");
-    document.body.style.overflow = "hidden";
-});
-
-mobileMenuClose?.addEventListener("click", () => {
-    mobileMenu?.classList.add("hidden");
-    document.body.style.overflow = "";
-});
-
-// Close on link click
-mobileMenu?.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-        mobileMenu?.classList.add("hidden");
-        document.body.style.overflow = "";
-    });
-});
-</script>
 
 <script src="/static/js/mobile-menu.js"></script>
 
-<script>
-    // Mobile Menu Logic
-    document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenuClose = document.getElementById('mobile-menu-close');
-        const mobileMenu = document.getElementById('mobile-menu');
 
-        if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            });
-
-            mobileMenuClose.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            });
-        }
-    });
-</script>
 
 </body>
 </html>

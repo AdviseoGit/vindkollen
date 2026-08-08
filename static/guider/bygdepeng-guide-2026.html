@@ -31,6 +31,10 @@
   }
 }
 </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="/static/favicon.svg" rel="icon" type="image/svg+xml"/>
 </head>
 <body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden selection:bg-blue-500/30 selection:text-blue-200">
 
@@ -56,7 +60,7 @@
     </button>
 </nav>
 <!-- Mobile Menu Overlay -->
-<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-40 hidden">
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden">
     <div class="flex flex-col h-full">
         <div class="flex justify-between items-center p-6">
             <a class="text-2xl font-extrabold tracking-tight text-white" href="/">
@@ -81,23 +85,7 @@
     </div>
 </div>
 
-<script>
-    const mobileBtn = document.getElementById('mobile-menu-btn');
-    const closeBtn = document.getElementById('mobile-close-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
 
-    mobileBtn.addEventListener('click', () => {
-        mobileMenu.classList.remove('hidden');
-        mobileMenu.classList.add('flex');
-        document.body.style.overflow = 'hidden';
-    });
-
-    closeBtn.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-        mobileMenu.classList.remove('flex');
-        document.body.style.overflow = '';
-    });
-</script>
 
 <main class="max-w-3xl mx-auto px-6 py-12 prose prose-invert prose-blue">
 <h1>Bygdepeng 2026: Allt om den lokala ersättningen från vindkraft</h1>
@@ -272,26 +260,8 @@ async function submitLead(event, formId) {
 </footer>
 
 
-<script>
-    // Mobile Menu Logic
-    document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenuClose = document.getElementById('mobile-menu-close');
-        const mobileMenu = document.getElementById('mobile-menu');
 
-        if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            });
 
-            mobileMenuClose.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            });
-        }
-    });
-</script>
-
+<script src="/static/js/mobile-menu.js"></script>
 </body>
 </html>

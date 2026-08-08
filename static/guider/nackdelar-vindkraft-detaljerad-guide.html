@@ -38,22 +38,50 @@
   }
 }
     </script>
+<link href="/static/favicon.svg" rel="icon" type="image/svg+xml"/>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden">
     <div class="container mx-auto px-4 py-8">
         <header class="text-center mb-8">
             <a href="/" class="text-4xl font-bold text-blue-700">Vindkollen</a>
-            <p class="text-xl text-gray-600">Din guide till ersättning från vindkraft</p>
+            <p class="text-xl text-slate-400">Din guide till ersättning från vindkraft</p>
         </header>
 
-        <nav class="bg-white shadow-md rounded-lg p-4 mb-8">
-            <ul class="flex justify-center space-x-4">
-                <li><a href="/" class="text-blue-600 hover:text-blue-800 font-semibold">Hem</a></li>
-                <li><a href="/guider/guide-ersattning-vindkraft" class="text-blue-600 hover:text-blue-800 font-semibold">Ersättningsguide</a></li>
-            </ul>
-        </nav>
+        <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+<span class="text-blue-500">Vind</span>kollen
+</a>
+<div class="hidden md:flex gap-7 text-sm font-medium text-slate-400 items-center">
+<a class="hover:text-white transition" href="/markagare">Markägare</a>
+<a class="hover:text-white transition" href="/narboende">Närboende</a>
+<a class="hover:text-white transition" href="/kommun">Kommun</a>
+<a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+<a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+<button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Öppna meny" aria-expanded="false" aria-controls="mobile-menu">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+</button>
+</nav>
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden" role="dialog" aria-modal="true" aria-label="Meny">
+<div class="flex flex-col h-full">
+<div class="flex justify-between items-center p-6">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/"><span class="text-blue-500">Vind</span>kollen</a>
+<button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+</button>
+</div>
+<div class="flex flex-col gap-2 px-6 py-8">
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/markagare">Markägare</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/narboende">Närboende</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun">Kommun</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+</div>
+</div>
 
-        <main class="bg-white p-8 rounded-lg shadow-md">
+        <main class="bg-slate-900/40 p-8 rounded-lg shadow-md">
             <article>
                 <h1 class="text-3xl font-bold mb-4">Nackdelar med Vindkraft: En Detaljerad Guide (Uppdaterad 2026)</h1>
                 <p class="mb-4">Vindkraft är en viktig del av Sveriges omställning till förnybar energi, men utbyggnaden kantas ofta av debatt. Det är viktigt att belysa de nackdelar och utmaningar som finns för att förstå varför <a href="/guider/guide-ersattning-vindkraft" class="text-blue-600 hover:underline">ersättningsmodeller</a> är nödvändiga. Den här guiden ger en balanserad och ärlig bild av vindkraftens baksidor, baserad på aktuell forskning och erfarenheter.</p>
@@ -86,7 +114,7 @@
                 <p class="mb-4">Frågan om vindkraftens påverkan på fastighetsvärden är komplex och hett debatterad. Generellt sett visar oberoende studier att fastigheter som ligger i nära anslutning (inom 2-3 km) från storskaliga vindkraftsparker kan drabbas av en viss värdeminskning, ibland uppskattad till mellan 5 och 15 %. Värdeminskningen drivs av oron för buller, skuggkastning och förlusten av naturvärden.</p>
                 <p class="mb-4">Det är just på grund av denna risk för negativ påverkan på boendemiljö och fastighetsvärden som incitament och <a href="/kommunersattning-vindkraft-2026" class="text-blue-600 hover:underline">ersättningsmodeller</a>, såsom inlösenrätter och årliga ersättningar (bygdepeng), har införts och fortsätter att utvecklas under 2026.</p>
 
-                <div class="ad-slot bg-gray-200 p-6 rounded-lg text-center mt-8 mb-8">
+                <div class="ad-slot bg-slate-800 p-6 rounded-lg text-center mt-8 mb-8">
                     <h3 class="font-bold text-xl mb-2">Har du vindkraft nära din fastighet?</h3>
                     <p class="mb-4">Ta reda på vilken ersättning du eller din bygd kan ha rätt till. Använd vår kostnadsfria kalkylator för att se aktuella nivåer för 2026.</p>
                     <a href="/kalkylator" class="bg-blue-600 text-white px-6 py-3 rounded-lg mt-2 inline-block font-semibold hover:bg-blue-700 transition-colors shadow-md">Testa Ersättningskalkylatorn</a>
@@ -172,7 +200,7 @@ async function submitLead(event, formId) {
 </article>
         </main>
 
-        <footer class="text-center mt-8 text-gray-600">
+        <footer class="text-center mt-8 text-slate-400">
             <p>&copy; 2026 Vindkollen. Alla rättigheter förbehållna.</p>
         
     <div class="border-t border-slate-800 mt-12 pt-8 text-center text-sm text-slate-500">
@@ -181,5 +209,6 @@ async function submitLead(event, formId) {
 
 </footer>
     </div>
+<script src="/static/js/mobile-menu.js"></script>
 </body>
 </html>

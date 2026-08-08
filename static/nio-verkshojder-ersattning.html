@@ -55,11 +55,19 @@
             }
         }
     </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .hero-gradient { background: radial-gradient(circle at 50% 50%, #111827 0%, #030712 100%); }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-900 antialiased flex flex-col min-h-screen">
+<body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden flex flex-col min-h-screen">
     
     <!-- Header -->
-    <header class="bg-white/90 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
+    <header class="bg-slate-900/40/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center gap-2">
@@ -71,12 +79,39 @@
                     </a>
                 </div>
                 
-                <nav class="hidden md:flex space-x-8">
-                    <a href="/kalkylator" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Kalkylator</a>
-                    <a href="/intaktsdelning-vindkraft" class="text-primary-600 font-medium">Intäktsdelning</a>
-                    <a href="/ersattningsnivaer-region-for-region" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Regionala skillnader</a>
-                    <a href="/om-sajten" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Om oss</a>
-                </nav>
+                <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50 w-full">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/">
+<span class="text-blue-500">Vind</span>kollen
+</a>
+<div class="hidden md:flex gap-7 text-sm font-medium text-slate-400 items-center">
+<a class="hover:text-white transition" href="/markagare">Markägare</a>
+<a class="hover:text-white transition" href="/narboende">Närboende</a>
+<a class="hover:text-white transition" href="/kommun">Kommun</a>
+<a class="hover:text-white transition" href="/kalkylator">Kalkylator</a>
+<a class="hover:text-white transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+<button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Öppna meny" aria-expanded="false" aria-controls="mobile-menu">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+</button>
+</nav>
+<div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[60] hidden" role="dialog" aria-modal="true" aria-label="Meny">
+<div class="flex flex-col h-full">
+<div class="flex justify-between items-center p-6">
+<a class="text-2xl font-extrabold tracking-tight text-white" href="/"><span class="text-blue-500">Vind</span>kollen</a>
+<button id="mobile-menu-close" class="text-white p-2 hover:bg-slate-800 rounded-lg transition" aria-label="Stäng meny">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+</button>
+</div>
+<div class="flex flex-col gap-2 px-6 py-8">
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/">Hem</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/markagare">Markägare</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/narboende">Närboende</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kommun">Kommun</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/kalkylator">Kalkylator</a>
+<a class="text-lg font-medium text-slate-300 hover:text-white py-3 px-4 rounded-lg hover:bg-slate-800 transition" href="/arrendekalkylator">Arrendekalkylator</a>
+</div>
+</div>
+</div>
             </div>
         </div>
     </header>
@@ -104,7 +139,7 @@
         <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
             <div class="prose prose-lg prose-primary max-w-none">
                 
-                <p class="lead text-xl text-gray-600 mb-8">
+                <p class="lead text-xl text-slate-400 mb-8">
                     I debatten kring det nya incitamentspaketet för vindkraft som är tänkt att träda i kraft har en specifik term blivit central: <strong>Nio verkshöjder</strong>. Detta mått är den föreslagna avståndsgränsen för närboende som har rätt till ekonomisk kompensation (intäktsdelning) när nya vindkraftverk byggs. Här reder vi ut exakt hur regeln fungerar och vad den innebär för dig som fastighetsägare.
                 </p>
 
@@ -134,9 +169,9 @@
                     <li><strong>Fritidshus vs permanentboende:</strong> Även fritidshus omfattas normalt sett av begreppet bostadsbyggnader i dessa sammanhang, förutsatt att de är inrättade för boende, men exakta definitioner i den slutgiltiga lagtexten (som väntas gälla från 2026) bör följas noga.</li>
                 </ul>
 
-                <div class="my-10 bg-white border border-gray-200 rounded-xl shadow-sm p-8 text-center">
+                <div class="my-10 bg-slate-900/40 border border-slate-800 rounded-xl shadow-sm p-8 text-center">
                     <h3 class="text-2xl font-bold mb-4">Ligger ditt hus inom nio verkshöjder?</h3>
-                    <p class="text-gray-600 mb-6">Använd vår kalkylator för att räkna ut exakt hur mycket ersättning du kan ha rätt till enligt de nya reglerna för intäktsdelning.</p>
+                    <p class="text-slate-400 mb-6">Använd vår kalkylator för att räkna ut exakt hur mycket ersättning du kan ha rätt till enligt de nya reglerna för intäktsdelning.</p>
                     <a href="/kalkylator" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 transition-colors duration-200">
                         Starta kalkylatorn
                         <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,9 +193,9 @@
                     I förslaget om intäktsdelning (motsvarande en andel av bruttointäkterna) fördelas potten mellan de berättigade hushållen inom denna radie, vilket innebär att ju färre hushåll som finns inom nio verkshöjder från verken, desto högre blir andelen per hushåll.
                 </p>
 
-                <div class="mt-12 p-6 bg-gray-100 rounded-xl">
+                <div class="mt-12 p-6 bg-slate-900/60 rounded-xl">
                     <h4 class="text-lg font-semibold mb-2">Sammanfattning</h4>
-                    <p class="text-sm text-gray-700">
+                    <p class="text-sm text-slate-300">
                         <strong>Nio verkshöjder</strong> är den tröskel som föreslås avgöra om du som husägare får del av vindkraftens intäktsdelning. Genom att multiplicera vindkraftverkets höjd (inklusive rotorblad) med nio får du fram gränsen i meter. Denna modell säkerställer att boende kompenseras i relation till hur stora (och därmed potentiellt påverkande) vindkraftverken är.
                     </p>
                 </div>
@@ -271,5 +306,6 @@
             </div>
         </div>
     </footer>
+<script src="/static/js/mobile-menu.js"></script>
 </body>
 </html>
