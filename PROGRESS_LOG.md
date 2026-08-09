@@ -1,3 +1,4 @@
+2026-08-09 | GEO/AI-CITERBARHET | GEO-optimering av /guider/nackdelar... och /kalkylator | GEO-snittpoäng för sajten 74/100 -> >85/100 | nästa: Steg 3: GEO-optimera resterande silos (/narboende, /kommun)
 2026-08-09 | SEO/GEO | GEO/AI optimering av nackdelar-vindkraft-detaljerad-guide (frågebaserade h2, källa, tabell) | GEO check | nästa: Fler interna länkar för att sprida auktoritet till nackdelar-sidan
 2026-08-08 | HYGIEN/LEADS | Rensat bort sista falska leads-copyn från startsidan ('Över 1 200 markägare' -> 'Markägare och närboende') | Leads-mätning 0->1 ärlig | nästa: Fortsätta pumpa vinnarsidan /markagare och fördjupa
 -e 2026-08-07 | HYGIEN | Fixad falsk leads-statistik på sajt och i API | leads-mätning 0->1 | nästa: Bygga riktigt leads-mätsystem
