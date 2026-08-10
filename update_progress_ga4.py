@@ -1,6 +1,6 @@
 import datetime
 
-log_entry = f"{datetime.date.today().strftime('%Y-%m-%d')} | SEO/CONTENT | Publicerade ny guide: Kommunalt veto vindkraft | Fångar sökvolym på en av de mest ökande sökningarna (+78700%) | nästa: Implementera GA4 Key Events eller deploya till produktion\n"
+log_entry = f"{datetime.date.today().strftime('%Y-%m-%d')} | DATA/ANALYTICS | Implementerade GA4 Key Events (calculator_complete, cta_click, scroll_depth) | Data Capture & Conversion Tracking | nästa: Deploya till produktion\n"
 
 with open("/data/workspace/projects/vindkollen/PROGRESS_LOG.md", "r") as f:
     lines = f.readlines()

@@ -1,0 +1,167 @@
+import re
+
+template_path = "/data/workspace/projects/vindkollen/static/guider/nackdelar-vindkraft-detaljerad-guide.html"
+output_path = "/data/workspace/projects/vindkollen/static/guider/kommunalt-veto-vindkraft.html"
+
+with open(template_path, "r", encoding="utf-8") as f:
+    template_html = f.read()
+
+# Replace title and meta
+template_html = re.sub(
+    r'<title>.*?</title>',
+    '<title>Kommunalt Veto Vindkraft: Fakta & Regler 2026 | Vindkollen</title>',
+    template_html
+)
+
+template_html = re.sub(
+    r'<meta name="description" content=".*?">',
+    '<meta name="description" content="Allt du behöver veta om det kommunala vetot för vindkraft: hur det fungerar, debatten kring det, och vad det innebär för markägare och närboende 2026.">',
+    template_html
+)
+
+template_html = re.sub(
+    r'<link rel="canonical" href=".*?">',
+    '<link rel="canonical" href="https://vindkoll.se/guider/kommunalt-veto-vindkraft">',
+    template_html
+)
+
+# Open Graph tags
+template_html = re.sub(
+    r'<meta property="og:title" content=".*?">',
+    '<meta property="og:title" content="Kommunalt Veto Vindkraft: Fakta & Regler 2026">',
+    template_html
+)
+
+template_html = re.sub(
+    r'<meta property="og:description" content=".*?">',
+    '<meta property="og:description" content="Allt du behöver veta om det kommunala vetot för vindkraft: hur det fungerar, debatten kring det, och vad det innebär för markägare och närboende 2026.">',
+    template_html
+)
+
+template_html = re.sub(
+    r'<meta property="og:url" content=".*?">',
+    '<meta property="og:url" content="https://vindkoll.se/guider/kommunalt-veto-vindkraft">',
+    template_html
+)
+
+# We will replace the main content area. The template has <main class="..."><article class="...">...
+content_to_insert = """
+            <header class="mb-10 lg:mb-14">
+                <div class="flex items-center gap-2 text-sm text-cyan-400 mb-4 font-mono">
+                    <span class="flex h-2 w-2 rounded-full bg-cyan-400"></span>
+                    Fakta & Regler
+                </div>
+                <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
+                    Kommunalt veto vindkraft: <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Regler och konsekvenser</span>
+                </h1>
+                <p class="text-xl text-gray-400 leading-relaxed max-w-3xl">
+                    Det kommunala vetot är en av de mest omdiskuterade frågorna kring utbyggnaden av vindkraft i Sverige. Men vad innebär det egentligen, och hur påverkar det kommuner och markägare under 2026?
+                </p>
+                <div class="flex items-center gap-4 mt-8 pt-8 border-t border-gray-800">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <span class="text-sm text-gray-400">Uppdaterad: 2026-08-10</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="text-sm text-gray-400">4 min läsning</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-a:text-cyan-400 hover:prose-a:text-cyan-300 prose-img:rounded-xl">
+                <h2>Vad är det kommunala vetot?</h2>
+                <p>
+                    Det kommunala vetot innebär att en kommun har rätt att säga nej till en ny vindkraftspark på sitt territorium. Detta regleras i Miljöbalken och bygger på det <em>kommunala planmonopolet</em> – kommunens rätt att bestämma hur mark och vatten ska användas inom dess gränser.
+                </p>
+                <p>
+                    För att en vindkraftspark ska kunna få tillstånd enligt Miljöbalken krävs det att kommunfullmäktige har tillstyrkt (godkänt) anläggningen. Om kommunen säger nej faller ansökan i de allra flesta fall.
+                </p>
+
+                <div class="bg-gray-800/50 border border-gray-700 rounded-xl p-6 my-8">
+                    <h3 class="text-white mt-0 mb-4 flex items-center gap-2">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Kärnan i lagstiftningen (Miljöbalken)
+                    </h3>
+                    <p class="text-gray-300 mb-0">
+                        "En anläggning för vindkraft... får tillåtas endast om den kommun där anläggningen ska uppföras har tillstyrkt det." (16 kap. 4 § miljöbalken)
+                    </p>
+                </div>
+
+                <h2>Hur fungerar vetot i praktiken?</h2>
+                <p>
+                    När ett vindkraftsbolag vill bygga en park ansöker de om tillstånd. Innan Länsstyrelsen eller Miljöprövningsdelegationen kan ge ett slutgiltigt godkännande måste kommunen yttra sig.
+                </p>
+                <ol>
+                    <li><strong>Ansökan:</strong> Projektören skickar in en ansökan med en miljökonsekvensbeskrivning (MKB).</li>
+                    <li><strong>Kommunen prövar:</strong> Kommunfullmäktige tar ställning till ansökan.</li>
+                    <li><strong>Beslut:</strong> Kommunen kan tillstyrka eller avstyrka. Ett nej från kommunfullmäktige stoppar projektet (med vissa mycket sällsynta undantag för nationellt intresse, men praxis är att vetot står fast).</li>
+                </ol>
+
+                <h2>Fördelar och nackdelar</h2>
+                <div class="grid md:grid-cols-2 gap-6 my-8">
+                    <div class="bg-emerald-900/20 border border-emerald-800/50 rounded-xl p-6">
+                        <h3 class="text-emerald-400 mt-0 mb-4">Fördelar med vetot</h3>
+                        <ul class="text-gray-300 text-sm space-y-2 m-0 p-0 list-none">
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span><strong>Stärkt lokaldemokrati:</strong> Invånarna får via sina folkvalda politiker ett direkt inflytande över sin närmiljö.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span><strong>Skydd av lokala intressen:</strong> Naturvärden, boendemiljö och turism kan värnas om projekt bedöms vara olämpliga.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-red-900/20 border border-red-800/50 rounded-xl p-6">
+                        <h3 class="text-red-400 mt-0 mb-4">Nackdelar och kritik</h3>
+                        <ul class="text-gray-300 text-sm space-y-2 m-0 p-0 list-none">
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                <span><strong>Oförutsägbarhet:</strong> Projektörer investerar ofta stora belopp, för att sedan få ett nej sent i processen. Detta hämmar investeringsviljan.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                <span><strong>Hinder för klimatmål:</strong> Vetot pekas ofta ut som den största bromsklossen för att nå Sveriges mål om fossilfri elproduktion, då över hälften av alla projekt stoppas.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>Debatten 2026: Kommer vetot att ändras?</h2>
+                <p>
+                    Det kommunala vetot har varit föremål för intensiv debatt och flera statliga utredningar. Många aktörer, särskilt inom vindkraftsbranschen och från industrihåll, anser att vetot i sin nuvarande form är för oförutsägbart.
+                </p>
+                <p>
+                    Den stora trenden under 2026 har varit att försöka hitta morötter istället för piskor. Istället för att ta bort vetot, fokuserar regeringen på att öka acceptansen genom starkare ekonomiska incitament till lokalsamhället, som den <a href="/guider/bygdepeng-vindkraft-regler-2026">nya trappstegsmodellen för bygdepeng</a> och diskussioner om kommunal fastighetsskatt.
+                </p>
+
+                <hr class="border-gray-800 my-10">
+
+                <div class="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-2xl p-8 text-center">
+                    <h3 class="text-2xl font-bold text-white mt-0 mb-4">Hur påverkas din ersättning av ett godkänt projekt?</h3>
+                    <p class="text-gray-400 mb-6">Om kommunen tillstyrker en vindkraftspark och den byggs, har du som närboende eller markägare rätt till ersättning enligt de nya lagarna för 2026. Beräkna vad det kan innebära för dig.</p>
+                    <a href="/kalkylator" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-black bg-cyan-400 hover:bg-cyan-300 transition-colors gap-2">
+                        Till Ersättningskalkylatorn
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+"""
+
+# Extract the header and article tags, replace inner content
+# A regex to match everything inside <article class="..."> ... </article>
+pattern = r'(<article[^>]*>).*?(</article>)'
+new_html = re.sub(pattern, r'\1' + content_to_insert + r'\2', template_html, flags=re.DOTALL)
+
+with open(output_path, "w", encoding="utf-8") as f:
+    f.write(new_html)
+
+print(f"Generated {output_path}")

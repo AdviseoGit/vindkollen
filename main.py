@@ -712,6 +712,11 @@ async def ersattning_vindkraft():
 async def fastighetsskatt_vindkraft_2026():
     return _serve_static_html("static/fastighetsskatt-vindkraft-2026.html")
 
+
+@app.get("/guider/kommunalt-veto-vindkraft", response_class=HTMLResponse)
+async def kommunalt_veto_vindkraft():
+    return _serve_static_html("static/guider/kommunalt-veto-vindkraft.html")
+
 @app.get("/guider/nackdelar-med-vindkraft", response_class=HTMLResponse)
 async def nackdelar_med_vindkraft():
     return _serve_static_html("static/nackdelar-med-vindkraft.html")

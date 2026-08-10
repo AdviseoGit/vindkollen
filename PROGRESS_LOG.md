@@ -1,3 +1,5 @@
+2026-08-10 | DATA/ANALYTICS | Implementerade GA4 Key Events (calculator_complete, cta_click, scroll_depth) | Data Capture & Conversion Tracking | nästa: Deploya till produktion
+2026-08-10 | SEO/CONTENT | Publicerade ny guide: Kommunalt veto vindkraft | Fångar sökvolym på en av de mest ökande sökningarna (+78700%) | nästa: Implementera GA4 Key Events eller deploya till produktion
 2026-08-10 | GEO | GEO-optimering av startsidan (tabell, källor) och jamforelse-ersattning-vs-arrende (H2, tabell, källor) | Snittpoäng (top 8) nu 100/100 | nästa: Bygga riktigt leads-mätsystem
 2026-08-10 | GEO | GEO-optimering av /kommun och /narboende (schema, tabeller, h2, källa) | GEO-poäng /narboende & /kommun: 76/100 -> >95/100 | nästa: Bygga riktigt leads-mätsystem
 2026-08-09 | GEO/AI-CITERBARHET | GEO-optimering av /guider/nackdelar... och /kalkylator | GEO-snittpoäng för sajten 74/100 -> >85/100 | nästa: Steg 3: GEO-optimera resterande silos (/narboende, /kommun)
