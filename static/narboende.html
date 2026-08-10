@@ -52,18 +52,18 @@
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "Kan jag få ersättning för värdeminskning på min fastighet?",
+              "name": "Hur nära måste jag bo för att få ersättning från vindkraft?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Enligt miljöbalken har närboende rätt till ersättning om en vindkraftsetablering medför en betydande skada som sänker fastighetens marknadsvärde, men bevisbördan ligger på fastighetsägaren."
+                "text": "För att ha rätt till intäktsdelning enligt det nya lagförslaget (prop. 2025/26:239) som träder i kraft i juli 2026 måste din bostad ligga inom ett avstånd motsvarande högst tio gånger vindkraftverkets totalhöjd (verkhöjder). Är verket 200 meter högt innebär det en radie på 2000 meter."
               }
             },
             {
               "@type": "Question",
-              "name": "Vad är vindbonus (årlig ersättning till närboende)?",
+              "name": "Hur mycket får jag som närboende till en vindkraftspark?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Vindbonus är en frivillig årlig ersättning från vindkraftsprojektören direkt till närboende, ofta baserat på avståndet till verken."
+                "text": "Enligt den nya lagstiftningen ska totalt 2 % av parkens bruttointäkter fördelas. För ett typiskt svenskt elpris och verk på 6 MW beräknas ersättningen bli ca 38 400 kr/år för de som bor allra närmast (under 1000m), fallande ner till ca 9 600 kr/år för dem i yttre zonen."
               }
             }
           ]
@@ -123,15 +123,45 @@
 </div>
 </header>
 <section class="max-w-5xl mx-auto px-6 py-14">
-<h2 class="text-3xl font-bold text-white mb-3">Trappstegsmodellen: avståndet avgör</h2>
+<h2 class="text-3xl font-bold text-white mb-3">Hur fungerar trappstegsmodellen och avståndskraven?</h2>
 <p class="text-slate-400 mb-8 max-w-3xl">Ersättningen räknas som en promillesats av parkens årsintäkter, och satsen trappas ned med avståndet mätt i verkshöjder. För ett verk på 250 meter går yttre gränsen vid 2 250 meter.</p>
-<div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-center mb-8">
-<div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700"><div class="text-xs text-slate-400">≤ 5× höjden</div><div class="text-xl font-bold text-emerald-400">2,5‰</div></div>
-<div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700"><div class="text-xs text-slate-400">5–6×</div><div class="text-xl font-bold text-emerald-300">2,0‰</div></div>
-<div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700"><div class="text-xs text-slate-400">6–7×</div><div class="text-xl font-bold text-blue-300">1,5‰</div></div>
-<div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700"><div class="text-xs text-slate-400">7–8×</div><div class="text-xl font-bold text-blue-400">1,0‰</div></div>
-<div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700"><div class="text-xs text-slate-400">8–9×</div><div class="text-xl font-bold text-purple-400">0,5‰</div></div>
+
+<div class="overflow-x-auto rounded-xl border border-slate-700 mb-8 mt-4">
+  <table class="w-full text-left text-sm text-slate-300" aria-label="Ersättningstrappan enligt prop. 2025/26:239">
+    <thead class="bg-slate-800 text-slate-200">
+      <tr>
+        <th class="px-4 py-3 font-semibold border-b border-slate-700">Avstånd (verkshöjder)</th>
+        <th class="px-4 py-3 font-semibold border-b border-slate-700">Andel av intäkter (promille)</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-800 bg-slate-900/50">
+      <tr>
+        <td class="px-4 py-4 font-medium text-white">≤ 5× höjden</td>
+        <td class="px-4 py-4">2,5‰</td>
+      </tr>
+      <tr>
+        <td class="px-4 py-4 font-medium text-white">5–6× höjden</td>
+        <td class="px-4 py-4">2,0‰</td>
+      </tr>
+      <tr>
+        <td class="px-4 py-4 font-medium text-white">6–7× höjden</td>
+        <td class="px-4 py-4">1,5‰</td>
+      </tr>
+      <tr>
+        <td class="px-4 py-4 font-medium text-white">7–8× höjden</td>
+        <td class="px-4 py-4">1,0‰</td>
+      </tr>
+      <tr>
+        <td class="px-4 py-4 font-medium text-white">8–9× höjden</td>
+        <td class="px-4 py-4">0,5‰</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="px-4 py-2 bg-slate-800/50 text-xs text-slate-400 border-t border-slate-700">
+    <a href="https://regeringen.se/rattsliga-dokument/lagradsremiss/2024/11/lokal-nytta-av-vindkraft/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">Källa: Regeringens lagrådsremiss / prop. 2025/26:239 (regeringen.se)</a>
+  </div>
 </div>
+
 <div class="grid md:grid-cols-3 gap-5"><div class="bg-slate-900/40 p-6 border border-slate-800 rounded-2xl">
 <div class="text-2xl font-extrabold text-white mb-1">38 400 kr/år</div>
 <div class="text-sm font-semibold text-blue-400 mb-2">Maxnivå SE4 (södra Sverige)</div>
@@ -150,7 +180,7 @@
 </section>
 
 <section class="max-w-5xl mx-auto px-6 py-14 border-t border-slate-900">
-<h2 class="text-3xl font-bold text-white mb-3">Fyra saker du behöver veta</h2>
+<h2 class="text-3xl font-bold text-white mb-3">Vilka fyra saker behöver du veta som närboende?</h2>
 <ul class="space-y-4 text-slate-300">
 <li class="bg-slate-900/40 border border-slate-800 rounded-xl p-5"><b class="text-white">Lagen gäller nya parker.</b> Intäktsdelningen omfattar parker som får lagakraftvunnet miljötillstånd efter den 1 juli 2026. Bor du nära en befintlig park är du i stället hänvisad till frivillig bygdepeng.</li>
 <li class="bg-slate-900/40 border border-slate-800 rounded-xl p-5"><b class="text-white">Du måste anmäla dig varje år.</b> Ersättningen betalas inte ut automatiskt – bostadsägaren anmäler sin bostad till verksamhetsutövaren årligen. Missad anmälan innebär utebliven ersättning för det året.</li>
@@ -161,7 +191,7 @@
 
 <section class="max-w-5xl mx-auto px-6 py-14 border-t border-slate-900">
 <div class="p-6 bg-slate-900/60 border border-slate-800 rounded-2xl">
-<h2 class="text-2xl font-bold text-white mb-3">Äger du också marken?</h2>
+<h2 class="text-3xl font-bold text-white mb-3">Vilka regler gäller om du även äger marken?</h2>
 <p class="text-slate-400 mb-5">Är du både närboende och markägare är intäktsdelningen den mindre delen av kalkylen. Ett arrendeavtal ger normalt 150 000–300 000 kronor per verk och år – tio gånger mer än ersättningen som närboende.</p>
 <a class="inline-block bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-xl font-semibold transition" data-vk-segment="markagare" href="/markagare">Gå till markägarspåret →</a>
 </div>
@@ -170,7 +200,7 @@
 <section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <div class="bg-gradient-to-br from-blue-900/40 to-emerald-900/25 border border-blue-500/30 rounded-3xl p-8 md:p-10">
 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-4 uppercase tracking-wider">Kostnadsfritt · uppdateringar om lagen</div>
-<h2 class="text-3xl font-bold text-white mb-3">Håll koll på vad som gäller</h2>
+<h2 class="text-3xl font-bold text-white mb-3">Vilka datum är viktiga att hålla koll på?</h2>
 <p class="text-slate-300 mb-4 leading-relaxed">Vi följer lagen om intäktsdelning och hör av oss när reglerna ändras eller anmälningsfönstret öppnar. Den som missar sin årliga anmälan går miste om hela årets ersättning – det är den påminnelsen som är värd mest.</p>
 <p class="text-slate-400 mb-8 text-sm leading-relaxed border-l-2 border-slate-700 pl-4">Lämnar du län och avstånd vet vi vilken situation utskicken ska passa. Vi övervakar inte enskilda parker automatiskt – vi bevakar lagstiftningen och skriver till dig när något faktiskt ändras.</p>
 <form class="space-y-5" onsubmit="return false" data-vk-lead-form data-segment="narboende" data-source="narboende_silo">
