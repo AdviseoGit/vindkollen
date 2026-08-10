@@ -23,7 +23,7 @@ STATIC_PAGES = [
     ("/sa-far-du-vindkraft-pa-din-mark", "0.7", "monthly"),
     ("/fordelar-med-vindkraft", "0.7", "monthly"),
     ("/arrendeavtal-vindkraft", "0.7", "monthly"),
-    ("/guider/nackdelar-vindkraft-detaljerad-guide", "0.8", "monthly"),
+    ("/guider/nackdelar-med-vindkraft", "0.8", "monthly"),
     ("/ersattning-for-vindkraft", "0.8", "monthly"),
     ("/guider/bygga-vindkraftverk-steg-for-steg", "0.8", "monthly"),
     ("/paverkar-vindkraft-fastighetsvarde", "0.8", "monthly"),
