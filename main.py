@@ -717,8 +717,8 @@ async def fastighetsskatt_vindkraft_2026():
 async def kommunalt_veto_vindkraft():
     return _serve_static_html("static/guider/kommunalt-veto-vindkraft.html")
 
-@app.get("/nackdelar-med-vindkraft", response_class=HTMLResponse)
-async def nackdelar_med_vindkraft_root():
+@app.get("/guider/nackdelar-vindkraft-detaljerad-guide", response_class=HTMLResponse)
+async def nackdelar_vindkraft_detaljerad_guide_root():
     return _serve_static_html("static/nackdelar-med-vindkraft.html")
 
 # Backwards-compatible aliases — some external sites and the old sitemap still
@@ -726,11 +726,11 @@ async def nackdelar_med_vindkraft_root():
 # and preserves any earned SEO equity.
 @app.get("/guider/nackdelar-med-vindkraft", response_class=RedirectResponse)
 async def nackdelar_med_vindkraft_redirect():
-    return RedirectResponse(url="/nackdelar-med-vindkraft", status_code=301)
+    return RedirectResponse(url="/guider/nackdelar-vindkraft-detaljerad-guide", status_code=301)
 
-@app.get("/guider/nackdelar-vindkraft-detaljerad-guide", response_class=RedirectResponse)
-async def nackdelar_vindkraft_detaljerad_guide_redirect():
-    return RedirectResponse(url="/nackdelar-med-vindkraft", status_code=301)
+@app.get("/nackdelar-med-vindkraft", response_class=RedirectResponse)
+async def nackdelar_med_vindkraft_root_redirect():
+    return RedirectResponse(url="/guider/nackdelar-vindkraft-detaljerad-guide", status_code=301)
 
 @app.get("/paverkar-vindkraft-fastighetsvarde", response_class=HTMLResponse)
 async def paverkar_vindkraft_fastighetsvarde():
