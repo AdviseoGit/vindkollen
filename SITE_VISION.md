@@ -152,3 +152,5 @@ Mekaniken:
 
 ## NÄSTA STEG (baserat på dagens scorecard)
 Dagens högsta-ROI-drag kommer att vägas mot denna vision — driver det oss mot nästa milstolpe?
+
+2026-08-10 | Löst: Nackdelar-med-vindkraft redirectad och GEO-optimerad till 100/100.

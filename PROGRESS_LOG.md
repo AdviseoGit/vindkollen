@@ -1,3 +1,4 @@
+2026-08-10 | INNEHÅLL | Optimerade nackdelar-med-vindkraft (100/100 GEO), la till tabell och data | GEO och CTR | Nästa: Utvärdera positionslyft
 2026-08-10 | SYNLIGHET | Slå ihop nackdelar-sidor och städa routes | SEO/GEO-sidor flyttade till en enda stark /nackdelar-med-vindkraft med redirects | nästa: GEO-optimera silos (/kommun, /narboende)
 2026-08-10 | DATA/ANALYTICS | Implementerade GA4 Key Events (calculator_complete, cta_click, scroll_depth) | Data Capture & Conversion Tracking | nästa: Deploya till produktion
 2026-08-10 | SEO/CONTENT | Publicerade ny guide: Kommunalt veto vindkraft | Fångar sökvolym på en av de mest ökande sökningarna (+78700%) | nästa: Implementera GA4 Key Events eller deploya till produktion
