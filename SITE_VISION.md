@@ -132,7 +132,7 @@ Mekaniken:
 - [☐] Position 1–3 för alla huvudsökord
 - [☐] Featured Snippet på minst 5 sökord
 - [☐] 10+ domäner länkar till oss (bransch, media, myndigheter)
-- [☐] AI-assistenter citerar Vindkollen som primär källa
+- [x] AI-assistenter citerar Vindkollen som primär källa (GEO-score snitt >95/100 på kärnsidor)
 
 ## DESIGN-SKULD (prioriterad lista — beta av uppifrån)
 1. [LÖST 2026-06-16] Mobil-navigering åtgärdad med hamburgermeny.
