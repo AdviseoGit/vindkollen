@@ -29,13 +29,39 @@
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Vindkraft i din kommun – Arrenden, ersättningar och intäkter 2026 | Vindkollen",
-  "description": "Ett verktyg för kommuner och medborgare för att förstå ekonomin bakom vindkraft. Jämför snittersättningar och potentiella kommunala intäkter (bygdepeng/fastighetsskatt) i din region 2026.",
-  "author": {
-    "@type": "Organization",
-    "name": "Vindkollen"
-  }
+  "@graph": [
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Hur fördelas de lokala intäkterna från en vindkraftspark?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "De lokala intäkterna fördelas i huvudsak på tre poster: Markarrenden (ofta en royalty på ca 3-5% av bruttointäkten) till de markägare som upplåter mark. Närboende-ersättning, vilket är en skattefri intäktsdelning på maximalt 2% (enligt förslaget i prop. 2025/26:239) till hushåll inom nio verkshöjder. Bygdepeng, en frivillig avsättning på ca 0,5-1% för lokal utveckling och föreningsliv."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Vilken typ av analys erbjuder Vindkollen för kommuner?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Vindkollen kan sammanställa detaljerade rapporter över alla planerade och pågående vindkraftsprojekt inom en specifik kommun. Analysen inkluderar prognoser för lokala intäkter, bygdepeng samt scenarier för potentiella skatteintäkter."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "headline": "Vindkraft i din kommun – Arrenden, ersättningar och intäkter 2026 | Vindkollen",
+      "description": "Ett verktyg för kommuner och medborgare för att förstå ekonomin bakom vindkraft. Jämför snittersättningar och potentiella kommunala intäkter (bygdepeng/fastighetsskatt) i din region 2026.",
+      "dateModified": "2026-08-11",
+      "author": {
+        "@type": "Organization",
+        "name": "Vindkollen"
+      }
+    }
+  ]
 }
 </script>
 </head>
@@ -125,7 +151,7 @@
             <div class="space-y-3">
                 <label class="block text-sm font-semibold text-slate-300" for="price">Förväntat elpris (öre/kWh)</label>
                 <input class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-indigo-500 text-white" id="price" min="10" max="200" step="5" type="number" value="45"/>
-                <p class="text-xs text-slate-500" id="price-hint">SE3 historiskt snitt: ~45 öre.</p>
+                <p class="text-xs text-slate-500" id="price-hint">Snittpriser och kapacitetsfaktorer är baserade på branschdata från <a class="text-indigo-400 hover:underline" href="https://www.energimyndigheten.se/fornybart/vindkraft/" target="_blank" rel="noopener">Energimyndigheten</a> och <a class="text-indigo-400 hover:underline" href="https://svenskvindenergi.org/" target="_blank" rel="noopener">Svensk Vindenergi</a> (Uppdaterat aug 2026).</p>
             </div>
         </div>
 
@@ -150,7 +176,7 @@
                 </div>
             </div>
 
-            <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-2 mt-8">Fördelning av lokala intäkter</h3>
+            <h2 class="text-xl font-bold text-white border-b border-slate-800 pb-2 mt-8">Fördelning av lokala intäkter (Arrende, Bygdepeng och Närboende)</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-300">
                 <div class="bg-indigo-500/10 p-5 rounded-xl border border-indigo-500/20">
@@ -172,7 +198,7 @@
 
             <!-- Lead Capture (för kommuner) -->
             <div class="mt-12 p-8 bg-slate-800/50 border border-slate-700 rounded-2xl" id="lead-card">
-                <h3 class="text-2xl font-bold text-white mb-3">Vill du ha en djupare analys för din kommun?</h3>
+                <h2 class="text-2xl font-bold text-white mb-3">Vilken analys erbjuder Vindkollen för din kommun?</h2>
                 <p class="text-slate-300 mb-6">Vi kan sammanställa en kostnadsfri detaljerad rapport över alla pågående och planerade vindkraftsprojekt i din kommun, inklusive potentiella intäkter och fastighetsskatte-scenarier.</p>
                 
                 <form class="space-y-4" id="dashboard-form" onsubmit="submitDashboardLead(event)">
