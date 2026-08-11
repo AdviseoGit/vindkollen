@@ -1,3 +1,4 @@
+<2026-08-11> | SYNLIGHET | Fixade felaktiga redirects för nackdelar | REGRESSION - visningstapp | nästa: Optimera kommun-dashboard för GEO
 2026-08-10 | INNEHÅLL | Optimerade ersattning-for-vindkraft (100/100 GEO) | GEO och CTR | Nästa: Utvärdera positionslyft
 2026-08-10 | INNEHÅLL | Optimerade nackdelar-med-vindkraft (100/100 GEO), la till tabell och data | GEO och CTR | Nästa: Utvärdera positionslyft
 2026-08-10 | SYNLIGHET | Slå ihop nackdelar-sidor och städa routes | SEO/GEO-sidor flyttade till en enda stark /nackdelar-med-vindkraft med redirects | nästa: GEO-optimera silos (/kommun, /narboende)
