@@ -1,3 +1,4 @@
+<2026-08-14> | SYNLIGHET | Fördjupade vinnarsidan /markagare och länkade till nackdelar | /markagare klick 6 -> >12 | nästa: Bygg relaterad intent-sida som stöttar markagare
 <2026-08-11> | GEO | Optimerade kommun-dashboard för AI-citerbarhet (GEO) med tabell och regeringen.se källor | GEO > 85 | nästa: Följ upp leads-API och konvertering från dashboard
 <2026-08-11> | SYNLIGHET | Fixade felaktiga redirects för nackdelar | REGRESSION - visningstapp | nästa: Optimera kommun-dashboard för GEO
 2026-08-10 | INNEHÅLL | Optimerade ersattning-for-vindkraft (100/100 GEO) | GEO och CTR | Nästa: Utvärdera positionslyft
