@@ -724,6 +724,10 @@ async def nackdelar_med_vindkraft_root():
 # Backwards-compatible aliases — some external sites and the old sitemap still
 # link to the .html variants. Redirecting/serving keeps them out of the 404 logs
 # and preserves any earned SEO equity.
+@app.get("/guider/nackdelar-vindkraft-detaljerad-guide.html", response_class=RedirectResponse)
+async def nackdelar_vindkraft_detaljerad_guide_html_redirect():
+    return RedirectResponse(url="/guider/nackdelar-med-vindkraft", status_code=301)
+
 @app.get("/guider/nackdelar-vindkraft-detaljerad-guide", response_class=RedirectResponse)
 async def nackdelar_vindkraft_detaljerad_guide_redirect():
     return RedirectResponse(url="/guider/nackdelar-med-vindkraft", status_code=301)
