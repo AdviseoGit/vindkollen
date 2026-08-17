@@ -156,3 +156,5 @@ Dagens högsta-ROI-drag kommer att vägas mot denna vision — driver det oss mo
 2026-08-10 | Löst: Nackdelar-med-vindkraft redirectad och GEO-optimerad till 100/100.
 
 2026-08-10 | Löst: Ersattning-for-vindkraft GEO-optimerad till 100/100.
+
+2026-08-17 | Löst: Kopplat realtids leads-mätning via databas mot scoreboarden.
