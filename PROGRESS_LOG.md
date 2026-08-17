@@ -79,3 +79,4 @@
 2026-06-11 fix: pin Python 3.12 (Railpack/mise cannot install 3.13.14 - no precompiled binary, broke builds)
 2026-06-09 feat: add ultimate guide to compensation
 2026-06-09 feat: add ultimate guide to compensation
+2026-08-17 | LEADFLOW/DATA | Adderade databasdriven real-tidsmätning av leads (endpoints /api/stats/leads) och kopplade det mot scoreboard | Scoreboard mäter nu leads (15 totalt, 0 senaste 7 dgr) och trigger LEADS_OMÄTT släcktes | nästa: Optimera "nackdelar" för att fixa regressionen
