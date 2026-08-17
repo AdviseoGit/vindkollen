@@ -12,6 +12,7 @@ vad siffrorna faktiskt gjorde. Ändra den inte för hand.
 | visningar | 563 | 769 | +206 |
 | ctr | 4.09% | 2.86% | -1.23 |
 | snittposition | 15.8 | 17.8 | +2.0 (lägre=bättre) |
+| leads totalt | – | 15 | senaste 7d: 0 |
 
 ## HISTORIK (ett mätvärde per pass)
 | datum | klick | visningar | position | sessioner | leads 7d |
@@ -23,12 +24,11 @@ vad siffrorna faktiskt gjorde. Ändra den inte för hand.
 | 2026-08-10 | 20 | 570 | 18.2 | – | 0 |
 | 2026-08-11 | 21 | 584 | 18.9 | 61 | 0 |
 | 2026-08-14 | 21 | 688 | 18.9 | 61 | 0 |
-| 2026-08-17 | 22 | 769 | 17.8 | – | – |
+| 2026-08-17 | 22 | 769 | 17.8 | – | 0 |
 
 ## TRIGGERS (beräknade ur datan — inte agentens bedömning)
 - **VINNARE** [HÖG] — vindkoll.se/markagare rör sig ÅT RÄTT HÅLL (klick 0->6, position 24->19). Detta är det enda som bevisat fungerar just nu — häll på mer av samma i stället för att starta något nytt: fördjupa sidan, bygg intilliggande intent, länka internt till den.
 - **REGRESSION** [HÖG] — vindkoll.se/guider/nackdelar-med-vindkraft tappade visningar 67->37 (position 33->56). Något gick sönder eller blev omsprunget — undersök innan du bygger nytt.
-- **LEADS_OMÄTT** [HÖG] — leadflödet mäts inte automatiskt — mål 3 av 3 är osynligt för både dig och nästa pass. Koppla in en riktig räkning (intern endpoint eller db-count, INTE en publik social-proof-siffra) innan du optimerar det.
 
 ## SIDOR RANKADE PÅ MÖJLIGHET (klick som ligger på bordet)
 Rankat på visningar sidan REDAN får gånger den CTR den missar genom att inte
