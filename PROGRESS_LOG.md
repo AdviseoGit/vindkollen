@@ -80,3 +80,4 @@
 2026-06-09 feat: add ultimate guide to compensation
 2026-06-09 feat: add ultimate guide to compensation
 2026-08-17 | LEADFLOW/DATA | Adderade databasdriven real-tidsmätning av leads (endpoints /api/stats/leads) och kopplade det mot scoreboard | Scoreboard mäter nu leads (15 totalt, 0 senaste 7 dgr) och trigger LEADS_OMÄTT släcktes | nästa: Optimera "nackdelar" för att fixa regressionen
+2026-08-17 | GEO | Optimerade arrendeavtal-vindkraft för AI-citerbarhet (100/100) och fixade canonical | Höjer GEO + uppdaterad sitemap.xml | nästa: Optimera nackdelar och utvärdera regression
