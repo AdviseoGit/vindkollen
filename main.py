@@ -657,6 +657,9 @@ async def silo_kommun():
 @app.get("/juridisk-hjalp-arrendeavtal", response_class=HTMLResponse)
 async def silo_juridik():
     return _serve_static_html("static/juridisk-hjalp-arrendeavtal.html")
+@app.get("/avtalsgranskning-vindkraftsarrende", response_class=HTMLResponse)
+async def avtalsgranskning_vindkraftsarrende():
+    return _serve_static_html("static/avtalsgranskning-vindkraftsarrende.html")
 
 
 @app.get("/original-data-rapport-arrende-2026", response_class=HTMLResponse)
