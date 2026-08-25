@@ -3,12 +3,26 @@
     {
       "url": "https://vindkoll.se/integritetspolicy",
       "status": 404
+    },
+    {
+      "url": "https://vindkoll.se/integritetspolicy",
+      "status": 404,
+      "from": [
+        "https://vindkoll.se/avtalsgranskning-vindkraftsarrende"
+      ]
     }
   ],
   "dead_assets": [
     {
       "url": "https://vindkoll.se/static/css/tailwind.css",
       "status": 404
+    },
+    {
+      "url": "https://vindkoll.se/static/css/tailwind.css",
+      "status": 404,
+      "from": [
+        "https://vindkoll.se/avtalsgranskning-vindkraftsarrende [css]"
+      ]
     }
   ],
   "error_pages": [
