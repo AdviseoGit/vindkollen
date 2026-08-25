@@ -1,3 +1,4 @@
+2026-08-25 | INNEHÅLL | Länka från /markagare till /kalkylator | kalkylator 0->2 | nästa: Bygg kalkylator för intäktsdelning
 2026-08-18 | INNEHÅLL | Byggde avtalsgranskning-vindkraftsarrende och optimerade /markagare internlänkar | markagare klick 6 -> >12 | nästa: Förbättra leadfångsten (kvalificering) på /markagare
 <2026-08-14> | SYNLIGHET | Fördjupade vinnarsidan /markagare och länkade till nackdelar | /markagare klick 6 -> >12 | nästa: Bygg relaterad intent-sida som stöttar markagare
 <2026-08-11> | GEO | Optimerade kommun-dashboard för AI-citerbarhet (GEO) med tabell och regeringen.se källor | GEO > 85 | nästa: Följ upp leads-API och konvertering från dashboard
