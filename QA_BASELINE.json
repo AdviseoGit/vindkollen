@@ -1,7 +1,22 @@
 {
-  "dead_internal_links": [],
-  "dead_assets": [],
-  "error_pages": [],
+  "dead_internal_links": [
+    {
+      "url": "https://vindkoll.se/integritetspolicy",
+      "status": 404
+    }
+  ],
+  "dead_assets": [
+    {
+      "url": "https://vindkoll.se/static/css/tailwind.css",
+      "status": 404
+    }
+  ],
+  "error_pages": [
+    {
+      "url": "https://vindkoll.se/integritetspolicy",
+      "status": 404
+    }
+  ],
   "structural_issues": [],
   "consistency_issues": [],
   "dead_external_links": [
