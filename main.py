@@ -17,7 +17,7 @@ from datetime import datetime, timedelta
 from typing import Optional
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, Request, BackgroundTasks
+from fastapi import FastAPI, Form, HTTPException, Request, BackgroundTasks
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from mailer import send_email, notify_owner
@@ -892,6 +892,43 @@ async def capture_lead(lead: LeadIn, background: BackgroundTasks):
     background.add_task(_deliver_newsletter, email, lead.source or "newsletter")
     return {"status": "ok", "persisted": True}
 
+
+
+@app.post("/api/newsletter/subscribe")
+async def subscribe_newsletter(
+    background: BackgroundTasks,
+    email: str = Form(...),
+    source: str = Form("article_inline"),
+):
+    """Lead-magnet-rutorna i artiklarna postar hit.
+
+    inject_forms.py injicerade `<form action="/api/newsletter/subscribe"
+    method="POST">` i tre artikelsidor — men rutten fanns aldrig i main.py, så
+    varje anmälan därifrån föll på 405 och besökaren fick en webbläsarfelsida.
+    Formulären ligger kvar live, så rutten läggs till här i stället för att
+    peka om dem: körs inject_forms.py igen fungerar de ändå.
+
+    Det här är ett vanligt formulär, inte fetch — svaret måste därför vara en
+    redirect till något läsbart, inte JSON.
+    """
+    clean = _normalise_email(email)
+    if not clean or "@" not in clean:
+        raise HTTPException(status_code=422, detail="Ogiltig e-postadress")
+
+    if async_session:
+        payload = {"email": clean, "source": source or "article_inline"}
+        async with async_session() as session:
+            stmt = pg_insert(Lead).values(**payload)
+            stmt = stmt.on_conflict_do_update(
+                index_elements=["email"],
+                set_=_non_null(payload, skip=("email",)),
+            )
+            await session.execute(stmt)
+            await session.commit()
+        background.add_task(_deliver_newsletter, clean, payload["source"])
+
+    # Rapporten som rutan lovar är den här sidan — skicka läsaren dit.
+    return RedirectResponse(url="/original-data-rapport-arrende-2026", status_code=303)
 
 
 @app.post("/api/lead/report")
