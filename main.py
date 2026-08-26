@@ -12,12 +12,13 @@ Audience: (1) Swedish landowners looking to host wind turbines,
 import hashlib
 import hmac
 import os
+import urllib.parse
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
 from typing import Optional
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, Form, HTTPException, Request, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Request, BackgroundTasks
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from mailer import send_email, notify_owner
@@ -895,11 +896,7 @@ async def capture_lead(lead: LeadIn, background: BackgroundTasks):
 
 
 @app.post("/api/newsletter/subscribe")
-async def subscribe_newsletter(
-    background: BackgroundTasks,
-    email: str = Form(...),
-    source: str = Form("article_inline"),
-):
+async def subscribe_newsletter(request: Request, background: BackgroundTasks):
     """Lead-magnet-rutorna i artiklarna postar hit.
 
     inject_forms.py injicerade `<form action="/api/newsletter/subscribe"
@@ -908,9 +905,20 @@ async def subscribe_newsletter(
     Formulären ligger kvar live, så rutten läggs till här i stället för att
     peka om dem: körs inject_forms.py igen fungerar de ändå.
 
+    Kroppen parsas för hand i stället för med FastAPI:s `Form(...)`. Form-
+    parametrar drar in `python-multipart`, som inte finns i den här imagen —
+    och FastAPI reser det kravet när RUTTEN DEFINIERAS, inte när den anropas,
+    så hela appen vägrade starta och sajten gick ner på 502. Formuläret
+    skickar `application/x-www-form-urlencoded`, vilket stdlib klarar själv.
+
     Det här är ett vanligt formulär, inte fetch — svaret måste därför vara en
     redirect till något läsbart, inte JSON.
     """
+    raw = (await request.body()).decode("utf-8", errors="replace")
+    fields = urllib.parse.parse_qs(raw)
+    email = (fields.get("email") or [""])[0]
+    source = (fields.get("source") or ["article_inline"])[0]
+
     clean = _normalise_email(email)
     if not clean or "@" not in clean:
         raise HTTPException(status_code=422, detail="Ogiltig e-postadress")
