@@ -12,12 +12,34 @@ Ett drag som flyttar två av tre slår ett som flyttar ett.
 
 ## Setup
 
-Två repon är utcheckade i miljön. Hitta dem och sätt variablerna:
+Två repon behövs: **vindkollen** (sajten) och **AgentSim** (skripten och credentials).
+
+**Kör du lokalt på Sims maskin** ligger de på kända platser i WSL, och alla `python3`-
+och `git`-kommandon måste gå genom WSL — Windows-sidan saknar python:
+
+```bash
+VK=~/site-fixes/vindkollen
+AS=~/AdviseoGit/AgentSim
+```
+
+Notera att AgentSim-checkouten står på grenen `fix-switch-model`. **`scoreboard.py`
+finns bara där, inte på `main`** — byt inte gren utan att kontrollera att skriptet
+följer med.
+
+**Kör du i en molnsandbox** är repona utcheckade under `/home/user`. Hitta dem:
 
 ```bash
 VK=$(find / -maxdepth 6 -type d -name vindkollen 2>/dev/null | head -1)
 AS=$(find / -maxdepth 6 -type d -name AgentSim 2>/dev/null | head -1)
 pip install pyyaml requests 2>/dev/null || pip3 install pyyaml requests
+```
+
+Saknas `scoreboard.py` i `$AS/skills/site-updater/scripts/` — avbryt passet och
+rapportera det. Gissa aldrig fram en mätning.
+
+I båda fallen:
+
+```bash
 export OPENCLAW_WORKSPACE_DIR=$AS
 ```
 
