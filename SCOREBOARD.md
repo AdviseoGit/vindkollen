@@ -13,7 +13,7 @@ vad siffrorna faktiskt gjorde. Ändra den inte för hand.
 | ctr | 3.22% | 1.79% | -1.43 |
 | snittposition | 18.5 | 17.6 | -0.9 (lägre=bättre) |
 | sessioner (14d) | – | 53 | engagemang 62.3% |
-| leads totalt | – | 17 | senaste 7d: 2 |
+| leads totalt | – | 9 | senaste 7d: 2 |
 
 ## HISTORIK (ett mätvärde per pass)
 | datum | klick | visningar | position | sessioner | leads 7d |
