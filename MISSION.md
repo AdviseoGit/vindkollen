@@ -98,6 +98,22 @@ Endpoints som finns: `/api/lead` (JSON), `/api/newsletter/subscribe` (formulär,
 
 Commit och push till `main` i `$VK`. Railway autodeployar.
 
+**Bekräfta att pushen faktiskt landade innan du går vidare.** En misslyckad push
+är tyst farlig: Railway deployar ingenting, live-verifieringen kollar då en
+oförändrad sajt, allt svarar 200, och passet rapporterar framgång fast ingenting
+skeppades. Kontrollera mot fjärren, inte mot ditt eget commit-kommando:
+
+```bash
+git rev-parse HEAD
+git ls-remote origin refs/heads/main    # ska visa samma sha
+```
+
+Skiljer de sig — pushen gick inte igenom. Rapportera det som passets utfall och
+verifiera ingenting live, för det du skulle verifiera finns inte där.
+
+Autentiseringen sköts av `gh` (`credential.https://github.com.helper`), inte av
+en token i remote-URL:en.
+
 **Efter deploy är verifiering obligatorisk.** Vänta tills appen svarar, kolla sedan:
 
 ```bash
@@ -134,6 +150,7 @@ Ett utfall som inte skrivs ner kan inte styra nästa beslut. `SCOREBOARD.md` och
 ## Bakgrund värd att känna till
 
 - Leadsiffran är låg och verklig. Den var tidigare uppblåst med en påhittad baseline på 1247 medan sanningen var 15. Siffran ska aldrig snyggas till.
+- **`metrics.jsonl` har ett brott 2026-08-26.** Rader före det datumet redovisar 15–17 leads; från och med då är siffran 9. Skillnaden är inte ett tapp — passet den kvällen raderade 8 kvarglömda `@example.com`-testleads som aldrig var riktiga leads. Läs alltså inte 17 → 9 som en regression, och fyra ingen `LEADS`-trigger på den övergången. Första äkta jämförelsen är 9 mot nästa mätning.
 - `kalkylator_report` är största leadkällan.
 - `/api/leads/export` kräver headern `X-API-KEY` (satt som `INTERNAL_API_KEY` på Railway-tjänsten).
 - AgentSims cron för den här sajten är avstängd sedan 2026-08-26. Du är ensam skribent på repot.
