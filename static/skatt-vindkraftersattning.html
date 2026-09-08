@@ -354,7 +354,7 @@
     <div class="mt-12 bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl max-w-3xl mx-auto mb-16">
         <h3 class="text-2xl font-bold text-white mb-3">Få vår detaljerade rapport om vindkraftsersättning</h3>
         <p class="text-slate-300 mb-6">Ladda ner vår senaste analys av arrendenivåer, intäktsdelning och förhandlingstips för 2026. Helt gratis.</p>
-        <form class="space-y-4" id="lead-form-article" onsubmit="submitLead(event)">
+        <form class="space-y-4" id="lead-form-article" onsubmit="submitArticleLead(event)">
             <div class="grid sm:grid-cols-2 gap-4">
                 <input class="bg-slate-950 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white w-full" id="lead-name" placeholder="Förnamn" required type="text">
                 <input class="bg-slate-950 border border-slate-700 px-5 py-3 rounded-xl outline-none focus:border-blue-500 text-white w-full" id="lead-email" placeholder="Din e-postadress" required type="email">
@@ -367,7 +367,7 @@
             <p class="text-xs text-slate-500 text-center mt-3">Vi delar aldrig din data. Avregistrera när som helst.</p>
         </form>
         <script>
-            async function submitLead(e) {
+            async function submitArticleLead(e) {
                 e.preventDefault();
                 const name = document.getElementById("lead-name").value;
                 const email = document.getElementById("lead-email").value;
@@ -379,7 +379,7 @@
                     const res = await fetch("/api/lead", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ email: email, name: name, source: "article_form" })
+                        body: JSON.stringify({ email: email, name: name, source: "skatt_artikel" })
                     });
                     
                     if(res.ok) {
@@ -458,42 +458,6 @@
 </footer>
 
 
-<script>
-        async function submitLead(ev) {
-            ev.preventDefault();
-            const email = document.getElementById('lead-email').value.trim();
-            const name = document.getElementById('lead-name').value.trim();
-            const municipality = document.getElementById('lead-municipality').value.trim();
-            
-            if (!email || !email.includes('@')) {
-                alert('Vänligen ange en giltig e-postadress.');
-                return;
-            }
-            
-            try {
-                const response = await fetch('/api/lead', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: email,
-                        name: name || null,
-                        municipality: municipality || null,
-                        source: 'skatt_guide'
-                    })
-                });
-                
-                if (response.ok) {
-                    document.getElementById('lead-form').classList.add('hidden');
-                    document.getElementById('success-msg').classList.remove('hidden');
-                } else {
-                    alert('Något gick fel. Försök igen senare.');
-                }
-            } catch (err) {
-                console.error('Lead submit failed', err);
-                alert('Kunde inte ansluta till servern.');
-            }
-        }
-    </script>
 
 
 

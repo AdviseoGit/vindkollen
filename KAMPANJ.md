@@ -18,11 +18,31 @@ Normal CTR på position 3–5 är 6–10 %. Det ligger 5–8 klick per 14-dagars
 på bordet utan att någon ranking behöver flyttas.
 
 Målsiffra: CTR i position<6-klustret 1.9 % -> >6 % (klick 2 -> >6 per 14 dagar).
-Löptid: pass 1 av 4 (startad 2026-09-01)
+Löptid: pass 2 av 4 (startad 2026-09-01)
 Kill-kriterium: Om CTR i klustret står stilla eller sjunker efter två pass med
 omskrivet SERP-utdrag, är diagnosen fel — då är det inte utdraget som håller
 tillbaka klicken utan SERP:en själv (AI Overview / featured snippet äter klicket),
 och kampanjen läggs ner till förmån för GEO-spåret.
+
+### Avläsning pass 2 (fönster 2026-08-23..09-05 mot 2026-08-09..08-22)
+| query | före | efter |
+|---|---|---|
+| arrendeavtal vindkraft | 5 visn / 0 klick / pos 3.8 | 19 visn / **2 klick** / pos 1.9 |
+| ersättning vindkraftverk markägare | 49 / 1 / 5.6 | 37 / **2** / 2.2 |
+| vindkollen | 15 / 0 / 2.9 | 10 / **2** / 2.6 |
+| vindkraftverk ersättning till markägare | 14 / 0 / 7.7 | 16 / 0 / 4.4 |
+| arrende vind | 6 / 0 / 5.3 | 15 / 0 / 2.0 |
+| arrendeavtal vind | 4 / 0 / 5.8 | 14 / 0 / 2.7 |
+
+**Klustret: CTR 1.1 % → 5.3 % (klick 1 → 6, visningar 93 → 114).**
+Målsiffran är >6 % och den är inom räckhåll. Kill-kriteriet — CTR står stilla
+eller sjunker — slog INTE till. Kampanjen lever.
+
+Två saker att notera i avläsningen. Positionen förbättrades kraftigt på varje
+omskriven query (3.8→1.9, 5.6→2.2, 5.3→2.0, 5.8→2.7); omskrivningen tog alltså
+inte bara klick, den flyttade ranking. Och de tre queries som fortfarande har
+0 klick står nu 2.0–4.4 med 45 visningar mellan sig — det är där de återstående
+klicken ligger.
 
 Steg:
 [x] Steg 1 (pass 1, 2026-09-01): /markagare. Titel/meta/og skrevs om från
@@ -30,18 +50,24 @@ Steg:
     matchade inte frasen folk söker på) till
     "Arrendeavtal vindkraft 2026 – 150 000–300 000 kr per verk och år".
     Metan leder nu med direktsvaret i stället för en motfråga.
-[ ] Steg 2: Mät utfallet på /ersattning-for-vindkraft. Dess omskrivning gjordes
-    2026-08-26 och bara 3 av 14 dagar i förra fönstret låg efter draget —
-    ranking svarade redan (5.3 -> 3.0), CTR är ännu inte mätbar. Nästa pass är
-    första ärliga avläsningen.
-[ ] Steg 3: "vindkollen" står på position 2.7 med 0 klick av 15 visningar. En
-    varumärkessökning ska ha 30–60 % CTR. Ta reda på vilken sida som rankar och
-    vad SERP:en faktiskt visar innan något skrivs om.
-[ ] Steg 4: Solcells-/solparksarrende. 45 visningar på 14 dagar ("arrendeavtal
-    solpark" 15, "ersättning solceller mark" 11, "arrende solcellspark" 10,
-    "arrendera ut mark for solceller" 9) landar i dag på /markagare på position
-    50–81 — Google skickar efterfrågan vi inte har innehåll för. Samma markägare,
-    samma kalkylator, samma leadform.
+[x] Steg 2 (pass 2, 2026-09-08): Utfallet på /ersattning-for-vindkraft är
+    mätt. "ersättning vindkraftverk markägare" gick 1 klick/49 visn/pos 5.6 ->
+    2 klick/37 visn/pos 2.2. CTR 2.0 % -> 5.4 %. Omskrivningen håller.
+[x] Steg 3 (pass 2, 2026-09-08): "vindkollen" löste sig utan drag — 0 klick
+    av 15 visningar blev 2 klick av 10 (20 % CTR, pos 2.6). Fortfarande under
+    30–60 %, men på 10 visningar är skillnaden mellan 20 % och 40 % ett enda
+    klick. För litet underlag för att vara värt ett pass. Avförd.
+[ ] Steg 4 (NÄSTA): Solcells-/solparksarrende. 60 visningar på 14 dagar och växande
+    ("ersättning solceller mark" 18, "arrendeavtal solpark" 15, "arrendera ut
+    mark for solceller" 12, "arrende solcellspark" 10, "solcellspark arrende" 3,
+    "solcellsarrende" 2) landar i dag på /markagare och /ersattning-for-vindkraft
+    på position 48–89, med 0 klick — Google skickar efterfrågan vi inte har
+    innehåll för. Samma markägare, samma kalkylator, samma leadform.
+    OBS: /arrende-vindkraft-vs-solpark FINNS redan (1 300 ord, i sitemap) men
+    får noll visningar på dessa queries. Den är skriven som en jämförelse
+    ("vad ger bäst avkastning?") och saknar h1 helt — den äger inte frasen
+    "arrendera ut mark för solceller". Draget är en egen sida för den frasen,
+    inte en omskrivning av jämförelsesidan.
 
 ## AVSLUTADE
 2026-09-01 | Om vi fördjupar /markagare genom intern länkning och riktade sökbehov
