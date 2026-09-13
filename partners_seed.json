@@ -107,13 +107,13 @@
     {
       "name": "Euro Wind Energy",
       "kind": "projektor",
-      "email": "",
-      "email_kalla": "eurowindenergy.com/se/markagare",
+      "email": "dkr@eurowindenergy.com",
+      "email_kalla": "lämnad av Simon 2026-09-13. Egen domän (eurowindenergy.com), initialbrevlåda — inte härledd av mig.",
       "elareas": "",
       "min_score": 50,
       "monthly_cap": 10,
       "auto_send": true,
-      "notes": "Egen markägarsida.",
+      "notes": "Egen markägarsida. Adressen är en initialbrevlåda — be om rätt mottagare för löpande leads i första kontakten.",
       "relationship": "kall"
     },
     {
