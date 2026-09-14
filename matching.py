@@ -160,23 +160,45 @@ def competition_group(kind: Optional[str]) -> str:
 PROJEKTOR_FANOUT = max(1, int(os.environ.get("LEAD_FANOUT", "1")))
 
 
+def organisation(partner) -> str:
+    """Vilket bolag partnern sitter på, härlett ur mejldomänen.
+
+    Ett bolag kan ha flera rader i registret — Vattenfall har en rikstäckande
+    kontakt och en för Västra Götaland. För markägaren är det ändå ett och
+    samma bolag, och två samtal därifrån om samma mark är inte två chanser
+    utan ett sämre lead. Saknas adress finns ingen organisation att gruppera
+    på, och raden får stå för sig själv.
+    """
+    adress = (getattr(partner, "email", "") or "").strip().lower()
+    return adress.rsplit("@", 1)[1] if "@" in adress else ""
+
+
 def best_per_group(matches: list) -> list:
     """Mottagare per konkurrensgrupp, rankade.
 
     Matchningarna är redan sorterade, så den som ligger först i sin grupp är den
     med snävast täckning — den lokala rådgivaren går före den rikstäckande.
     En exklusiv partner har redan rensat bort de andra i rank_partners.
+
+    Inom en grupp får varje bolag bara en plats: höjd LEAD_FANOUT ska ge
+    markägaren fler *bolag* att välja mellan, inte fler kollegor på samma.
     """
     per_grupp = {}
+    organisationer = {}
     out = []
     for p in matches:
         grupp = competition_group(p.kind)
+        org = organisation(p)
+        if org and org in organisationer.get(grupp, set()):
+            continue
         tak = PROJEKTOR_FANOUT if grupp == "projektering" else 1
         if p.exclusive:
             tak = 1
         räknare = per_grupp.get(grupp, 0)
         if räknare < tak:
             per_grupp[grupp] = räknare + 1
+            if org:
+                organisationer.setdefault(grupp, set()).add(org)
             out.append(p)
     return out
 

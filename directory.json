@@ -60,6 +60,16 @@
       "contact_name": "Vincent"
     },
     {
+      "name": "Vattenfall Vindkraft Västra Götaland",
+      "kind": "projektor",
+      "counties": "Västra Götaland",
+      "url": "https://projekt.vattenfall.se/vindprojekt/landbaserad-vindkraft/",
+      "email": "elin.torstensson@vattenfall.com",
+      "sakerhet": "bekraftad",
+      "note": "Vattenfalls kontakt för Västra Götaland enligt Simon. Följer mönstret fornamn.efternamn@vattenfall.com. Samma bolag som raden ovan — Vincent Wretling täcker övriga landet.",
+      "contact_name": "Elin"
+    },
+    {
       "name": "Statkraft",
       "kind": "projektor",
       "elareas": "",

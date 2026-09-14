@@ -54,7 +54,13 @@ Varje köpare har typ (projektör/jurist/rådgivare/kommunrådgivning), täcknin
 - `auto_send` per partner, av som standard. Slås på först när det finns avtal.
 - Varje överlämning loggas i `vindkollen_lead_assignments`: underlag för
   fakturering, spärr mot dubbelutskick, och svar på "vart tog mina uppgifter vägen".
-- Verifiering: `DATABASE_URL=... python scripts/verify_matching.py` (14 kontroller).
+- Verifiering: `DATABASE_URL=... python scripts/verify_matching.py` (31 kontroller).
+
+**Ett bolag, en mottagare.** Ett bolag kan ha flera rader i registret — en
+rikstäckande kontakt och en för ett enskilt län. Matchningen grupperar på
+mejldomän och ger bolaget en plats per konkurrensgrupp, den med snävast
+täckning. Höjd `LEAD_FANOUT` ska ge markägaren fler *bolag* att välja mellan,
+inte fler kollegor på samma.
 
 **Ordningen: rådgivare före projektör.** Ett lead som bett om juridisk hjälp
 skickas först till rådgivaren. Projektörens överlämning läggs i kö och släpps

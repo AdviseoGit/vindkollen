@@ -89,7 +89,20 @@
       "min_score": 50,
       "monthly_cap": 5,
       "auto_send": true,
-      "notes": "Aktiva i både norr (Norrbäck, Storlandet, Norrbotten) och söder (Sveaskogs mark i Halland, VG, Kronoberg, Kalmar, Blekinge). Rikstäckande täckning betyder att de förlorar mot regionala partners — höj priority om de ska få volym.",
+      "notes": "Aktiva i både norr (Norrbäck, Storlandet, Norrbotten) och söder (Sveaskogs mark i Halland, VG, Kronoberg, Kalmar, Blekinge). Rikstäckande täckning betyder att de förlorar mot regionala partners — höj priority om de ska få volym. Västra Götaland går till Elin Torstensson, se nästa rad.",
+      "relationship": "kall"
+    },
+    {
+      "name": "Vattenfall Vindkraft Västra Götaland",
+      "kind": "projektor",
+      "email": "elin.torstensson@vattenfall.com",
+      "contact_name": "Elin",
+      "email_kalla": "uppgiven av Simon 2026-09-14 som Vattenfalls kontakt för Västra Götaland. Följer det bekräftade mönstret fornamn.efternamn@vattenfall.com. Rollen är inte verifierad av mig.",
+      "counties": "Västra Götaland",
+      "min_score": 50,
+      "monthly_cap": 5,
+      "auto_send": true,
+      "notes": "Länsvis täckning slår både Rabbalshedes SE3/SE4 och Vattenfalls egen rikstäckande rad — i Västra Götaland är Elin förstahandsmottagare. Samma bolag som raden ovan, så matchningen skickar aldrig samma lead till båda.",
       "relationship": "kall"
     },
     {

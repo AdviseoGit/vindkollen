@@ -165,6 +165,47 @@ with TestClient(main.app) as c:
     check("lead utan samtycke matchar ingen", matches["matches"] == [],
           matches["rejected"][0]["reasons"][0] if matches["rejected"] else "")
 
+    print("\nEtt bolag, en mottagare")
+    # Två rader på samma mejldomän: en rikstäckande och en länsvis. Markägaren
+    # ska höra av bolaget en gång, oavsett hur högt LEAD_FANOUT står.
+    import matching as vk_matching  # noqa: E402
+
+    class _Rad:
+        def __init__(self, namn, adress, lan="", elomr=""):
+            self.id = abs(hash(namn)) % 10000
+            self.name, self.email = namn, adress
+            self.kind = "projektor"
+            self.counties, self.elareas, self.segments = lan, elomr, ""
+            self.min_score = self.monthly_cap = self.priority = 0
+            self.exclusive = False
+            self.active = self.auto_send = self.requires_consent = True
+            self.contact_name = self.relationship = ""
+
+    rader = [
+        _Rad(f"{PREFIX} Storbolag riks", "riks@zz-koncern.example.se"),
+        _Rad(f"{PREFIX} Storbolag VG", "vg@zz-koncern.example.se", lan="Västra Götaland"),
+        _Rad(f"{PREFIX} Annat bolag", "kontakt@zz-annat.example.se", lan="Västra Götaland"),
+    ]
+    class _Lead:
+        segment, county, elarea = "markagare", "Västra Götaland", "SE3"
+        lead_score, consent_partner_share = 80, True
+        wants_projector_contact, wants_legal_help = True, False
+
+    rankade, _ = vk_matching.rank_partners(_Lead(), rader, {}, set())
+    tidigare = vk_matching.PROJEKTOR_FANOUT
+    try:
+        vk_matching.PROJEKTOR_FANOUT = 3
+        valda = vk_matching.best_per_group(rankade)
+    finally:
+        vk_matching.PROJEKTOR_FANOUT = tidigare
+    namn = [p.name for p in valda]
+    check("samma bolag får bara en plats trots fanout 3", len(namn) == 2, ", ".join(namn))
+    check("det är den länsvisa raden som vinner inom bolaget",
+          any(n.endswith("Storbolag VG") for n in namn)
+          and not any(n.endswith("Storbolag riks") for n in namn), ", ".join(namn))
+    check("ett annat bolag spärras inte ut",
+          any(n.endswith("Annat bolag") for n in namn), ", ".join(namn))
+
     print(f"\n{ok_count} kontroller OK")
     print("Städa testdata med:")
     print("  DELETE FROM vindkollen_lead_assignments WHERE partner_id IN "
