@@ -4,6 +4,8 @@ from datetime import datetime
 STATIC_PAGES = [
     "/",
     "/kalkylator",
+    "/solpark-arrende-ersattning",
+    "/batterilager-arrende-ersattning",
     "/arrendekalkylator",
     "/jamforelse-ersattning-vs-arrende",
     "/om-sajten",

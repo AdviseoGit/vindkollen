@@ -505,15 +505,47 @@ def _send_handover(lead, partner, approved_by: str):
 
 
 def _deliver_newsletter(email: str, source: str):
-    html = (
-        '<div style="font-family:Segoe UI,Arial,sans-serif;max-width:520px;color:#1e293b">'
-        '<h2 style="color:#105e4e">Välkommen till Vindkollen</h2>'
-        '<p>Tack för att du prenumererar. Vi bevakar lagen om intäktsdelning dagligen '
-        'och hör av oss så fort något viktigt händer för dig som markägare eller närboende.</p>'
-        '<p>Testa gärna vår <a href="https://vindkoll.se/kalkylator" style="color:#105e4e">'
-        'ersättningskalkylator</a> för en personlig uppskattning.</p>'
-        '<p>Vänliga hälsningar,<br><b>Vindkollen</b></p></div>'
-    )
+    """Bekräftelse på en nyhetsbrevsanmälan — och en andra chans att kvalificera.
+
+    Nyhetsbrevsrutorna fångar bara en mejladress. Ett sådant lead har varken
+    silo, län eller poäng, och kan därför aldrig förmedlas vidare: det saknar
+    allt matchningen behöver. Tidigare skickade det här mejlet alla vidare till
+    kalkylatorn oavsett vem de var, och frågan om vem de faktiskt är ställdes
+    aldrig.
+
+    Nu ställs den. Tre vägar, en per silo, till sidor som har ett formulär som
+    poängsätter och matchar. Det kostar ingenting att fråga och det är den enda
+    chansen vi har att göra en adress till något förmedlingsbart.
+    """
+    knapp = ("display:inline-block;padding:11px 18px;border-radius:9px;"
+             "text-decoration:none;font-weight:600;font-size:14px;margin:0 6px 8px 0")
+    html = f"""\
+<div style="font-family:Segoe UI,Arial,sans-serif;max-width:560px;margin:auto;color:#1e293b">
+  <div style="background:#105e4e;color:#fff;padding:22px 24px;border-radius:12px 12px 0 0">
+    <h2 style="margin:0;font-size:20px">Välkommen till Vindkollen</h2>
+  </div>
+  <div style="border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px;padding:24px">
+    <p>Tack — du är med på listan. Vi följer lagen om intäktsdelning och
+       ersättningsnivåerna i varje elområde, och hör av oss när något faktiskt
+       förändras. Inga veckoutskick för sakens skull.</p>
+    <p style="margin-top:20px"><b>En sak till, så att det vi skickar blir
+       relevant:</b> vad gäller för dig?</p>
+    <p style="margin:14px 0 4px">
+      <a href="https://vindkoll.se/markagare" style="{knapp};background:#105e4e;color:#fff">Jag äger mark</a>
+      <a href="https://vindkoll.se/narboende" style="{knapp};background:#e2e8f0;color:#1e293b">Jag bor nära verk</a>
+      <a href="https://vindkoll.se/kommun" style="{knapp};background:#e2e8f0;color:#1e293b">Jag jobbar i en kommun</a>
+    </p>
+    <p style="font-size:13px;color:#64748b">Tar en minut. Vi kan inte säga något
+       vettigt om ersättning utan att veta var du bor och om marken är din —
+       nivåerna skiljer sig med en faktor tio mellan de tre fallen.</p>
+    <p style="margin-top:22px;font-size:14px">Vill du ha en siffra direkt:
+       <a href="https://vindkoll.se/kalkylator" style="color:#105e4e">ersättningskalkylatorn</a>
+       för närboende, eller
+       <a href="https://vindkoll.se/arrendekalkylator" style="color:#105e4e">arrendekalkylatorn</a>
+       om du äger marken.</p>
+    <p style="margin-top:20px">Vänliga hälsningar,<br><b>Vindkollen</b></p>
+  </div>
+</div>"""
     try:
         mailer.send_email(email, "Välkommen till Vindkollen", html)
     except Exception as e:

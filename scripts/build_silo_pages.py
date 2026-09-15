@@ -406,6 +406,8 @@ MARKAGARE_BODY = f"""<section class="max-w-5xl mx-auto px-6 py-14">
     ("Så får du vindkraft på din mark – processen steg för steg", "/sa-far-du-vindkraft-pa-din-mark"),
     ("Skatt på arrende- och royaltyintäkter", "/skatt-vindkraftersattning"),
     ("Vindkraft eller solpark på marken? Jämförelse av avkastning och risk", "/arrende-vindkraft-vs-solpark"),
+        ("Solpark på din mark – arrende per hektar, avtalstid och fallgropar", "/solpark-arrende-ersattning"),
+        ("Batterilager på din mark – varför nätläget avgör priset", "/batterilager-arrende-ersattning"),
     ("Ersättningsnivåer region för region (SE1–SE4)", "/ersattningsnivaer-region-for-region"),
 ])}"""
 
@@ -628,6 +630,8 @@ KOMMUN_BODY = f"""<section class="max-w-5xl mx-auto px-6 py-14">
 {KOMMUN_FORM}
 
 {link_list("Fördjupning för kommuner", [
+        ("Kommunalt veto – regler, debatt och vad som gäller 2026", "/guider/kommunalt-veto-vindkraft"),
+        ("Bygdepeng och kommunersättning 2026 – nivåer och förvaltning", "/guider/bygdepeng-och-kommunersattning-2026"),
     ("Kommun-dashboard – räkna på intäkterna av en etablering", "/kommun-dashboard"),
     ("Kommunersättning och fastighetsskatt 2026", "/kommunersattning-vindkraft-2026"),
     ("Bygdepeng: regler och fördelning", "/bygdepeng-vindkraft-regler-2026"),

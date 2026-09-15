@@ -40,6 +40,39 @@ Tre publiker med helt olika värde per lead ska aldrig blandas i samma flöde:
 | **kommun** | `/kommun`, `/kommun-dashboard` | B2B. Långa cykler, hög trovärdighetsavkastning | Rådgivning, projektörer |
 | *(tvärgående)* | `/juridisk-hjalp-arrendeavtal` | Högst per lead — avtal på bordet = köpläge | Fastighetsjurister |
 
+### 3b-2. TRATTEN PÅ VARJE SIDA (införd 2026-09-15)
+Silorna var rätt byggda men satt på fel sidor. Trafiken låg någon annanstans:
+av de tio sidor som hade flest visningar bar **en** ett kvalificerande
+formulär. `/ersattning-for-vindkraft` ensam drog 39 % av sajtens klick och
+kunde inte producera ett enda förmedlingsbart lead — nyhetsbrevsrutan där
+sparar en mejladress, utan silo, län eller poäng.
+
+Nu har **42 av 46 sidor** samma kvalificeringsblock
+(`scripts/injicera_kvalificering.py`). Det frågar vem besökaren är, visar
+bara de fält som gäller för den silon, härleder elområde ur länet och går
+till `/api/lead/qualify` — alltså in i poängsättning och matchning.
+
+Undantagen är medvetna: `/om-sajten` (AI-transparens, ska inte sälja),
+`/kalkylator` (har redan en egen tratt som matchar) och
+`/ersattning-vindkraft` (kanonikaliserad dubblett, pekar mot vinnaren).
+
+Nyhetsbrevsrutorna mitt i artiklarna är kvar — de är ett lättare erbjudande
+och de fungerar. Men välkomstmejlet ställer numera frågan de aldrig ställde:
+markägare, närboende eller kommun? En adress utan silo kan aldrig förmedlas,
+så det är den enda chansen att rädda den.
+
+### 3b-3. FÖRNYBART, INTE BARA VIND (införd 2026-09-15)
+Markägaren som googlar "arrende solcellspark" eller "batterilager arrende" är
+samma person som markagare-silon redan är byggd för: samma län, samma
+avtalsfrågor, samma motpart. `/solpark-arrende-ersattning` och
+`/batterilager-arrende-ersattning` (`scripts/bygg_fornybart_sidor.py`) leder
+in i samma silo och samma matchning.
+
+Siffrorna för sol- och batteriarrende samlas inte in offentligt i Sverige.
+Sidorna anger spann och säger rakt ut att de är indikativa — att uppfinna en
+precision som inte finns vore att göra exakt det vi kritiserar projektörerna
+för.
+
 ### 3c. MATCHNING MOT KÖPARE (införd 2026-08-03)
 Partnerregister (`vindkollen_partners`) + deterministisk regelmotor (`matching.py`).
 Varje köpare har typ (projektör/jurist/rådgivare/kommunrådgivning), täckning
@@ -148,6 +181,14 @@ Mekaniken:
 5. [LÖST 2026-07-24] CTA-överbelastning på vissa sidor åtgärdad - Huvud-CTA är primär, andra sekundära
 6. Spacing/luft: vissa sidor känns trånga, andra luftiga — enhetlighet saknas
 7. [LÖST 2026-07-24] Databas schema-sync validerad
+8. [LÖST 2026-09-14] Samma UI på alla sidor + mobilmeny som fungerar (43/43 i webbläsare)
+9. [LÖST 2026-09-15] Trasig markup: `<strong>x<strong>` på vindkraftsersattning-2026
+   (allt efter första felet renderades fetstilt), oavslutad `<ol>` på
+   juridisk-hjalp-arrendeavtal, synlig platshållare `[Länk till kalkylatorn]`
+10. [LÖST 2026-09-15] Kannibalisering på "ersättning vindkraft": tre sidor,
+    två utan canonical. De tunna pekar nu mot `/ersattning-for-vindkraft`
+11. [LÖST 2026-09-15] 0 föräldralösa sidor. `/guider/kommunalt-veto-vindkraft`
+    saknades dessutom helt i sitemap, och `/ersattning-vindkraft` låg där två gånger
 
 ## STATUS IDAG (2026-06-28)
 - **SEO:** Position 3–6 för "vindkollen", men position 10+ för "vindkraft ersättning" (målet)
