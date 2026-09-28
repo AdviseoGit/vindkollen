@@ -261,8 +261,10 @@ _SEGMENT_INTRO = {
         "Arrendenivåer, royaltysatser och avtalsvillkor skiljer sig kraftigt mellan bolag, och "
         "de flesta avtal löper i 30–40 år.",
         [
-            ("Arrendekalkylator – räkna på royalty och minimiarrende",
-             "https://vindkoll.se/arrendekalkylator"),
+            # Arrendekalkylatorn lovar "checklistan innan du skriver på" —
+            # den ska ligga först, inte en länk tillbaka till kalkylatorn.
+            ("Checklistan: de tio punkter en rådgivare granskar innan du skriver på",
+             "https://vindkoll.se/juridisk-hjalp-arrendeavtal"),
             ("Arrendeavtal för vindkraft – villkor och fallgropar",
              "https://vindkoll.se/arrendeavtal-vindkraft"),
             ("Skatt på arrende- och royaltyintäkter",

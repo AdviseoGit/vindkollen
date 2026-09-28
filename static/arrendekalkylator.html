@@ -208,6 +208,16 @@
                                 <li><strong>Nätförlust:</strong> Ofta räknar projektören bort ca 3-5% i nät- och transformatorförluster innan royaltyn beräknas. Denna kalkyl tar höjd för en 4% förlust.</li>
                             </ul>
                         </div>
+
+                        <!-- Nästa steg direkt i resultatrutan. Lead-sektionen ligger
+                             under hela gridden och syntes aldrig utan att man råkade
+                             scrolla: 46 slutförda beräkningar på 90 dagar gav 0 leads. -->
+                        <div class="pt-2">
+                            <a href="#lead-capture-section" class="w-full inline-flex justify-center items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-emerald-500/25" data-vk-result-cta>
+                                Är <span id="res-royalty-cta">0</span> kr/år en bra nivå? Få checklistan innan du skriver på
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -222,7 +232,7 @@
             <div class="relative z-10 text-center mb-8">
                 <span class="inline-block py-1 px-3 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-4 border border-emerald-500/30">Kostnadsfritt</span>
                 <h3 class="text-3xl font-bold text-white mb-4">Är ditt arrendeavtal bra nog?</h3>
-                <p class="text-slate-300">Vi mejlar vår genomgång av vad du som markägare <strong>bör</strong> ha med i avtalet innan du skriver på – återställningsgaranti, indexering och royaltybas – plus marknadsuppdateringar om arrendenivåerna i ditt län.</p>
+                <p class="text-slate-300">Vi mejlar dig <strong>checklistan med de tio punkter en rådgivare granskar</strong> innan du skriver på – återställningsgaranti, indexering, royaltybas och avtalstid – tillsammans med din kalkyl. Vill du ha kontakt med en jurist som kan markavtal, bocka i rutan så hör vi av oss när vi har någon att förmedla till i ditt län.</p>
             </div>
 
             <!-- Arrendekalkylatorn används i praktiken bara av markägare, så
@@ -412,10 +422,18 @@
             document.getElementById('res-minimum').textContent = formatCurrency(minArrende);
             document.getElementById('res-upfront').textContent = formatCurrency(upfront);
 
+            const resCta = document.getElementById('res-royalty-cta');
+            if (resCta) resCta.textContent = formatCurrency(annualRoyalty);
+
             // Göm/Visa sektioner
             document.getElementById('pre-calc').classList.add('hidden');
             document.getElementById('post-calc').classList.remove('hidden');
             document.getElementById('lead-capture-section').classList.remove('hidden');
+
+            // På mobil ligger resultatet under formuläret — utan scroll ser
+            // besökaren bara att knappen "gjorde inget". Samma mönster som
+            // /kalkylator, som är den kalkylator som faktiskt konverterar.
+            document.getElementById('result-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             // Skicka med vad besökaren faktiskt räknade på — det är den bästa
             // kvalificeringen vi får utan att ställa en enda extra fråga.
