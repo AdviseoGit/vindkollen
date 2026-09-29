@@ -81,7 +81,7 @@ Steg:
     av 15 visningar blev 2 klick av 10 (20 % CTR, pos 2.6). Fortfarande under
     30–60 %, men på 10 visningar är skillnaden mellan 20 % och 40 % ett enda
     klick. För litet underlag för att vara värt ett pass. Avförd.
-[~] Steg 4 (pass 3, 2026-09-22) — OMVÄRDERAT. Solcells-underlaget kollapsade:
+[x] Steg 4 (pass 3, 2026-09-22) — OMVÄRDERAT. Solcells-underlaget kollapsade:
     "sol"-queries gick 60 visningar (pass 2) → 8 (pass 3), enda kvarvarande är
     "ersättning solceller mark" 8 visn / pos 69.6. Google slutade visa oss för
     frasen när vi inte fick klick på position 48–89. En ny sida för 8 synliga
@@ -98,6 +98,16 @@ Steg:
     till /arrendekalkylator i stället för närboende-kalkylatorn.
     Bevis att det var rätt: GA4 generate_lead på /arrendekalkylator 0 → ≥2
     på 28 dagar, och rader med source='arrendekalkylator' i vindkollen_leads.
+
+[ ] Steg 5 (pass 4, 2026-09-29): SCOREBOARD visade en VINNARE trigger för 
+    /guider/bygga-vindkraftverk-steg-for-steg (klick 0->2, position 41->16). 
+    Vi häller på mer bränsle här. Eftersom /markagare är en stark ingång länkar 
+    vi /markagare till den här guiden, och fördjupar guiden med mer konkret 
+    ersättningsdata, så att de som söker "bygga vindkraftverk" leds in i vår 
+    konverteringstratt. Detta adresserar CTR i position < 6 indirekt genom att 
+    driva interntrafik och bygga ut intent för sökord som relaterar till 
+    "vindkraftverk ersättning till markägare" i samma veva.
+
 
 ## AVSLUTADE
 2026-09-01 | Om vi fördjupar /markagare genom intern länkning och riktade sökbehov

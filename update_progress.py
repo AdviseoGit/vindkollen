@@ -1,12 +1,10 @@
 import datetime
 
-log_entry = f"{datetime.date.today().strftime('%Y-%m-%d')} | SEO/CONTENT | Publicerade ny guide: Kommunalt veto vindkraft | Fångar sökvolym på en av de mest ökande sökningarna (+78700%) | nästa: Implementera GA4 Key Events eller deploya till produktion\n"
+now = datetime.datetime.now().strftime("%Y-%m-%d")
+log_entry = f"{now} | INNEHÅLL | Optimerade och fördjupade bygga-vindkraftverk-steg-for-steg | CTR kluster < 6 | nästa: avläs SCOREBOARD för effekten av CTR i klustret"
 
-with open("/data/workspace/projects/vindkollen/PROGRESS_LOG.md", "r") as f:
-    lines = f.readlines()
+with open('/data/workspace/projects/vindkollen/PROGRESS_LOG.md', 'r') as f:
+    content = f.read()
 
-lines.insert(0, log_entry)
-
-with open("/data/workspace/projects/vindkollen/PROGRESS_LOG.md", "w") as f:
-    f.writelines(lines)
-print("Updated PROGRESS_LOG.md")
+with open('/data/workspace/projects/vindkollen/PROGRESS_LOG.md', 'w') as f:
+    f.write(log_entry + "\n" + content)
