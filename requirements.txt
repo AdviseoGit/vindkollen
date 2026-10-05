@@ -3,6 +3,7 @@ uvicorn[standard]
 sqlalchemy[asyncio]
 greenlet
 asyncpg
+psycopg2-binary
 pydantic[email]
 python-dotenv
 pytrends

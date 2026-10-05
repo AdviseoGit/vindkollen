@@ -12,7 +12,7 @@ Audience: (1) Swedish landowners looking to host wind turbines,
 import hashlib
 import hmac
 import os
-import subprocess
+import json
 import urllib.parse
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
@@ -1036,13 +1036,18 @@ async def capture_lead_report(lead: LeadReportIn, background: BackgroundTasks):
     }
 
 
-_AGENTDB = "/data/workspace/agents/_shared/agentdb.py"
-
-
 def _push_to_core_leads(payload: dict, score: int) -> None:
-    """Registrera lead i core.leads via agentdb prospect-kommandot."""
+    """Registrera lead i core.leads via direkt psycopg2-skrivning mot agentdatabasen.
+
+    Använder hela e-postadressen som domännyckel i core.companies så att varje
+    person (inte varje e-postdomän) får en unik rad — avgörande för B2C-leads
+    från markägare med gmail/hotmail-adresser.
+    """
+    agent_db_url = os.environ.get("AGENT_DB_URL_SITE_UPDATER")
+    if not agent_db_url:
+        return
+
     email = payload.get("email", "")
-    domain = email.split("@")[-1] if "@" in email else email
     name = payload.get("name") or email
     source = payload.get("source") or "silo_form"
 
@@ -1062,20 +1067,50 @@ def _push_to_core_leads(payload: dict, score: int) -> None:
     why = f"score={score} " + " ".join(parts) if parts else f"score={score}"
 
     try:
-        subprocess.run(
-            [
-                "python3", _AGENTDB,
-                "--as", "site-updater", "prospect",
-                "--domain", domain,
-                "--name", name,
-                "--source", source,
-                "--site", "vindkollen",
-                "--score", str(score),
-                "--why", why,
-            ],
-            timeout=15,
-            capture_output=True,
-        )
+        import psycopg2
+        import psycopg2.extras
+
+        conn = psycopg2.connect(agent_db_url)
+        conn.autocommit = True
+        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as c:
+            # Domännyckel = hela e-postadressen (unik per person, inte per domän)
+            domain = email.lower()
+            c.execute(
+                "SELECT id FROM core.companies WHERE lower(domain) = %s",
+                (domain,),
+            )
+            row = c.fetchone()
+            if row:
+                company_id = row["id"]
+            else:
+                c.execute(
+                    "INSERT INTO core.companies (name, domain, source, created_by, meta)"
+                    " VALUES (%s,%s,%s,'site-updater','{}'::jsonb) RETURNING id",
+                    (name, domain, source),
+                )
+                company_id = c.fetchone()["id"]
+
+            # En lead per person per sajt
+            c.execute(
+                "SELECT id FROM core.leads WHERE company_id = %s AND source_site = 'vindkollen'",
+                (company_id,),
+            )
+            if c.fetchone():
+                conn.close()
+                return
+
+            c.execute(
+                "INSERT INTO core.leads"
+                " (company_id, source, source_site, owner_agent, score, created_by, meta)"
+                " VALUES (%s,%s,'vindkollen','site-updater',%s,'site-updater',%s::jsonb)",
+                (company_id, source, score, json.dumps({"why": why, "email": email})),
+            )
+            c.execute(
+                "INSERT INTO core.contacts (company_id, name, email, role, created_by)"
+                " VALUES (%s,%s,%s,'markägare','site-updater')",
+                (company_id, name, email),
+            )
+        conn.close()
     except Exception:
         pass  # Synken mot core.leads är best-effort; lokalt lead är redan sparat
 
