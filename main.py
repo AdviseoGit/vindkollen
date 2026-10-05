@@ -12,6 +12,7 @@ Audience: (1) Swedish landowners looking to host wind turbines,
 import hashlib
 import hmac
 import os
+import subprocess
 import urllib.parse
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
@@ -1035,6 +1036,50 @@ async def capture_lead_report(lead: LeadReportIn, background: BackgroundTasks):
     }
 
 
+_AGENTDB = "/data/workspace/agents/_shared/agentdb.py"
+
+
+def _push_to_core_leads(payload: dict, score: int) -> None:
+    """Registrera lead i core.leads via agentdb prospect-kommandot."""
+    email = payload.get("email", "")
+    domain = email.split("@")[-1] if "@" in email else email
+    name = payload.get("name") or email
+    source = payload.get("source") or "silo_form"
+
+    parts = []
+    for key, label in [
+        ("segment", "segment"),
+        ("county", "län"),
+        ("municipality", "kommun"),
+        ("land_hectares", "ha"),
+        ("project_stage", "fas"),
+        ("wants_legal_help", "juridik"),
+        ("wants_projector_contact", "projektör"),
+    ]:
+        val = payload.get(key)
+        if val not in (None, False, ""):
+            parts.append(f"{label}={val}")
+    why = f"score={score} " + " ".join(parts) if parts else f"score={score}"
+
+    try:
+        subprocess.run(
+            [
+                "python3", _AGENTDB,
+                "--as", "site-updater", "prospect",
+                "--domain", domain,
+                "--name", name,
+                "--source", source,
+                "--site", "vindkollen",
+                "--score", str(score),
+                "--why", why,
+            ],
+            timeout=15,
+            capture_output=True,
+        )
+    except Exception:
+        pass  # Synken mot core.leads är best-effort; lokalt lead är redan sparat
+
+
 @app.post("/api/lead/qualify")
 async def capture_qualified_lead(lead: QualifiedLeadIn, background: BackgroundTasks):
     """Ta emot ett kvalificerat lead från en silo-sida.
@@ -1077,6 +1122,7 @@ async def capture_qualified_lead(lead: QualifiedLeadIn, background: BackgroundTa
         background.add_task(_send_handover, stored, p, "auto")
     # Passa på att tömma kön av karensatta överlämningar medan vi ändå kör.
     background.add_task(_release_due_handovers)
+    background.add_task(_push_to_core_leads, dict(payload), score)
 
     return {
         "status": "ok",
