@@ -119,7 +119,7 @@ FOOTER = """<footer class="border-t border-slate-800 bg-[#030712] py-12 mt-20">
 <h4 class="text-white font-bold mb-4">Om oss</h4>
 <ul class="space-y-2 text-sm text-slate-400">
 <li><a class="hover:text-blue-400 transition" href="/om-sajten">Om sajten</a></li>
-<li><a class="hover:text-blue-400 transition" href="mailto:simon@adviseo.se">Kontakt</a></li>
+<li><a class="hover:text-blue-400 transition" href="mailto:info@vindkoll.se">Kontakt</a></li>
 </ul>
 </div>
 </div>
