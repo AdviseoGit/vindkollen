@@ -24,3 +24,6 @@
 - Railway Project: `fabulous-vitality`
 - Service: `fabulous-vitality`
 - URL: `https://fabulous-vitality.up.railway.app/`
+
+## Kontaktadress
+- Publik kontaktadress på sajten är **info@vindkoll.se** (vidarebefordras till ägaren via Cloudflare Email Routing). Skriv aldrig ut simon@adviseo.se på sidor som besökare ser; den används bara för interna notiser (t.ex. LEAD_NOTIFY_EMAIL).
