@@ -2097,6 +2097,10 @@ async def bygdepeng_och_kommunersattning_2026():
 async def ratt_till_inlosen_fastighet_vindkraft():
     return _serve_static_html("static/ratt-till-inlosen-fastighet-vindkraft.html")
 
+@app.get("/for-byraer", response_class=HTMLResponse)
+async def for_byraer():
+    return _serve_static_html("static/for-byraer.html")
+
 
 # Catch-all for HTML pages
 # ---------------------------------------------------------------------------

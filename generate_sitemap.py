@@ -13,6 +13,7 @@ STATIC_PAGES = [
     ("/narboende", "0.95", "weekly"),
     ("/kommun", "0.9", "weekly"),
     ("/juridisk-hjalp-arrendeavtal", "0.9", "monthly"),
+    ("/for-byraer", "0.7", "monthly"),
     ("/avtalsgranskning-vindkraftsarrende", "0.8", "monthly"),
     ("/kalkylator", "0.9", "weekly"),
     ("/arrendekalkylator", "0.9", "weekly"),
