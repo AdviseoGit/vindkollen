@@ -428,8 +428,8 @@ MARKAGARE_FAQ = [
      "återställningsgaranti är alla förhandlingsbara, och skillnaden mellan ett granskat och ett ogranskat avtal räknas "
      "ofta i miljoner över avtalets 30–40 år."),
     ("Vad kostar det att använda Vindkollen?",
-     "Ingenting för dig som markägare. Vi är oberoende från kraftbolagen och tar aldrig betalt av markägare eller "
-     "närboende för information, kalkyler eller kontaktförmedling."),
+     "Information, kalkyler och kontaktförmedling kostar dig ingenting. Vi tar betalt av de projektörer och rådgivare "
+     "som vill komma i kontakt med markägare som samtyckt till det – och rådgivaren får alltid kontakten först."),
 ]
 
 # ---------------------------------------------------------------------------
@@ -663,7 +663,7 @@ JURIDIK_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <div class="bg-gradient-to-br from-amber-900/30 to-blue-900/25 border border-amber-500/30 rounded-3xl p-8 md:p-10">
 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-200 text-xs font-semibold mb-4 uppercase tracking-wider">Under uppbyggnad · kostnadsfritt för dig</div>
 <h2 class="text-3xl font-bold text-white mb-3">Anmäl intresse för juridisk hjälp</h2>
-<p class="text-slate-300 mb-4 leading-relaxed">Vi håller på att bygga upp ett nätverk av oberoende jurister och lantbruksekonomer som arbetar med arrende- och markupplåtelseavtal. Beskriv ditt ärende så hör vi av oss när vi kan förmedla en kontakt i ditt län. Vi tar inte betalt av dig, och du väljer själv om du går vidare.</p>
+<p class="text-slate-300 mb-4 leading-relaxed">Vi håller på att bygga upp ett nätverk av oberoende jurister och lantbruksekonomer som arbetar med arrende- och markupplåtelseavtal. Beskriv ditt ärende så hör vi av oss när vi kan förmedla en kontakt i ditt län. Förmedlingen kostar dig ingenting – rådgivaren betalar för kontakten – och du väljer själv om du går vidare.</p>
 <div class="p-4 mb-8 bg-amber-500/10 border border-amber-500/25 rounded-xl text-amber-100 text-sm leading-relaxed">
 <b>Har du bråttom?</b> Vi har ännu inga avtalade rådgivare och kan inte lova när vi har det. Ligger ett avtalsförslag på bordet med kort svarstid — vänta inte på oss. Kontakta en advokatbyrå som arbetar med fastighetsrätt eller en lantbruksekonom direkt. Checklistan ovan fungerar lika bra som underlag till ett möte du bokar själv.
 </div>

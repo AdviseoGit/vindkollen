@@ -205,3 +205,23 @@ Dagens högsta-ROI-drag kommer att vägas mot denna vision — driver det oss mo
 2026-08-10 | Löst: Ersattning-for-vindkraft GEO-optimerad till 100/100.
 
 2026-08-17 | Löst: Kopplat realtids leads-mätning via databas mot scoreboarden.
+
+## MONETISERING — beslut 2026-10-13 (Sim)
+Vi tar betalt där vi kan. Markägarna är de vi driver, alltså är projektörer huvudkällan.
+
+1. **Projektörer betalar per markägarlead** (vind, sol, batteri): första leadet gratis, sedan
+   2 500 kr per A-lead, 1 000 kr per B-lead, förtur i län 2 500 kr/mån. Villkor på `/for-projektorer`.
+   Rådgivaren får alltid kontakten först (`matching.py`) — det är så oberoendet överlever att vi får
+   betalt av projektören.
+2. **Jurister som inte är advokater** betalar per lead/län (`/for-byraer`). Advokatbyråer får bara köpa
+   annonsplats: Advokatsamfundets vägledande regler 7.9.1 förbjuder advokater att ge eller ta emot
+   ersättning för tillförda uppdrag.
+3. **Bevakningstjänst för närboende** (`/bevakning`, byggs): årlig påminnelse om anmälan till
+   verksamhetsutövaren. Gratis tills betalväg finns.
+4. **Avtalskoll som betald produkt** (senare): AI-förgranskning mot tiopunktslistan, jurist som tillval.
+   Kräver betalväg och ansvarsfriskrivning.
+5. Sol- och batteriarrende är samma silo och samma köpare — sidorna måste ranka innan de säljs.
+
+Löftena "vi säljer inte leads till projektörer" och "tar aldrig betalt av markägare" togs bort 2026-10-13.
+Det som fortfarande gäller: information, kalkyler och förmedling är gratis för markägaren, inget lead
+lämnar huset utan samtycke, rådgivare före projektör.

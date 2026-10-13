@@ -2102,6 +2102,12 @@ async def for_byraer():
     return _serve_static_html("static/for-byraer.html")
 
 
+@app.get("/for-projektorer", response_class=HTMLResponse)
+async def for_projektorer():
+    """B2B-landning för projektörer (vind, sol, batteri): vad ett markägarlead innehåller och pilotpriserna."""
+    return _serve_static_html("static/for-projektorer.html")
+
+
 # Catch-all for HTML pages
 # ---------------------------------------------------------------------------
 # IMPORTANT: This MUST stay last — FastAPI matches routes in registration
