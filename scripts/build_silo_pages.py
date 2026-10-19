@@ -120,6 +120,9 @@ FOOTER = """<footer class="border-t border-slate-800 bg-[#030712] py-12 mt-20">
 <ul class="space-y-2 text-sm text-slate-400">
 <li><a class="hover:text-blue-400 transition" href="/om-sajten">Om sajten</a></li>
 <li><a class="hover:text-blue-400 transition" href="mailto:info@vindkoll.se">Kontakt</a></li>
+<li><a class="hover:text-blue-400 transition" href="/for-byraer">För byråer</a></li>
+<li><a class="hover:text-blue-400 transition" href="/for-projektorer">För projektörer</a></li>
+<li><a class="hover:text-blue-400 transition" href="/bevakning">Bevakning</a></li>
 </ul>
 </div>
 </div>
@@ -346,7 +349,7 @@ MARKAGARE_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <label class="flex gap-3 text-sm text-slate-300"><input class="{CHECK}" name="wants_legal_help" type="checkbox"/>
 <span>Hör av er när ni kan förmedla kontakt med en jurist som kan markavtal.</span></label>
 <label class="flex gap-3 text-sm text-slate-300"><input class="{CHECK}" name="consent_partner_share" type="checkbox"/>
-<span>Jag samtycker till att Vindkollen får dela mina uppgifter med utvalda samarbetspartner i mitt län. Utan bock hör bara vi av oss.</span></label>
+<span>Jag samtycker till att Vindkollen delar mina uppgifter med utvalda samarbetspartner i mitt län — projektörer inom vind, sol och batterilager samt jurister och rådgivare — så att de kan kontakta mig. Utan bock hör bara Vindkollen av sig.</span></label>
 </div>
 <div class="hidden text-red-400 text-sm" data-vk-error hidden></div>
 <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg" type="submit">Skicka in min fastighet →</button>
@@ -474,7 +477,7 @@ NARBOENDE_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <label class="flex gap-3 text-sm text-slate-300" data-vk-owns-land><input class="{CHECK}" name="wants_projector_contact" type="checkbox"/>
 <span>Jag äger också mark där verk skulle kunna placeras och är öppen för kontakt om och när det blir aktuellt.</span></label>
 <label class="flex gap-3 text-sm text-slate-300"><input class="{CHECK}" name="consent_partner_share" type="checkbox"/>
-<span>Jag samtycker till att mina uppgifter får delas med utvalda samarbetspartner i mitt län.</span></label>
+<span>Jag samtycker till att Vindkollen delar mina uppgifter med utvalda samarbetspartner i mitt län — projektörer inom vind, sol och batterilager samt jurister och rådgivare — så att de kan kontakta mig. Utan bock hör bara Vindkollen av sig.</span></label>
 </div>
 <div class="hidden text-red-400 text-sm" data-vk-error hidden></div>
 <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg" type="submit">Bevaka min adress →</button>
@@ -696,7 +699,7 @@ JURIDIK_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 <textarea class="{FIELD}" id="ju-message" name="message" placeholder="t.ex. optionsavtal på 5 år, royalty 3 % efter nätförluster, ingen indexering av minimiarrendet" rows="4"></textarea></div>
 <div class="space-y-3 pt-2 border-t border-slate-700/60">
 <label class="flex gap-3 text-sm text-slate-300"><input class="{CHECK}" name="consent_partner_share" type="checkbox"/>
-<span>Jag samtycker till att Vindkollen delar mina uppgifter med den rådgivare som kan ta ärendet, när vi har en på plats i mitt län.</span></label>
+<span>Jag samtycker till att Vindkollen delar mina uppgifter med en jurist eller rådgivare i mitt län som kan ta ärendet, så att de kan kontakta mig. Utan bock hör bara Vindkollen av sig.</span></label>
 </div>
 <div class="hidden text-red-400 text-sm" data-vk-error hidden></div>
 <button class="w-full bg-amber-600 hover:bg-amber-500 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg" type="submit">Anmäl mitt ärende →</button>

@@ -318,6 +318,9 @@ FOOTER = """<footer class="border-t border-slate-800 bg-[#030712] py-12 mt-20">
 <ul class="space-y-2 text-sm text-slate-400">
 <li><a class="hover:text-blue-400 transition" href="/om-sajten">Om sajten</a></li>
 <li><a class="hover:text-blue-400 transition" href="mailto:info@vindkoll.se">Kontakt</a></li>
+<li><a class="hover:text-blue-400 transition" href="/for-byraer">För byråer</a></li>
+<li><a class="hover:text-blue-400 transition" href="/for-projektorer">För projektörer</a></li>
+<li><a class="hover:text-blue-400 transition" href="/bevakning">Bevakning</a></li>
 </ul>
 </div>
 </div>

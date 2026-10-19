@@ -73,7 +73,7 @@ def formular(sid: str, rubrik: str, ingress: str) -> str:
 <label class="flex gap-3 text-sm text-slate-300"><input class="{CHECK}" name="wants_projector_contact" type="checkbox"/>
 <span>Jag är öppen för kontakt med exploatörer som söker mark</span></label>
 <label class="flex gap-3 text-sm text-slate-300"><input class="{CHECK}" name="consent_partner_share" type="checkbox"/>
-<span>Jag godkänner att Vindkollen får lämna mina uppgifter vidare till en rådgivare eller exploatör som passar mitt fall. Utan bock stannar uppgifterna hos oss.</span></label>
+<span>Jag samtycker till att Vindkollen delar mina uppgifter med utvalda samarbetspartner i mitt län — projektörer inom vind, sol och batterilager samt jurister och rådgivare — så att de kan kontakta mig. Utan bock hör bara Vindkollen av sig.</span></label>
 </div>
 <p class="text-sm text-red-400" data-vk-error hidden></p>
 <button class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-colors" type="submit">Skicka in</button>

@@ -94,6 +94,10 @@ class Lead(Base):
     lead_score = Column(Integer, nullable=True, index=True)
     lead_tier = Column(String(1), nullable=True, index=True)
     message = Column(Text, nullable=True)
+    # Bevakning (/bevakning): närboende som vill ha mejl om projekt i sin kommun.
+    watch_active = Column(Boolean, nullable=True)
+    watch_municipality = Column(String(255), nullable=True)
+    watch_project = Column(String(255), nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)
 
@@ -218,6 +222,10 @@ _MIGRATIONS = [
     "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS lead_score INTEGER",
     "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS lead_tier VARCHAR(1)",
     "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS message TEXT",
+    # Bevakningen på /bevakning.
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS watch_active BOOLEAN",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS watch_municipality VARCHAR(255)",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS watch_project VARCHAR(255)",
     # The new model marks created_at with index=True; back-fill the index.
     "CREATE INDEX IF NOT EXISTS ix_vindkollen_leads_created_at ON vindkollen_leads (created_at)",
     # Silo-uppslagningarna vi faktiskt kör: per segment, per län, per poäng.
@@ -681,6 +689,11 @@ async def silo_markagare():
 @app.get("/narboende", response_class=HTMLResponse)
 async def silo_narboende():
     return _serve_static_html("static/narboende.html")
+
+
+@app.get("/bevakning", response_class=HTMLResponse)
+async def silo_bevakning():
+    return _serve_static_html("static/bevakning.html")
 
 
 @app.get("/kommun", response_class=HTMLResponse)
@@ -1166,6 +1179,116 @@ async def capture_qualified_lead(lead: QualifiedLeadIn, background: BackgroundTa
         "elarea": payload.get("elarea"),
         "matched": [p.name for p in auto_partners] or None,
     }
+
+
+class BevakningIn(BaseModel):
+    """Anmälan till bevakning av vindkraftsprojekt i en kommun (/bevakning)."""
+
+    email: EmailStr
+    municipality: str = Field(min_length=2, max_length=255)
+    project: Optional[str] = Field(default=None, max_length=255)
+    property_address: Optional[str] = Field(default=None, max_length=512)
+    consent_watch: bool = False
+
+
+def _deliver_bevakning(data: dict) -> None:
+    """Bekräftelse till anmälaren + notis till ägaren. Får aldrig kasta."""
+    import html as _html
+
+    esc = lambda v: _html.escape(str(v or ""))  # noqa: E731
+    try:
+        rows = f"<li>Kommun: <b>{esc(data['municipality'])}</b></li>"
+        if data.get("project"):
+            rows += f"<li>Vindkraftspark/projekt: <b>{esc(data['project'])}</b></li>"
+        if data.get("property_address"):
+            rows += f"<li>Fastighet/adress: <b>{esc(data['property_address'])}</b></li>"
+        mailer.send_email(
+            data["email"],
+            f"Bevakningen är registrerad – {data['municipality']} | Vindkollen",
+            f"""<div style="font-family:Arial,sans-serif;max-width:560px;color:#1e293b;line-height:1.55">
+<h2 style="margin:0 0 12px">Din bevakning är registrerad</h2>
+<p>Tack för att du anmälde dig. Vi bevakar vindkraftsprojekt i <b>{esc(data['municipality'])}</b> åt dig:</p>
+<ul>{rows}</ul>
+<p>Vi går igenom offentliga källor löpande, till exempel länsstyrelsens kungörelser och kommunens samråd,
+och mejlar dig när vi hittar något som rör nya ansökningar, samråd, beslut eller överklagandetider.
+Bevakningen görs manuellt och är inget realtidslarm, så det kan dröja innan vi hör av oss.
+Hör vi inget betyder det inte att inget händer – kontrollera gärna kommunens och länsstyrelsens anslagstavlor själv.</p>
+<p><b>Så avslutar du:</b> svara på det här mejlet med ordet &quot;avsluta&quot;, eller skriv till
+<a href="mailto:info@vindkoll.se">info@vindkoll.se</a>. Vi tar bort din bevakning.</p>
+<p style="color:#64748b;font-size:13px">Vindkollen drivs av Adviseo. Bevakningen är gratis i nuläget.
+Mer om sajten: <a href="https://vindkoll.se/om-sajten">vindkoll.se/om-sajten</a></p>
+</div>""",
+            reply_to="info@vindkoll.se",
+        )
+    except Exception as e:  # noqa: BLE001
+        print(f"[bevakning] confirmation mail failed: {e}")
+    try:
+        mailer.notify_owner(
+            f"Ny bevakning – {data['municipality']} | Vindkollen",
+            f"<p>Ny bevakningsanmälan: <b>{esc(data['email'])}</b></p><ul>"
+            f"<li>Kommun: {esc(data['municipality'])}</li>"
+            f"<li>Park/projekt: {esc(data.get('project')) or '–'}</li>"
+            f"<li>Fastighet/adress: {esc(data.get('property_address')) or '–'}</li></ul>",
+            reply_to=data["email"],
+        )
+    except Exception as e:  # noqa: BLE001
+        print(f"[bevakning] owner mail failed: {e}")
+
+
+@app.post("/api/bevakning")
+async def capture_bevakning(item: BevakningIn, background: BackgroundTasks):
+    """Spara en bevakningsanmälan som närboende-lead (source=bevakning)."""
+    if not item.consent_watch:
+        raise HTTPException(status_code=400, detail="Samtycke till bevakningsmejl krävs.")
+
+    email = _normalise_email(item.email)
+    municipality = item.municipality.strip()
+    project = (item.project or "").strip() or None
+    address = (item.property_address or "").strip() or None
+    payload = {
+        "email": email,
+        "segment": "narboende",
+        "source": "bevakning",
+        "municipality": municipality,
+        "property_address": address,
+        "message": f"Bevakning: {project}" if project else None,
+        "watch_active": True,
+        "watch_municipality": municipality,
+        "watch_project": project,
+    }
+    payload["lead_score"], payload["lead_tier"] = vk_leads.score_lead(payload)
+
+    mail_data = {"email": email, "municipality": municipality, "project": project,
+                 "property_address": address}
+
+    if not async_session:
+        background.add_task(_deliver_bevakning, mail_data)
+        return JSONResponse({"status": "ok", "persisted": False})
+
+    async with async_session() as session:
+        stmt = pg_insert(Lead).values(**payload)
+        t, ex = Lead.__table__.c, stmt.excluded
+        # Befintliga leads behåller sin källa, kommun, adress och övriga data;
+        # bara bevakningsfälten sätts. Tomma fält fylls på.
+        stmt = stmt.on_conflict_do_update(
+            index_elements=["email"],
+            set_={
+                "watch_active": True,
+                "watch_municipality": municipality,
+                "watch_project": project,
+                "source": func.coalesce(t.source, ex.source),
+                "segment": func.coalesce(t.segment, ex.segment),
+                "municipality": func.coalesce(t.municipality, ex.municipality),
+                "property_address": func.coalesce(t.property_address, ex.property_address),
+                "message": func.coalesce(t.message, ex.message),
+            },
+        )
+        await session.execute(stmt)
+        await session.commit()
+
+    background.add_task(_deliver_bevakning, mail_data)
+    background.add_task(_push_to_core_leads, dict(payload), payload["lead_score"])
+    return {"status": "ok", "persisted": True}
 
 
 @app.get("/api/stats/leads")

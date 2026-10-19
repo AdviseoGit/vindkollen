@@ -11,6 +11,7 @@ STATIC_PAGES = [
     # Silo-ingångar: en per publik, högsta prioritet efter startsidan.
     ("/markagare", "0.95", "weekly"),
     ("/narboende", "0.95", "weekly"),
+    ("/bevakning", "0.8", "weekly"),
     ("/kommun", "0.9", "weekly"),
     ("/juridisk-hjalp-arrendeavtal", "0.9", "monthly"),
     ("/for-byraer", "0.7", "monthly"),
