@@ -43,6 +43,7 @@
       "url": "https://vindkoll.se/for-projektorer",
       "name": "För projektörer: markägare som vill arrendera ut mark för vind, sol och batteri",
       "inLanguage": "sv-SE",
+      "dateModified": "2026-11-02",
       "isPartOf": { "@id": "https://vindkoll.se/#website" }
     },
     {
@@ -141,22 +142,22 @@
 <!-- Siffror -->
 <section class="max-w-5xl mx-auto px-6 py-14 border-t border-slate-900">
 <h2 class="text-3xl font-bold text-white mb-4">Hur stor är sajten just nu?</h2>
-<p class="text-slate-400 mb-8 max-w-3xl">Vi är tydliga: vindkoll.se är ung och volymerna är små. Det är en pilot. Här är de faktiska siffrorna per 13 oktober 2026:</p>
+<p class="text-slate-400 mb-8 max-w-3xl">Vi är tydliga: vindkoll.se är ung och volymerna är små. Det är en pilot. Här är de faktiska siffrorna per 2 november 2026. Siffrorna uppdateras löpande:</p>
 <div class="grid md:grid-cols-3 gap-5 mb-8">
   <div class="bg-slate-900/40 p-6 border border-slate-800 rounded-2xl">
-    <div class="text-3xl font-extrabold text-white mb-1">59</div>
+    <div class="text-3xl font-extrabold text-white mb-1">63</div>
     <div class="text-sm font-semibold text-blue-400 mb-2">Klick från Google (14 dagar)</div>
-    <p class="text-slate-400 text-sm">1 900 visningar, genomsnittlig position 12. Sajten rankar på "arrendeavtal vindkraft" och "arrende vind".</p>
+    <p class="text-slate-400 text-sm">2 207 visningar, genomsnittlig position 10,9 (Google Search Console, 19 okt–1 nov 2026).</p>
   </div>
   <div class="bg-slate-900/40 p-6 border border-slate-800 rounded-2xl" id="stat-total">
-    <div class="text-3xl font-extrabold text-white mb-1" id="stat-total-num">24</div>
+    <div class="text-3xl font-extrabold text-white mb-1" id="stat-total-num">29</div>
     <div class="text-sm font-semibold text-blue-400 mb-2">Formulärsvar totalt</div>
-    <p class="text-slate-400 text-sm">Markägare och närboende som anmält intresse sedan sajten startade.</p>
+    <p class="text-slate-400 text-sm">Markägare och närboende som anmält intresse sedan start – varav <span id="stat-week-num">3</span> de senaste 7 dagarna.</p>
   </div>
   <div class="bg-slate-900/40 p-6 border border-slate-800 rounded-2xl">
-    <div class="text-3xl font-extrabold text-white mb-1">7</div>
-    <div class="text-sm font-semibold text-blue-400 mb-2">Markägare</div>
-    <p class="text-slate-400 text-sm">Varav 3 A-leads: Skåne, Västra Götaland och Halland. Ett har ett avtalsförslag på bordet.</p>
+    <div class="text-3xl font-extrabold text-white mb-1">1</div>
+    <div class="text-sm font-semibold text-blue-400 mb-2">A-lead redo för projektör</div>
+    <p class="text-slate-400 text-sm">Exempel, anonymiserat: markägare i Norrbotten, ca 300 ha, ingen kontakt med projektör ännu, vill ha juridisk hjälp. Första leadet är gratis.</p>
   </div>
 </div>
 <div class="p-5 bg-amber-500/10 border border-amber-500/25 rounded-xl text-amber-100 text-sm leading-relaxed">
@@ -170,6 +171,8 @@
       if (!d) return;
       var tot = document.getElementById('stat-total-num');
       if (tot && typeof d.total === 'number') tot.textContent = d.total;
+      var wk = document.getElementById('stat-week-num');
+      if (wk && typeof d.last_7_days === 'number') wk.textContent = d.last_7_days;
     })
     .catch(function() {});
 })();
