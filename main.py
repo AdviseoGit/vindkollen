@@ -23,7 +23,7 @@ from fastapi import FastAPI, HTTPException, Request, BackgroundTasks
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from mailer import send_email, notify_owner
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from sqlalchemy import Boolean, Column, DateTime, Float, Integer, String, Text, func, select, text
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
@@ -581,6 +581,62 @@ class LeadIn(BaseModel):
     segment: Optional[str] = Field(default=None, max_length=32)
 
 
+PROJEKTOR_TECHNOLOGIES = ("vind", "sol", "batteri")
+
+
+class ProjektorLeadIn(BaseModel):
+    """Anmälan från en projektör (vind, sol, batteri) på /for-projektorer."""
+
+    organisation: str = Field(min_length=2, max_length=255)
+    email: EmailStr
+    name: Optional[str] = Field(default=None, max_length=255)
+    phone: Optional[str] = Field(default=None, max_length=32)
+    counties: list[str] = Field(min_length=1, max_length=21)
+    technologies: list[str] = Field(min_length=1, max_length=3)
+    wants_free_first_lead: bool = True
+    message: Optional[str] = Field(default=None, max_length=4000)
+    consent_contact: bool
+
+    @field_validator("organisation")
+    @classmethod
+    def _org_stripped(cls, v: str) -> str:
+        v = v.strip()
+        if len(v) < 2:
+            raise ValueError("Ange bolagets namn")
+        return v
+
+    @field_validator("counties")
+    @classmethod
+    def _valid_counties(cls, v: list[str]) -> list[str]:
+        out = []
+        for c in v:
+            c = c.strip()
+            if c not in vk_leads.COUNTIES:
+                raise ValueError(f"Okänt län: {c}")
+            if c not in out:
+                out.append(c)
+        return out
+
+    @field_validator("technologies")
+    @classmethod
+    def _valid_technologies(cls, v: list[str]) -> list[str]:
+        out = []
+        for t in v:
+            t = t.strip().lower()
+            if t not in PROJEKTOR_TECHNOLOGIES:
+                raise ValueError(f"Okänd teknik: {t}")
+            if t not in out:
+                out.append(t)
+        return out
+
+    @field_validator("consent_contact")
+    @classmethod
+    def _consent_required(cls, v: bool) -> bool:
+        if v is not True:
+            raise ValueError("Vi får kontakta dig om leads – samtycke krävs")
+        return v
+
+
 class QualifiedLeadIn(BaseModel):
     """Kvalificerat lead från en silo-sida.
 
@@ -1063,6 +1119,7 @@ def _push_to_core_leads(payload: dict, score: int) -> None:
     email = payload.get("email", "")
     name = payload.get("name") or email
     source = payload.get("source") or "silo_form"
+    is_projektor = payload.get("segment") == "projektor"
 
     parts = []
     for key, label in [
@@ -1078,6 +1135,14 @@ def _push_to_core_leads(payload: dict, score: int) -> None:
         if val not in (None, False, ""):
             parts.append(f"{label}={val}")
     why = f"score={score} " + " ".join(parts) if parts else f"score={score}"
+    if is_projektor:
+        # Projektören är ett bolag: raden bär organisationen och e-postdomänen.
+        name = payload.get("organisation") or name
+        why = (
+            f"score={score} segment=projektor län={payload.get('county') or ''} "
+            f"teknik={payload.get('technologies') or ''} "
+            f"gratis_forsta={'ja' if payload.get('wants_free_first_lead') else 'nej'}"
+        )
 
     try:
         import psycopg2
@@ -1088,6 +1153,8 @@ def _push_to_core_leads(payload: dict, score: int) -> None:
         with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as c:
             # Domännyckel = hela e-postadressen (unik per person, inte per domän)
             domain = email.lower()
+            if is_projektor:
+                domain = domain.rsplit("@", 1)[-1]
             c.execute(
                 "SELECT id FROM core.companies WHERE lower(domain) = %s",
                 (domain,),
@@ -1120,8 +1187,9 @@ def _push_to_core_leads(payload: dict, score: int) -> None:
             )
             c.execute(
                 "INSERT INTO core.contacts (company_id, name, email, role, created_by)"
-                " VALUES (%s,%s,%s,'markägare','site-updater')",
-                (company_id, name, email),
+                " VALUES (%s,%s,%s,%s,'site-updater')",
+                (company_id, (payload.get("name") or name) if is_projektor else name, email,
+                 "projektör" if is_projektor else "markägare"),
             )
         conn.close()
     except Exception:
@@ -1189,6 +1257,91 @@ class BevakningIn(BaseModel):
     project: Optional[str] = Field(default=None, max_length=255)
     property_address: Optional[str] = Field(default=None, max_length=512)
     consent_watch: bool = False
+
+def _deliver_projektor(data: dict, score: int, tier: str):
+    """Bekräftelse till projektören + notis till oss. Får aldrig kasta."""
+    from html import escape
+
+    try:
+        welcome = dict(data)
+        welcome["name"] = escape(data.get("name") or "")
+        mailer.send_email(
+            data["email"],
+            "Tack – din projektörsanmälan är mottagen | Vindkollen",
+            vk_leads.build_welcome_email_html(welcome),
+        )
+    except Exception as e:  # noqa: BLE001
+        print(f"[projektor] welcome mail failed: {e}")
+    try:
+        counties = ", ".join(data.get("counties") or [])
+        mailer.notify_owner(
+            f"[Projektör] {data['organisation']} \u2013 {counties} | Vindkollen".replace("\n", " ")[:250],
+            vk_leads.build_projektor_owner_email_html(data, score, tier),
+            reply_to=data.get("email"),
+        )
+    except Exception as e:  # noqa: BLE001
+        print(f"[projektor] owner notify failed: {e}")
+
+
+@app.post("/api/lead/projektor")
+async def capture_projektor_lead(lead: ProjektorLeadIn, background: BackgroundTasks):
+    """Ta emot en projektörsanmälan (vind, sol, batteri) från /for-projektorer."""
+    counties = ", ".join(lead.counties)
+    technologies = ", ".join(lead.technologies)
+    free = "ja" if lead.wants_free_first_lead else "nej"
+    # county är String(64): 21 län ryms inte. Hela listan ligger alltid först i message.
+    county = counties if len(counties) <= 64 else f"Flera län ({len(lead.counties)})"
+    message = f"Län: {counties}; Teknik: {technologies}; Gratis första lead: {free}"
+    if lead.message and lead.message.strip():
+        message += "\n\n" + lead.message.strip()
+
+    payload = {
+        "email": _normalise_email(lead.email),
+        "name": (lead.name or "").strip() or None,
+        "phone": (lead.phone or "").strip() or None,
+        "organisation": lead.organisation,
+        "county": county,
+        "role": f"projektör: {technologies}"[:128],
+        "segment": "projektor",
+        "source": "for_projektorer",
+        "consent_partner_share": False,
+        "message": message,
+    }
+    score, tier = vk_leads.score_lead(payload)
+    payload["lead_score"] = score
+    payload["lead_tier"] = tier
+
+    if not async_session:
+        return JSONResponse({"status": "ok", "persisted": False, "segment": "projektor"})
+
+    async with async_session() as session:
+        stmt = pg_insert(Lead).values(**payload)
+        stmt = stmt.on_conflict_do_update(
+            index_elements=["email"],
+            set_=_non_null(payload, skip=("email",)),
+        ).returning(Lead.id)
+        lead_id = (await session.execute(stmt)).scalar_one()
+        await session.commit()
+
+    mail_data = dict(payload)
+    mail_data.update(
+        counties=lead.counties,
+        technologies=lead.technologies,
+        wants_free_first_lead=lead.wants_free_first_lead,
+        consent_contact=True,
+        raw_message=(lead.message or "").strip(),
+    )
+    background.add_task(_deliver_projektor, mail_data, score, tier)
+    core_payload = dict(payload)
+    core_payload.update(
+        technologies=technologies,
+        wants_free_first_lead=lead.wants_free_first_lead,
+    )
+    core_payload["county"] = counties
+    background.add_task(_push_to_core_leads, core_payload, score)
+
+    return {"status": "ok", "persisted": True, "id": lead_id, "segment": "projektor"}
+
 
 
 def _deliver_bevakning(data: dict) -> None:

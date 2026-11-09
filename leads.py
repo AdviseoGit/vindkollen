@@ -42,9 +42,15 @@ SEGMENTS = {
         "base_score": 28,
         "landing": "/kommun",
     },
+    "projektor": {
+        "label": "Projektör",
+        "beskrivning": "Projektör inom vind, sol eller batteri som vill köpa markägarleads",
+        "base_score": 30,
+        "landing": "/for-projektorer",
+    },
     "ovrig": {
         "label": "Övrig",
-        "beskrivning": "Annan roll (projektör, rådgivare, journalist m.m.)",
+        "beskrivning": "Annan roll (rådgivare, journalist m.m.)",
         "base_score": 5,
         "landing": "/",
     },
@@ -255,6 +261,37 @@ def build_owner_email_html(d: dict, score: int, tier: str) -> str:
 </div>"""
 
 
+def build_projektor_owner_email_html(d: dict, score: int, tier: str) -> str:
+    """Ägarnotis för projektörsanmälan — alla fält, HTML-escapade (fritext från besökaren)."""
+    from html import escape
+
+    def e(v):
+        return escape(str(v)) if v not in (None, "") else v
+
+    rows = "".join([
+        _row("Silo", SEGMENTS["projektor"]["label"]),
+        _row("Organisation", e(d.get("organisation"))),
+        _row("Namn", e(d.get("name"))),
+        _row("E-post", e(d.get("email"))),
+        _row("Telefon", e(d.get("phone"))),
+        _row("Län", e(", ".join(d.get("counties") or []))),
+        _row("Teknik", e(", ".join(d.get("technologies") or []))),
+        _row("Vill ha första leadet gratis", bool(d.get("wants_free_first_lead"))),
+        _row("Samtycke till kontakt", bool(d.get("consent_contact"))),
+        _row("Meddelande", e(d.get("raw_message"))),
+        _row("Poäng", f"{score}/100 (tier {tier})"),
+        _row("Källa", e(d.get("source"))),
+    ])
+    return (
+        '<div style="font-family:Segoe UI,Arial,sans-serif;max-width:600px;color:#1e293b">'
+        f'<div style="background:{_BRAND};color:#fff;padding:16px 20px;border-radius:12px 12px 0 0">'
+        '<div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.85">'
+        'Ny projektörsanmälan</div></div>'
+        '<div style="border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px;padding:16px 8px">'
+        f'<table style="border-collapse:collapse;font-size:14px;width:100%">{rows}</table></div></div>'
+    )
+
+
 _SEGMENT_INTRO = {
     "markagare": (
         "Som markägare sitter du på den del av affären som projektören behöver mest — marken. "
@@ -294,6 +331,13 @@ _SEGMENT_INTRO = {
              "https://vindkoll.se/kommunersattning-vindkraft-2026"),
             ("Bygdepeng – regler och fördelning",
              "https://vindkoll.se/bygdepeng-vindkraft-regler-2026"),
+        ],
+    ),
+    "projektor": (
+        "Tack för din anmälan. Vi återkommer inom en arbetsdag med hur ert första gratisleads "
+        "levereras och vilka av era valda län som har leads just nu.",
+        [
+            ("Så fungerar piloten för projektörer", "https://vindkoll.se/for-projektorer"),
         ],
     ),
     "ovrig": (

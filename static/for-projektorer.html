@@ -43,7 +43,7 @@
       "url": "https://vindkoll.se/for-projektorer",
       "name": "För projektörer: markägare som vill arrendera ut mark för vind, sol och batteri",
       "inLanguage": "sv-SE",
-      "dateModified": "2026-11-02",
+      "dateModified": "2026-11-09",
       "isPartOf": { "@id": "https://vindkoll.se/#website" }
     },
     {
@@ -107,7 +107,7 @@
 <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-6 uppercase tracking-wider">B2B · Pilot · Vind, sol och batteri</div>
 <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 leading-[1.1]">För projektörer: <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">markägare som vill arrendera ut mark</span></h1>
 <p class="text-xl text-slate-400 mb-8 leading-relaxed max-w-3xl">Vindkoll.se samlar markägare som räknat på vad marken är värd för vindkraft, solpark eller batterilager och som uttryckligen bett om kontakt med en projektör. Vi är en ung sajt och volymen är liten – men varje lead är en markägare som själv tagit första steget.</p>
-<a class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition shadow-lg" href="mailto:sales@adviseo.se?subject=Pilot%20projekt%C3%B6r%20vindkoll.se%20%E2%80%93%20%5Bl%C3%A4n%5D">Kontakta oss om piloten →</a>
+<a class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition shadow-lg" href="#anmalan">Anmäl er till piloten →</a>
 </div>
 </header>
 
@@ -215,13 +215,88 @@
 <div class="bg-gradient-to-br from-blue-900/30 to-slate-900/40 border border-blue-500/30 rounded-3xl p-8 md:p-10">
 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-200 text-xs font-semibold mb-4 uppercase tracking-wider">Pilot · Första leadet gratis</div>
 <h2 class="text-3xl font-bold text-white mb-3">Intresserad av piloten?</h2>
-<p class="text-slate-300 mb-6 leading-relaxed max-w-2xl">Maila oss med vilka län och tekniker ni vill ha och vem hos er som ska ta emot leads. Vi bekräftar om länet är ledigt och skickar pilotvillkoren för påseende. Ingen säljprocess, inget möte – ett mail räcker.</p>
-<a class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition shadow-lg" href="mailto:sales@adviseo.se?subject=Pilot%20projekt%C3%B6r%20vindkoll.se%20%E2%80%93%20%5Bl%C3%A4n%5D">
-  Maila sales@adviseo.se →
-</a>
-<p class="mt-4 text-sm text-slate-500">Ange län och teknik i ämnesraden, t.ex. "Pilot projektör vindkoll.se – Skåne, sol". Vi svarar inom 2 arbetsdagar.</p>
+<p class="text-slate-300 mb-6 leading-relaxed max-w-2xl">Fyll i vilka län och tekniker ni vill ha och vem hos er som ska ta emot leads. Vi bekräftar om länet är ledigt och skickar pilotvillkoren för påseende, och återkommer inom en arbetsdag med hur första gratisleadet levereras.</p>
+<a class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition shadow-lg" href="#anmalan">Gå till anmälan →</a>
 </div>
 </section>
+
+<!-- Anmälan -->
+<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
+<div class="bg-gradient-to-br from-blue-900/40 to-emerald-900/25 border border-blue-500/30 rounded-3xl p-8 md:p-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-4 uppercase tracking-wider">Pilot · Första leadet gratis</div>
+<h2 class="text-3xl font-bold text-white mb-3">Anmäl er som projektör</h2>
+<p class="text-slate-300 mb-4 leading-relaxed">Ange bolag, län och tekniker (vind, sol, batteri). Vi återkommer inom en arbetsdag med hur första gratisleadet levereras.</p>
+<p class="text-slate-300 mb-8 text-sm leading-relaxed border-l-2 border-emerald-500/60 pl-4">Markägare som skickas vidare har själva bockat i: <i>”Jag samtycker till att Vindkollen delar mina uppgifter med utvalda samarbetspartner i mitt län — projektörer inom vind, sol och batterilager samt jurister och rådgivare — så att de kan kontakta mig. Utan bock hör bara Vindkollen av sig.”</i> Leads utan den bocken lämnas aldrig vidare.</p>
+<form class="space-y-5" id="projektor-form" novalidate>
+<div class="grid sm:grid-cols-2 gap-4">
+<div><label class="block text-sm font-semibold text-slate-300 mb-2" for="pj-org">Bolag</label>
+<input class="w-full bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white placeholder-slate-500" id="pj-org" name="organisation" placeholder="Bolagets namn" required type="text" maxlength="255" autocomplete="organization"/></div>
+<div><label class="block text-sm font-semibold text-slate-300 mb-2" for="pj-name">Namn <span class="text-slate-500 font-normal">(valfritt)</span></label>
+<input class="w-full bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white placeholder-slate-500" id="pj-name" name="name" placeholder="För- och efternamn" type="text" maxlength="255" autocomplete="name"/></div>
+</div>
+<div class="grid sm:grid-cols-2 gap-4">
+<div><label class="block text-sm font-semibold text-slate-300 mb-2" for="pj-email">E-post</label>
+<input class="w-full bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white placeholder-slate-500" id="pj-email" name="email" placeholder="namn@bolag.se" required type="email" autocomplete="email"/></div>
+<div><label class="block text-sm font-semibold text-slate-300 mb-2" for="pj-phone">Telefon <span class="text-slate-500 font-normal">(valfritt)</span></label>
+<input class="w-full bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white placeholder-slate-500" id="pj-phone" name="phone" placeholder="07X-XXX XX XX" type="tel" maxlength="32" autocomplete="tel"/></div>
+</div>
+<fieldset>
+<legend class="block text-sm font-semibold text-slate-300 mb-2">Län <span class="text-slate-500 font-normal">(välj ett eller flera)</span></legend>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-2 bg-slate-950/60 border border-slate-700 rounded-xl p-4">
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Blekinge"/><span>Blekinge</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Dalarna"/><span>Dalarna</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Gotland"/><span>Gotland</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Gävleborg"/><span>Gävleborg</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Halland"/><span>Halland</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Jämtland"/><span>Jämtland</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Jönköping"/><span>Jönköping</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Kalmar"/><span>Kalmar</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Kronoberg"/><span>Kronoberg</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Norrbotten"/><span>Norrbotten</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Skåne"/><span>Skåne</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Stockholm"/><span>Stockholm</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Södermanland"/><span>Södermanland</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Uppsala"/><span>Uppsala</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Värmland"/><span>Värmland</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Västerbotten"/><span>Västerbotten</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Västernorrland"/><span>Västernorrland</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Västmanland"/><span>Västmanland</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Västra Götaland"/><span>Västra Götaland</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Örebro"/><span>Örebro</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="county" type="checkbox" value="Östergötland"/><span>Östergötland</span></label>
+</div>
+</fieldset>
+<fieldset>
+<legend class="block text-sm font-semibold text-slate-300 mb-2">Teknik</legend>
+<div class="flex flex-wrap gap-x-6 gap-y-2">
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="technology" type="checkbox" value="vind"/><span>Vind</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="technology" type="checkbox" value="sol"/><span>Sol</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="technology" type="checkbox" value="batteri"/><span>Batteri</span></label>
+</div>
+</fieldset>
+<fieldset>
+<legend class="block text-sm font-semibold text-slate-300 mb-2">Ja, jag vill ha första leadet gratis</legend>
+<div class="flex gap-6">
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" checked name="free_first" type="radio" value="ja"/><span>Ja</span></label>
+<label class="flex gap-2 items-center text-sm text-slate-300"><input class="h-5 w-5 border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="free_first" type="radio" value="nej"/><span>Nej</span></label>
+</div>
+</fieldset>
+<div><label class="block text-sm font-semibold text-slate-300 mb-2" for="pj-message">Meddelande <span class="text-slate-500 font-normal">(valfritt)</span></label>
+<textarea class="w-full bg-slate-950 border border-slate-700 px-4 py-3 rounded-xl outline-none focus:border-blue-500 text-white placeholder-slate-500" id="pj-message" name="message" maxlength="4000" placeholder="t.ex. minsta areal, spänningsnivå, vem som tar emot leads" rows="3"></textarea></div>
+<div class="pt-2 border-t border-slate-700/60">
+<label class="flex gap-3 text-sm text-slate-300"><input class="mt-1 h-5 w-5 rounded border-slate-600 bg-slate-950 text-blue-600 focus:ring-blue-500" name="consent_contact" type="checkbox"/>
+<span>Vindkollen/Adviseo får kontakta mig om leads i valda län.</span></label>
+</div>
+<div class="text-red-400 text-sm hidden" id="pj-error" role="alert"></div>
+<button class="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg" id="pj-submit" type="submit">Skicka anmälan →</button>
+</form>
+<div class="hidden p-6 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-200" id="pj-success" role="status">
+<div class="font-bold text-lg mb-1">Tack – vi har fått er anmälan.</div>
+Ni får en bekräftelse på mejlen. Vi återkommer inom en arbetsdag med hur första gratisleadet levereras.
+</div>
+</div>
+</section>
+
 
 <footer class="border-t border-slate-800 bg-[#030712] py-12 mt-20">
 <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8">
@@ -267,6 +342,7 @@
 </footer>
 
 <script src="/static/js/vk-silo.js"></script>
+<script src="/static/js/projektor-form.js"></script>
 <script src="/static/js/vk-analytics.js"></script>
 <script src="/static/js/mobile-menu.js"></script>
 <script src="/static/ga4_events.js"></script>
