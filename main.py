@@ -2345,6 +2345,10 @@ async def health():
 
 # ---------------------------------------------------------------------------
 
+@app.get("/arrendera-ut-mark-till-solceller", response_class=HTMLResponse)
+async def arrendera_ut_mark_till_solceller():
+    return _serve_static_html("static/arrendera-ut-mark-till-solceller.html")
+
 @app.get("/arrende-vindkraft-vs-solpark", response_class=HTMLResponse)
 async def arrende_vindkraft_vs_solpark():
     return _serve_static_html("static/arrende-vindkraft-vs-solpark.html")

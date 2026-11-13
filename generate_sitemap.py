@@ -19,6 +19,9 @@ STATIC_PAGES = [
     ("/avtalsgranskning-vindkraftsarrende", "0.8", "monthly"),
     ("/kalkylator", "0.9", "weekly"),
     ("/arrendekalkylator", "0.9", "weekly"),
+    ("/arrendera-ut-mark-till-solceller", "0.9", "monthly"),
+    ("/solpark-arrende-ersattning", "0.8", "monthly"),
+    ("/batterilager-arrende-ersattning", "0.8", "monthly"),
     ("/jamforelse-ersattning-vs-arrende", "0.9", "weekly"),
     ("/skillnad-arrende-intaktsdelning", "0.9", "monthly"),
     ("/om-sajten", "0.5", "monthly"),
@@ -53,8 +56,6 @@ STATIC_PAGES = [
     ("/ersattning-vindkraft", "0.8", "monthly"),
     ("/arrendera-ut-mark-for-vindkraftverk", "0.8", "monthly"),
     ("/salja-vindkraftverk-andelar-elcertifikat", "0.8", "monthly"),
-    ("/ersattningsmodeller-vindkraft", "0.8", "monthly"),
-    ("/ersattning-vindkraft", "0.8", "monthly"),
 ]
 
 def generate_sitemap() -> None:
