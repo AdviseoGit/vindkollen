@@ -9,10 +9,12 @@ Audience: (1) Swedish landowners looking to host wind turbines,
           (2) Swedish municipalities and organisations evaluating wind power.
 """
 
+import asyncio
 import hashlib
 import hmac
 import os
 import json
+import re
 import urllib.parse
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
@@ -22,9 +24,10 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request, BackgroundTasks
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.concurrency import run_in_threadpool
 from mailer import send_email, notify_owner
 from pydantic import BaseModel, EmailStr, Field, field_validator
-from sqlalchemy import Boolean, Column, DateTime, Float, Integer, String, Text, func, select, text
+from sqlalchemy import Boolean, Column, DateTime, Float, Integer, String, Text, func, or_, select, text
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
@@ -98,6 +101,9 @@ class Lead(Base):
     watch_active = Column(Boolean, nullable=True)
     watch_municipality = Column(String(255), nullable=True)
     watch_project = Column(String(255), nullable=True)
+    # Outbox mot core.leads: NULL = ej synkad ännu.
+    core_synced_at = Column(DateTime, nullable=True)
+    core_sync_error = Column(String(255), nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)
 
@@ -226,6 +232,9 @@ _MIGRATIONS = [
     "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS watch_active BOOLEAN",
     "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS watch_municipality VARCHAR(255)",
     "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS watch_project VARCHAR(255)",
+    # Outbox mot core.leads (se _sync_pending_core_leads).
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS core_synced_at TIMESTAMP",
+    "ALTER TABLE vindkollen_leads ADD COLUMN IF NOT EXISTS core_sync_error VARCHAR(255)",
     # The new model marks created_at with index=True; back-fill the index.
     "CREATE INDEX IF NOT EXISTS ix_vindkollen_leads_created_at ON vindkollen_leads (created_at)",
     # Silo-uppslagningarna vi faktiskt kör: per segment, per län, per poäng.
@@ -257,7 +266,10 @@ async def lifespan(app: FastAPI):
                     # from booting. The most likely cause is a fresh DB
                     # where the table was just created with all columns.
                     print(f"[migration] skipped {stmt!r}: {exc}")
+    sync_task = asyncio.create_task(_core_sync_loop()) if async_session else None
     yield
+    if sync_task:
+        sync_task.cancel()
     if engine:
         await engine.dispose()
 
@@ -1105,16 +1117,18 @@ async def capture_lead_report(lead: LeadReportIn, background: BackgroundTasks):
     }
 
 
-def _push_to_core_leads(payload: dict, score: int) -> None:
+def _push_to_core_leads(payload: dict, score: int) -> str:
     """Registrera lead i core.leads via direkt psycopg2-skrivning mot agentdatabasen.
 
     Använder hela e-postadressen som domännyckel i core.companies så att varje
     person (inte varje e-postdomän) får en unik rad — avgörande för B2C-leads
     från markägare med gmail/hotmail-adresser.
+
+    Returnerar "ok" | "duplicate" | "no_env" | "error:<Klass>: <meddelande>".
     """
     agent_db_url = os.environ.get("AGENT_DB_URL_SITE_UPDATER")
     if not agent_db_url:
-        return
+        return "no_env"
 
     email = payload.get("email", "")
     name = payload.get("name") or email
@@ -1144,11 +1158,12 @@ def _push_to_core_leads(payload: dict, score: int) -> None:
             f"gratis_forsta={'ja' if payload.get('wants_free_first_lead') else 'nej'}"
         )
 
+    conn = None
     try:
         import psycopg2
         import psycopg2.extras
 
-        conn = psycopg2.connect(agent_db_url)
+        conn = psycopg2.connect(agent_db_url, connect_timeout=10)
         conn.autocommit = True
         with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as c:
             # Domännyckel = hela e-postadressen (unik per person, inte per domän)
@@ -1176,8 +1191,7 @@ def _push_to_core_leads(payload: dict, score: int) -> None:
                 (company_id,),
             )
             if c.fetchone():
-                conn.close()
-                return
+                return "duplicate"
 
             c.execute(
                 "INSERT INTO core.leads"
@@ -1191,9 +1205,88 @@ def _push_to_core_leads(payload: dict, score: int) -> None:
                 (company_id, (payload.get("name") or name) if is_projektor else name, email,
                  "projektör" if is_projektor else "markägare"),
             )
-        conn.close()
-    except Exception:
-        pass  # Synken mot core.leads är best-effort; lokalt lead är redan sparat
+        return "ok"
+    except Exception as exc:  # noqa: BLE001 — lokalt lead är redan sparat
+        # Postgres-felmeddelanden kan citera värden; ta bara första raden och
+        # maska e-postadresser så att inga personuppgifter hamnar i loggen.
+        msg = str(exc).strip().splitlines()[0] if str(exc).strip() else ""
+        msg = re.sub(r"\S+@\S+", "<email>", msg)
+        status = f"error:{type(exc).__name__}: {msg}"[:150]
+        print(f"[core-sync] {status}", flush=True)
+        return status
+    finally:
+        if conn is not None:
+            try:
+                conn.close()
+            except Exception:  # noqa: BLE001
+                pass
+
+
+_core_sync_lock = asyncio.Lock()
+
+
+_CORE_PAYLOAD_FIELDS = (
+    "email", "name", "segment", "source", "county", "municipality", "land_hectares",
+    "project_stage", "wants_legal_help", "wants_projector_contact", "organisation",
+    "lead_score",
+)
+
+
+def _not_test_row():
+    return (
+        func.coalesce(Lead.segment, "") != "test",
+        ~func.lower(Lead.email).like("%@example.com"),
+        ~func.coalesce(Lead.organisation, "").like("TEST%"),
+    )
+
+
+async def _sync_pending_core_leads() -> None:
+    """Synka rader med core_synced_at IS NULL till core.leads (outbox).
+
+    Säker att köra när som helst: kraschar aldrig, och är en no-op utan DB/env.
+    Stannar efter första behörighetsfelet (samma fel gäller alla rader).
+    """
+    if not async_session or not os.environ.get("AGENT_DB_URL_SITE_UPDATER"):
+        return
+    if _core_sync_lock.locked():
+        return
+    async with _core_sync_lock:
+        try:
+            async with async_session() as session:
+                rows = (await session.execute(
+                    select(Lead)
+                    .where(Lead.core_synced_at.is_(None), *_not_test_row())
+                    .order_by(Lead.id)
+                    .limit(200)
+                )).scalars().all()
+                for row in rows:
+                    payload = {k: getattr(row, k) for k in _CORE_PAYLOAD_FIELDS}
+                    status = await run_in_threadpool(
+                        _push_to_core_leads, payload, row.lead_score or 0
+                    )
+                    if status in ("ok", "duplicate"):
+                        row.core_synced_at = datetime.utcnow()
+                        row.core_sync_error = None
+                        await session.commit()
+                        continue
+                    if status == "no_env":
+                        return
+                    row.core_sync_error = status.removeprefix("error:")[:255]
+                    await session.commit()
+                    if "InsufficientPrivilege" in status or "permission denied" in status:
+                        return
+        except Exception as exc:  # noqa: BLE001 — får aldrig fälla appen
+            print(f"[core-sync] sync failed: {type(exc).__name__}", flush=True)
+
+
+async def _core_sync_loop() -> None:
+    """Körs från lifespan: en gång direkt, sedan var 30:e minut."""
+    while True:
+        try:
+            await _sync_pending_core_leads()
+        except Exception:  # noqa: BLE001
+            pass
+        await asyncio.sleep(1800)
 
 
 @app.post("/api/lead/qualify")
@@ -1238,7 +1331,7 @@ async def capture_qualified_lead(lead: QualifiedLeadIn, background: BackgroundTa
         background.add_task(_send_handover, stored, p, "auto")
     # Passa på att tömma kön av karensatta överlämningar medan vi ändå kör.
     background.add_task(_release_due_handovers)
-    background.add_task(_push_to_core_leads, dict(payload), score)
+    background.add_task(_sync_pending_core_leads)
 
     return {
         "status": "ok",
@@ -1332,13 +1425,7 @@ async def capture_projektor_lead(lead: ProjektorLeadIn, background: BackgroundTa
         raw_message=(lead.message or "").strip(),
     )
     background.add_task(_deliver_projektor, mail_data, score, tier)
-    core_payload = dict(payload)
-    core_payload.update(
-        technologies=technologies,
-        wants_free_first_lead=lead.wants_free_first_lead,
-    )
-    core_payload["county"] = counties
-    background.add_task(_push_to_core_leads, core_payload, score)
+    background.add_task(_sync_pending_core_leads)
 
     return {"status": "ok", "persisted": True, "id": lead_id, "segment": "projektor"}
 
@@ -1440,7 +1527,7 @@ async def capture_bevakning(item: BevakningIn, background: BackgroundTasks):
         await session.commit()
 
     background.add_task(_deliver_bevakning, mail_data)
-    background.add_task(_push_to_core_leads, dict(payload), payload["lead_score"])
+    background.add_task(_sync_pending_core_leads)
     return {"status": "ok", "persisted": True}
 
 
@@ -1456,20 +1543,71 @@ async def lead_stats():
     badge is gone; this endpoint reports what the database actually holds and
     feeds scoreboard.py.
     """
+    empty_sync = {
+        "env_set": bool(os.environ.get("AGENT_DB_URL_SITE_UPDATER")),
+        "synced": 0,
+        "pending": 0,
+        "last_error": None,
+    }
     if not async_session:
-        return {"total": 0, "last_7_days": 0}
+        return {
+            "total": 0, "last_7_days": 0, "test_rows": 0, "by_segment": {},
+            "by_segment_day": [], "first_at": {}, "last_at": {}, "core_sync": empty_sync,
+        }
+
+    is_test = or_(
+        func.coalesce(Lead.segment, "") == "test",
+        func.lower(Lead.email).like("%@example.com"),
+        func.coalesce(Lead.organisation, "").like("TEST%"),
+    )
+    seg = func.coalesce(Lead.segment, "okänt")
+    since = datetime.utcnow() - timedelta(days=90)
 
     async with async_session() as session:
-        total_q = await session.execute(select(func.count(Lead.id)))
-        total = total_q.scalar_one() or 0
-        week_q = await session.execute(
+        total = (await session.execute(select(func.count(Lead.id)))).scalar_one() or 0
+        last_7_days = (await session.execute(
             select(func.count(Lead.id)).where(
                 Lead.created_at >= datetime.utcnow() - timedelta(days=7)
             )
-        )
-        last_7_days = week_q.scalar_one() or 0
+        )).scalar_one() or 0
+        test_rows = (await session.execute(
+            select(func.count(Lead.id)).where(is_test)
+        )).scalar_one() or 0
+        seg_rows = (await session.execute(
+            select(seg, func.count(Lead.id), func.min(Lead.created_at), func.max(Lead.created_at))
+            .where(~is_test).group_by(seg).order_by(seg)
+        )).all()
+        day = func.date(Lead.created_at)
+        day_rows = (await session.execute(
+            select(day, seg, func.count(Lead.id))
+            .where(~is_test, Lead.created_at >= since)
+            .group_by(day, seg).order_by(day, seg)
+        )).all()
+        synced = (await session.execute(
+            select(func.count(Lead.id)).where(~is_test, Lead.core_synced_at.is_not(None))
+        )).scalar_one() or 0
+        pending = (await session.execute(
+            select(func.count(Lead.id)).where(~is_test, Lead.core_synced_at.is_(None))
+        )).scalar_one() or 0
+        last_error = (await session.execute(
+            select(Lead.core_sync_error)
+            .where(Lead.core_sync_error.is_not(None))
+            .order_by(Lead.id.desc()).limit(1)
+        )).scalar_one_or_none()
 
-    return {"total": total, "last_7_days": last_7_days}
+    def _iso(d):
+        return d.isoformat() if d else None
+
+    return {
+        "total": total,
+        "last_7_days": last_7_days,
+        "test_rows": test_rows,
+        "by_segment": {r[0]: r[1] for r in seg_rows},
+        "by_segment_day": [{"date": str(r[0]), "segment": r[1], "n": r[2]} for r in day_rows],
+        "first_at": {r[0]: _iso(r[2]) for r in seg_rows},
+        "last_at": {r[0]: _iso(r[3]) for r in seg_rows},
+        "core_sync": {**empty_sync, "synced": synced, "pending": pending, "last_error": last_error},
+    }
 
 
 def _require_api_key(request: Request) -> None:
