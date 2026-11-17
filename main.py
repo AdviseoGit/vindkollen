@@ -1531,6 +1531,49 @@ async def capture_bevakning(item: BevakningIn, background: BackgroundTasks):
     return {"status": "ok", "persisted": True}
 
 
+_MANADER = ["januari", "februari", "mars", "april", "maj", "juni", "juli",
+            "augusti", "september", "oktober", "november", "december"]
+_FAS_TEXT = {
+    "ingen_kontakt": "Ingen kontakt än",
+    "kontaktad": "Kontaktad av projektör",
+    "forhandlar": "Förhandlar nu",
+    "har_avtal": "Har avtal – vill granska",
+}
+
+
+def _lager_rad(county, hectares, stage, source, created_at, wants_projector, consent, tier) -> dict:
+    """Anonymiserad rad för markägarlagret – endast icke-identifierande fält."""
+    lan = (county or "").strip()
+    if lan.lower().endswith(" län"):
+        lan = lan[:-4].strip()
+    lan = lan or "Ej angivet"
+    src = (source or "").lower()
+    teknik = "sol" if "sol" in src else "batteri" if "batteri" in src else "vind"
+    fas = _FAS_TEXT.get(stage or "", "Ej angiven")
+    manad = f"{_MANADER[created_at.month - 1]} {created_at.year}" if created_at else ""
+    oppen = bool(wants_projector)
+    delar = [lan]
+    if hectares is not None:
+        delar.append(f"{hectares} ha")
+    if fas != "Ej angiven":
+        delar.append(fas[0].lower() + fas[1:])
+    if oppen:
+        delar.append("öppen för projektör")
+    if manad:
+        delar.append(manad)
+    return {
+        "lan": lan,
+        "hektar": hectares,
+        "fas": fas,
+        "teknik": teknik,
+        "manad": manad,
+        "oppen_for_projektor": oppen,
+        "samtycke_dela": bool(consent),
+        "lead_tier": tier if tier in ("A", "B", "C") else None,
+        "text": ", ".join(delar),
+    }
+
+
 @app.get("/api/stats/leads")
 async def lead_stats():
     """Real lead counts — no padding, ever.
@@ -1553,6 +1596,8 @@ async def lead_stats():
         return {
             "total": 0, "last_7_days": 0, "test_rows": 0, "by_segment": {},
             "by_segment_day": [], "first_at": {}, "last_at": {}, "core_sync": empty_sync,
+            "markagare_lager": [],
+            "markagare_lager_summa": {"antal": 0, "oppna_for_projektor": 0, "per_lan": {}},
         }
 
     is_test = or_(
@@ -1594,9 +1639,23 @@ async def lead_stats():
             .where(Lead.core_sync_error.is_not(None))
             .order_by(Lead.id.desc()).limit(1)
         )).scalar_one_or_none()
+        lager_rows = (await session.execute(
+            select(
+                Lead.county, Lead.land_hectares, Lead.project_stage, Lead.source,
+                Lead.created_at, Lead.wants_projector_contact,
+                Lead.consent_partner_share, Lead.lead_tier,
+            )
+            .where(~is_test, Lead.segment == "markagare")
+            .order_by(Lead.created_at.desc()).limit(500)
+        )).all()
 
     def _iso(d):
         return d.isoformat() if d else None
+
+    lager = [_lager_rad(*r) for r in lager_rows]
+    per_lan: dict = {}
+    for r in lager:
+        per_lan[r["lan"]] = per_lan.get(r["lan"], 0) + 1
 
     return {
         "total": total,
@@ -1607,6 +1666,12 @@ async def lead_stats():
         "first_at": {r[0]: _iso(r[2]) for r in seg_rows},
         "last_at": {r[0]: _iso(r[3]) for r in seg_rows},
         "core_sync": {**empty_sync, "synced": synced, "pending": pending, "last_error": last_error},
+        "markagare_lager": lager,
+        "markagare_lager_summa": {
+            "antal": len(lager),
+            "oppna_for_projektor": sum(1 for r in lager if r["oppen_for_projektor"]),
+            "per_lan": per_lan,
+        },
     }
 
 

@@ -179,6 +179,53 @@
 </script>
 </section>
 
+<!-- Markägare som väntar -->
+<section class="max-w-5xl mx-auto px-6 py-14 border-t border-slate-900" id="lager">
+<h2 class="text-3xl font-bold text-white mb-4">Markägare som väntar just nu</h2>
+<p class="text-slate-400 max-w-3xl leading-relaxed mb-6">Anonymiserat utdrag ur markägarna som anmält sig på vindkoll.se. Inga namn eller kommuner visas här — kontaktuppgifter lämnas bara ut till projektör när markägaren kryssat i samtycke. Första leadet är gratis.</p>
+<p id="lager-summa" class="text-slate-300 font-semibold mb-3"></p>
+<div class="overflow-x-auto rounded-xl border border-slate-800">
+<table class="w-full text-left text-sm text-slate-300">
+<thead class="bg-slate-900/80 text-slate-400 uppercase text-xs tracking-wider"><tr>
+<th class="px-4 py-3">Län</th><th class="px-4 py-3">Hektar</th><th class="px-4 py-3">Fas</th><th class="px-4 py-3">Teknik</th><th class="px-4 py-3">Anmäld</th><th class="px-4 py-3">Öppen för projektör</th><th class="px-4 py-3">Samtycke</th>
+</tr></thead>
+<tbody id="lager-rader" class="divide-y divide-slate-800"></tbody>
+</table>
+</div>
+<p class="mt-6"><a class="text-blue-400 hover:text-blue-300 font-semibold transition" href="#anmalan">Vill ni ha ett av dessa leads? Anmäl er – första är gratis</a></p>
+<script>
+(function() {
+  var summa = document.getElementById('lager-summa');
+  var body = document.getElementById('lager-rader');
+  function tom() {
+    summa.textContent = 'Inga markägare i lagret just nu';
+    body.textContent = '';
+  }
+  fetch('/api/stats/leads')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      var rows = d && d.markagare_lager;
+      if (!rows || !rows.length) { tom(); return; }
+      var open = rows.filter(function(r) { return r.oppen_for_projektor; }).length;
+      summa.textContent = rows.length + ' markägare, varav ' + open + ' öppna för projektörskontakt';
+      body.textContent = '';
+      rows.forEach(function(r) {
+        var tr = document.createElement('tr');
+        [r.lan, r.hektar == null ? '–' : r.hektar, r.fas, r.teknik, r.manad,
+         r.oppen_for_projektor ? '✓' : '–', r.samtycke_dela ? '✓' : '–'].forEach(function(v) {
+          var td = document.createElement('td');
+          td.className = 'px-4 py-3 whitespace-nowrap';
+          td.textContent = String(v);
+          tr.appendChild(td);
+        });
+        body.appendChild(tr);
+      });
+    })
+    .catch(tom);
+})();
+</script>
+</section>
+
 <!-- Erbjudandet -->
 <section class="max-w-5xl mx-auto px-6 py-14 border-t border-slate-900">
 <h2 class="text-3xl font-bold text-white mb-4">Erbjudandet – pilot på marknadsmässiga villkor</h2>
