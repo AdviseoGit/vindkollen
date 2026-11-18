@@ -142,10 +142,34 @@
 <p class="text-xs text-slate-500">Moderna verk är ofta 230–270 meter höga.</p>
 </div>
 <div class="space-y-3">
-<label class="block text-sm font-semibold text-slate-300" for="turbines">Antal verk i parken</label>
-<input class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500 text-white" id="turbines" min="1" step="1" type="number" value="10"/>
+<label class="block text-sm font-semibold text-slate-300" for="distance2">Avstånd till näst närmaste verk (meter, valfritt)</label>
+<input class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500 text-white" id="distance2" min="0" step="50" type="number" placeholder="Lämna tomt om bara ett verk är nära"/>
+<p class="text-xs text-slate-500">Ersättning betalas för högst två verk – de två som ger mest.</p>
 </div>
 </div>
+<details class="mb-10 bg-slate-800/30 border border-slate-700 rounded-xl p-4">
+<summary class="cursor-pointer text-sm font-semibold text-slate-300">Antaganden (ändra om du vet mer om parken)</summary>
+<div class="grid md:grid-cols-3 gap-4 mt-4">
+<div class="space-y-2">
+<label class="block text-xs font-semibold text-slate-400" for="capacity">Effekt per verk (MW)</label>
+<input class="w-full bg-slate-800 border border-slate-700 p-3 rounded-lg text-white" id="capacity" min="1" max="20" step="0.5" type="number" value="6"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-semibold text-slate-400" for="hours">Fullasttimmar per år</label>
+<input class="w-full bg-slate-800 border border-slate-700 p-3 rounded-lg text-white" id="hours" min="1000" max="5000" step="100" type="number" value="3000"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-semibold text-slate-400" for="price">Elpris (öre/kWh, årssnitt)</label>
+<input class="w-full bg-slate-800 border border-slate-700 p-3 rounded-lg text-white" id="price" min="1" max="300" step="0.1" type="number" value="57"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-semibold text-slate-400" for="turbines">Antal verk i parken</label>
+<input class="w-full bg-slate-800 border border-slate-700 p-3 rounded-lg text-white" id="turbines" min="1" step="1" type="number" value="10"/>
+<p class="text-xs text-slate-500">Påverkar inte beloppet – intäkten räknas per verk.</p>
+</div>
+</div>
+<p class="text-xs text-slate-500 mt-4">Standardvärdena är desamma som i regeringens räkneexempel (prop. 2025/26:239, avsnitt 8.6.1): ett 6 MW-verk, 3 000 fullasttimmar och 2024 års genomsnittliga spotpris i elområdet, viktat med 0,75 eftersom vindkraft får lägre pris än snittet. Elpriset fylls i när du väljer elområde.</p>
+</details>
 <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-5 rounded-2xl font-bold text-lg transition shadow-lg mb-10" onclick="calculate()">
                 Beräkna min ersättning
             </button>
@@ -154,14 +178,14 @@
 <div class="p-8 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-center">
 <h3 class="text-blue-400 font-bold mb-2 uppercase tracking-widest text-sm">Uppskattad skattefri ersättning</h3>
 <div class="text-5xl font-extrabold text-white mb-2" id="result-value">0 kr/år</div>
-<p class="text-slate-400" id="result-status">Beräknat enligt trappstegsmodellen (<span id="result-promille">0,0</span>‰ av parkens årsintäkt).</p>
+<p class="text-slate-400" id="result-status">Beräknat enligt trappstegsmodellen: <span id="result-promille">0,0</span>‰ av verkets årsintäkt (uppskattad till <span id="result-revenue">0</span> kr per verk).</p>
 </div>
 <div class="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-200 text-sm hidden" id="disclaimer">
 <strong>Obs:</strong> Du befinner dig utanför ersättningsgränsen (9 × verkets höjd). Lagen ger rätt till ersättning endast inom ca <span id="limit-val">2250</span> meter.
                 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-400">
 <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-<span class="block text-slate-200 font-bold mb-1">Maxnivå för ditt område</span>
+<span class="block text-slate-200 font-bold mb-1">Max med dessa antaganden (två verk, ≤ 5×)</span>
 <span id="max-area">38 400 kr/år</span>
 </div>
 <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
@@ -280,33 +304,7 @@
 <p>
                 Regeringens lag om intäktsdelning (prop. 2025/26:239) syftar till att öka lokal acceptans för ny vindkraft. Från och med 1 juli 2026 ska närboende få en skattefri del av parkens intäkter enligt en trappstegsmodell baserad på avstånd uttryckt i verkshöjder.
             </p>
-<table class="w-full text-left text-sm text-slate-100" aria-label="Jämförelsetabell för trappstegsmodellen">
-    <thead class="bg-slate-200">
-        <tr>
-            <th class="p-3">Avstånd</th>
-            <th class="p-3">Procentuell ersättning</th>
-            <th class="p-3">Krav på fastighet</th>
-        </tr>
-    </thead>
-    <tbody class="bg-slate-900/40">
-        <tr class="border-b">
-            <td class="p-3">&lt; 1 km</td>
-            <td class="p-3">15-20%</td>
-            <td class="p-3">Bostadsfastighet</td>
-        </tr>
-        <tr class="border-b">
-            <td class="p-3">1-2 km</td>
-            <td class="p-3">10-15%</td>
-            <td class="p-3">Bostadsfastighet</td>
-        </tr>
-        <tr>
-            <td class="p-3">2-5 km</td>
-            <td class="p-3">5-10%</td>
-            <td class="p-3">Fritidshus eller Bostadsfastighet</td>
-        </tr>
-    </tbody>
-</table>
-<p class="mt-2 text-sm text-slate-500">Källa: <a href="https://www.regeringen.se/rattsliga-dokument/proposition/2024/03/prop.-202324102/" class="text-blue-600 hover:underline" target="_blank" rel="noopener">Regeringen - Proposition om lokal nytta från vindkraft</a></p>
+<p>Ersättningen är en andel av <strong>det enskilda vindkraftverkets</strong> årsintäkt, alltså parkens intäkt delat med antalet verk (11 § lagen). Andelen beror på avståndet från tornets mittpunkt till närmaste del av bostadsbyggnaden, räknat i verkets totalhöjd:</p>
 <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-center">
 <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700"><div class="text-xs text-slate-400">≤ 5× höjden</div><div class="text-xl font-bold text-emerald-400">2,5‰</div></div>
 <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700"><div class="text-xs text-slate-400">5–6×</div><div class="text-xl font-bold text-emerald-300">2,0‰</div></div>
@@ -317,10 +315,16 @@
 <ul class="list-disc pl-6 space-y-3">
 <li><strong>9 × höjden:</strong> Ersättning utgår för bostadshus inom nio gånger verkets totalhöjd. För ett verk på 250 m är gränsen 2 250 m.</li>
 <li><strong>De två närmaste verken:</strong> Beräkningen baseras på de två verk som ger högst ersättning för bostaden.</li>
-<li><strong>Tak på 2 %:</strong> Verksamhetsutövaren behöver aldrig betala mer än 2 % av parkens totala årsintäkter i sammanlagd ersättning.</li>
+<li><strong>Tak på 2 %:</strong> Verksamhetsutövaren behöver aldrig betala mer än 2 % av parkens totala årsintäkter i sammanlagd ersättning. Blir summan högre sänks allas ersättning proportionellt – det kan kalkylatorn inte förutse.</li>
 <li><strong>Skattefrihet:</strong> Ersättningen är skattefri till den del den avser en privatbostad.</li>
 <li><strong>Årlig anmälan:</strong> Den ersättningsberättigade behöver anmäla sin bostad till verksamhetsutövaren årligen.</li>
+<li><strong>Gäller nya parker:</strong> Lagen gäller inte anläggningar vars miljötillstånd fick laga kraft före 1 juli 2026.</li>
 </ul>
+<h3 class="text-xl font-bold text-white mt-8">Så räknar kalkylatorn</h3>
+<p>Verkets årsintäkt = effekt (MW) × fullasttimmar × elpris × 0,75. Din ersättning = andelen (‰) × verkets årsintäkt, för det närmaste verket plus det näst närmaste om du anger det. Med regeringens antaganden ger ett verk inom fem verkshöjder ungefär 9 700 kr/år i SE1, 9 500 kr i SE2, 13 800 kr i SE3 och 19 200 kr i SE4 (2024 års elpriser: ca 29, 28, 41 och 57 öre/kWh). Med två verk på det avståndet blir det det dubbla, t.ex. 38 400 kr/år i SE4.</p>
+<p>Det verkliga beloppet beror på parkens faktiska intäkter det året, och elpriset varierar mycket mellan åren. Se det som en uppskattning, inte ett besked.</p>
+<p class="text-sm text-slate-500">Källor: <a href="https://www.riksdagen.se/sv/dokument-och-lagar/dokument/proposition/vindkraft-i-kommuner_hd03239/" class="text-blue-400 hover:underline" target="_blank" rel="noopener">Prop. 2025/26:239 Vindkraft i kommuner (riksdagen.se)</a>, avsnitt 5 och 8.6.1 (tabell 8.3) · <a href="https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-20261113-om-intaktsdelning-fran_sfs-2026-1113/" class="text-blue-400 hover:underline" target="_blank" rel="noopener">Lag (2026:1113) om intäktsdelning från vindkraftsanläggningar</a>.</p>
+
 </section>
 
                     <!-- Fel silo? Skicka vidare i stället för att låta besökaren
@@ -398,15 +402,13 @@
         // Calculator
         // -----------------------------------------------------------------
 
-        // Max annual compensation per närboende at 2,5‰ — derived from the
-        // government's lagrådsremiss (prop. 2025/26:239) for each elområde.
-        // These figures power the rest of the trappstegsmodell.
-        const MAX_AT_TOP_TIER = {
-            SE4: 38400,
-            SE3: 32200,
-            SE2: 24500,
-            SE1: 19400
-        };
+        // Trappstegsmodellen enligt lag (2026:1113) / prop. 2025/26:239.
+        // Ersättning = andel (‰) × det enskilda verkets årsintäkt, högst två verk.
+        // Standardantaganden = regeringens räkneexempel (prop. avsnitt 8.6.1,
+        // tabell 8.3): 6 MW, 3 000 fullasttimmar, capture rate 0,75,
+        // 2024 års genomsnittliga spotpris per elområde (öre/kWh).
+        const DEFAULT_PRICE_ORE = { SE1: 28.7, SE2: 28, SE3: 41, SE4: 57 };
+        const CAPTURE_RATE = 0.75;
 
         // Returns the promille tier given distance/height ratio.
         function getPromille(ratio) {
@@ -418,6 +420,13 @@
             return 0.0;
         }
 
+        function round100(x) { return Math.round(x / 100) * 100; }
+
+        // Elpriset följer elområdet (kan ändras för hand efteråt).
+        document.getElementById('elarea').addEventListener('change', function (ev) {
+            document.getElementById('price').value = DEFAULT_PRICE_ORE[ev.target.value];
+        });
+
         // Cache for the report submission so we can attach calc context.
         const calcState = {
             elarea: 'SE4', distance: 1000, height: 250, turbines: 10,
@@ -427,33 +436,37 @@
         function calculate(scroll = true) {
             const area = document.getElementById('elarea').value;
             const dist = parseFloat(document.getElementById('distance').value);
+            const dist2raw = document.getElementById('distance2').value;
+            const dist2 = dist2raw === '' ? NaN : parseFloat(dist2raw);
             const height = parseFloat(document.getElementById('height').value);
-            const turbines = parseInt(document.getElementById('turbines').value);
+            const turbines = parseInt(document.getElementById('turbines').value) || null;
+            const mw = parseFloat(document.getElementById('capacity').value) || 6;
+            const hours = parseFloat(document.getElementById('hours').value) || 3000;
+            const priceOre = parseFloat(document.getElementById('price').value) || DEFAULT_PRICE_ORE[area];
 
             const limit = height * 9;
             const ratio = dist / height;
             const promille = getPromille(ratio);
+            const promille2 = isNaN(dist2) ? 0 : getPromille(dist2 / height);
 
-            // The maxMap value is the official cap (at 2,5‰) for that elområde.
-            // Scale linearly within the band — at distance 0 we stay at max,
-            // at the band edge we have stepped down to the next tier value.
-            const base = MAX_AT_TOP_TIER[area];
-            const scaledBase = base * (turbines / 10); // small-parks adjustment
-            // Compute proportional share within the active band.
-            const final = Math.max(0, Math.round(scaledBase * (promille / 2.5)));
+            // Ett verks årsintäkt i kr: MW × h × 1000 kWh/MWh × kr/kWh × capture rate.
+            const revenuePerTurbine = mw * hours * 1000 * (priceOre / 100) * CAPTURE_RATE;
+            const final = round100(revenuePerTurbine * promille / 1000) + round100(revenuePerTurbine * promille2 / 1000);
+            const base = 2 * round100(revenuePerTurbine * 2.5 / 1000);
 
             calcState.elarea = area;
             calcState.distance = dist;
             calcState.height = height;
             calcState.turbines = turbines;
             calcState.estimate = final;
-            calcState.promille = promille;
+            calcState.promille = promille + promille2;
 
             document.getElementById('limit-val').innerText = limit;
             document.getElementById('limit-dist').innerText = limit.toLocaleString('sv-SE') + ' meter';
             document.getElementById('max-area').innerText = base.toLocaleString('sv-SE') + ' kr/år';
             document.getElementById('ratio-display').innerText = ratio.toFixed(1).replace('.', ',') + '×';
-            document.getElementById('result-promille').innerText = promille.toFixed(1).replace('.', ',');
+            document.getElementById('result-promille').innerText = (promille + promille2).toFixed(1).replace('.', ',');
+            document.getElementById('result-revenue').innerText = round100(revenuePerTurbine).toLocaleString('sv-SE');
 
             const resultsDiv = document.getElementById('results');
             const resultVal = document.getElementById('result-value');
@@ -462,7 +475,7 @@
 
             resultsDiv.classList.remove('hidden');
 
-            if (dist > limit) {
+            if (final === 0) {
                 resultVal.innerText = '0 kr/år';
                 disclaimer.classList.remove('hidden');
                 // Still show the report card — they may want general guidance.
