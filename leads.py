@@ -48,6 +48,12 @@ SEGMENTS = {
         "base_score": 30,
         "landing": "/for-projektorer",
     },
+    "avtalskoll": {
+        "label": "Avtalskoll",
+        "beskrivning": "Markägare som beställt 10-punktsgenomgång av sitt arrendeavtal (695 kr)",
+        "base_score": 60,
+        "landing": "/avtalskoll",
+    },
     "ovrig": {
         "label": "Övrig",
         "beskrivning": "Annan roll (rådgivare, journalist m.m.)",
@@ -289,6 +295,72 @@ def build_projektor_owner_email_html(d: dict, score: int, tier: str) -> str:
         'Ny projektörsanmälan</div></div>'
         '<div style="border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px;padding:16px 8px">'
         f'<table style="border-collapse:collapse;font-size:14px;width:100%">{rows}</table></div></div>'
+    )
+
+
+def build_avtalskoll_owner_email_html(d: dict, score: int, tier: str) -> str:
+    """Ägarnotis för avtalskoll-beställning — hela beställningen, HTML-escapad (fritext från besökaren)."""
+    from html import escape
+
+    def e(v):
+        return escape(str(v)) if v not in (None, "") else v
+
+    rows = "".join([
+        _row("Namn", e(d.get("name"))),
+        _row("E-post", e(d.get("email"))),
+        _row("Län", e(d.get("county"))),
+        _row("Teknik", e(d.get("technology"))),
+        _row("Skickar avtalet som PDF via mejl", bool(d.get("sends_pdf"))),
+        _row("Pris", "695 kr inkl. moms, faktureras efter leverans (svar inom 3 vardagar)"),
+        _row("Poäng", f"{score}/100 (tier {tier})"),
+        _row("Källa", e(d.get("source"))),
+    ])
+    contract = escape(d.get("contract_text") or "") or "—"
+    return (
+        '<div style="font-family:Segoe UI,Arial,sans-serif;max-width:700px;color:#1e293b">'
+        f'<div style="background:{_BRAND};color:#fff;padding:16px 20px;border-radius:12px 12px 0 0">'
+        '<div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.85">'
+        'Ny beställning · Avtalskoll</div></div>'
+        '<div style="border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px;padding:16px 8px">'
+        f'<table style="border-collapse:collapse;font-size:14px;width:100%">{rows}</table>'
+        '<div style="padding:12px;font-size:13px;color:#64748b">Avtalstext</div>'
+        f'<pre style="white-space:pre-wrap;word-break:break-word;font-family:inherit;font-size:13px;'
+        f'padding:0 12px;margin:0">{contract}</pre></div></div>'
+    )
+
+
+def build_avtalskoll_welcome_email_html(d: dict) -> str:
+    """Bekräftelse till kunden: vad som händer, pris och leveranstid."""
+    from html import escape
+
+    name = escape((d.get("name") or "").strip())
+    pdf_note = (
+        '<p style="margin:0 0 14px"><b>Du kryssade i att du skickar avtalet som PDF.</b> '
+        "Svara på detta mejl och bifoga PDF:en så sätter vi igång.</p>"
+        if d.get("sends_pdf") else ""
+    )
+    return (
+        '<div style="font-family:Segoe UI,Arial,sans-serif;max-width:600px;color:#1e293b;line-height:1.55">'
+        f'<div style="background:{_BRAND};color:#fff;padding:16px 20px;border-radius:12px 12px 0 0;'
+        'font-size:20px;font-weight:800">Tack – din avtalskoll är beställd</div>'
+        '<div style="border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px;padding:20px">'
+        f'<p style="margin:0 0 14px">Hej{" " + name if name else ""}!</p>'
+        '<p style="margin:0 0 14px">Vi har tagit emot din beställning av Avtalskoll: en skriftlig '
+        "genomgång (max en A4) av ditt arrendeavtal på 10 punkter.</p>"
+        f"{pdf_note}"
+        '<p style="margin:0 0 6px"><b>Så går det till</b></p>'
+        '<ol style="margin:0 0 14px;padding-left:20px">'
+        "<li>Vi går igenom avtalet. Genomgången tas fram med AI-stöd och läses av en människa "
+        "innan den skickas.</li>"
+        "<li>Du får genomgången på e-post <b>inom 3 vardagar</b>.</li>"
+        "<li>Du får en faktura på <b>695 kr inkl. moms</b> efter leverans. Du betalar inget i förväg.</li>"
+        "</ol>"
+        '<p style="margin:0 0 14px">Avtalskoll är inte juridisk rådgivning. Det är en strukturerad '
+        "förgranskning som gör ditt jurist- eller advokatbesök kortare och billigare.</p>"
+        '<p style="margin:0;font-size:13px;color:#64748b">Vi använder dina uppgifter och ditt avtal '
+        "bara för att leverera avtalskollen och fakturera. Vill du att avtalet raderas efter "
+        "leverans, svara på detta mejl.</p>"
+        "</div></div>"
     )
 
 

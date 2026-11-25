@@ -26,7 +26,7 @@ from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTex
 from fastapi.staticfiles import StaticFiles
 from starlette.concurrency import run_in_threadpool
 from mailer import send_email, notify_owner
-from pydantic import BaseModel, EmailStr, Field, field_validator
+from pydantic import BaseModel, EmailStr, Field, field_validator, model_validator
 from sqlalchemy import Boolean, Column, DateTime, Float, Integer, String, Text, func, or_, select, text
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
@@ -591,6 +591,50 @@ class LeadIn(BaseModel):
     # Vilken silo besökaren surfade i när den skrev upp sig. Även ett rent
     # nyhetsbrevs-lead är värt mer när vi vet om det är markägare eller närboende.
     segment: Optional[str] = Field(default=None, max_length=32)
+
+
+AVTALSKOLL_TECHNOLOGIES = ("vind", "sol", "batteri")
+
+
+class AvtalskollIn(BaseModel):
+    """Beställning av avtalskoll (10-punktsgenomgång av arrendeavtal) på /avtalskoll."""
+
+    name: str = Field(min_length=2, max_length=255)
+    email: EmailStr
+    county: str = Field(min_length=2, max_length=64)
+    technology: str
+    contract_text: str = Field(default="", max_length=60000)
+    sends_pdf: bool = False
+    consent: bool
+
+    @field_validator("name", "county")
+    @classmethod
+    def _stripped(cls, v: str) -> str:
+        v = v.strip()
+        if len(v) < 2:
+            raise ValueError("Fyll i alla obligatoriska fält")
+        return v
+
+    @field_validator("technology")
+    @classmethod
+    def _valid_technology(cls, v: str) -> str:
+        v = v.strip().lower()
+        if v not in AVTALSKOLL_TECHNOLOGIES:
+            raise ValueError("Välj vind, sol eller batteri")
+        return v
+
+    @field_validator("consent")
+    @classmethod
+    def _consent_required(cls, v: bool) -> bool:
+        if not v:
+            raise ValueError("Vi behöver ditt samtycke för att kunna leverera avtalskollen")
+        return v
+
+    @model_validator(mode="after")
+    def _text_or_pdf(self):
+        if not self.sends_pdf and len(self.contract_text.strip()) < 20:
+            raise ValueError("Klistra in avtalstexten eller kryssa i att du skickar avtalet som PDF")
+        return self
 
 
 PROJEKTOR_TECHNOLOGIES = ("vind", "sol", "batteri")
@@ -1431,6 +1475,68 @@ async def capture_projektor_lead(lead: ProjektorLeadIn, background: BackgroundTa
 
 
 
+def _deliver_avtalskoll(data: dict, score: int, tier: str):
+    """Bekräftelse till kunden + ägarnotis med hela beställningen. Får aldrig kasta."""
+    try:
+        mailer.send_email(
+            data["email"],
+            "Tack – din avtalskoll är beställd | Vindkollen",
+            vk_leads.build_avtalskoll_welcome_email_html(data),
+        )
+    except Exception as e:  # noqa: BLE001
+        print(f"[avtalskoll] welcome mail failed: {e}")
+    try:
+        mailer.notify_owner(
+            f"[Avtalskoll] {data['name']} \u2013 {data['technology']}, {data['county']} | Vindkollen".replace("\n", " ")[:250],
+            vk_leads.build_avtalskoll_owner_email_html(data, score, tier),
+            reply_to=data.get("email"),
+        )
+    except Exception as e:  # noqa: BLE001
+        print(f"[avtalskoll] owner notify failed: {e}")
+
+
+@app.post("/api/lead/avtalskoll")
+async def capture_avtalskoll_order(lead: AvtalskollIn, background: BackgroundTasks):
+    """Ta emot en beställning av avtalskoll (695 kr, faktureras efter leverans)."""
+    contract = lead.contract_text.strip()
+    message = (
+        f"Teknik: {lead.technology}; PDF via mejl: {'ja' if lead.sends_pdf else 'nej'}"
+        + ("\n\n" + contract if contract else "")
+    )
+    payload = {
+        "email": _normalise_email(lead.email),
+        "name": lead.name,
+        "county": lead.county,
+        "role": f"avtalskoll: {lead.technology}",
+        "segment": "avtalskoll",
+        "source": "avtalskoll",
+        "consent_partner_share": False,
+        "message": message,
+    }
+    score, tier = vk_leads.score_lead(payload)
+    payload["lead_score"] = score
+    payload["lead_tier"] = tier
+
+    if not async_session:
+        return JSONResponse({"status": "ok", "persisted": False, "segment": "avtalskoll"})
+
+    async with async_session() as session:
+        stmt = pg_insert(Lead).values(**payload)
+        stmt = stmt.on_conflict_do_update(
+            index_elements=["email"],
+            set_=_non_null(payload, skip=("email",)),
+        ).returning(Lead.id)
+        lead_id = (await session.execute(stmt)).scalar_one()
+        await session.commit()
+
+    mail_data = dict(payload)
+    mail_data.update(technology=lead.technology, sends_pdf=lead.sends_pdf, contract_text=contract)
+    background.add_task(_deliver_avtalskoll, mail_data, score, tier)
+    background.add_task(_sync_pending_core_leads)
+
+    return {"status": "ok", "persisted": True, "id": lead_id, "segment": "avtalskoll"}
+
+
 def _deliver_bevakning(data: dict) -> None:
     """Bekräftelse till anmälaren + notis till ägaren. Får aldrig kasta."""
     import html as _html
@@ -1594,7 +1700,7 @@ async def lead_stats():
     }
     if not async_session:
         return {
-            "total": 0, "last_7_days": 0, "test_rows": 0, "by_segment": {},
+            "total": 0, "last_7_days": 0, "test_rows": 0, "by_segment": {}, "test_by_segment": {},
             "by_segment_day": [], "first_at": {}, "last_at": {}, "core_sync": empty_sync,
             "markagare_lager": [],
             "markagare_lager_summa": {"antal": 0, "oppna_for_projektor": 0, "per_lan": {}},
@@ -1621,6 +1727,9 @@ async def lead_stats():
         seg_rows = (await session.execute(
             select(seg, func.count(Lead.id), func.min(Lead.created_at), func.max(Lead.created_at))
             .where(~is_test).group_by(seg).order_by(seg)
+        )).all()
+        test_seg_rows = (await session.execute(
+            select(seg, func.count(Lead.id)).where(is_test).group_by(seg).order_by(seg)
         )).all()
         day = func.date(Lead.created_at)
         day_rows = (await session.execute(
@@ -1662,6 +1771,7 @@ async def lead_stats():
         "last_7_days": last_7_days,
         "test_rows": test_rows,
         "by_segment": {r[0]: r[1] for r in seg_rows},
+        "test_by_segment": {r[0]: r[1] for r in test_seg_rows},
         "by_segment_day": [{"date": str(r[0]), "segment": r[1], "n": r[2]} for r in day_rows],
         "first_at": {r[0]: _iso(r[2]) for r in seg_rows},
         "last_at": {r[0]: _iso(r[3]) for r in seg_rows},
@@ -2589,6 +2699,12 @@ async def for_byraer():
 async def for_projektorer():
     """B2B-landning för projektörer (vind, sol, batteri): vad ett markägarlead innehåller och pilotpriserna."""
     return _serve_static_html("static/for-projektorer.html")
+
+
+@app.get("/avtalskoll", response_class=HTMLResponse)
+async def avtalskoll():
+    """Beställningsbar avtalskoll för markägare: 10-punktsgenomgång, 695 kr efter leverans."""
+    return _serve_static_html("static/avtalskoll.html")
 
 
 # Catch-all for HTML pages
