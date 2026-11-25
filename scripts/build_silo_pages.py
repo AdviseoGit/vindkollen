@@ -119,6 +119,7 @@ FOOTER = """<footer class="border-t border-slate-800 bg-[#030712] py-12 mt-20">
 <h4 class="text-white font-bold mb-4">Om oss</h4>
 <ul class="space-y-2 text-sm text-slate-400">
 <li><a class="hover:text-blue-400 transition" href="/om-sajten">Om sajten</a></li>
+<li><a class="hover:text-blue-400 transition" href="/integritetspolicy">Integritetspolicy</a></li>
 <li><a class="hover:text-blue-400 transition" href="mailto:info@vindkoll.se">Kontakt</a></li>
 <li><a class="hover:text-blue-400 transition" href="/for-byraer">För byråer</a></li>
 <li><a class="hover:text-blue-400 transition" href="/for-projektorer">För projektörer</a></li>
@@ -353,7 +354,7 @@ MARKAGARE_FORM = f"""<section class="max-w-4xl mx-auto px-6 py-16" id="anmalan">
 </div>
 <div class="hidden text-red-400 text-sm" data-vk-error hidden></div>
 <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg" type="submit">Skicka in min fastighet →</button>
-<p class="text-xs text-slate-400 italic">Vi säljer aldrig dina uppgifter vidare utan din bock ovan. Du kan när som helst be oss radera dem.</p>
+<p class="text-xs text-slate-400 italic">Vi delar aldrig dina uppgifter med någon annan utan din bock ovan. Du kan när som helst be oss radera dem. <a class="underline" href="/integritetspolicy">Integritetspolicy</a></p>
 </form>
 <div class="hidden p-6 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-200" data-vk-success hidden>
 <div class="font-bold text-lg mb-1">Tack – vi har fått dina uppgifter.</div>

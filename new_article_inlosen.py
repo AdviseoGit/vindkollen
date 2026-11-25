@@ -204,7 +204,7 @@ html = """<!DOCTYPE html>
             <div class="pt-8 border-t border-gray-900 text-center md:text-left text-slate-500 text-sm flex flex-col md:flex-row justify-between items-center">
                 <p>&copy; 2026 Vindkollen. Alla rättigheter förbehållna.</p>
                 <div class="mt-4 md:mt-0 space-x-6">
-                    <a href="/om-sajten" class="hover:text-white transition-colors">Integritetspolicy</a>
+                    <a href="/integritetspolicy" class="hover:text-white transition-colors">Integritetspolicy</a>
                     <a href="/om-sajten" class="hover:text-white transition-colors">Användarvillkor</a>
                 </div>
             </div>

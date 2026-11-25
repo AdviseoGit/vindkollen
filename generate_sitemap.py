@@ -26,6 +26,7 @@ STATIC_PAGES = [
     ("/jamforelse-ersattning-vs-arrende", "0.9", "weekly"),
     ("/skillnad-arrende-intaktsdelning", "0.9", "monthly"),
     ("/om-sajten", "0.5", "monthly"),
+    ("/integritetspolicy", "0.3", "yearly"),
     ("/kommun-dashboard", "0.9", "monthly"),
     ("/intaktsdelning-vindkraft", "0.9", "monthly"),
     ("/sa-far-du-vindkraft-pa-din-mark", "0.7", "monthly"),

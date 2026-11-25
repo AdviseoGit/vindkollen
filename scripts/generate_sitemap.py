@@ -9,6 +9,7 @@ STATIC_PAGES = [
     "/arrendekalkylator",
     "/jamforelse-ersattning-vs-arrende",
     "/om-sajten",
+    "/integritetspolicy",
     "/kommun-dashboard",
     "/guider/guide-ersattning-vindkraft",
     "/sa-far-du-vindkraft-pa-din-mark",

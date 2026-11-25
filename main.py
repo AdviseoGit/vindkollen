@@ -788,6 +788,11 @@ async def om_sajten():
     return _serve_static_html("static/om-sajten.html")
 
 
+@app.get("/integritetspolicy", response_class=HTMLResponse)
+async def integritetspolicy():
+    return _serve_static_html("static/integritetspolicy.html")
+
+
 # --- Silo-ingångar ---------------------------------------------------------
 # En sida per publik. Allt innehåll och varje CTA på sidan är skrivet för just
 # den publiken, och formuläret postar till /api/lead/qualify med rätt segment.
