@@ -42,7 +42,6 @@ STATIC_PAGES = [
     ("/guider/vindkraftsersattning-2026", "0.8", "monthly"),
     ("/kommunersattning-vindkraft-2026", "0.8", "monthly"),
     ("/ersattningsnivaer-region-for-region", "0.8", "monthly"),
-    ("/original-data-rapport-arrende-2026", "0.8", "monthly"),
     ("/bullerniva-minimiavstand-vindkraft", "0.8", "monthly"),
     ("/avveckling-och-atervinning-vindkraft", "0.8", "monthly"),
     ("/llms.txt", "0.5", "monthly"),

@@ -23,7 +23,6 @@ STATIC_PAGES = [
     "/guider/bygdepeng-guide-2026",
     "/kommunersattning-vindkraft-2026",
     "/ersattningsnivaer-region-for-region",
-    "/original-data-rapport-arrende-2026",
     "/intaktsdelning-vindkraft",
     "/bullerniva-minimiavstand-vindkraft",
     "/avveckling-och-atervinning-vindkraft",

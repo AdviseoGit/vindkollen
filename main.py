@@ -826,9 +826,11 @@ async def avtalsgranskning_vindkraftsarrende():
     return _serve_static_html("static/avtalsgranskning-vindkraftsarrende.html")
 
 
-@app.get("/original-data-rapport-arrende-2026", response_class=HTMLResponse)
+@app.get("/original-data-rapport-arrende-2026")
 async def original_data_rapport():
-    return _serve_static_html("static/original-data-rapport-arrende-2026.html")
+    # Page withdrawn 2026-11-25: its levels were not backed by collected
+    # contracts and contradicted the sourced figures in the calculator.
+    return RedirectResponse(url="/arrendekalkylator", status_code=301)
 
 @app.get("/arrendekalkylator", response_class=HTMLResponse)
 async def arrendekalkylator():
@@ -1098,8 +1100,8 @@ async def subscribe_newsletter(request: Request, background: BackgroundTasks):
             await session.commit()
         background.add_task(_deliver_newsletter, clean, payload["source"])
 
-    # Rapporten som rutan lovar är den här sidan — skicka läsaren dit.
-    return RedirectResponse(url="/original-data-rapport-arrende-2026", status_code=303)
+    # Rapportsidan är nedtagen — skicka läsaren till de källsatta nivåerna.
+    return RedirectResponse(url="/arrendekalkylator", status_code=303)
 
 
 @app.post("/api/lead/report")
