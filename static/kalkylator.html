@@ -179,7 +179,7 @@
 <div class="p-8 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-center">
 <h3 class="text-blue-400 font-bold mb-2 uppercase tracking-widest text-sm">Uppskattad skattefri ersättning</h3>
 <div class="text-5xl font-extrabold text-white mb-2" id="result-value">0 kr/år</div>
-<p class="text-slate-300 mb-2 hidden" id="result-span-row">Med de tre senaste årens elpris: <strong id="result-span">0</strong> kr/år</p>
+<p class="text-slate-300 mb-2 hidden" id="result-span-row">Lägsta till högsta året av de tre senaste: <strong id="result-span">0</strong> kr/år</p>
 <p class="text-slate-400" id="result-status">Beräknat enligt trappstegsmodellen: <span id="result-promille">0,0</span>‰ av verkets årsintäkt (uppskattad till <span id="result-revenue">0</span> kr per verk).</p>
 <p class="text-slate-500 text-sm mt-2">Ett räkneexempel, inte ett besked. Varje park är olika: verkens storlek, vindläget och elpriset avgör vad ersättningen faktiskt blir, och den ändras från år till år.</p>
 </div>
@@ -429,7 +429,7 @@
             document.getElementById('price').value = ELPRIS.areas[area].price;
             if (ELPRIS.source === 'entsoe') {
                 document.getElementById('price-note').textContent =
-                    `Elpriset är elområdets snittpris ${ELPRIS.period_label}, från ENTSO-E.`;
+                    `Elpriset är elområdets snittpris de tre senaste åren (${ELPRIS.period_label}), från ENTSO-E.`;
             }
         }
 

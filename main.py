@@ -304,9 +304,12 @@ async def _elpris_loop() -> None:
 @app.get("/api/elpris")
 async def api_elpris():
     """Elpriset kalkylatorerna räknar på, per elområde (öre/kWh)."""
+    data = vk_elpris.current()
+    # Reservtalen ska inte fastna i en cache medan hämtningen pågår.
+    cache = "public, max-age=3600" if data["source"] == "entsoe" else "no-store"
     return JSONResponse(
-        {**vk_elpris.current(), "status": vk_elpris.status()},
-        headers={"Cache-Control": "public, max-age=3600"},
+        {**data, "status": vk_elpris.status()},
+        headers={"Cache-Control": cache},
     )
 
 # Publik bas-URL, används i godkännandelänkarna i ägarnotisen.

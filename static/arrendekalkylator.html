@@ -190,7 +190,7 @@
                             <div class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400">
                                 <span id="res-royalty">0</span> kr / år
                             </div>
-                            <p class="text-sm text-slate-300 mt-3" id="res-span-row">Med de tre senaste årens elpris: <strong><span id="res-span">0</span> kr / år</strong></p>
+                            <p class="text-sm text-slate-300 mt-3" id="res-span-row">Lägsta till högsta året av de tre senaste: <strong><span id="res-span">0</span> kr / år</strong></p>
                             <p class="text-sm text-slate-500 mt-2">Ett räkneexempel, inte ett erbjudande. Varje park är olika: vindläge, verkens storlek, elnät och avtalets villkor avgör vad arrendet faktiskt blir, och beloppet ändras varje år med elpriset och vinden.</p>
                         </div>
                         
@@ -420,7 +420,7 @@
             const area = document.getElementById('arr-area').value;
             document.getElementById('arr-price').value = (ELPRIS.areas[area].price / 100).toFixed(2);
             document.getElementById('arr-price-note').textContent = ELPRIS.source === 'entsoe'
-                ? `Snittpris i elområdet ${ELPRIS.period_label}, från ENTSO-E. Priset följer elområdet och går inte att ändra.`
+                ? `Snittpris i elområdet de tre senaste åren (${ELPRIS.period_label}), från ENTSO-E. Priset följer elområdet och går inte att ändra.`
                 : 'Snittpris i elområdet 2024, samma som regeringen räknar med. Priset följer elområdet och går inte att ändra.';
         }
         document.getElementById('arr-area').addEventListener('change', applyElpris);

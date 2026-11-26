@@ -3,7 +3,8 @@
 Kalkylatorerna ska räkna på ett pris vi kan visa källan till, inte på ett
 tal besökaren skriver in själv. Här hämtas dagen-före-priserna (A44) för
 SE1–SE4, räknas om från EUR/MWh till öre/kWh med Riksbankens dagskurs och
-slås ihop till snitt för de tre senaste tolvmånadersperioderna.
+slås ihop till ett snitt över de tre senaste tolvmånadersperioderna, med
+lägsta och högsta året som spann.
 
 Går hämtningen inte att göra (ingen nyckel, ENTSO-E nere) gäller FALLBACK:
 2024 års snittpris, samma tal som regeringen räknar med i prop. 2025/26:239.
@@ -228,18 +229,21 @@ def refresh() -> dict:
                 if hours < 0.9 * (w_end - w_start).total_seconds() / 3600:
                     raise ValueError(f"För lite prisdata för {zone} {_label(w_start, w_end)}")
                 yearly.append(weighted / hours / 10)  # SEK/MWh → öre/kWh
+            # Huvudtalet är treårssnittet: ett enskilt år kan ligga långt
+            # över eller under det en park får räkna med över tid.
             areas[zone] = {
-                "price": round(yearly[0], 1),
+                "price": round(sum(yearly) / len(yearly), 1),
                 "low": round(min(yearly), 1),
                 "high": round(max(yearly), 1),
+                "years": [round(y, 1) for y in yearly],
             }
 
         _state["data"] = {
             "source": "entsoe",
             "source_label": "ENTSO-E Transparency Platform, dagen-före-pris, "
                             "omräknat med Riksbankens kurs",
-            "period_label": _label(*windows[0]),
-            "span_label": _label(windows[-1][0], windows[0][1]),
+            "period_label": _label(windows[-1][0], windows[0][1]),
+            "year_labels": [_label(*w) for w in windows],
             "updated_at": _state["attempt_at"],
             "areas": areas,
         }
