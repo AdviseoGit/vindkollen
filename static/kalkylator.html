@@ -160,7 +160,8 @@
 </div>
 <div class="space-y-2">
 <label class="block text-xs font-semibold text-slate-400" for="price">Elpris (öre/kWh, årssnitt)</label>
-<input class="w-full bg-slate-800 border border-slate-700 p-3 rounded-lg text-white" id="price" min="1" max="300" step="0.1" type="number" value="57"/>
+<input class="w-full bg-slate-900 border border-slate-800 p-3 rounded-lg text-slate-400 cursor-not-allowed" id="price" type="number" value="57" readonly tabindex="-1" aria-readonly="true"/>
+<p class="text-xs text-slate-500">Följer elområdet, går inte att ändra.</p>
 </div>
 <div class="space-y-2">
 <label class="block text-xs font-semibold text-slate-400" for="turbines">Antal verk i parken</label>
@@ -168,7 +169,7 @@
 <p class="text-xs text-slate-500">Påverkar inte beloppet – intäkten räknas per verk.</p>
 </div>
 </div>
-<p class="text-xs text-slate-500 mt-4">Standardvärdena är desamma som i regeringens räkneexempel (prop. 2025/26:239, avsnitt 8.6.1): ett 6 MW-verk, 3 000 fullasttimmar och 2024 års genomsnittliga spotpris i elområdet, viktat med 0,75 eftersom vindkraft får lägre pris än snittet. Elpriset fylls i när du väljer elområde.</p>
+<p class="text-xs text-slate-500 mt-4">Standardvärdena är desamma som i regeringens räkneexempel (prop. 2025/26:239, avsnitt 8.6.1): ett 6 MW-verk och 3 000 fullasttimmar, med elpriset viktat med 0,75 eftersom vindkraft får lägre pris än snittet. <span id="price-note">Elpriset är 2024 års snittpris i elområdet, samma som regeringen räknar med.</span></p>
 </details>
 <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-5 rounded-2xl font-bold text-lg transition shadow-lg mb-10" onclick="calculate()">
                 Beräkna min ersättning
@@ -178,7 +179,9 @@
 <div class="p-8 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-center">
 <h3 class="text-blue-400 font-bold mb-2 uppercase tracking-widest text-sm">Uppskattad skattefri ersättning</h3>
 <div class="text-5xl font-extrabold text-white mb-2" id="result-value">0 kr/år</div>
+<p class="text-slate-300 mb-2 hidden" id="result-span-row">Med de tre senaste årens elpris: <strong id="result-span">0</strong> kr/år</p>
 <p class="text-slate-400" id="result-status">Beräknat enligt trappstegsmodellen: <span id="result-promille">0,0</span>‰ av verkets årsintäkt (uppskattad till <span id="result-revenue">0</span> kr per verk).</p>
+<p class="text-slate-500 text-sm mt-2">Ett räkneexempel, inte ett besked. Varje park är olika: verkens storlek, vindläget och elpriset avgör vad ersättningen faktiskt blir, och den ändras från år till år.</p>
 </div>
 <div class="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-200 text-sm hidden" id="disclaimer">
 <strong>Obs:</strong> Du befinner dig utanför ersättningsgränsen (9 × verkets höjd). Lagen ger rätt till ersättning endast inom ca <span id="limit-val">2250</span> meter.
@@ -407,8 +410,28 @@
         // Standardantaganden = regeringens räkneexempel (prop. avsnitt 8.6.1,
         // tabell 8.3): 6 MW, 3 000 fullasttimmar, capture rate 0,75,
         // 2024 års genomsnittliga spotpris per elområde (öre/kWh).
-        const DEFAULT_PRICE_ORE = { SE1: 28.7, SE2: 28, SE3: 41, SE4: 57 };
+        // Elpriset är låst till elområdets snittpris och hämtas från
+        // /api/elpris (ENTSO-E). Talen här är reserv om hämtningen inte går.
+        let ELPRIS = {
+            period_label: '2024',
+            source: 'fallback',
+            areas: {
+                SE1: { price: 28.7, low: 28.7, high: 28.7 },
+                SE2: { price: 28.0, low: 28.0, high: 28.0 },
+                SE3: { price: 41.0, low: 41.0, high: 41.0 },
+                SE4: { price: 57.0, low: 57.0, high: 57.0 }
+            }
+        };
         const CAPTURE_RATE = 0.75;
+
+        function applyElpris() {
+            const area = document.getElementById('elarea').value;
+            document.getElementById('price').value = ELPRIS.areas[area].price;
+            if (ELPRIS.source === 'entsoe') {
+                document.getElementById('price-note').textContent =
+                    `Elpriset är elområdets snittpris ${ELPRIS.period_label}, från ENTSO-E.`;
+            }
+        }
 
         // Returns the promille tier given distance/height ratio.
         function getPromille(ratio) {
@@ -422,10 +445,15 @@
 
         function round100(x) { return Math.round(x / 100) * 100; }
 
-        // Elpriset följer elområdet (kan ändras för hand efteråt).
-        document.getElementById('elarea').addEventListener('change', function (ev) {
-            document.getElementById('price').value = DEFAULT_PRICE_ORE[ev.target.value];
-        });
+        // Elpriset följer elområdet.
+        document.getElementById('elarea').addEventListener('change', applyElpris);
+        fetch('/api/elpris').then(r => r.ok ? r.json() : null).then(function (d) {
+            if (!d || !d.areas || !d.areas.SE1) return;
+            ELPRIS = d;
+            applyElpris();
+            // Räkna om ett resultat som redan visas, så att det stämmer med priset.
+            if (!document.getElementById('results').classList.contains('hidden')) calculate(false);
+        }).catch(function () {});
 
         // Cache for the report submission so we can attach calc context.
         const calcState = {
@@ -442,7 +470,14 @@
             const turbines = parseInt(document.getElementById('turbines').value) || null;
             const mw = parseFloat(document.getElementById('capacity').value) || 6;
             const hours = parseFloat(document.getElementById('hours').value) || 3000;
-            const priceOre = parseFloat(document.getElementById('price').value) || DEFAULT_PRICE_ORE[area];
+            applyElpris();
+            const areaPrice = ELPRIS.areas[area];
+            const priceOre = areaPrice.price;
+            const estimateAt = function (ore) {
+                const rev = mw * hours * 1000 * (ore / 100) * CAPTURE_RATE;
+                return round100(rev * getPromille(dist / height) / 1000)
+                    + round100(rev * (isNaN(dist2) ? 0 : getPromille(dist2 / height)) / 1000);
+            };
 
             const limit = height * 9;
             const ratio = dist / height;
@@ -467,6 +502,11 @@
             document.getElementById('ratio-display').innerText = ratio.toFixed(1).replace('.', ',') + '×';
             document.getElementById('result-promille').innerText = (promille + promille2).toFixed(1).replace('.', ',');
             document.getElementById('result-revenue').innerText = round100(revenuePerTurbine).toLocaleString('sv-SE');
+
+            const spanLow = estimateAt(areaPrice.low), spanHigh = estimateAt(areaPrice.high);
+            document.getElementById('result-span').innerText =
+                spanLow.toLocaleString('sv-SE') + '–' + spanHigh.toLocaleString('sv-SE');
+            document.getElementById('result-span-row').classList.toggle('hidden', spanLow === spanHigh);
 
             const resultsDiv = document.getElementById('results');
             const resultVal = document.getElementById('result-value');
