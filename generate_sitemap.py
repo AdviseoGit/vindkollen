@@ -59,8 +59,27 @@ STATIC_PAGES = [
     ("/salja-vindkraftverk-andelar-elcertifikat", "0.8", "monthly"),
 ]
 
+# lastmod som ska sättas explicit (bara när innehållet faktiskt ändrats).
+LASTMOD_OVERRIDE = {
+    "/markagare": "2026-11-27",
+    "/arrendekalkylator": "2026-11-27",
+}
+
+
+def _existing_lastmod() -> dict:
+    """Befintliga lastmod ur sitemap.xml, så orörda sidor inte bumpas vid omgenerering."""
+    import re
+    try:
+        xml = open(SITEMAP_PATH, encoding="utf-8").read()
+    except OSError:
+        return {}
+    pattern = r"<loc>%s([^<]*)</loc>\s*<lastmod>([^<]*)</lastmod>" % re.escape(BASE_URL)
+    return dict(re.findall(pattern, xml))
+
+
 def generate_sitemap() -> None:
     today = datetime.now().strftime("%Y-%m-%d")
+    existing = _existing_lastmod()
     urls = []
 
     for path, priority, freq in STATIC_PAGES:
@@ -68,7 +87,7 @@ def generate_sitemap() -> None:
             f"""
     <url>
         <loc>{BASE_URL}{path}</loc>
-        <lastmod>{today}</lastmod>
+        <lastmod>{LASTMOD_OVERRIDE.get(path) or existing.get(path) or today}</lastmod>
         <changefreq>{freq}</changefreq>
         <priority>{priority}</priority>
     </url>"""

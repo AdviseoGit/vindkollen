@@ -1283,12 +1283,18 @@ _CORE_PAYLOAD_FIELDS = (
 )
 
 
-def _not_test_row():
-    return (
-        func.coalesce(Lead.segment, "") != "test",
-        ~func.lower(Lead.email).like("%@example.com"),
-        ~func.coalesce(Lead.organisation, "").like("TEST%"),
+def _is_test_clause():
+    """Enda definitionen av testrad (stats och core-synk). +test@ = riktig brevlåda för test."""
+    return or_(
+        func.coalesce(Lead.segment, "") == "test",
+        func.lower(Lead.email).like("%@example.com"),
+        func.lower(Lead.email).like("%+test@%"),
+        func.coalesce(Lead.organisation, "").like("TEST%"),
     )
+
+
+def _not_test_row():
+    return (~_is_test_clause(),)
 
 
 async def _sync_pending_core_leads() -> None:
@@ -1713,11 +1719,7 @@ async def lead_stats():
             "markagare_lager_summa": {"antal": 0, "oppna_for_projektor": 0, "per_lan": {}},
         }
 
-    is_test = or_(
-        func.coalesce(Lead.segment, "") == "test",
-        func.lower(Lead.email).like("%@example.com"),
-        func.coalesce(Lead.organisation, "").like("TEST%"),
-    )
+    is_test = _is_test_clause()
     seg = func.coalesce(Lead.segment, "okänt")
     since = datetime.utcnow() - timedelta(days=90)
 

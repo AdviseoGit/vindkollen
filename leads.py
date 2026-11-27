@@ -251,6 +251,14 @@ def build_owner_email_html(d: dict, score: int, tier: str) -> str:
         _row("Källa", d.get("source")),
     ])
 
+    avtalskoll_block = ""
+    if segment == "markagare":
+        avtalskoll_block = (
+            '<div style="background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;'
+            'padding:10px 12px;margin:0 8px 12px;font-size:14px"><b>Erbjud avtalskoll (695 kr):</b> '
+            '<a href="https://vindkoll.se/avtalskoll">https://vindkoll.se/avtalskoll</a></div>'
+        )
+
     return f"""\
 <div style="font-family:Segoe UI,Arial,sans-serif;max-width:600px;color:#1e293b">
   <div style="background:{tier_colour};color:#fff;padding:16px 20px;border-radius:12px 12px 0 0">
@@ -262,6 +270,7 @@ def build_owner_email_html(d: dict, score: int, tier: str) -> str:
     </div>
   </div>
   <div style="border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px;padding:16px 8px">
+    {avtalskoll_block}
     <table style="border-collapse:collapse;font-size:14px;width:100%">{rows}</table>
   </div>
 </div>"""
@@ -370,6 +379,11 @@ _SEGMENT_INTRO = {
         "Arrendenivåer, royaltysatser och avtalsvillkor skiljer sig kraftigt mellan bolag, och "
         "de flesta avtal löper i 30–40 år.",
         [
+            # Avtalskoll först; tredje fältet = beskrivning på samma rad.
+            ("Avtalskoll",
+             "https://vindkoll.se/avtalskoll?utm_source=vindkoll&utm_medium=email&utm_campaign=markagare_welcome",
+             "vi går igenom ditt arrendeavtal mot 10 punkter och svarar inom 3 vardagar – "
+             "695 kr inkl. moms, faktureras efter leverans. Inte juridisk rådgivning."),
             # Arrendekalkylatorn lovar "checklistan innan du skriver på" —
             # den ska ligga först, inte en länk tillbaka till kalkylatorn.
             ("Checklistan: de tio punkter en rådgivare granskar innan du skriver på",
@@ -429,8 +443,10 @@ def build_welcome_email_html(d: dict) -> str:
     hej = f"Hej {name}," if name else "Hej,"
     intro, links = _SEGMENT_INTRO[segment]
     link_html = "".join(
-        f'<li style="margin-bottom:6px"><a href="{url}" style="color:{_BRAND}">{title}</a></li>'
-        for title, url in links
+        f'<li style="margin-bottom:6px"><a href="{l[1]}" style="color:{_BRAND}">{l[0]}</a>'
+        + (f": {l[2]}" if len(l) > 2 else "")
+        + "</li>"
+        for l in links
     )
 
     # Vi har inga avtalade partner ännu. Bekräftelsen ska säga det rakt ut —
