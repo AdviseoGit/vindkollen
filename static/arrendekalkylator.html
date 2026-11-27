@@ -146,8 +146,8 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-300 mb-2">Elpris, årssnitt (SEK/kWh)</label>
-                        <div class="text-xs text-slate-500 mb-2">Fylls i med 2024 års snittpris i elområdet (samma som regeringen räknar med). Ändra om du vill räkna på ett annat pris.</div>
-                        <input type="number" id="arr-price" value="0.41" min="0.05" max="3.00" step="0.01" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" required>
+                        <div class="text-xs text-slate-500 mb-2" id="arr-price-note">Snittpris i elområdet. Priset följer elområdet och går inte att ändra.</div>
+                        <input type="number" id="arr-price" value="0.41" readonly tabindex="-1" aria-readonly="true" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-slate-400 cursor-not-allowed focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-300 mb-2">Vindkraftens andel av snittpriset</label>
@@ -190,7 +190,8 @@
                             <div class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400">
                                 <span id="res-royalty">0</span> kr / år
                             </div>
-                            <p class="text-sm text-slate-500 mt-2">Detta är vad markägaren får per år baserat på elproduktion. Detta belopp fluktuerar med elpriset och vinden.</p>
+                            <p class="text-sm text-slate-300 mt-3" id="res-span-row">Lägsta till högsta året av de tre senaste: <strong><span id="res-span">0</span> kr / år</strong></p>
+                            <p class="text-sm text-slate-500 mt-2">Ett räkneexempel, inte ett erbjudande. Varje park är olika: vindläge, verkens storlek, elnät och avtalets villkor avgör vad arrendet faktiskt blir, och beloppet ändras varje år med elpriset och vinden.</p>
                         </div>
                         
                         <div class="grid md:grid-cols-2 gap-6 pt-6 border-t border-slate-800">
@@ -412,16 +413,38 @@
             return new Intl.NumberFormat('sv-SE', { maximumFractionDigits: 0 }).format(number);
         }
 
-        const AREA_PRICE = { SE1: 0.29, SE2: 0.28, SE3: 0.41, SE4: 0.57 };
-        document.getElementById('arr-area').addEventListener('change', function (ev) {
-            document.getElementById('arr-price').value = AREA_PRICE[ev.target.value];
-        });
+        // Elpriset är låst till elområdets snittpris och hämtas från
+        // /api/elpris (ENTSO-E). Talen nedan är reserv om hämtningen inte går:
+        // 2024 års snitt, samma som i prop. 2025/26:239. Öre/kWh.
+        let ELPRIS = {
+            period_label: '2024',
+            source: 'fallback',
+            areas: {
+                SE1: { price: 28.7, low: 28.7, high: 28.7 },
+                SE2: { price: 28.0, low: 28.0, high: 28.0 },
+                SE3: { price: 41.0, low: 41.0, high: 41.0 },
+                SE4: { price: 57.0, low: 57.0, high: 57.0 }
+            }
+        };
+
+        function applyElpris() {
+            const area = document.getElementById('arr-area').value;
+            document.getElementById('arr-price').value = (ELPRIS.areas[area].price / 100).toFixed(2);
+            document.getElementById('arr-price-note').textContent = ELPRIS.source === 'entsoe'
+                ? `Snittpris i elområdet de tre senaste åren (${ELPRIS.period_label}), från ENTSO-E. Priset följer elområdet och går inte att ändra.`
+                : 'Snittpris i elområdet 2024, samma som regeringen räknar med. Priset följer elområdet och går inte att ändra.';
+        }
+        document.getElementById('arr-area').addEventListener('change', applyElpris);
+        fetch('/api/elpris').then(r => r.ok ? r.json() : null).then(function (d) {
+            if (d && d.areas && d.areas.SE1) { ELPRIS = d; applyElpris(); }
+        }).catch(function () {});
 
         function calculateArrende() {
             const turbines = parseInt(document.getElementById('arr-turbines').value) || 1;
             const capacityMW = parseFloat(document.getElementById('arr-capacity').value) || 6;
             const hours = parseInt(document.getElementById('arr-hours').value) || 3000;
-            const priceSEK = parseFloat(document.getElementById('arr-price').value) || 0.41;
+            const areaPrice = ELPRIS.areas[document.getElementById('arr-area').value];
+            const priceSEK = areaPrice.price / 100;
             const capture = parseFloat(document.getElementById('arr-capture').value) || 0.75;
             const royaltyLevel = parseFloat(document.getElementById('arr-royalty').value) || 0.03;
 
@@ -444,6 +467,12 @@
 
             // Uppdatera UI
             document.getElementById('res-royalty').textContent = formatCurrency(annualRoyalty);
+            // Spannet: samma kalkyl med lägsta och högsta årssnittet av de tre
+            // senaste åren. Utan ENTSO-E-data finns bara ett år – dölj raden.
+            const perOre = annualProduction_kWh * capture * royaltyLevel / 100;
+            document.getElementById('res-span').textContent =
+                formatCurrency(perOre * areaPrice.low) + '–' + formatCurrency(perOre * areaPrice.high);
+            document.getElementById('res-span-row').classList.toggle('hidden', areaPrice.low === areaPrice.high);
             document.getElementById('res-minimum').textContent = formatCurrency(minLow) + '–' + formatCurrency(minHigh);
             document.getElementById('res-upfront').textContent = formatCurrency(revenuePerTurbine);
 

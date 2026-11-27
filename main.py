@@ -267,7 +267,9 @@ async def lifespan(app: FastAPI):
                     # where the table was just created with all columns.
                     print(f"[migration] skipped {stmt!r}: {exc}")
     sync_task = asyncio.create_task(_core_sync_loop()) if async_session else None
+    price_task = asyncio.create_task(_elpris_loop())
     yield
+    price_task.cancel()
     if sync_task:
         sync_task.cancel()
     if engine:
@@ -282,6 +284,33 @@ import leads as vk_leads
 import matching as vk_matching
 import directory as vk_directory
 import contacts as vk_contacts
+import elpris as vk_elpris
+
+
+async def _elpris_loop() -> None:
+    """Hämta elpriserna vid start och sedan en gång per dygn.
+
+    Misslyckas hämtningen görs ett nytt försök efter en timme; under tiden
+    räknar kalkylatorerna på senast hämtade pris eller på reservtalen.
+    """
+    while True:
+        try:
+            await run_in_threadpool(vk_elpris.refresh)
+        except Exception:  # noqa: BLE001
+            pass
+        await asyncio.sleep(3600 if vk_elpris.status()["error"] else 86400)
+
+
+@app.get("/api/elpris")
+async def api_elpris():
+    """Elpriset kalkylatorerna räknar på, per elområde (öre/kWh)."""
+    data = vk_elpris.current()
+    # Reservtalen ska inte fastna i en cache medan hämtningen pågår.
+    cache = "public, max-age=3600" if data["source"] == "entsoe" else "no-store"
+    return JSONResponse(
+        {**data, "status": vk_elpris.status()},
+        headers={"Cache-Control": cache},
+    )
 
 # Publik bas-URL, används i godkännandelänkarna i ägarnotisen.
 BASE_URL = os.environ.get("PUBLIC_BASE_URL", "https://vindkoll.se").rstrip("/")
